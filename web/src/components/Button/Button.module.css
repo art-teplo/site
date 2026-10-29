@@ -1,0 +1,82 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  min-height: var(--control-height);
+  padding: var(--spacing-12) var(--spacing-24);
+  border-radius: var(--radius-buttons);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.button:active {
+  transform: scale(var(--press-scale));
+}
+
+.button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.block {
+  width: 100%;
+}
+
+/* primary: графит на светлом, крем на тёмном (через токены тона) */
+.primary {
+  background: var(--button-bg);
+  color: var(--button-fg);
+  box-shadow: var(--shadow-xl);
+}
+
+.primary:hover {
+  background: color-mix(in srgb, var(--button-bg) 86%, var(--color-accent));
+}
+
+.secondary {
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+}
+
+.secondary:hover {
+  border-color: var(--text);
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+.ghost {
+  padding-inline: var(--spacing-8);
+  color: var(--text);
+}
+
+.ghost:hover span {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+
+.dot {
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+.arrow {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  flex: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.button:hover .arrow {
+  transform: translateX(var(--hover-shift));
+}

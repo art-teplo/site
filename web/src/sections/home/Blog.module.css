@@ -1,0 +1,76 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+.post {
+  display: grid;
+  gap: var(--spacing-16);
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.title {
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading);
+}
+
+/* Вся карточка кликабельна, в доступном дереве ссылка — только заголовок */
+.post {
+  position: relative;
+}
+
+.post img {
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.post:hover img {
+  transform: scale(1.04);
+}
+
+.link {
+  text-decoration: underline transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.post:hover .link {
+  text-decoration-color: var(--color-accent);
+}
+
+@media (max-width: 1023px) {
+  .list {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-40);
+  }
+
+  .post {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: var(--grid-gap);
+    align-items: start;
+  }
+
+  .post > :first-child {
+    grid-row: span 2;
+  }
+}
+
+@media (max-width: 479px) {
+  .post {
+    grid-template-columns: 1fr;
+  }
+
+  .post > :first-child {
+    grid-row: auto;
+  }
+}

@@ -1,0 +1,72 @@
+.form {
+  display: grid;
+  gap: var(--spacing-24);
+}
+
+.compact {
+  gap: var(--spacing-18);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-16);
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16) var(--spacing-24);
+}
+
+.promise {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.sent {
+  display: grid;
+  gap: var(--spacing-12);
+  padding: var(--card-padding);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-cards);
+}
+
+.sentTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+}
+
+.sentTitle::after {
+  content: "";
+  display: inline-block;
+  width: 0.25em;
+  height: 0.25em;
+  margin-left: 0.05em;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+.sentText {
+  color: var(--text-muted);
+}
+
+.sentText a {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

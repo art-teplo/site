@@ -1,0 +1,52 @@
+.word {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.08em;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.inner {
+  display: inline-block;
+  transition: transform var(--dur-slow) var(--ease-out);
+  transition-delay: calc(var(--w) * var(--stagger) / 1.6);
+}
+
+/* Прячем только при работающем JS; предок Reveal ставит data-visible */
+:global(.js) [data-reveal]:not([data-visible]) .view .inner {
+  transform: translate3d(0, 110%, 0);
+}
+
+.load .inner {
+  animation: up var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--stagger) * 2 + var(--w) * var(--stagger) / 1.6);
+}
+
+@keyframes up {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+}
+
+/* Плашка и её хвост (« —») не разрываются переносом */
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Выделение части заголовка плашкой (как «облачко» у radiator.center, в нашей палитре).
+   Проявляется, пока слова выезжают из-под маски */
+.mark {
+  padding: 0 0.2em 0.04em;
+  margin-inline: -0.06em;
+  border-radius: 0.3em;
+  background: var(--color-highlight);
+  color: var(--color-highlight-ink);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+:global(.js) [data-reveal]:not([data-visible]) .mark {
+  opacity: 0;
+}

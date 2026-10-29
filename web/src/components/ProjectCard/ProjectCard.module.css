@@ -1,0 +1,63 @@
+.card {
+  display: grid;
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+
+.caption {
+  display: grid;
+  gap: var(--spacing-8);
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading);
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-4);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-height: var(--spacing-40);
+  padding: var(--spacing-8) var(--spacing-16);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.chip::before {
+  content: "";
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+.chip:hover {
+  background: var(--button-bg);
+  border-color: var(--button-bg);
+  color: var(--button-fg);
+}
+
+.chip:active {
+  transform: scale(var(--press-scale));
+}

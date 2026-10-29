@@ -1,0 +1,27 @@
+.slot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  min-height: calc(var(--spacing-122) * 2);
+  padding: var(--card-padding);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-cards);
+  background: var(--color-cream-paper);
+}
+
+.slotInner {
+  display: grid;
+  gap: var(--spacing-8);
+  max-width: var(--measure);
+}
+
+.slotTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+}
+
+.slotText {
+  color: var(--color-iron);
+}

@@ -1,0 +1,115 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: var(--border-hairline);
+  border-left: var(--border-hairline);
+}
+
+.grid > li {
+  border-right: var(--border-hairline);
+  border-bottom: var(--border-hairline);
+}
+
+.brand {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--spacing-24);
+  height: 100%;
+  padding: var(--spacing-32) var(--spacing-24) var(--spacing-24);
+  container-type: inline-size;
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.brand:hover {
+  background: var(--color-cream-paper);
+}
+
+.brand:active {
+  transform: scale(var(--press-scale));
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+/* Логотип: одинаковая высота поля, монохром → цвет при наведении */
+.logoBox {
+  display: flex;
+  align-items: center;
+  height: var(--spacing-72);
+}
+
+.logo {
+  width: auto;
+  max-width: 80%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.1);
+  opacity: 0.75;
+  transition:
+    filter var(--dur-base) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.brand:hover .logo,
+.brand:focus-visible .logo {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: min(var(--text-heading), 11cqi);
+  line-height: var(--leading-tight);
+  color: var(--color-iron);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.brand:hover .wordmark {
+  color: var(--text);
+}
+
+.meta {
+  display: grid;
+  align-content: start;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-16);
+  border-top: var(--border-hairline);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  hyphens: auto; /* «полотенцесушители» не влезает в узкую карточку на 320 px */
+  overflow-wrap: anywhere;
+}
+
+.name {
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+}
+
+.country {
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+}
+
+.count {
+  margin-top: var(--spacing-8);
+  color: var(--text);
+  text-decoration: underline var(--color-accent);
+  text-underline-offset: 0.3em;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .brand {
+    padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
+  }
+
+  .logoBox {
+    height: var(--spacing-58);
+  }
+}

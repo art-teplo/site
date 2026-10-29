@@ -1,0 +1,12 @@
+/* Прячем только когда JS доступен — класс .js ставит скрипт в <head> */
+:global(.js) .reveal:not([data-visible]) {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-distance), 0);
+}
+
+.reveal {
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}

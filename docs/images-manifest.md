@@ -1,0 +1,107 @@
+# Манифест изображений
+
+Сейчас слоты заняты **демо-фото** с kztoradiator.by и guardo.ru — см. [demo-photos.md](demo-photos.md); они не соответствуют товарам один к одному. Чтобы подставить фото, положите файл **по тому же пути** в `web/public/` с теми же пропорциями — код менять не нужно. Формат JPG, длинная сторона не меньше указанной; WebP/AVIF и ресайз делает Next.
+
+Правило: только товары брендов-партнёров из [brief.md](brief.md); никаких фото с сайтов конкурентов и стоков без лицензии. Фото и описания home-heat.ru — только с их письменного разрешения.
+
+Стиль съёмки (из [design-analysis.md](design-analysis.md)): глубокие тени, тёплый янтарный свет, кинематографичный кроп; товар на главном фото — на нейтральном светлом или тёмном фоне без мусора.
+
+## Главная
+
+| Что в кадре | Пропорции | Путь | Где взять |
+| --- | --- | --- | --- |
+| Hero · интерьер с радиатором, вечерний свет. Один кадр на все экраны; если заменить фото — поправить точки ламп и радиатора в `Hero.tsx`/`Hero.module.css` | ~16:10, 1940×1201 | `web/public/images/hero/hero-desktop.jpg` | своя съёмка (интерьер клиента с разрешения) или интерьерное фото из пресс-кита КЗТО/Guardo |
+| Шоурум на Леонида Беды, 39 | 16:9, 1920×1080 | `web/public/images/showroom/showroom.jpg` | своя съёмка шоурума или проекта |
+| Постер видео шоурума | 16:9, 1920×1080 | `web/public/images/showroom/showroom-poster.jpg` | своя съёмка шоурума или проекта |
+
+## Категории
+
+| Что в кадре | Пропорции | Путь | Где взять |
+| --- | --- | --- | --- |
+| Вертикальный трубчатый радиатор в гостиной | 4:5, 1200×1500 | `web/public/images/categories/radiatory.jpg` | фото товара партнёра в интерьере (пресс-кит производителя) |
+| Внутрипольный конвектор у панорамного окна | 4:5, 1200×1500 | `web/public/images/categories/konvektory.jpg` | фото товара партнёра в интерьере (пресс-кит производителя) |
+| Полотенцесушитель в ванной комнате | 4:5, 1200×1500 | `web/public/images/categories/polotentsesushiteli.jpg` | фото товара партнёра в интерьере (пресс-кит производителя) |
+| Запорная арматура для радиатора крупным планом | 4:5, 1200×1500 | `web/public/images/categories/armatura.jpg` | фото товара партнёра в интерьере (пресс-кит производителя) |
+
+## Товары
+
+| Бренд | Модель | Ракурс | Пропорции | Путь | Где взять |
+| --- | --- | --- | --- | --- | --- |
+| guardo | Guardo Retta 6P | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/guardo-retta-6p/main.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Retta 6P | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/guardo-retta-6p/interior.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Retta 6P | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/guardo-retta-6p/detail.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Pilon | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/guardo-pilon/main.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Pilon | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/guardo-pilon/interior.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Pilon | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/guardo-pilon/detail.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Torre 4D | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/guardo-torre-4d/main.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Torre 4D | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/guardo-torre-4d/interior.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo Torre 4D | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/guardo-torre-4d/detail.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| kzto | КЗТО Quadrum | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/kzto-quadrum/main.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО Quadrum | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/kzto-quadrum/interior.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО Quadrum | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/kzto-quadrum/detail.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО вертикальный трубчатый | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/kzto-vertikalnyy/main.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО вертикальный трубчатый | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/kzto-vertikalnyy/interior.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО вертикальный трубчатый | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/kzto-vertikalnyy/detail.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| radimax | Радимакс Style Retro | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/radimax-style-retro/main.jpg` | официальный сайт Радимакс / Style Retro |
+| radimax | Радимакс Style Retro | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/radimax-style-retro/interior.jpg` | официальный сайт Радимакс / Style Retro |
+| radimax | Радимакс Style Retro | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/radimax-style-retro/detail.jpg` | официальный сайт Радимакс / Style Retro |
+| nova | Nova трубчатый | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/nova-tube/main.jpg` | материалы производителя Nova (через поставщика) |
+| nova | Nova трубчатый | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/nova-tube/interior.jpg` | материалы производителя Nova (через поставщика) |
+| nova | Nova трубчатый | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/nova-tube/detail.jpg` | материалы производителя Nova (через поставщика) |
+| royal-thermo | Royal Thermo секционный | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/royal-thermo-sekcionnyy/main.jpg` | официальный сайт Royal Thermo, раздел для партнёров |
+| royal-thermo | Royal Thermo секционный | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/royal-thermo-sekcionnyy/interior.jpg` | официальный сайт Royal Thermo, раздел для партнёров |
+| royal-thermo | Royal Thermo секционный | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/royal-thermo-sekcionnyy/detail.jpg` | официальный сайт Royal Thermo, раздел для партнёров |
+| kzto | КЗТО внутрипольный конвектор | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/kzto-vnutripolnyy/main.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО внутрипольный конвектор | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/kzto-vnutripolnyy/interior.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО внутрипольный конвектор | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/kzto-vnutripolnyy/detail.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО напольный конвектор | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/kzto-napolnyy/main.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО напольный конвектор | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/kzto-napolnyy/interior.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| kzto | КЗТО напольный конвектор | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/kzto-napolnyy/detail.jpg` | пресс-кит / медиа-раздел kzto.ru или материалы от завода (вы — официальный представитель) |
+| guardo | Guardo полотенцесушитель | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/guardo-polotentsesushitel/main.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo полотенцесушитель | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/guardo-polotentsesushitel/interior.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| guardo | Guardo полотенцесушитель | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/guardo-polotentsesushitel/detail.jpg` | официальный сайт или дилерский пресс-кит Guardo |
+| carisa | Carisa полотенцесушитель | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/carisa-polotentsesushitel/main.jpg` | официальный сайт Carisa |
+| carisa | Carisa полотенцесушитель | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/carisa-polotentsesushitel/interior.jpg` | официальный сайт Carisa |
+| carisa | Carisa полотенцесушитель | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/carisa-polotentsesushitel/detail.jpg` | официальный сайт Carisa |
+| sr | SR вентиль угловой | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/sr-ventil-uglovoy/main.jpg` | официальный сайт SR Rubinetterie |
+| sr | SR вентиль угловой | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/sr-ventil-uglovoy/interior.jpg` | официальный сайт SR Rubinetterie |
+| sr | SR вентиль угловой | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/sr-ventil-uglovoy/detail.jpg` | официальный сайт SR Rubinetterie |
+| radimax | Радимакс арматура Retro | фронтально, на нейтральном фоне, весь радиатор | 4:5, 1200×1500 | `web/public/images/products/radimax-armatura-retro/main.jpg` | официальный сайт Радимакс / Style Retro |
+| radimax | Радимакс арматура Retro | в интерьере, тёплый вечерний свет | 4:5, 1200×1500 | `web/public/images/products/radimax-armatura-retro/interior.jpg` | официальный сайт Радимакс / Style Retro |
+| radimax | Радимакс арматура Retro | крупно: подключение, вентиль, фактура покраски | 4:5, 1200×1500 | `web/public/images/products/radimax-armatura-retro/detail.jpg` | официальный сайт Радимакс / Style Retro |
+
+## Проекты
+
+| Что в кадре | Пропорции | Путь | Где взять |
+| --- | --- | --- | --- |
+| Гостиная с чёрным вертикальным радиатором у окна | 4:5, 1600×2000 | `web/public/images/projects/kvartira-zelenyy-lug.jpg` | своя съёмка шоурума или проекта |
+| Каминный зал с дизайн-радиатором | 4:3, 1600×1200 | `web/public/images/projects/dom-zhdanovichi.jpg` | своя съёмка шоурума или проекта |
+| Панорамное остекление с внутрипольными конвекторами | 4:3, 1600×1200 | `web/public/images/projects/zhk-minsk-mir.jpg` | своя съёмка шоурума или проекта |
+| Чугунный ретро-радиатор под высоким окном | 4:5, 1600×2000 | `web/public/images/projects/kvartira-nemiga.jpg` | своя съёмка шоурума или проекта |
+
+## Блог
+
+| Что в кадре | Пропорции | Путь | Где взять |
+| --- | --- | --- | --- |
+| Два радиатора рядом: трубчатый и секционный | 3:2, 1200×800 | `web/public/images/blog/trubchatyy-ili-sekcionnyy.jpg` | своя съёмка или пресс-кит производителя |
+| Радиатор, окрашенный в цвет стены | 3:2, 1200×800 | `web/public/images/blog/radiator-v-cvet-steny.jpg` | своя съёмка или пресс-кит производителя |
+| Внутрипольный конвектор вдоль панорамного окна | 3:2, 1200×800 | `web/public/images/blog/konvektor-u-panoramnogo-okna.jpg` | своя съёмка или пресс-кит производителя |
+
+## Не фото
+
+| Что | Путь | Где взять |
+| --- | --- | --- |
+| Логотипы брендов (SVG, монохром) | `web/public/images/brands/<slug>.svg` | брендбуки производителей; сейчас вместо логотипов — названия набором |
+| Видео шоурума (mp4 до 10 МБ, 1080p, без звука для фона) | `web/public/video/showroom.mp4` | своя съёмка; сейчас показан постер `showroom-poster.jpg` |
+| Видео в карточках | поле `videoUrl` в `web/src/data/catalog.ts` | ссылки YouTube производителей; сейчас `VIDEO_ID`-заглушка у Guardo Retta 6P |
+
+## Шоурум: галерея зала (добавлено 2026-10-29)
+
+| Слот | Пропорции, размер | Путь | Что снять |
+| --- | --- | --- | --- |
+| Зал · общий план | 4:3, 1600×1200 | `web/public/images/showroom/hall-1.jpg` | весь зал или главная стена с радиаторами |
+| Зал · деталь 1–4 | 4:5, 1200×1500 | `web/public/images/showroom/hall-2.jpg` … `hall-4.jpg` | отдельные модели на стене, крупно фактура покраски |
+| Зал · полотенцесушители | 4:5, 1200×1500 | `web/public/images/showroom/hall-5.jpg` | стенд с полотенцесушителями |
+
+Сейчас в слотах демо-фото (копии из products/ и categories/). После замены файлов увеличить `IMAGES_VERSION` в `web/src/lib/asset.ts`.
+

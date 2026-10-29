@@ -1,0 +1,132 @@
+.top {
+  padding-top: calc(var(--header-height) + var(--spacing-40));
+}
+
+.article {
+  display: grid;
+  gap: var(--spacing-58);
+  margin-top: var(--spacing-40);
+}
+
+.head {
+  display: grid;
+  gap: var(--spacing-24);
+  max-width: 52rem;
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.title {
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+}
+
+.lead {
+  max-width: var(--measure);
+  font-size: var(--text-subheading);
+  line-height: var(--leading-snug);
+  color: var(--text-muted);
+  animation: settle var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--stagger) * 3);
+}
+
+/* Редакционная колонка: текст по ширине строки, заголовки разделов — крупнее и плотнее */
+.body {
+  display: grid;
+  gap: var(--spacing-18);
+  max-width: var(--measure);
+  margin-inline: auto;
+  font-size: var(--text-subheading);
+  line-height: var(--leading-body);
+}
+
+.body h2 {
+  margin-top: var(--spacing-32);
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+}
+
+.body ul {
+  display: grid;
+  gap: var(--spacing-12);
+}
+
+.body li {
+  position: relative;
+  padding-left: var(--spacing-24);
+}
+
+.body li::before {
+  content: "";
+  position: absolute;
+  top: 0.7em;
+  left: 0;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+.moreTitle {
+  margin-bottom: var(--spacing-40);
+  font-size: var(--text-heading-lg);
+}
+
+.more {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-40) var(--grid-gap);
+}
+
+.card {
+  position: relative;
+  display: grid;
+  gap: var(--spacing-16);
+}
+
+.card img {
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+.cardTitle {
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading);
+}
+
+/* Вся карточка кликабельна, но в доступном дереве ссылка — только заголовок */
+.cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cardLink {
+  text-decoration: underline transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.card:hover .cardLink {
+  text-decoration-color: var(--color-accent);
+}
+
+/* Без opacity: вводный текст может быть LCP первого экрана */
+@keyframes settle {
+  from {
+    transform: translate3d(0, var(--reveal-distance), 0);
+  }
+}
+
+@media (max-width: 599px) {
+  .more {
+    grid-template-columns: 1fr;
+  }
+}

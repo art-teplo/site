@@ -1,0 +1,52 @@
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+  background: var(--bg);
+  color: var(--text);
+  isolation: isolate;
+  overflow: clip;
+}
+
+.flush {
+  padding-block: 0;
+}
+
+/* Крем ↔ белый: верх секции плавно перетекает из цвета предыдущей (переход прячется в отступе).
+   У тёмных секций граница остаётся чёткой — градиент через серый выглядит грязно */
+.section {
+  background: linear-gradient(to bottom, var(--prev-bg, var(--bg)), var(--bg) calc(var(--section-pad) * 0.8));
+}
+
+[data-tone="light"] + .section[data-tone="white"] {
+  --prev-bg: var(--color-cream-paper);
+}
+
+[data-tone="white"] + .section[data-tone="light"] {
+  --prev-bg: var(--color-pure-white);
+}
+
+.inner {
+  position: relative;
+  z-index: var(--z-base);
+}
+
+/* Тёмный блок: тёплая поверхность отдельным слоем (см. --dark-surface в tokens.css) */
+.dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--dark-surface);
+  mask-image: var(--dark-surface-fade);
+}
+
+/* Зерно: статичный SVG-шум */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}

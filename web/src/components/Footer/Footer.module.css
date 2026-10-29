@@ -1,0 +1,126 @@
+/* Без линии сверху: тёмный блок перед футером перетекает в него */
+.footer {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  background: var(--bg);
+  color: var(--text);
+  padding-block: var(--spacing-100) var(--spacing-40);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--dark-surface);
+  mask-image: var(--dark-surface-fade);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: var(--spacing-40) var(--grid-gap);
+}
+
+.brand {
+  display: grid;
+  align-content: start;
+  gap: var(--spacing-24);
+}
+
+.motto {
+  max-width: calc(var(--measure) / 2);
+  font-family: var(--font-display);
+  font-size: var(--text-subheading);
+  line-height: var(--leading-heading);
+}
+
+.col {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--spacing-8);
+}
+
+.heading {
+  margin-bottom: var(--spacing-8);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.address {
+  font-style: normal;
+}
+
+.hours {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+}
+
+.hours span {
+  display: inline-block;
+  min-width: var(--spacing-58);
+  color: var(--text);
+}
+
+.phone {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-16);
+}
+
+.link {
+  position: relative;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover,
+.phone:hover {
+  color: var(--text);
+}
+
+.link:hover {
+  text-decoration: underline var(--color-accent);
+  text-underline-offset: 0.3em;
+}
+
+.legal {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-12) var(--spacing-32);
+  padding-top: var(--spacing-32);
+  border-top: 1px solid var(--line);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 479px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+}

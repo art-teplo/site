@@ -1,0 +1,84 @@
+.featured {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--grid-gap);
+  align-items: end;
+  margin-bottom: var(--spacing-72);
+}
+
+.featuredText {
+  display: grid;
+  gap: var(--spacing-16);
+}
+
+.featuredTitle {
+  font-size: var(--text-heading-lg);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-58) var(--grid-gap);
+}
+
+.post {
+  display: grid;
+  gap: var(--spacing-16);
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.title {
+  font-size: var(--text-heading-sm);
+}
+
+.note {
+  margin-top: var(--spacing-72);
+  padding-top: var(--spacing-24);
+  border-top: var(--border-hairline);
+  color: var(--text-muted);
+}
+
+/* Вся карточка кликабельна, в доступном дереве ссылка — только заголовок */
+.post {
+  position: relative;
+}
+
+.post img {
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.post:hover img {
+  transform: scale(1.04);
+}
+
+.link {
+  text-decoration: underline transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.post:hover .link {
+  text-decoration-color: var(--color-accent);
+}
+
+@media (max-width: 1023px) {
+  .featured {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 599px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}

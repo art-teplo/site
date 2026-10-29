@@ -1,0 +1,103 @@
+.section {
+  padding-block: var(--section-pad);
+}
+
+/* Число проектов — крупно над вводным текстом: подтверждает то, что на фото */
+.count {
+  display: block;
+  margin-bottom: var(--spacing-12);
+  font-family: var(--font-display);
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+  color: var(--text);
+}
+
+.countLabel {
+  font-size: var(--text-subheading);
+  letter-spacing: normal;
+  color: var(--text-muted);
+}
+
+.slide {
+  flex: none;
+  width: clamp(16rem, 30vw, 24rem);
+}
+
+.all {
+  flex: none;
+  width: clamp(14rem, 22vw, 18rem);
+  align-self: stretch;
+  display: grid;
+  align-content: end;
+  gap: var(--spacing-12);
+  padding: var(--card-padding);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-cards);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.all:hover {
+  background: var(--button-bg);
+  color: var(--button-fg);
+}
+
+.all:active {
+  transform: scale(var(--press-scale));
+}
+
+.allTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+}
+
+.allText {
+  font-size: var(--text-caption);
+  opacity: 0.75;
+}
+
+.allArrow {
+  width: var(--control-height);
+  height: var(--control-height);
+  padding: var(--spacing-12);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-pill);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.all:hover .allArrow {
+  transform: translateX(var(--hover-shift));
+}
+
+@media (max-width: 767px) {
+  /* Число проектов — крупно над вводным текстом: подтверждает то, что на фото */
+.count {
+  display: block;
+  margin-bottom: var(--spacing-12);
+  font-family: var(--font-display);
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+  color: var(--text);
+}
+
+.countLabel {
+  font-size: var(--text-subheading);
+  letter-spacing: normal;
+  color: var(--text-muted);
+}
+
+.slide {
+    width: 78vw;
+  }
+
+  .all {
+    width: 60vw;
+  }
+}

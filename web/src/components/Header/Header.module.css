@@ -1,0 +1,323 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  color: var(--text);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.onDark {
+  background: transparent;
+}
+
+.open {
+  background: var(--color-coal);
+  border-bottom-color: var(--line);
+}
+
+.solid {
+  background: color-mix(in srgb, var(--color-cream-paper) 90%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  height: var(--header-height);
+  max-width: calc(var(--page-max-width) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.logo {
+  flex: none;
+  border-radius: var(--radius-icons);
+}
+
+/* Короткий ряд разделов: при прокрутке уезжает вверх и гаснет */
+.nav {
+  margin-inline: auto;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility var(--dur-base);
+}
+
+.compact .nav {
+  opacity: 0;
+  transform: translateY(calc(-1 * var(--spacing-8)));
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.nav ul {
+  display: flex;
+  gap: var(--spacing-24);
+}
+
+.link {
+  position: relative;
+  padding-block: var(--spacing-8);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.link:hover::after,
+.link:focus-visible::after,
+.link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  margin-left: auto;
+}
+
+.phone {
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.phone:hover {
+  color: var(--color-accent);
+}
+
+.cta {
+  min-height: auto;
+  padding-block: var(--spacing-12);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-height: var(--control-height);
+  padding-inline: var(--spacing-12);
+  border-radius: var(--radius-buttons);
+  font-weight: var(--weight-medium);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.toggle:hover {
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.toggle:active {
+  transform: scale(var(--press-scale));
+}
+
+.toggleIcon,
+.toggleIcon::before,
+.toggleIcon::after {
+  display: block;
+  width: var(--spacing-18);
+  height: 1.5px;
+  background: currentColor;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.toggleIcon {
+  position: relative;
+  background: transparent;
+}
+
+.toggleIcon::before,
+.toggleIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.toggleIcon::before {
+  transform: translateY(calc(-1 * var(--spacing-4)));
+}
+
+.toggleIcon::after {
+  transform: translateY(var(--spacing-4));
+}
+
+.toggle[aria-expanded="true"] .toggleIcon::before {
+  transform: rotate(45deg);
+}
+
+.toggle[aria-expanded="true"] .toggleIcon::after {
+  transform: rotate(-45deg);
+}
+
+/* Панель меню */
+.panel {
+  position: fixed;
+  inset: var(--header-height) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(50% 60% at 0% 100%, color-mix(in srgb, var(--color-accent-deep) 70%, transparent), transparent 75%),
+    var(--color-coal);
+  color: var(--color-cream-paper);
+  animation: panel var(--dur-base) var(--ease-out) both;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel:focus {
+  outline: none;
+}
+
+.panelInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
+  gap: var(--spacing-58) var(--grid-gap);
+  max-width: calc(var(--page-max-width) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: var(--spacing-58) var(--gutter) calc(var(--spacing-72) + env(safe-area-inset-bottom));
+}
+
+.groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--spacing-40) var(--grid-gap);
+}
+
+.group {
+  display: grid;
+  align-content: start;
+  gap: var(--spacing-16);
+  animation: rise var(--dur-base) var(--ease-out) both;
+  animation-delay: calc(var(--i) * var(--stagger) / 2);
+}
+
+.groupTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.groupTitle:hover {
+  color: var(--color-accent);
+}
+
+.groupLinks {
+  display: grid;
+  gap: var(--spacing-8);
+}
+
+.groupLink {
+  color: var(--color-stone);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.groupLink:hover {
+  color: var(--color-cream-paper);
+  text-decoration: underline var(--color-accent);
+  text-underline-offset: 0.3em;
+}
+
+.contacts {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--spacing-16);
+  padding-left: var(--spacing-32);
+  border-left: 1px solid var(--line);
+}
+
+.contactsPhone {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  white-space: nowrap;
+}
+
+.contactsText {
+  color: var(--color-stone);
+  font-size: var(--text-caption);
+}
+
+.messengers {
+  display: flex;
+  gap: var(--spacing-16);
+  font-size: var(--text-caption);
+}
+
+.messengers a:hover,
+.contactsPhone:hover {
+  color: var(--color-accent);
+}
+
+@keyframes panel {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-distance), 0);
+  }
+}
+
+@media (max-width: 1199px) {
+  .phone {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nav {
+    display: none;
+  }
+
+  .panelInner {
+    grid-template-columns: 1fr;
+  }
+
+  .contacts {
+    padding-left: 0;
+    padding-top: var(--spacing-32);
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 767px) {
+  .cta {
+    display: none;
+  }
+
+  .groups {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 479px) {
+  .groups {
+    grid-template-columns: 1fr;
+  }
+}

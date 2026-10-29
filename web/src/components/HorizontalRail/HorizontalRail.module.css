@@ -1,0 +1,40 @@
+.outer {
+  position: relative;
+}
+
+.sticky {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* лента не должна растягивать колонку — иначе заголовок уезжает за экран */
+  align-content: center;
+}
+
+.pinned .sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding-top: var(--header-height);
+}
+
+.track {
+  display: flex;
+  gap: var(--grid-gap);
+  will-change: transform;
+}
+
+/* Без закрепления — обычная лента с прокруткой пальцем */
+.outer:not(.pinned) .track {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+}
+
+.outer:not(.pinned) .track > * {
+  scroll-snap-align: start;
+}
+
+.pinned .track {
+  overflow: visible;
+}

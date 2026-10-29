@@ -1,0 +1,173 @@
+/*
+ * Design tokens — единственное место, где живут цвета, размеры, радиусы, тени и движение.
+ * Палитра и шкалы — из DESIGN.md; отступления описаны в docs/decisions.md.
+ */
+:root {
+  /* ── Палитра (DESIGN.md) ─────────────────────────────── */
+  --color-cream-paper: #e4dfd9;
+  --color-pure-white: #ffffff;
+  --color-charcoal-ink: #000000;
+  --color-near-black: #050505;
+  --color-pressed-graphite: #171717;
+  --color-coal: #0e0c0b; /* самая глубокая тёмная поверхность, тёплый чёрный */
+  --color-slate: #737373;
+  --color-iron: #4b4b4b;
+  --color-stone: #999694;
+  --color-pewter: #666666;
+  --color-fog: #c7c7c7;
+
+  /* Акцент: красный логотипа в роли «ember dot» из DESIGN.md */
+  --color-accent: #e6332a;
+  --color-accent-deep: #8c1c15; /* для свечения, не для текста */
+  --color-ember: #ff6a1f; /* только горячая точка внутри свечения */
+  --color-umber: #3a1c0f; /* тёплый коричневый тёмных блоков (референс «arounda») */
+  --color-umber-deep: #1f0f09;
+  /* Акцент на светлом фоне: плашка в заголовке, подчёркивания, плитки иконок */
+  --color-highlight: #c8401f; /* «rust»: между ember и красным логотипа */
+  --color-highlight-ink: var(--color-pure-white); /* текст на плашке */
+  --color-lamplight: color-mix(in srgb, var(--color-ember) 30%, var(--color-pure-white)); /* свет ламп в hero */
+
+  /* ── Семантика: светлая поверхность (по умолчанию) ───── */
+  --bg: var(--color-cream-paper);
+  --surface: var(--color-pure-white);
+  --text: var(--color-near-black);
+  --text-muted: var(--color-iron); /* 6.6:1 на креме */
+  --line: var(--color-fog);
+  --line-strong: var(--color-slate);
+  --button-bg: var(--color-pressed-graphite);
+  --button-fg: var(--color-pure-white);
+  --focus-ring: var(--color-accent);
+
+  /* ── Типографика ─────────────────────────────────────── */
+  /* Onest — один гротеск на всё: заголовки 500, текст 400 (выбран вместо Unbounded + Golos Text) */
+  --font-display: var(--font-onest), sans-serif;
+  --font-text: var(--font-onest), sans-serif;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  --text-label: 0.75rem; /* 12 — капс-метки */
+  --text-caption: 0.875rem; /* 14 */
+  --text-body: 1rem; /* 16 */
+  --text-subheading: 1.1875rem; /* 19 */
+  --text-heading-sm: clamp(1.25rem, 1.05rem + 0.9vw, 1.5625rem); /* 20 → 25 */
+  --text-heading: clamp(1.5625rem, 1.2rem + 1.4vw, 2rem); /* 25 → 32 */
+  --text-heading-lg: clamp(2rem, 1.2rem + 3vw, 3.25rem); /* 32 → 52, секционные */
+  --text-display: clamp(2.75rem, 1.2rem + 6.2vw, 5.25rem); /* 44 → 84, только hero */
+
+  --leading-tight: 1.1;
+  --leading-heading: 1.2;
+  --leading-snug: 1.4;
+  --leading-body: 1.5;
+
+  --tracking-display: -0.035em; /* плотные заголовки, как у Neue Montreal на референсе */
+  --tracking-text: -0.01em;
+  --tracking-label: 0.08em;
+
+  --measure: 34rem; /* ~540px, редакционная ширина строки */
+
+  /* ── Отступы (шкала DESIGN.md) ───────────────────────── */
+  --spacing-4: 0.25rem;
+  --spacing-8: 0.5rem;
+  --spacing-12: 0.75rem;
+  --spacing-16: 1rem;
+  --spacing-18: 1.125rem;
+  --spacing-24: 1.5rem;
+  --spacing-32: 2rem;
+  --spacing-40: 2.5rem;
+  --spacing-58: 3.625rem;
+  --spacing-72: 4.5rem;
+  --spacing-100: 6.25rem;
+  --spacing-122: 7.625rem;
+
+  --gutter: clamp(var(--spacing-16), 4vw, var(--spacing-40));
+  --section-pad: clamp(var(--spacing-72), 9vw, var(--spacing-122));
+  --stack-gap: var(--spacing-24);
+  --element-gap: var(--spacing-8);
+  --card-padding: clamp(var(--spacing-24), 3vw, var(--spacing-32));
+
+  /* ── Сетка ───────────────────────────────────────────── */
+  --page-max-width: 85rem; /* 1360 */
+  --grid-columns: 12;
+  --grid-gap: clamp(var(--spacing-16), 2vw, var(--spacing-24));
+  --header-height: 4.5rem;
+  /* Брейкпоинты (в @media переменные не работают — значения повторяются в модулях):
+     мобильный ≤ 767px · планшет 768–1023px · десктоп ≥ 1024px */
+
+  /* ── Формы ───────────────────────────────────────────── */
+  --radius-buttons: 8px;
+  --radius-icons: 8px;
+  --radius-inputs: 12px;
+  --radius-media: 16px;
+  --radius-cards: 20px;
+  --radius-pill: 9999px;
+
+  --border-hairline: 1px solid var(--line);
+  --control-height: 3rem;
+  --icon-size: 1.25rem;
+  --swatch-size: 1.75rem;
+  --logo-height: 2.75rem;
+  --thumb-size: 4.5rem;
+  --gallery-row: clamp(9rem, 17vw, 16rem); /* высота ряда галереи шоурума */
+
+  /* ── Тени: одна, как в DESIGN.md ─────────────────────── */
+  --shadow-xl: 0 6px 27px 0 rgb(0 0 0 / 0.07);
+
+  /* ── Атмосфера тёмных секций ─────────────────────────── */
+  --grain-opacity: 0.07;
+  /* Тёмные блоки: коричневая основа с оранжевым свечением слева. Размеры свечения — от ширины экрана,
+     чтобы в невысоком блоке оно не сплющивалось; маска гасит слой к верху и низу — тёмные блоки стыкуются без шва */
+  --dark-surface:
+    radial-gradient(ellipse max(46vw, 340px) max(34vw, 300px) at 0% 50%, color-mix(in srgb, var(--color-ember) 42%, transparent), transparent 75%),
+    radial-gradient(ellipse max(34vw, 240px) max(24vw, 200px) at 100% 70%, color-mix(in srgb, var(--color-ember) 18%, transparent), transparent 75%),
+    linear-gradient(160deg, var(--color-umber) 0%, var(--color-umber-deep) 55%, var(--color-coal) 100%);
+  --dark-surface-fade: linear-gradient(to bottom, transparent, var(--color-coal) min(25%, 160px), var(--color-coal) max(75%, calc(100% - 160px)), transparent);
+  --scrim: linear-gradient(180deg, rgb(14 12 11 / 0.15) 0%, rgb(14 12 11 / 0.75) 100%);
+
+  /* ── Движение ────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 450ms;
+  --dur-slow: 900ms;
+  --dur-scene: 2400ms; /* «включение света» на первом экране */
+  --reveal-distance: 1.5rem;
+  --stagger: 80ms;
+  --hover-shift: 4px;
+  --press-scale: 0.98;
+
+  /* ── Слои ────────────────────────────────────────────── */
+  --z-base: 1;
+  --z-header: 50;
+  --z-overlay: 100;
+}
+
+/* Тёмная («каминная») поверхность — включается классом/атрибутом у секции */
+[data-tone="dark"] {
+  --bg: var(--color-coal);
+  --surface: color-mix(in srgb, var(--color-pure-white) 6%, transparent); /* «стекло» поверх тёплого фона */
+  --text: var(--color-cream-paper);
+  --text-muted: var(--color-fog); /* светлее Stone: на оранжевом свечении Stone проседает по контрасту */
+  --line: rgb(255 255 255 / 0.14);
+  --line-strong: rgb(255 255 255 / 0.32);
+  --button-bg: var(--color-cream-paper);
+  --button-fg: var(--color-pressed-graphite);
+}
+
+/* Белая поверхность — для карточек и листа товара */
+[data-tone="white"] {
+  --bg: var(--color-pure-white);
+  --text-muted: var(--color-slate); /* 4.7:1 на белом */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+    --dur-scene: 0ms;
+    --reveal-distance: 0;
+    --stagger: 0ms;
+  }
+}

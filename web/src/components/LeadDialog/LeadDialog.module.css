@@ -1,0 +1,118 @@
+/* Окно на весь экран: прозрачное, панель по центру; клик мимо панели закрывает */
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: var(--spacing-24) var(--gutter);
+  border: 0;
+  background: transparent;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dialog[open] {
+  display: grid;
+  place-items: center;
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--color-coal) 62%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.dialog[open]::backdrop {
+  animation: fade var(--dur-base) var(--ease-out);
+}
+
+.panel {
+  position: relative;
+  display: grid;
+  gap: var(--spacing-16);
+  width: min(100%, 38rem);
+  padding: var(--spacing-40);
+  border-radius: var(--radius-cards);
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: var(--shadow-xl);
+}
+
+.dialog[open] .panel {
+  animation: rise var(--dur-base) var(--ease-out);
+}
+
+.title {
+  padding-right: var(--spacing-40);
+  font-size: var(--text-heading);
+}
+
+.text {
+  margin-bottom: var(--spacing-8);
+  color: var(--text-muted);
+}
+
+/* Крестик из двух линий */
+.close {
+  position: absolute;
+  top: var(--spacing-24);
+  right: var(--spacing-24);
+  width: var(--control-height);
+  height: var(--control-height);
+  border-radius: var(--radius-pill);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.close::before,
+.close::after {
+  content: "";
+  position: absolute;
+  inset: 50% 30% auto;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.close::after {
+  transform: rotate(-45deg);
+}
+
+.close:hover {
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.close:active {
+  transform: scale(var(--press-scale));
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-distance), 0);
+  }
+}
+
+@media (max-width: 599px) {
+  .dialog {
+    padding: var(--spacing-12);
+  }
+
+  .panel {
+    padding: var(--spacing-24) var(--spacing-18);
+  }
+
+  .close {
+    top: var(--spacing-12);
+    right: var(--spacing-12);
+  }
+}

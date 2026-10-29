@@ -1,0 +1,33 @@
+.page {
+  padding-top: calc(var(--header-height) + var(--spacing-58));
+}
+
+.layout {
+  max-width: calc(var(--measure) * 1.5 + 2 * var(--gutter));
+}
+
+.title {
+  font-size: var(--text-heading-lg);
+  margin-bottom: var(--spacing-40);
+}
+
+.body {
+  display: grid;
+  gap: var(--spacing-16);
+}
+
+.body h2 {
+  margin-top: var(--spacing-24);
+  font-size: var(--text-heading-sm);
+}
+
+.body p {
+  color: var(--text-muted);
+}
+
+.draft {
+  padding: var(--spacing-16) var(--spacing-24);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-icons);
+}
