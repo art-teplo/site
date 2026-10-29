@@ -30,7 +30,7 @@
 | `images/categories/konvektory.jpg` | home_yglovoi-konvektor2.jpg | kztoradiator.by (сайт заказчика) |
 | `images/categories/polotentsesushiteli.jpg` | guardo-diagonale-black.jpg | guardo.ru (официальный сайт Guardo) |
 | `images/categories/radiatory.jpg` | home_soc-slider-20.jpg | kztoradiator.by (сайт заказчика) |
-| `images/hero/hero-desktop.jpg` | design-photos/main.jpeg | прислал разработчик (референс, источник и права не выяснены — перед запуском заменить или получить разрешение) |
+| `images/hero/hero-desktop.jpg` | materials/references/main.jpeg | прислал разработчик (референс, источник и права не выяснены — перед запуском заменить или получить разрешение) |
 | `images/products/carisa-polotentsesushitel/detail.jpg` | home_soc-slider-24.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/carisa-polotentsesushitel/interior.jpg` | home_soc-slider-20.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/carisa-polotentsesushitel/main.jpg` | home_soc-slider-19.jpg | kztoradiator.by (сайт заказчика) |

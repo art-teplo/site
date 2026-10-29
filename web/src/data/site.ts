@@ -36,7 +36,7 @@ export const nav = [
   { href: "/kontakty", label: "Контакты" },
 ] as const;
 
-// Полное меню по кнопке «Меню»: все разделы из site-structure.md
+// Полное меню по кнопке «Меню»: все разделы из docs/brief.md
 export const menu = [
   {
     title: "Каталог",
