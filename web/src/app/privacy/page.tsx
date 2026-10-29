@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 
 export const metadata: Metadata = { title: "Политика обработки персональных данных" };
 
-// ЧЕРНОВИК структуры. Текст политики не юридически проверен (site-structure.md, раздел 8).
+// ЧЕРНОВИК структуры. Текст политики не юридически проверен (docs/brief.md, «Юридическое»).
 export default function PrivacyPage() {
   return (
     <Section className={styles.page} labelledBy="privacy-title">

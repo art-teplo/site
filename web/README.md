@@ -1,7 +1,7 @@
 # art-teplo.by — фронтенд
 
 Next.js 16 (App Router, TypeScript, Cache Components), CSS Modules + CSS-переменные, Lenis.
-Бриф и решения: [`../docs/brief.md`](../docs/brief.md), [`../docs/design-analysis.md`](../docs/design-analysis.md), [`../docs/decisions.md`](../docs/decisions.md), фото — [`../docs/images-manifest.md`](../docs/images-manifest.md).
+Бриф и решения: [`../docs/brief.md`](../docs/brief.md), [`../docs/decisions.md`](../docs/decisions.md), фото — [`../docs/images-manifest.md`](../docs/images-manifest.md).
 
 ```bash
 npm install
@@ -23,7 +23,7 @@ src/
                      /podbor, /uslugi, /proekty, /shourum, /klientam, /partneram, /blog, /kontakty, /brendy, /privacy
   data/            ← данные отдельно от разметки; форма повторяет будущий API Django/DRF
   lib/             ← чистые функции: форматирование, фильтры каталога, текущий год
-public/images/     ← изображения; сейчас плейсхолдеры, реальные фото кладутся по тем же путям
+public/images/     ← изображения; сейчас демо-фото (docs/demo-photos.md), реальные кладутся по тем же путям
 ```
 
 Слои зависят только «вниз»: `app → sections → components → styles`. Компонент не импортирует секцию, секция не импортирует страницу.

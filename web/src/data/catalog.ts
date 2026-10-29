@@ -1,4 +1,4 @@
-// ДЕМО-ДАННЫЕ. Серии взяты из списка для парсинга (docs/Забираем с Home-heat.docx),
+// ДЕМО-ДАННЫЕ. Серии взяты из списка для парсинга (materials/client/Забираем с Home-heat.docx),
 // размеры, мощности и цены — условные, для вёрстки. Заменятся данными из админки.
 import type { Brand, Category, CategorySlug, Product } from "./types";
 
