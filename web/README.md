@@ -1,7 +1,7 @@
 # art-teplo.by — фронтенд
 
 Next.js 16 (App Router, TypeScript, Cache Components), CSS Modules + CSS-переменные, Lenis.
-Бриф и решения: [`../docs/brief.md`](../docs/brief.md), [`../docs/design-analysis.md`](../docs/design-analysis.md), [`../docs/decisions.md`](../docs/decisions.md), фото — [`../docs/images-manifest.md`](../docs/images-manifest.md).
+Бриф и решения: [`../docs/brief.md`](../docs/brief.md), [`../docs/decisions.md`](../docs/decisions.md), фото — [`../docs/images-manifest.md`](../docs/images-manifest.md).
 
 ```bash
 npm install

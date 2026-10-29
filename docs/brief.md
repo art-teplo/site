@@ -1,6 +1,6 @@
 # Бриф art-teplo.by
 
-Единый источник правды для дизайна и разработки. Собран из обсуждения 2026-10-28/29. Подробности: [site-structure.md](site-structure.md) (структура, вопросы заказчику), [stack.md](stack.md) (инфраструктура), [design-analysis.md](design-analysis.md) (визуал), [decisions.md](decisions.md) (принятые по ходу решения).
+Единый источник правды для дизайна и разработки. Собран из обсуждения 2026-10-28/29. Подробности: [site-structure.md](../materials/client/site-structure.md) (исходное предложение по структуре), [stack.md](stack.md) (инфраструктура), [design-analysis.md](../materials/references/design-analysis.md) (разбор референсов), [decisions.md](decisions.md) (принятые по ходу решения).
 
 ## Кто и что
 
@@ -23,7 +23,7 @@
 
 ## Бренды на старте
 
-Из списка для парсинга home-heat.ru (`docs/Забираем с Home-heat.docx`):
+Из списка для парсинга home-heat.ru (`materials/client/Забираем с Home-heat.docx`):
 
 | Бренд | Что берём |
 | --- | --- |
