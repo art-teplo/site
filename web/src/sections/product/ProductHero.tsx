@@ -110,10 +110,10 @@ export function ProductHero({ product, brand }: { product: Product; brand?: Bran
 
         {!asking ? (
           <>
-            {/* Одна кнопка: цену и наличие менеджер называет в одном звонке */}
+            {/* Одна кнопка: цена уже на экране, а наличие и точную цену менеджер называет в одном звонке */}
             <div className={styles.actions}>
               <Button onClick={() => setAsking(true)} arrow>
-                Уточнить цену и наличие
+                Уточнить наличие
               </Button>
             </div>
             <p className={styles.call}>
@@ -125,10 +125,10 @@ export function ProductHero({ product, brand }: { product: Product; brand?: Bran
             <p className={styles.askContext}>{context}</p>
             <LeadForm
               source={`product/${product.slug}`}
-              context={`Цена и наличие: ${context}`}
+              context={`Наличие и точная цена: ${context}`}
               withFile={false}
               compact
-              submitLabel="Уточнить цену и наличие"
+              submitLabel="Уточнить наличие"
             />
           </div>
         )}
