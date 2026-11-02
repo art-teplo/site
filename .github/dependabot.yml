@@ -1,0 +1,60 @@
+# Раз в неделю PR в develop с обновлениями; минорные и патчи — одним PR на экосистему.
+# Уязвимости Dependabot присылает отдельно и сразу.
+version: 2
+
+updates:
+  - package-ecosystem: uv
+    directory: /backend
+    target-branch: develop
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      python:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /web
+    target-branch: develop
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      npm:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Базовые образы в Dockerfile бэка и фронта
+  - package-ecosystem: docker
+    directories: [/backend, /web]
+    target-branch: develop
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
+
+  # postgres, redis, nginx в compose
+  - package-ecosystem: docker-compose
+    directory: /root
+    target-branch: develop
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
