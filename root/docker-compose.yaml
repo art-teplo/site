@@ -1,0 +1,100 @@
+# Прод: образы из GHCR, собираются в CI (.github/workflows/ci.yml).
+# Запуск на сервере делает .github/workflows/deploy.yml; руками:
+#   IMAGE_TAG=main docker compose pull && IMAGE_TAG=main docker compose up -d
+name: art-teplo
+
+include:
+  - docker-compose.infra.yaml
+
+x-backend-env: &backend_env
+  BACKEND__SECRET_KEY: ${BACKEND__SECRET_KEY}
+  BACKEND__DEBUG: ${BACKEND__DEBUG:-0}
+  BACKEND__ALLOWED_HOSTS: ${BACKEND__ALLOWED_HOSTS}
+  BACKEND__CSRF_TRUSTED_ORIGINS: ${BACKEND__CSRF_TRUSTED_ORIGINS:-}
+  BACKEND__CORS_ALLOWED_ORIGINS: ${BACKEND__CORS_ALLOWED_ORIGINS:-}
+  BACKEND__ADMIN_PATH: ${BACKEND__ADMIN_PATH:-admin}
+  BACKEND__WORKERS: ${BACKEND__WORKERS:-2}
+  # URL собираются из паролей выше: пароли — только [A-Za-z0-9] (openssl rand -hex 32)
+  BACKEND__DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+  BACKEND__CACHE_URL: redis://:${REDIS_PASSWORD}@redis:6379/1
+  BACKEND__CELERY_BROKER_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+  BACKEND__S3__ENABLED: ${BACKEND__S3__ENABLED:-0}
+  BACKEND__S3__ENDPOINT_URL: ${BACKEND__S3__ENDPOINT_URL:-}
+  BACKEND__S3__REGION_NAME: ${BACKEND__S3__REGION_NAME:-}
+  BACKEND__S3__ACCESS_KEY_ID: ${BACKEND__S3__ACCESS_KEY_ID:-}
+  BACKEND__S3__SECRET_ACCESS_KEY: ${BACKEND__S3__SECRET_ACCESS_KEY:-}
+  BACKEND__S3__BUCKET_NAME: ${BACKEND__S3__BUCKET_NAME:-}
+  BACKEND__S3__CUSTOM_DOMAIN: ${BACKEND__S3__CUSTOM_DOMAIN:-}
+  BACKEND__S3__LOCATION: ${BACKEND__S3__LOCATION:-}
+
+x-backend: &backend
+  image: ghcr.io/leonenkk/art-teplo-backend:${IMAGE_TAG:-main}
+  init: true
+  restart: unless-stopped
+  environment: *backend_env
+  depends_on:
+    migrate:
+      condition: service_completed_successfully
+    redis:
+      condition: service_healthy
+
+services:
+  migrate:
+    <<: *backend
+    command: ["migrate", "--noinput"]
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    <<: *backend
+    healthcheck:
+      # В образе нет curl — проверяем python'ом
+      test:
+        - CMD
+        - python3
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health/', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
+    mem_limit: 512m
+
+  celery_worker:
+    <<: *backend
+    entrypoint: ["python3", "-m", "celery"]
+    command: ["-A", "settings", "worker", "--concurrency=2", "--loglevel=info"]
+    mem_limit: 384m
+
+  celery_beat:
+    <<: *backend
+    entrypoint: ["python3", "-m", "celery"]
+    command: ["-A", "settings", "beat", "--loglevel=info"]
+    mem_limit: 192m
+
+  # Единственный сервис с портом наружу. TLS добавим при запуске сервера
+  nginx:
+    image: nginx:1.30.6-alpine
+    init: true
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    environment:
+      ADMIN_PATH: ${BACKEND__ADMIN_PATH:-admin}
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/templates:/etc/nginx/templates:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    mem_limit: 64m
+
+  # Фронт пока на Vercel. Включить на сервере: COMPOSE_PROFILES=web в .env
+  web:
+    image: ghcr.io/leonenkk/art-teplo-web:${IMAGE_TAG:-main}
+    profiles: ["web"]
+    init: true
+    restart: unless-stopped
+    mem_limit: 512m

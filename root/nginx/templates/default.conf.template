@@ -1,0 +1,47 @@
+# Шаблон: образ nginx подставляет ${ADMIN_PATH} из окружения при старте.
+
+upstream backend {
+    server backend:8000;
+    keepalive 16;
+}
+
+server {
+    listen 80 default_server;
+    server_name _;
+
+    # Заголовки ставит nginx для всех ответов; одноимённые от бэка скрываем,
+    # чтобы не было дублей
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    proxy_hide_header X-Content-Type-Options;
+    proxy_hide_header Referrer-Policy;
+
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    location /api/ {
+        proxy_pass http://backend;
+    }
+
+    location /${ADMIN_PATH}/ {
+        proxy_pass http://backend;
+    }
+
+    # Имена файлов с хэшем (ManifestStaticFilesStorage) — кэш на год.
+    # add_header здесь отменяет серверные, поэтому nosniff повторён
+    location /static/ {
+        proxy_pass http://backend;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    # Next (профиль web). Пока его нет — 502, фронт живёт на Vercel
+    location / {
+        set $web http://web:3000;
+        proxy_pass $web;
+    }
+}
