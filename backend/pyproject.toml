@@ -1,0 +1,55 @@
+[project]
+name = "art-teplo-backend"
+version = "0.1.0"
+description = "API и админка art-teplo.by"
+authors = [{ name = "Maksim", email = "maxleon1611@gmail.com" }]
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "django>=6.0,<6.1",
+    "djangorestframework>=3.18",
+    "drf-spectacular>=0.30",
+    "django-filter>=26.2",
+    "django-unfold>=0.110",
+    "django-environ>=0.14",
+    "django-redis>=7.0",
+    "django-storages[s3]>=1.14.6",
+    "django-cors-headers>=4.9",
+    "django-celery-beat>=2.9",
+    "celery[redis]>=5.6",
+    "psycopg[binary,pool]>=3.3",
+    "pillow>=13.0",
+    "uvicorn>=0.54",
+    "starlette>=1.10",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17",
+    "django-stubs>=6.0",
+    "djangorestframework-stubs>=3.18",
+    "celery-types>=0.26",
+]
+test = [
+    "pytest>=9.2",
+    "pytest-django>=4.14",
+    "pytest-env>=1.1",
+]
+
+[tool.uv]
+package = false
+default-groups = ["dev", "test"]
+
+[tool.django-stubs]
+django_settings_module = "settings.settings"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "settings.settings"
+pythonpath = ["src"]
+testpaths = ["src/tests"]
+addopts = "--reuse-db"
+
+[tool.pytest_env]
+BACKEND__SECRET_KEY = { value = "test-secret-key", skip_if_set = true }
+BACKEND__DATABASE_URL = { value = "postgres://artteplo:artteplo@localhost:5432/artteplo", skip_if_set = true }
+BACKEND__CACHE_URL = { value = "locmemcache://", skip_if_set = true }
+BACKEND__CELERY_BROKER_URL = { value = "memory://", skip_if_set = true }

@@ -1,0 +1,68 @@
+# Выкладка на сервер. Пока запускается только вручную: Actions → Deploy → Run workflow.
+#
+# Секреты .env лежат на сервере (DEPLOY_PATH/.env, chmod 600) и сюда не попадают.
+# В окружении production (Settings → Environments, только ветка main) нужны:
+#   secrets: DEPLOY_SSH_KEY     — приватный ключ пользователя deploy на сервере
+#            DEPLOY_KNOWN_HOSTS — вывод `ssh-keyscan <хост>`
+#   vars:    DEPLOY_HOST, DEPLOY_USER, DEPLOY_PATH (например /opt/art-teplo)
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Тег образа: main или sha-<7 символов> (откат)"
+        required: true
+        default: main
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      TAG: ${{ inputs.tag }}
+      SSH_TARGET: ${{ vars.DEPLOY_USER }}@${{ vars.DEPLOY_HOST }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+    steps:
+      - name: Проверить тег
+        run: |
+          [[ "$TAG" =~ ^(main|develop|sha-[0-9a-f]{7,40})$ ]] || { echo "Неверный тег: $TAG"; exit 1; }
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: SSH-ключ
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      # Compose, nginx и deploy.sh — поверх старых; .env на сервере не трогаем
+      - name: Скопировать root/ на сервер
+        run: |
+          tar -C root --exclude=.env -czf - . \
+            | ssh "$SSH_TARGET" "mkdir -p '$DEPLOY_PATH' && tar -C '$DEPLOY_PATH' -xzf -"
+
+      # GITHUB_TOKEN действует только до конца задачи — постоянного токена на сервере нет
+      - name: Обновить контейнеры
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_USER: ${{ github.actor }}
+        run: |
+          printf '%s\n' "$GHCR_TOKEN" \
+            | ssh "$SSH_TARGET" "TAG='$TAG' GHCR_USER='$GHCR_USER' '$DEPLOY_PATH/deploy.sh'"
+
+      - name: Убрать ключ
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519

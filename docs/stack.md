@@ -22,7 +22,7 @@
 
 ```
 internet → nginx ─┬─ /          → next      (node, standalone)
-                  ├─ /api/      → django    (gunicorn)
+                  ├─ /api/      → django    (uvicorn, ASGI)
                   ├─ /admin-xxx → django    (закрыт, см. раздел 4)
                   └─ /img/      → imgproxy → S3 (кэш nginx)
 
@@ -35,16 +35,16 @@ django, celery ── postgres
 | --- | --- | --- |
 | nginx | 80, 443 | единственный публичный сервис |
 | next | нет | `output: "standalone"`, ISR; сброс кэша вебхуком из Django при правке в админке |
-| django | нет | gunicorn, миграции отдельным one-off контейнером |
-| celery | нет | worker; beat — для задач по расписанию (сроки, курс валют) |
+| django | нет | uvicorn (ASGI, 2 воркера), миграции отдельным one-off контейнером `migrate` |
+| celery | нет | worker (prefork, 2 процесса); beat — для задач по расписанию (сроки, курс валют) |
 | postgres | нет | том + ночной бэкап |
-| redis | нет | с паролем, `maxmemory` с политикой `allkeys-lru` для кэша; брокер задач лучше держать в отдельной БД redis |
+| redis | нет | с паролем, `maxmemory` с политикой `volatile-lru`: вытесняется только кэш (ключи с TTL), брокер Celery — в отдельной БД redis и без TTL |
 | imgproxy | нет | подписанные URL, чтобы нельзя было гонять произвольные размеры |
 | minio | нет | если не внешний S3 |
 
 Для API и фронта один домен: Next ходит в Django по внутренней сети, браузер — через `/api/` на том же домене. CORS не нужен.
 
-Окружения: `docker-compose.yml` (база), `docker-compose.override.yml` (dev: hot reload, mailhog), `docker-compose.prod.yml`.
+Окружения: `root/docker-compose.yaml` (прод, образы из GHCR) + `root/docker-compose.infra.yaml` (postgres, redis); `root/docker-compose.dev.yaml` — поверх прода для локальной разработки (сборка из `backend/`, код смонтирован, runserver, порты наружу). Подробнее — раздел 7.
 
 ## 3. Данные и файлы
 
@@ -113,7 +113,7 @@ django, celery ── postgres
 Сервис	RAM, примерно
 ОС и Docker	0,4 ГБ
 Next (standalone)	0,3–0,4 ГБ
-Django, gunicorn на 3 воркера	0,4–0,5 ГБ
+Django, uvicorn на 2 воркера	0,25–0,5 ГБ (каркас: 0,25)
 Celery worker и beat	0,25–0,35 ГБ
 Postgres	0,3–0,5 ГБ
 Redis	0,1 ГБ
@@ -141,7 +141,33 @@ nginx	0,02 ГБ
 1. **S3: ActiveStorage, не MinIO.** MinIO занял бы диск сервера по 0,89 BYN/ГБ без резервирования и забрал бы память; хранилище провайдера дешевле, живёт отдельно от сервера и находится в РБ (снимает часть вопроса про передачу данных за границу). Проверить в бесплатный тест: подписанные ссылки, приватные бакеты, CORS, цена исходящего трафика из S3 (на странице не указана).
 2. **Видео: ссылка на YouTube/Vimeo в карточке + необязательный mp4 (до ~100 МБ, без перекодирования).** Своё видео шоурума и фон главной — короткие mp4 в S3. Встраивание через заглушку с `youtube-nocookie`, плеер грузится по клику. Перекодирование ffmpeg отложено, пока не понадобится.
 3. Капча: после первых спамовых заявок.
-4. CI/CD: GitHub Actions → образы в реестр → `docker compose pull && up -d` по SSH.
+4. CI/CD: GitHub Actions → образы в GHCR → `docker compose pull && up -d` по SSH. Как устроено — раздел 7.
 5. Админка: отдельный путь, закрыт на nginx (см. раздел 4).
 
+## 7. Как устроено сейчас (каркас, 2026-11-02)
 
+Решения и причины — [decisions.md](decisions.md), № 63–74.
+
+```
+art-teplo/
+  web/        Next.js; Dockerfile под output: "standalone" (на сервер пока не едет — фронт на Vercel)
+  backend/    Django 6.0 + DRF + Unfold, uv; src/settings (settings, asgi, celery, urls), src/apps/core
+  root/       docker-compose*.yaml, nginx/, deploy.sh, .env.example
+  .github/    workflows/ci.yml, workflows/deploy.yml, dependabot.yml
+```
+
+**Бэкенд.** Настройки — из env с префиксом `BACKEND__` (django-environ). `BUILD_MODE=1` — сборка образа без секретов и БД (collectstatic). ASGI: Starlette отдаёт `/static/` (запечено в образ), остальное — Django. Запуск: `startservice` (uvicorn), Celery — `python3 -m celery -A settings worker|beat`. Есть `GET /api/health/` (БД + кэш), схема API — `/api/schema/` и `/api/schema/swagger/` (в проде только для staff). Админка — на пути `BACKEND__ADMIN_PATH`.
+
+**Образ бэка.** Builder на `python:3.14-slim` + uv ставит только основные зависимости, собирает статику и байткод. Runtime — distroless `ubuntu/python:3.14-26.04`: нет shell, процесс от `_daemon_`, код только для чтения. Команды Django: `docker compose run --rm backend <команда>`.
+
+**nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/` → backend; `/` → `web:3000` (пока нет — 502). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
+
+**CI** (`ci.yml`, на каждый PR и push в develop/main): проверяется только изменённая часть.
+- backend: ruff, `manage.py check`, `makemigrations --check`, pytest на Postgres;
+- web: `npm run lint`, `npm run build`;
+- root: `docker compose config` для прода, dev и профиля web;
+- образы backend и web собираются на каждом PR (проверка Dockerfile), из develop и main пушатся в `ghcr.io/leonenkk/art-teplo-{backend,web}` с тегами `<ветка>` и `sha-<7>`.
+
+**Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Окружение `production` в GitHub (разрешено только для `main`): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; vars `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), чистка старых образов. Откат — тот же запуск с тегом `sha-…` (есть только у коммитов, где менялся бэк).
+
+**Подготовить сервер (один раз):** пользователь `deploy` в группе `docker`, вход только по ключу; Docker с compose; каталог `DEPLOY_PATH` с `.env` по `root/.env.example` (новые пароли, `chmod 600`); `ssh-keyscan` хоста — в `DEPLOY_KNOWN_HOSTS`; первый суперпользователь — `docker compose run --rm backend createsuperuser`.

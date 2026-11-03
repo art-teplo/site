@@ -1,0 +1,61 @@
+target-version = "py314"
+line-length = 79
+src = ["src"]
+
+[lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pycodestyle
+    "W",    # pycodestyle
+    "UP",   # pyupgrade
+    "YTT",  # flake8-2020
+    "S",    # flake8-bandit
+    "BLE",  # flake8-blind-except
+    "B",    # flake8-bugbear
+    "A001", # flake8-builtins
+    "C4",   # flake8-comprehensions
+    "DTZ",  # flake8-datetimez
+    "T10",  # flake8-debugger
+    "ISC",  # flake8-implicit-str-concat
+    "G",    # flake8-logging-format
+    "INP",  # flake8-no-pep420
+    "PIE",  # flake8-pie
+    "T20",  # flake8-print
+    "PT",   # flake8-pytest-style
+    "RET501",
+    "RET502",
+    "SIM",  # flake8-simplify
+    "PTH",  # flake8-use-pathlib
+    "PGH",  # pygrep-hooks
+    "PLC",  # pylint
+    "PLE",  # pylint
+    "RUF",  # ruff-specific
+    "C90",  # mccabe
+    "N",    # pep8-naming
+    "EM",   # error-messages
+    "FA",   # future-annotations
+    "SLF",  # flake8-self
+    "ARG",  # flake8-unused-argument
+    "ERA",  # eradicate commented out code
+    "TRY",  # tryceratops
+    "I",    # isort
+]
+ignore = [
+    "RUF001", # кириллица в строках
+    "RUF002", # кириллица в docstring
+    "RUF003", # кириллица в комментариях
+    "RUF012", # Meta-поля классов Django
+    "E501",   # длину строк держит formatter
+    "S104",   # bind 0.0.0.0 в Docker — норма
+    "S105",
+    "S106",
+]
+
+[lint.per-file-ignores]
+"**/migrations/**.py" = ["E501", "RUF"]
+"src/tests/**.py" = ["S101"]
+
+[format]
+quote-style = "single"
+indent-style = "space"
+docstring-code-format = true

@@ -1,0 +1,44 @@
+# Локальная разработка поверх прода: собираем образ из ../backend,
+# монтируем код, Django runserver с автоперезагрузкой, порты наружу.
+#   cp .env.example .env   # один раз
+#   docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
+# Админка: http://localhost:8080/admin/, API: http://localhost:8000/api/
+# pytest из backend/ ходит в этот postgres на localhost:5432.
+
+x-backend-dev: &backend_dev
+  image: art-teplo-backend:dev
+  build:
+    context: ../backend
+  user: "${UID:-1000}:${GID:-1000}"
+  volumes:
+    - ../backend/src:/src
+
+services:
+  migrate:
+    <<: *backend_dev
+
+  backend:
+    <<: *backend_dev
+    command: ["runserver", "0.0.0.0:8000"]
+    environment:
+      BACKEND__DEBUG: "1"
+    ports:
+      - "8000:8000"
+
+  celery_worker:
+    <<: *backend_dev
+
+  celery_beat:
+    <<: *backend_dev
+
+  nginx:
+    ports: !override
+      - "8080:80"
+
+  postgres:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"

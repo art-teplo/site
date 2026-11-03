@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import { IMAGES_VERSION } from "./src/lib/asset";
 
 const nextConfig: NextConfig = {
+  // Для Docker-образа (web/Dockerfile); Vercel эту настройку не мешает
+  output: "standalone",
   cacheComponents: true,
   partialPrefetching: true,
   images: {
