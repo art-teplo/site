@@ -50,7 +50,6 @@ services:
   backend:
     <<: *backend
     healthcheck:
-      # В образе нет curl — проверяем python'ом
       test:
         - CMD
         - python3

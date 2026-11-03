@@ -7,7 +7,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 
-# --- ENV VARS ---
 
 # BUILD_MODE=1 — сборка образа (collectstatic): секреты и БД ещё не нужны
 BUILD_MODE = env.bool('BUILD_MODE', default=False)
@@ -23,7 +22,6 @@ SECRET_KEY = env.str(
 
 VERSION = env.str('VERSION', default='0.0.0')
 
-# Адреса внутри docker-сети (healthcheck, Next → API) разрешены всегда
 ALLOWED_HOSTS = [
     *env.list('ALLOWED_HOSTS', default=[]),  # pyright: ignore[reportArgumentType]
     'localhost',
@@ -50,7 +48,6 @@ DEFAULT_DATABASE = env.db_url(
     default='sqlite:///:memory:' if BUILD_MODE else env.NOTSET,  # pyright: ignore[reportArgumentType]
 )
 
-# redis:// → django_redis (environ выбирает его сам, раз пакет установлен)
 DEFAULT_CACHE = env.cache_url(
     'CACHE_URL',
     default='dummycache://' if BUILD_MODE else env.NOTSET,  # pyright: ignore[reportArgumentType]
@@ -139,7 +136,7 @@ DATABASES = {
     'default': DEFAULT_DATABASE,
 }
 if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql':
-    # Пул соединений psycopg 3; с ним CONN_MAX_AGE должен быть 0
+    # мб в будущем явно задать pool_size, max_overflow, timeout, recycle и пр.
     DATABASES['default']['CONN_MAX_AGE'] = 0
     DATABASES['default'].setdefault('OPTIONS', {})['pool'] = True
 
@@ -191,7 +188,6 @@ STORAGES = {
             'BACKEND': 'django.core.files.storage.FileSystemStorage',
         }
     ),
-    # Имена с хэшем — nginx кэширует /static/ надолго
     'staticfiles': {
         'BACKEND': (
             'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -200,8 +196,6 @@ STORAGES = {
         ),
     },
 }
-
-# --- безопасность (TLS и HSTS — на nginx) ---
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = not DEBUG
@@ -220,7 +214,10 @@ LOGGING = {
         },
     },
     'handlers': {
-        'console': {'class': 'logging.StreamHandler', 'formatter': 'plain'},
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'plain',
+        },
     },
     'root': {'handlers': ['console'], 'level': 'INFO'},
 }
@@ -233,7 +230,6 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': r'/api/',
     'COMPONENT_SPLIT_REQUEST': True,
-    # В проде схему видит только сотрудник, вошедший в админку
     'SERVE_PERMISSIONS': [
         'rest_framework.permissions.AllowAny'
         if DEBUG
@@ -247,7 +243,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ],
-    # Публичный API — только чтение; запись открывается точечно (заявки)
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
@@ -305,7 +300,6 @@ CELERY_TIMEZONE = TIME_ZONE
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
-# Результаты задач не храним: заявки и уведомления — fire-and-forget
 CELERY_TASK_IGNORE_RESULT = True
 CELERY_TASK_ACKS_LATE = True
 CELERY_TASK_REJECT_ON_WORKER_LOST = True

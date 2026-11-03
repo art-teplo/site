@@ -48,8 +48,6 @@ pythonpath = ["src"]
 testpaths = ["src/tests"]
 addopts = "--reuse-db"
 
-# Значения по умолчанию — под dev-compose (root/docker-compose.dev.yaml) и сервисы CI.
-# skip_if_set — не перетирать, если переменная уже задана.
 [tool.pytest_env]
 BACKEND__SECRET_KEY = { value = "test-secret-key", skip_if_set = true }
 BACKEND__DATABASE_URL = { value = "postgres://artteplo:artteplo@localhost:5432/artteplo", skip_if_set = true }

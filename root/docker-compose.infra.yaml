@@ -1,4 +1,3 @@
-# Инфраструктура: БД и Redis, портов наружу не публикуют.
 services:
   postgres:
     image: postgres:17.11-alpine

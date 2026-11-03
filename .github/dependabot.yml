@@ -1,5 +1,3 @@
-# Раз в неделю PR в develop с обновлениями; минорные и патчи — одним PR на экосистему.
-# Уязвимости Dependabot присылает отдельно и сразу.
 version: 2
 
 updates:
@@ -39,7 +37,6 @@ updates:
       actions:
         patterns: ["*"]
 
-  # Базовые образы в Dockerfile бэка и фронта
   - package-ecosystem: docker
     directories: [/backend, /web]
     target-branch: develop
@@ -49,7 +46,6 @@ updates:
       prefix: chore
       include: scope
 
-  # postgres, redis, nginx в compose
   - package-ecosystem: docker-compose
     directory: /root
     target-branch: develop

@@ -121,7 +121,6 @@ jobs:
 
   images:
     needs: [changes, backend, web]
-    # backend/web могут быть пропущены — тогда всё равно идём дальше
     if: >-
       !cancelled() && !contains(needs.*.result, 'failure')
       && (needs.changes.outputs.backend == 'true' || needs.changes.outputs.web == 'true')
