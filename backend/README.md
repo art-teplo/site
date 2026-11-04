@@ -34,7 +34,7 @@ uv run pytest                 # нужен postgres из dev-compose на localh
 src/
   manage.py
   settings/       settings.py (env с префиксом BACKEND__), asgi.py, celery.py, urls.py
-  apps/core/      healthcheck, команда startservice (uvicorn)
+  apps/core/      healthcheck, команда startservice (uvicorn); groups.py — права группы «Менеджер»
   apps/core/utils.py  AutoUploadTo, валидаторы файлов, client_ip
   apps/leads/     заявки: POST /api/leads/, админка, Celery (Telegram, чистка); команда runbot
   apps/leads/telegram/  aiogram: texts.py (все тексты), service.py (сообщение, отправка), handlers.py (кнопки, команды)
@@ -57,6 +57,10 @@ docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backen
 ```
 
 Повторный запуск обновляет записи и не дублирует фото. Чтобы правки сразу появлялись на `localhost:3000`, задайте одинаковый секрет в `root/.env` (`BACKEND__FRONTEND__REVALIDATE_URL=http://host.docker.internal:3000/api/revalidate`, `BACKEND__FRONTEND__REVALIDATE_SECRET`) и в `web/.env.local` (`REVALIDATE_SECRET`), см. `web/.env.example`. Без этого фронт обновит страницы сам — в течение часа.
+
+## Доступ к админке
+
+Менеджер — пользователь со «Статусом персонала» в группе «Менеджер»: заявки и контент, без пользователей и настроек. Права группы — в `apps/core/groups.py`, после `migrate` выставляются заново: новая модель для менеджеров — строка в `MANAGER_PERMISSIONS`. Пять неудачных входов под одним логином с одного IP — блок на час (`django-axes`), снять — `… exec -T backend python3 manage.py axes_reset_username <логин>`. Пароль — от 12 символов.
 
 ## Telegram локально
 
