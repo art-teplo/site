@@ -62,7 +62,7 @@ export function ProductHero({ product, brand }: { product: Product; brand?: Bran
       <div className={styles.info}>
         <p className={styles.brand}>
           {brand?.name}
-          {brand?.country && brand.country !== "—" ? ` · ${brand.country}` : ""}
+          {brand?.country ? ` · ${brand.country}` : ""}
         </p>
         <h1 className={styles.name}>{product.name}</h1>
         <p className={styles.summary}>{product.summary}</p>

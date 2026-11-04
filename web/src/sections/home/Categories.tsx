@@ -5,12 +5,14 @@ import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Picture } from "@/components/Picture/Picture";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Arrow, Button } from "@/components/Button/Button";
-import { categories, productsIn } from "@/data/catalog";
+import { getCategories } from "@/data/api";
+import { productsIn } from "@/data/catalog";
 import { plural } from "@/lib/format";
 import styles from "./Categories.module.css";
 
 // 02 · Категории — тёмные плитки цвета наших тёмных блоков, товар без фона в углу. На телефоне — 2×2.
-export function Categories() {
+export async function Categories() {
+  const categories = await getCategories();
   return (
     <Section id="catalog" labelledBy="categories-title">
       <Container>

@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo/Logo";
 import { Container } from "@/components/Container/Container";
-import { categories } from "@/data/catalog";
-import { getSite } from "@/data/api";
+import { getCategories, getSite } from "@/data/api";
 import { FOUNDED_YEAR, nav } from "@/data/site";
 import { currentYear } from "@/lib/year";
 import styles from "./Footer.module.css";
 
 export async function Footer() {
-  const site = await getSite();
+  const [site, categories] = await Promise.all([getSite(), getCategories()]);
   const year = await currentYear();
   return (
     <footer className={styles.footer} data-tone="dark" id="contacts">

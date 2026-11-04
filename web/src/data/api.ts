@@ -1,14 +1,15 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { faq, posts, projects, showroomHall } from "./content";
+import { brands, categories, products } from "./catalog";
+import { faq, LEAD_TIMES_UPDATED, posts, projects, showroomHall } from "./content";
 import { demoSite } from "./site";
-import type { Faq, ImageAsset, Post, PostCard, Project, Site } from "./types";
+import type { Brand, Category, Faq, ImageAsset, LeadTime, Post, PostCard, Project, Site } from "./types";
 
 // Контент из админки (бэк: apps/content). Без NEXT_PUBLIC_API_URL — демо-данные из src/data,
 // как на Vercel. Ответы кэшируются по тегам; после правки бэк зовёт /api/revalidate с тегом раздела.
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Теги — те же, что models.Tag на бэке
-type Tag = "site" | "faq" | "projects" | "posts" | "showroom";
+type Tag = "site" | "faq" | "projects" | "posts" | "showroom" | "catalog";
 
 async function load<T>(path: string, tag: Tag): Promise<T | null> {
   "use cache";
@@ -35,6 +36,7 @@ type ApiSite = {
   reply_promise: string;
   legal_name: string;
   unp: string;
+  showroom_video: Site["showroomVideo"];
 };
 type ApiFaq = { question: string; answer: string; on_home: boolean };
 type ApiProject = Omit<Project, "products"> & { product_slugs: string[] };
@@ -60,6 +62,7 @@ export async function getSite(): Promise<Site> {
     // Пока заказчик не прислал реквизиты — видимая заглушка, как в демо
     legalName: data.legal_name || "[Уточнить у заказчика: юрлицо]",
     unp: data.unp || "[УНП]",
+    showroomVideo: data.showroom_video,
   };
 }
 
@@ -97,4 +100,32 @@ export async function getShowroom(): Promise<ImageAsset[]> {
   const data = API_URL ? await load<{ image: ImageAsset }[]>("showroom/", "showroom") : null;
   if (!data) return showroomHall;
   return data.map((photo) => photo.image);
+}
+
+// --- Каталог (бэк: apps.catalog). Товары пока в коде и ссылаются на категории и бренды по slug ---
+
+type ApiBrand = Omit<Brand, "warrantyYears" | "logo"> & { logo: Brand["logo"] | null; warranty_years: number | null };
+type ApiLeadTime = LeadTime & { updated_at: string };
+
+export async function getCategories(): Promise<Category[]> {
+  const data = API_URL ? await load<Category[]>("categories/", "catalog") : null;
+  return data ?? categories;
+}
+
+export async function getBrands(): Promise<Brand[]> {
+  const data = API_URL ? await load<ApiBrand[]>("brands/", "catalog") : null;
+  if (!data) return brands;
+  return data.map(({ warranty_years, logo, ...brand }) => ({ ...brand, logo: logo ?? undefined, warrantyYears: warranty_years }));
+}
+
+// Таблица сроков и дата последней правки — она подписана под таблицей
+export async function getLeadTimes(): Promise<{ rows: LeadTime[]; updated: string }> {
+  const data = API_URL ? await load<ApiLeadTime[]>("lead-times/", "catalog") : null;
+  if (!data) {
+    const rows = products.map((p) => ({ series: p.name, brand: p.brand, days: p.leadDays ?? null }));
+    return { rows, updated: LEAD_TIMES_UPDATED };
+  }
+  const updated = data.reduce((last, row) => (row.updated_at > last ? row.updated_at : last), "");
+  const rows = data.map(({ series, brand, days }) => ({ series, brand, days }));
+  return { rows, updated: updated.slice(0, 10) };
 }

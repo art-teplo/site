@@ -10,8 +10,9 @@ export type ImageAsset = {
 
 export type CategorySlug = "radiatory" | "konvektory" | "polotentsesushiteli" | "armatura";
 
+// Категории и бренды — из админки (apps.catalog); товары пока в коде и ссылаются на них по slug
 export type Category = {
-  slug: CategorySlug;
+  slug: string;
   name: string;
   short: string;
   image: ImageAsset; // товар без фона, PNG с прозрачностью
@@ -20,9 +21,17 @@ export type Category = {
 export type Brand = {
   slug: string;
   name: string;
-  country: string;
+  country: string; // пусто — не показываем
   note: string;
   logo?: { src: string; width: number; height: number }; // с официальных сайтов производителей
+  warrantyYears: number | null; // «гарантия до»; пусто — бренда нет в таблице гарантий
+};
+
+// Ориентир срока изготовления по серии — таблица на «Клиентам»
+export type LeadTime = {
+  series: string;
+  brand: string; // Brand.slug
+  days: number | null; // пусто — «уточнит менеджер»
 };
 
 export type Availability = "stock" | "order" | "request";
@@ -107,6 +116,7 @@ export type Site = {
   legalName: string;
   unp: string;
   replyPromise: string;
+  showroomVideo: { src: string; poster: ImageAsset | null } | null; // файл из админки; нет — фото «скоро»
 };
 
 export type Service = {

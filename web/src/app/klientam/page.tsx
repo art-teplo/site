@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import type { Product } from "@/data/types";
+import type { LeadTime } from "@/data/types";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Accordion } from "@/components/Accordion/Accordion";
-import { brands, products } from "@/data/catalog";
-import { getFaq } from "@/data/api";
-import { delivery, LEAD_TIMES_UPDATED, payment } from "@/data/content";
-import { formatDate } from "@/lib/format";
+import { getBrands, getFaq, getLeadTimes } from "@/data/api";
+import { delivery, payment } from "@/data/content";
+import { formatDate, plural } from "@/lib/format";
 import { PageIntro, AnchorNav } from "@/sections/page/PageIntro";
 import { InfoGrid } from "@/sections/page/InfoGrid";
 import { DataTable } from "@/sections/page/DataTable";
@@ -19,16 +18,13 @@ export const metadata: Metadata = {
 };
 
 // Ориентир по серии; наличие на сайте не показываем — его уточняет менеджер
-const leadTime = (p: Product) => (p.leadDays ? `до ${p.leadDays} дней` : "уточнит менеджер");
+const leadTime = ({ days }: LeadTime) => (days ? `до ${plural(days, "дня", "дней", "дней")}` : "уточнит менеджер");
 
 export default async function KlientamPage() {
-  const faq = await getFaq();
+  const [faq, brands, leadTimes] = await Promise.all([getFaq(), getBrands(), getLeadTimes()]);
   const warranty = brands
-    .map((b) => {
-      const own = products.filter((p) => p.brand === b.slug);
-      return own.length ? [b.name, b.country === "—" ? "—" : b.country, `${Math.max(...own.map((p) => p.warrantyYears))} лет`] : null;
-    })
-    .filter((row): row is string[] => row !== null);
+    .filter((b) => b.warrantyYears)
+    .map((b) => [b.name, b.country || "—", plural(b.warrantyYears ?? 0, "год", "года", "лет")]);
 
   return (
     <>
@@ -53,9 +49,9 @@ export default async function KlientamPage() {
             intro="Ориентировочный срок изготовления под заказ. Наличие и точный срок для вашего размера и цвета уточнит менеджер."
           />
           <DataTable
-            head={["Модель", "Срок изготовления"]}
-            rows={products.map((p) => [p.name, leadTime(p)])}
-            note={`Обновлено ${formatDate(LEAD_TIMES_UPDATED)}. Демо-данные — заменятся таблицей из админки.`}
+            head={["Серия", "Срок изготовления"]}
+            rows={leadTimes.rows.map((row) => [row.series, leadTime(row)])}
+            note={leadTimes.updated ? `Обновлено ${formatDate(leadTimes.updated)}` : undefined}
           />
         </Container>
       </Section>

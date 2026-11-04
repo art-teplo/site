@@ -1,6 +1,6 @@
 // ДЕМО-ДАННЫЕ. Серии взяты из списка для парсинга (materials/client/Забираем с Home-heat.docx),
 // размеры, мощности и цены — условные, для вёрстки. Заменятся данными из админки.
-import type { Brand, Category, CategorySlug, Product } from "./types";
+import type { Brand, Category, Product } from "./types";
 
 const img = (src: string, width: number, height: number, alt: string) => ({ src, width, height, alt });
 
@@ -32,13 +32,13 @@ export const categories: Category[] = [
 ];
 
 export const brands: Brand[] = [
-  { slug: "kzto", name: "КЗТО", country: "Россия", note: "Официальный представитель в Беларуси", logo: { src: "/images/brands/kzto.png", width: 111, height: 81 } },
-  { slug: "guardo", name: "Guardo", country: "Россия", note: "Трубчатые радиаторы и полотенцесушители", logo: { src: "/images/brands/guardo.svg", width: 224, height: 52 } },
-  { slug: "radimax", name: "Радимакс", country: "Россия", note: "Чугунные радиаторы Style Retro", logo: { src: "/images/brands/radimax.png", width: 686, height: 296 } },
-  { slug: "royal-thermo", name: "Royal Thermo", country: "Италия", note: "Радиаторы", logo: { src: "/images/brands/royal-thermo.svg", width: 168, height: 87 } },
-  { slug: "nova", name: "Nova", country: "Китай", note: "Трубчатые радиаторы" },
-  { slug: "carisa", name: "Carisa", country: "—", note: "Дизайн-радиаторы и полотенцесушители", logo: { src: "/images/brands/carisa.png", width: 900, height: 285 } },
-  { slug: "sr", name: "SR Rubinetterie", country: "Италия", note: "Арматура и автоматика" },
+  { slug: "kzto", name: "КЗТО", country: "Россия", note: "Официальный представитель в Беларуси", logo: { src: "/images/brands/kzto.png", width: 111, height: 81 }, warrantyYears: 10 },
+  { slug: "guardo", name: "Guardo", country: "Россия", note: "Трубчатые радиаторы и полотенцесушители", logo: { src: "/images/brands/guardo.svg", width: 224, height: 52 }, warrantyYears: 10 },
+  { slug: "radimax", name: "Радимакс", country: "Россия", note: "Чугунные радиаторы Style Retro", logo: { src: "/images/brands/radimax.png", width: 686, height: 296 }, warrantyYears: 10 },
+  { slug: "royal-thermo", name: "Royal Thermo", country: "Италия", note: "Радиаторы", logo: { src: "/images/brands/royal-thermo.svg", width: 168, height: 87 }, warrantyYears: 10 },
+  { slug: "nova", name: "Nova", country: "Китай", note: "Трубчатые радиаторы", warrantyYears: 5 },
+  { slug: "carisa", name: "Carisa", country: "", note: "Дизайн-радиаторы и полотенцесушители", logo: { src: "/images/brands/carisa.png", width: 900, height: 285 }, warrantyYears: 3 },
+  { slug: "sr", name: "SR Rubinetterie", country: "Италия", note: "Арматура и автоматика", warrantyYears: 5 },
 ];
 
 const WHITE = { id: "white", name: "Белый RAL 9016", hex: "#f1f0ea" };
@@ -384,8 +384,6 @@ export const products: Product[] = [
   },
 ];
 
-export const getCategory = (slug: string) => categories.find((c) => c.slug === slug);
-export const getBrand = (slug: string) => brands.find((b) => b.slug === slug);
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
-export const productsIn = (category: CategorySlug) => products.filter((p) => p.category === category);
+export const productsIn = (category: string) => products.filter((p) => p.category === category);
 export const priceFrom = (p: Product) => Math.min(...p.variants.map((v) => v.priceByn));

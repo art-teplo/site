@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import { categories } from "@/data/catalog";
+import { getBrands, getCategories } from "@/data/api";
 import type { Category, Product } from "@/data/types";
 import { cx } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
@@ -13,7 +13,10 @@ import styles from "./CatalogPage.module.css";
 type Props = { category?: Category; products: Product[] };
 
 // Общий шаблон «Каталог» и «Каталог / категория».
-export function CatalogPage({ category, products }: Props) {
+export async function CatalogPage({ category, products }: Props) {
+  const [categories, brands] = await Promise.all([getCategories(), getBrands()]);
+  // Клиентскому списку хватает названий брендов
+  const brandNames = Object.fromEntries(brands.map((b) => [b.slug, b.name]));
   return (
     <>
       <Section className={styles.top} labelledBy="catalog-title">
@@ -45,8 +48,8 @@ export function CatalogPage({ category, products }: Props) {
             ))}
           </nav>
           <h2 className="visually-hidden">Товары</h2>
-          <Suspense fallback={<CatalogFallback products={products} />}>
-            <CatalogBrowser products={products} />
+          <Suspense fallback={<CatalogFallback products={products} brands={brandNames} />}>
+            <CatalogBrowser products={products} brands={brandNames} />
           </Suspense>
         </Container>
       </Section>

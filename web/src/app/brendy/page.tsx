@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { getBrands } from "@/data/api";
 import { PageIntro } from "@/sections/page/PageIntro";
 import { Brands } from "@/sections/home/Brands";
 import { LeadSection } from "@/sections/home/LeadSection";
 
-export const metadata: Metadata = {
-  title: "Бренды",
-  description: "КЗТО, Guardo, Радимакс, Royal Thermo, Nova, Carisa, SR Rubinetterie — бренды в шоуруме АртТепло.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const names = (await getBrands()).map((b) => b.name).join(", ");
+  return { title: "Бренды", description: `${names} — бренды в шоуруме АртТепло.` };
+}
 
 export default function BrendyPage() {
   return (

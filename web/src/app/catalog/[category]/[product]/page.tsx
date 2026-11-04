@@ -9,8 +9,8 @@ import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import { ProductCard } from "@/components/ProductCard/ProductCard";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { getBrand, getCategory, getProduct, priceFrom, products } from "@/data/catalog";
-import { getProjects } from "@/data/api";
+import { getProduct, priceFrom, products } from "@/data/catalog";
+import { getBrands, getCategories, getProjects } from "@/data/api";
 import { formatPrice } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
 import { ProductHero } from "@/sections/product/ProductHero";
@@ -30,10 +30,11 @@ export async function generateMetadata({ params }: PageProps<"/catalog/[category
 export default async function ProductPage({ params }: PageProps<"/catalog/[category]/[product]">) {
   const { category: categorySlug, product: slug } = await params;
   const product = getProduct(slug);
-  const category = getCategory(categorySlug);
+  const [categories, brands] = await Promise.all([getCategories(), getBrands()]);
+  const category = categories.find((c) => c.slug === categorySlug);
   if (!product || !category || product.category !== category.slug) notFound();
 
-  const brand = getBrand(product.brand);
+  const brand = brands.find((b) => b.slug === product.brand);
   const inProjects = (await getProjects()).filter((p) => p.products.includes(product.slug));
   const related = products.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 3);
 
@@ -65,7 +66,7 @@ export default async function ProductPage({ params }: PageProps<"/catalog/[categ
               {inProjects.map((p, i) => (
                 <Reveal as="li" key={p.slug} index={i}>
                   <Link href="/#projects" className={styles.project}>
-                    <Frame ratio="4 / 3" corners>
+                    <Frame ratio="4 / 3">
                       <Picture image={p.image} sizes="(max-width: 767px) 100vw, 50vw" />
                     </Frame>
                     <span className={styles.projectTitle}>
@@ -86,7 +87,7 @@ export default async function ProductPage({ params }: PageProps<"/catalog/[categ
             <ul className={styles.related}>
               {related.map((p, i) => (
                 <Reveal as="li" key={p.slug} index={i}>
-                  <ProductCard product={p} sizes="(max-width: 767px) 50vw, 33vw" />
+                  <ProductCard product={p} brand={brands.find((b) => b.slug === p.brand)?.name} sizes="(max-width: 767px) 50vw, 33vw" />
                 </Reveal>
               ))}
             </ul>

@@ -9,7 +9,7 @@ import styles from "./ProductSpecs.module.css";
 export function ProductSpecs({ product, brand }: { product: Product; brand?: Brand }) {
   const base = product.variants[0];
   const rows: [string, string][] = [
-    ["Бренд", brand ? `${brand.name}${brand.country !== "—" ? `, ${brand.country}` : ""}` : "—"],
+    ["Бренд", brand ? `${brand.name}${brand.country ? `, ${brand.country}` : ""}` : "—"],
     ["Тип", [product.type, product.position].filter(Boolean).join(", ")],
     ["Материал", product.material],
     ["Нагрев", product.heating],

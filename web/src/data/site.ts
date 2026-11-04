@@ -25,6 +25,7 @@ export const demoSite: Site = {
   unp: "[УНП]",
   replyPromise: "Перезвоним в течение 30 минут в рабочее время",
   mapUrl: "https://yandex.by/maps/?text=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D1%83%D0%BB.%20%D0%9B%D0%B5%D0%BE%D0%BD%D0%B8%D0%B4%D0%B0%20%D0%91%D0%B5%D0%B4%D1%8B%2C%2039",
+  showroomVideo: null,
 };
 
 // Короткий ряд в шапке — то, за чем приходят чаще всего (как у radiator.center)

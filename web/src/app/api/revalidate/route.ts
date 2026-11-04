@@ -4,7 +4,7 @@ import { revalidateTag } from "next/cache";
 // Бэк зовёт после правки контента в админке (apps/content/tasks.py): обновить страницы с тегами.
 // На сервере nginx отдаёт /api/ бэку, поэтому снаружи этот адрес недоступен — Celery ходит на web:3000.
 const SECRET = process.env.REVALIDATE_SECRET ?? "";
-const TAGS = new Set(["site", "faq", "projects", "posts", "showroom"]);
+const TAGS = new Set(["site", "faq", "projects", "posts", "showroom", "catalog"]);
 
 function authorized(header: string | null) {
   const expected = Buffer.from(`Bearer ${SECRET}`);

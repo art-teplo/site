@@ -1,17 +1,20 @@
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
-import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
+import { VideoPoster } from "@/components/VideoPoster/VideoPoster";
 import { Button } from "@/components/Button/Button";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { getSite } from "@/data/api";
 import styles from "./Showroom.module.css";
 
-// 09 · Шоурум. Видео — постер с кнопкой (файл подставится позже, см. images-manifest.md);
+// 09 · Шоурум. Видео из «Настроек сайта» — постер с кнопкой, играет по нажатию; нет файла — фото «скоро».
 // карта Яндекса — ссылкой, чтобы не грузить тяжёлый iframe на главной.
+const POSTER = { src: "/images/showroom/showroom-poster.jpg", width: 1920, height: 1080, alt: "Шоурум АртТепло на Леонида Беды, 39" };
+
 export async function Showroom() {
   const site = await getSite();
+  const video = site.showroomVideo;
   return (
     <Section id="showroom" tone="dark" labelledBy="showroom-title">
       <Container>
@@ -22,16 +25,9 @@ export async function Showroom() {
         />
         <div className={styles.layout}>
           <Reveal className={styles.media}>
-            <Frame ratio="16 / 9" corners parallax>
-              <Picture
-                image={{ src: "/images/showroom/showroom-poster.jpg", width: 1920, height: 1080, alt: "Шоурум АртТепло на Леонида Беды, 39" }}
-                sizes="(max-width: 1023px) 100vw, 66vw"
-              />
-            </Frame>
-            <span className={styles.play} aria-hidden="true">
-              <span className={styles.playIcon} />
-              Видео шоурума скоро
-            </span>
+            <VideoPoster src={video?.src} label={video ? "Смотреть обзор шоурума" : "Видео шоурума скоро"}>
+              <Picture image={video?.poster ?? POSTER} sizes="(max-width: 1023px) 100vw, 66vw" />
+            </VideoPoster>
           </Reveal>
           <Reveal className={styles.info} index={1}>
             <dl className={styles.list}>
