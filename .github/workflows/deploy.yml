@@ -1,10 +1,12 @@
 # Выкладка на сервер. Пока запускается только вручную: Actions → Deploy → Run workflow.
 #
 # Секреты .env лежат на сервере (DEPLOY_PATH/.env, chmod 600) и сюда не попадают.
-# В окружении production (Settings → Environments, только ветка main) нужны:
-#   secrets: DEPLOY_SSH_KEY     — приватный ключ пользователя deploy на сервере
-#            DEPLOY_KNOWN_HOSTS — вывод `ssh-keyscan <хост>`
-#   vars:    DEPLOY_HOST, DEPLOY_USER, DEPLOY_PATH (например /opt/art-teplo)
+# Settings → Secrets and variables → Actions, уровень репозитория (секреты окружений
+# в приватном репозитории на бесплатном плане недоступны):
+#   secrets:   DEPLOY_SSH_KEY     — приватный ключ пользователя deploy на сервере
+#              DEPLOY_KNOWN_HOSTS — вывод `ssh-keyscan <хост>`
+#   variables: DEPLOY_HOST, DEPLOY_USER, DEPLOY_PATH (например /opt/art-teplo)
+# Запуск — только из ветки main.
 name: Deploy
 
 on:
@@ -26,15 +28,15 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
     env:
       TAG: ${{ inputs.tag }}
       SSH_TARGET: ${{ vars.DEPLOY_USER }}@${{ vars.DEPLOY_HOST }}
       DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
     steps:
-      - name: Проверить тег
+      - name: Проверить ветку и тег
         run: |
-          [[ "$TAG" =~ ^(main|develop|sha-[0-9a-f]{7,40})$ ]] || { echo "Неверный тег: $TAG"; exit 1; }
+          [[ "$GITHUB_REF" == refs/heads/main ]] || { echo "Деплой только из main, а не из $GITHUB_REF"; exit 1; }
+          [[ "$TAG" =~ ^(main|sha-[0-9a-f]{7,40})$ ]] || { echo "Неверный тег: $TAG"; exit 1; }
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 

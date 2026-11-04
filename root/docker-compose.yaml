@@ -90,7 +90,8 @@ services:
         condition: service_healthy
     mem_limit: 64m
 
-  # Фронт пока на Vercel. Включить на сервере: COMPOSE_PROFILES=web в .env
+  # Фронт пока на Vercel, образ web в GHCR ещё не публикуется (см. ci.yml).
+  # Включить на сервере: публикация в ci.yml + COMPOSE_PROFILES=web в .env
   web:
     image: ghcr.io/leonenkk/art-teplo-web:${IMAGE_TAG:-main}
     profiles: ["web"]
