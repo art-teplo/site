@@ -11,6 +11,8 @@ from .html import clean_html, read_minutes
 
 MAX_IMAGE_MB = 15
 IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp']
+MAX_VIDEO_MB = 100
+VIDEO_EXTENSIONS = ['mp4', 'webm']
 
 
 class Tag:
@@ -22,6 +24,7 @@ class Tag:
     PROJECTS = 'projects'
     POSTS = 'posts'
     SHOWROOM = 'showroom'
+    CATALOG = 'catalog'  # бренды, категории, сроки (apps.catalog)
 
 
 class WithImage(models.Model):
@@ -135,9 +138,44 @@ class SiteSettings(SingletonModel):
         blank=True,
         help_text='Для виджета отзывов',
     )
-    showroom_video_url = models.URLField(
+    showroom_video = models.FileField(
         'видео шоурума',
+        upload_to=AutoUploadTo('video'),
         blank=True,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=VIDEO_EXTENSIONS,
+                message='Подойдут MP4 или WebM',
+            ),
+            FileSizeValidator(MAX_VIDEO_MB, SizeUnit.MiB),
+        ],
+        help_text=(
+            f'MP4 (H.264), до {MAX_VIDEO_MB} МБ: 1–2 минуты в 1080p. '
+            'Пусто — на сайте фото шоурума с подписью «скоро»'
+        ),
+    )
+    showroom_poster = models.ImageField(
+        'постер видео',
+        upload_to=AutoUploadTo('poster'),
+        width_field='showroom_poster_width',
+        height_field='showroom_poster_height',
+        blank=True,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=IMAGE_EXTENSIONS,
+                message='Подойдут JPG, PNG или WebP',
+            ),
+            FileSizeValidator(MAX_IMAGE_MB, SizeUnit.MiB),
+        ],
+        help_text='Кадр до запуска, 16:9. Пусто — стандартное фото шоурума',
+    )
+    showroom_poster_width = models.PositiveIntegerField(
+        editable=False,
+        null=True,
+    )
+    showroom_poster_height = models.PositiveIntegerField(
+        editable=False,
+        null=True,
     )
 
     class Meta:

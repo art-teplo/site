@@ -5,11 +5,13 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 
 import pytest
+from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.management import call_command
 from django.urls import reverse
 from PIL import Image
 
+from apps.catalog.models import Brand, Category, LeadTime
 from apps.content.html import clean_html, read_minutes
 from apps.content.models import (
     Faq,
@@ -146,6 +148,45 @@ def test_site_settings_empty(client):
 
 
 @pytest.mark.django_db
+def test_showroom_video_with_poster(client):
+    site = SiteSettings.get_solo()
+    site.showroom_video.save(
+        'tour.mp4',
+        ContentFile(b'\x00\x00\x00\x18ftypmp42', name='tour.mp4'),
+        save=False,
+    )
+    site.showroom_poster.save('poster.png', png(160, 90), save=False)
+    site.save()
+
+    video = client.get(reverse('site')).json()['showroom_video']
+
+    assert video['src'].startswith('http://testserver/media/')
+    assert video['src'].endswith('.mp4')
+    poster = video['poster']
+    assert (poster['width'], poster['height']) == (160, 90)
+
+
+@pytest.mark.django_db
+def test_showroom_video_empty(client):
+    assert client.get(reverse('site')).json()['showroom_video'] is None
+
+
+@pytest.mark.django_db
+def test_showroom_video_rejects_other_formats():
+    site = SiteSettings.get_solo()
+    site.showroom_video.save(
+        'tour.mov',
+        ContentFile(b'0', name='tour.mov'),
+        save=False,
+    )
+
+    with pytest.raises(ValidationError) as error:
+        site.full_clean()
+
+    assert 'showroom_video' in error.value.message_dict
+
+
+@pytest.mark.django_db
 def test_faq_in_order(client):
     Faq.objects.create(question='Второй', answer='б', position=2)
     Faq.objects.create(question='Первый', answer='а', position=1, on_home=True)
@@ -276,9 +317,13 @@ def test_loaddemo_is_repeatable(media):
     site = SiteSettings.get_solo()
     assert site.hours.count() == 3
     assert Post.objects.first().body.startswith('<h2>')
+    assert Category.objects.count() == 4
+    assert Brand.objects.filter(logo='').count() == 2
+    assert LeadTime.objects.count() == 14
     files = [path for path in media.rglob('*') if path.is_file()]
     assert ProjectPhoto.objects.count() == 6
-    assert len(files) == 4 + 6 + 3 + 5
+    # проекты, их доп. фото, статьи, шоурум, категории, логотипы
+    assert len(files) == 4 + 6 + 3 + 5 + 4 + 5
 
 
 # --- админка ---

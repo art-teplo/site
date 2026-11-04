@@ -20,6 +20,7 @@ api_urls = [
     path('', include('apps.core.urls')),
     path('', include('apps.leads.urls')),
     path('', include('apps.content.urls')),
+    path('', include('apps.catalog.urls')),
     path('schema/', include(schema_urls)),
 ]
 

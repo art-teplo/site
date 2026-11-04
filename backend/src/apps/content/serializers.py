@@ -12,11 +12,16 @@ from .models import (
 )
 
 
+def absolute(url, request):
+    """Абсолютный адрес: фото грузит Next, видео — браузер со страницы сайта,
+    а сайт и бэк могут жить на разных доменах."""
+    return request.build_absolute_uri(url) if request else url
+
+
 def image_asset(obj, request):
-    """Фото в форме ImageAsset фронта; адрес абсолютный — его грузит Next."""
-    url = obj.image.url
+    """Фото в форме ImageAsset фронта."""
     return {
-        'src': request.build_absolute_uri(url) if request else url,
+        'src': absolute(obj.image.url, request),
         'width': obj.image_width,
         'height': obj.image_height,
         'alt': obj.image_alt,
@@ -42,6 +47,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
     phone_href = serializers.SerializerMethodField()
     viber_url = serializers.SerializerMethodField()
     instagram_handle = serializers.SerializerMethodField()
+    showroom_video = serializers.SerializerMethodField()
 
     class Meta:
         model = SiteSettings
@@ -61,7 +67,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
             'legal_name',
             'unp',
             'yandex_org_id',
-            'showroom_video_url',
+            'showroom_video',
         ]
 
     # Пока настройки не заполнены, телефона нет — отдаём пустые строки
@@ -80,6 +86,24 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
     def get_instagram_handle(self, obj):
         path = urlparse(obj.instagram_url).path.strip('/')
         return f'@{path}' if path else ''
+
+    def get_showroom_video(self, obj):
+        """Видео и постер; без видео — null, на сайте фото «скоро»."""
+        if not obj.showroom_video:
+            return None
+        request = self.context.get('request')
+        poster = None
+        if obj.showroom_poster:
+            poster = {
+                'src': absolute(obj.showroom_poster.url, request),
+                'width': obj.showroom_poster_width,
+                'height': obj.showroom_poster_height,
+                'alt': 'Шоурум АртТепло',
+            }
+        return {
+            'src': absolute(obj.showroom_video.url, request),
+            'poster': poster,
+        }
 
 
 class FaqSerializer(serializers.ModelSerializer):

@@ -31,6 +31,8 @@ server {
 
     location /${ADMIN_PATH}/ {
         proxy_pass http://backend;
+        # Видео шоурума — до 100 МБ (MAX_VIDEO_MB в apps/content/models.py)
+        client_max_body_size 110m;
     }
 
     # Имена файлов с хэшем (ManifestStaticFilesStorage) — кэш на год.
@@ -47,6 +49,9 @@ server {
         proxy_pass http://backend;
         add_header Cache-Control "public, max-age=2592000" always;
         add_header X-Content-Type-Options "nosniff" always;
+        # Логотипы бывают SVG: открытый напрямую файл не должен исполнить скрипт
+        # на домене админки. В <img> на сайте SVG и так без скриптов
+        add_header Content-Security-Policy "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; sandbox" always;
     }
 
     # Next (профиль web). Пока его нет — 502, фронт живёт на Vercel

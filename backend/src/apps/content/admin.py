@@ -63,8 +63,12 @@ class SiteSettingsAdmin(SingletonModelAdmin, ModelAdmin):
             {'fields': ['legal_name', 'unp']},
         ),
         (
+            'Видео шоурума',
+            {'fields': ['showroom_video', 'showroom_poster']},
+        ),
+        (
             'Виджеты',
-            {'fields': ['yandex_org_id', 'showroom_video_url']},
+            {'fields': ['yandex_org_id']},
         ),
     ]
 

@@ -129,6 +129,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.leads',
     'apps.content',
+    'apps.catalog',
 ]
 
 MIDDLEWARE = [
@@ -366,6 +367,30 @@ UNFOLD = {
                         'icon': 'storefront',
                         'link': reverse_lazy(
                             'admin:content_showroomphoto_changelist',
+                        ),
+                    },
+                ],
+            },
+            {
+                'title': 'Каталог',
+                'items': [
+                    {
+                        'title': 'Категории',
+                        'icon': 'category',
+                        'link': reverse_lazy(
+                            'admin:catalog_category_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Бренды',
+                        'icon': 'factory',
+                        'link': reverse_lazy('admin:catalog_brand_changelist'),
+                    },
+                    {
+                        'title': 'Сроки изготовления',
+                        'icon': 'schedule',
+                        'link': reverse_lazy(
+                            'admin:catalog_leadtime_changelist',
                         ),
                     },
                 ],
