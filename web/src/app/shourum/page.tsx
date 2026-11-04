@@ -34,7 +34,6 @@ export default async function ShourumPage() {
       <Gallery
         id="zal"
         title="Как выглядит зал"
-        intro="Здесь будут фото зала после съёмки. Сейчас — демо-снимки, чтобы оценить подачу."
         images={showroomHall}
       />
       <Facts withMore={false} />
