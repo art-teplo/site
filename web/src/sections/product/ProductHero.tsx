@@ -6,7 +6,7 @@ import { Button } from "@/components/Button/Button";
 import { ChoiceGroup } from "@/components/Field/Field";
 import { LeadForm } from "@/components/LeadForm/LeadForm";
 import type { Brand, Product } from "@/data/types";
-import { site } from "@/data/site";
+import { useSite } from "@/components/SiteProvider/SiteProvider";
 import { cx, formatPrice } from "@/lib/format";
 import styles from "./ProductHero.module.css";
 
@@ -15,6 +15,7 @@ const variantLabel = (v: Product["variants"][number]) =>
 
 // Верх карточки: галерея слева, выбор варианта и цена справа (референс «675 Chair»).
 export function ProductHero({ product, brand }: { product: Product; brand?: Brand }) {
+  const site = useSite();
   const [active, setActive] = useState(0);
   const [variantId, setVariantId] = useState(product.variants[0].id);
   const [colorId, setColorId] = useState(product.colors[0].id);
@@ -61,7 +62,7 @@ export function ProductHero({ product, brand }: { product: Product; brand?: Bran
       <div className={styles.info}>
         <p className={styles.brand}>
           {brand?.name}
-          {brand?.country && brand.country !== "—" ? ` · ${brand.country}` : ""}
+          {brand?.country ? ` · ${brand.country}` : ""}
         </p>
         <h1 className={styles.name}>{product.name}</h1>
         <p className={styles.summary}>{product.summary}</p>

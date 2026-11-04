@@ -1,0 +1,62 @@
+# Шаблон: образ nginx подставляет ${ADMIN_PATH} из окружения при старте.
+
+upstream backend {
+    server backend:8000;
+    keepalive 16;
+}
+
+server {
+    listen 80 default_server;
+    server_name _;
+
+    # Заголовки ставит nginx для всех ответов; одноимённые от бэка скрываем,
+    # чтобы не было дублей
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    proxy_hide_header X-Content-Type-Options;
+    proxy_hide_header Referrer-Policy;
+
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    # nginx — первый прокси: заменяем, а не дописываем, иначе клиент подставит
+    # свой IP в начало цепочки (обход троттлинга, чужой IP в журнале согласий)
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    location /api/ {
+        proxy_pass http://backend;
+    }
+
+    location /${ADMIN_PATH}/ {
+        proxy_pass http://backend;
+        # Видео шоурума — до 100 МБ (MAX_VIDEO_MB в apps/content/models.py)
+        client_max_body_size 110m;
+    }
+
+    # Имена файлов с хэшем (ManifestStaticFilesStorage) — кэш на год.
+    # add_header здесь отменяет серверные, поэтому nosniff повторён
+    location /static/ {
+        proxy_pass http://backend;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    # Фото из админки, пока S3 выключен (с S3 адреса ведут прямо в бакет).
+    # Имя файла — UUID, при замене фото меняется, поэтому кэш долгий
+    location /media/ {
+        proxy_pass http://backend;
+        add_header Cache-Control "public, max-age=2592000" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        # Логотипы бывают SVG: открытый напрямую файл не должен исполнить скрипт
+        # на домене админки. В <img> на сайте SVG и так без скриптов
+        add_header Content-Security-Policy "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; sandbox" always;
+    }
+
+    # Next (профиль web). Пока его нет — 502, фронт живёт на Vercel
+    location / {
+        set $web http://web:3000;
+        proxy_pass $web;
+    }
+}

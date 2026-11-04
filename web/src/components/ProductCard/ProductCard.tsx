@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { Picture } from "@/components/Picture/Picture";
 import { Arrow } from "@/components/Button/Button";
-import { getBrand, priceFrom } from "@/data/catalog";
+import { priceFrom } from "@/data/catalog";
 import type { Product } from "@/data/types";
 import { formatPrice } from "@/lib/format";
 import styles from "./ProductCard.module.css";
 
 // Карточка товара в списке: фото 4:5, бренд, название, цена «от». Вся карточка — одна ссылка.
 // Наличие и срок не показываем — их уточняет менеджер (правки заказчика).
-export function ProductCard({ product, sizes = "(max-width: 767px) 50vw, 25vw", priority }: { product: Product; sizes?: string; priority?: boolean }) {
-  const brand = getBrand(product.brand);
+type Props = { product: Product; brand?: string; sizes?: string; priority?: boolean };
+
+export function ProductCard({ product, brand, sizes = "(max-width: 767px) 50vw, 25vw", priority }: Props) {
   return (
     <article className={styles.card}>
       <div className={styles.media}>
@@ -17,7 +18,7 @@ export function ProductCard({ product, sizes = "(max-width: 767px) 50vw, 25vw", 
         <Picture image={product.images[1]} sizes={sizes} className={styles.hoverImage} />
       </div>
       <div className={styles.body}>
-        <p className={styles.brand}>{brand?.name}</p>
+        <p className={styles.brand}>{brand}</p>
         <h3 className={styles.name}>
           <Link href={`/catalog/${product.category}/${product.slug}`} className={styles.link}>
             {product.name}

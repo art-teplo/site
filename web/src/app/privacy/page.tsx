@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = { title: "Политика обработки персональных данных" };
 
 // ЧЕРНОВИК структуры. Текст политики не юридически проверен (docs/brief.md, «Юридическое»).
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const site = await getSite();
   return (
     <Section className={styles.page} labelledBy="privacy-title">
       <Container className={styles.layout}>
@@ -25,7 +26,12 @@ export default function PrivacyPage() {
           <h2>Зачем</h2>
           <p>Чтобы связаться с вами, рассчитать стоимость и подобрать оборудование по вашей заявке.</p>
           <h2>Где хранятся и сколько</h2>
-          <p>Заявки уходят менеджерам в рабочий чат и на почту. Срок хранения и порядок удаления будут указаны в итоговой версии.</p>
+          <p>
+            Заявка и файл хранятся на сервере сайта 12 месяцев с даты отправки, затем удаляются автоматически. Чтобы менеджер
+            быстро перезвонил, заявка уходит в закрытую рабочую группу в Telegram. Серверы Telegram находятся за пределами
+            Беларуси — это трансграничная передача данных, на которую вы соглашаетесь отметкой под формой.
+          </p>
+          <p className={styles.draft}>[Уточнить у заказчика: где размещён сервер сайта]</p>
           <h2>Ваши права</h2>
           <p>Вы можете отозвать согласие, запросить сведения о своих данных или их удаление, написав на {site.email}.</p>
         </div>

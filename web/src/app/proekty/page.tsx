@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
-import { projects } from "@/data/content";
+import { getProjects } from "@/data/api";
 import { PageIntro } from "@/sections/page/PageIntro";
 import { ProjectsBrowser } from "@/sections/page/ProjectsBrowser";
 import { LeadSection } from "@/sections/home/LeadSection";
@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   description: "Квартиры, дома и жилые комплексы с нашими радиаторами — реальные фото после установки.",
 };
 
-export default function ProektyPage() {
+export default async function ProektyPage() {
+  const projects = await getProjects();
   return (
     <>
       <PageIntro

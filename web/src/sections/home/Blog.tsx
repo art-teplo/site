@@ -1,20 +1,32 @@
 import Link from "next/link";
+import { Button } from "@/components/Button/Button";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { posts } from "@/data/content";
+import { getPosts } from "@/data/api";
 import { formatDate } from "@/lib/format";
 import styles from "./Blog.module.css";
 
+const HOME_COUNT = 3;
+
 // Блог: три свежие статьи, карточка целиком ведёт на статью.
-export function Blog() {
+export async function Blog() {
+  const posts = (await getPosts()).slice(0, HOME_COUNT); // API отдаёт свежие первыми
   return (
     <Section tone="white" labelledBy="blog-title">
       <Container>
-        <SectionHead titleId="blog-title" title="Разбираемся в отоплении" />
+        <SectionHead
+          titleId="blog-title"
+          title="Разбираемся в отоплении"
+          aside={
+            <Button href="/blog" variant="ghost" arrow>
+              Все статьи
+            </Button>
+          }
+        />
         <ul className={styles.list}>
           {posts.map((post, i) => (
             <Reveal as="li" key={post.slug} index={i}>

@@ -1,0 +1,56 @@
+# Локальная разработка поверх прода: собираем образ из ../backend,
+# монтируем код, Django runserver с автоперезагрузкой, порты наружу.
+#   cp .env.example .env   # один раз
+#   docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
+# Админка: http://localhost:8080/admin/, API: http://localhost:8000/api/
+# pytest из backend/ ходит в этот postgres на localhost:5432.
+
+x-backend-dev: &backend_dev
+  image: art-teplo-backend:dev
+  build:
+    context: ../backend
+  user: "${UID:-1000}:${GID:-1000}"
+  # !override: вместо тома private_media — папка в смонтированном коде,
+  # иначе том создастся с владельцем из образа и UID 1000 не сможет писать
+  volumes: !override
+    - ../backend/src:/src
+
+services:
+  migrate:
+    <<: *backend_dev
+
+  backend:
+    <<: *backend_dev
+    command: ["runserver", "0.0.0.0:8000"]
+    # Фото для loaddemo: docker compose run --rm backend loaddemo
+    volumes: !override
+      - ../backend/src:/src
+      - ../web/public/images:/demo-images:ro
+    environment:
+      BACKEND__DEBUG: "1"
+    ports:
+      - "8000:8000"
+
+  celery_worker:
+    <<: *backend_dev
+    # Next в разработке запущен на хосте (npm run dev): revalidate идёт туда
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  celery_beat:
+    <<: *backend_dev
+
+  telegram_bot:
+    <<: *backend_dev
+
+  nginx:
+    ports: !override
+      - "8080:80"
+
+  postgres:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"

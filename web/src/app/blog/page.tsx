@@ -5,7 +5,7 @@ import { Section } from "@/components/Section/Section";
 import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { posts } from "@/data/content";
+import { getPosts } from "@/data/api";
 import { cx, formatDate } from "@/lib/format";
 import { PageIntro } from "@/sections/page/PageIntro";
 import { LeadSection } from "@/sections/home/LeadSection";
@@ -16,7 +16,8 @@ export const metadata: Metadata = {
   description: "Как выбрать радиатор, цвет и подключение: статьи шоурума АртТепло.",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getPosts();
   const [first, ...rest] = posts;
   return (
     <>

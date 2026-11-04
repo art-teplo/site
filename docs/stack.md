@@ -22,7 +22,7 @@
 
 ```
 internet → nginx ─┬─ /          → next      (node, standalone)
-                  ├─ /api/      → django    (gunicorn)
+                  ├─ /api/      → django    (uvicorn, ASGI)
                   ├─ /admin-xxx → django    (закрыт, см. раздел 4)
                   └─ /img/      → imgproxy → S3 (кэш nginx)
 
@@ -35,16 +35,16 @@ django, celery ── postgres
 | --- | --- | --- |
 | nginx | 80, 443 | единственный публичный сервис |
 | next | нет | `output: "standalone"`, ISR; сброс кэша вебхуком из Django при правке в админке |
-| django | нет | gunicorn, миграции отдельным one-off контейнером |
-| celery | нет | worker; beat — для задач по расписанию (сроки, курс валют) |
+| django | нет | uvicorn (ASGI, 2 воркера), миграции отдельным one-off контейнером `migrate` |
+| celery | нет | worker (prefork, 2 процесса); beat — для задач по расписанию (сроки, курс валют) |
 | postgres | нет | том + ночной бэкап |
-| redis | нет | с паролем, `maxmemory` с политикой `allkeys-lru` для кэша; брокер задач лучше держать в отдельной БД redis |
+| redis | нет | с паролем, `maxmemory` с политикой `volatile-lru`: вытесняется только кэш (ключи с TTL), брокер Celery — в отдельной БД redis и без TTL |
 | imgproxy | нет | подписанные URL, чтобы нельзя было гонять произвольные размеры |
 | minio | нет | если не внешний S3 |
 
 Для API и фронта один домен: Next ходит в Django по внутренней сети, браузер — через `/api/` на том же домене. CORS не нужен.
 
-Окружения: `docker-compose.yml` (база), `docker-compose.override.yml` (dev: hot reload, mailhog), `docker-compose.prod.yml`.
+Окружения: `root/docker-compose.yaml` (прод, образы из GHCR) + `root/docker-compose.infra.yaml` (postgres, redis); `root/docker-compose.dev.yaml` — поверх прода для локальной разработки (сборка из `backend/`, код смонтирован, runserver, порты наружу). Подробнее — раздел 7.
 
 ## 3. Данные и файлы
 
@@ -113,7 +113,7 @@ django, celery ── postgres
 Сервис	RAM, примерно
 ОС и Docker	0,4 ГБ
 Next (standalone)	0,3–0,4 ГБ
-Django, gunicorn на 3 воркера	0,4–0,5 ГБ
+Django, uvicorn на 2 воркера	0,25–0,5 ГБ (каркас: 0,25)
 Celery worker и beat	0,25–0,35 ГБ
 Postgres	0,3–0,5 ГБ
 Redis	0,1 ГБ
@@ -141,7 +141,79 @@ nginx	0,02 ГБ
 1. **S3: ActiveStorage, не MinIO.** MinIO занял бы диск сервера по 0,89 BYN/ГБ без резервирования и забрал бы память; хранилище провайдера дешевле, живёт отдельно от сервера и находится в РБ (снимает часть вопроса про передачу данных за границу). Проверить в бесплатный тест: подписанные ссылки, приватные бакеты, CORS, цена исходящего трафика из S3 (на странице не указана).
 2. **Видео: ссылка на YouTube/Vimeo в карточке + необязательный mp4 (до ~100 МБ, без перекодирования).** Своё видео шоурума и фон главной — короткие mp4 в S3. Встраивание через заглушку с `youtube-nocookie`, плеер грузится по клику. Перекодирование ffmpeg отложено, пока не понадобится.
 3. Капча: после первых спамовых заявок.
-4. CI/CD: GitHub Actions → образы в реестр → `docker compose pull && up -d` по SSH.
+4. CI/CD: GitHub Actions → образы в GHCR → `docker compose pull && up -d` по SSH. Как устроено — раздел 7.
 5. Админка: отдельный путь, закрыт на nginx (см. раздел 4).
 
+## 7. Как устроено сейчас (каркас, 2026-11-02)
 
+Решения и причины — [decisions.md](decisions.md), № 63–78.
+
+```
+art-teplo/
+  web/        Next.js; Dockerfile под output: "standalone" (на сервер пока не едет — фронт на Vercel)
+  backend/    Django 6.0 + DRF + Unfold, uv; src/settings (settings, asgi, celery, urls), src/apps/core
+  root/       docker-compose*.yaml, nginx/, deploy.sh, .env.example
+  .github/    workflows/ci.yml, workflows/deploy.yml, dependabot.yml
+```
+
+**Бэкенд.** Настройки — из env с префиксом `BACKEND__` (django-environ). `BUILD_MODE=1` — сборка образа без секретов и БД (collectstatic). ASGI: Starlette отдаёт `/static/` (запечено в образ), остальное — Django. Запуск: `startservice` (uvicorn), Celery — `python3 -m celery -A settings worker|beat`. Есть `GET /api/health/` (БД + кэш), схема API — `/api/schema/` и `/api/schema/swagger/` (в проде только для staff). Админка — на пути `BACKEND__ADMIN_PATH`.
+
+**Образ бэка.** Builder на `python:3.14-slim` + uv ставит только основные зависимости, собирает статику и байткод. Runtime — distroless `ubuntu/python:3.14-26.04`: нет shell, процесс от `_daemon_`, код только для чтения. Команды Django: `docker compose run --rm backend <команда>`.
+
+**Заявки.** `apps/leads`: `POST /api/leads/` (multipart, throttling 3/мин и 20/сутки на IP, honeypot, проверка телефона и сигнатуры файла) → Celery `notify_lead` → закрытая группа Telegram. Файлы — в `/src/private` (том `private_media`, общий для backend и celery_worker), не в `/src/media`, который ASGI отдаёт открыто; скачать — только из админки. Бот — aiogram 3 внутри бэка: сервис `telegram_bot` (команда `runbot`, `Dispatcher.start_polling`) принимает нажатия, Celery отправляет через тот же `aiogram.Bot`; хендлеры работают с `Lead` через асинхронный ORM Django. Обработка от способа получения не зависит — для вебхука хватит адреса в Django с `Dispatcher.feed_update`. Beat раз в сутки удаляет заявки старше `BACKEND__LEADS__RETENTION_DAYS` (365).
+
+**Контент.** `apps/content`: настройки сайта (django-solo), вопрос-ответ, проекты (с дополнительными фото), блог, галерея шоурума; API только на чтение (`/api/site/`, `/api/faq/`, `/api/projects/`, `/api/posts/`, `/api/showroom/`). Текст статей — редактор Unfold (Trix), HTML чистит `nh3`. Фото — `/src/media` (пока S3 выключен), в форме `ImageAsset` фронта с абсолютным адресом. Видео шоурума — файл MP4/WebM до 100 МБ в «Настройках сайта» (плюс постер); на сайте постер с кнопкой, файл грузится по нажатию. `/media/` отдаёт Starlette с поддержкой Range (перемотка, Safari); `runserver` в dev Range не умеет. Фронт кэширует ответы по тегам (`web/src/data/api.ts`); после сохранения или удаления записи Celery шлёт `POST /api/revalidate` на Next с тегом раздела и секретом.
+
+**Справочники каталога.** `apps/catalog`: категории (картинка товара без фона), бренды (логотип SVG/PNG/WebP — размеры для вёрстки считаются при загрузке, «гарантия до, лет»), сроки изготовления по сериям (бренд, серия, дни; дата «Обновлено» — по последней правке). API: `/api/categories/`, `/api/brands/`, `/api/lead-times/`, тег кэша `catalog`. Товары пока в `web/src/data/catalog.ts` и ссылаются на категории и бренды по slug.
+
+**nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/`, `/media/` (фото из админки, пока S3 выключен) → backend; `/` → `web:3000` (пока нет — 502). Тело запроса — до 55 МБ (файл заявки до 50 МБ), в админке — до 110 МБ (видео шоурума до 100 МБ). `X-Forwarded-For` nginx заменяет на `$remote_addr`, а не дописывает, и в DRF `NUM_PROXIES = 1`: клиент не может подставить свой IP (обход троттлинга, журнал согласий). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
+
+**CI** (`ci.yml`, на каждый PR и push в `main`; push в `develop` не запускает — всё проверено в PR): проверяется только изменённая часть, итог — задача `ci-ok`.
+- backend: ruff, `manage.py check`, `makemigrations --check`, pytest на Postgres;
+- web: `npm run lint`, `npm run build`;
+- root: `docker compose config` для прода, dev и профиля web;
+- образы backend и web собираются на каждом PR (проверка Dockerfile). Из `main` публикуется только `ghcr.io/leonenkk/art-teplo-backend` с тегами `main` и `sha-<7>`; задача `cleanup` оставляет 5 последних версий. Образ web начнём публиковать, когда фронт переедет на сервер.
+- лимиты бесплатного плана для приватного репозитория: Actions — $12 в месяц (около 2000 минут Linux, прогон CI около 11 минут); GHCR — 500 МБ хранения (вместе с артефактами Actions) и 1 ГБ скачиваний в месяц; сжатый образ бэка около 75 МБ, сервер при деплое качает только изменённые слои.
+
+**Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Запуск только из `main` (проверка в workflow). В GitHub — секреты и переменные **репозитория** (секреты окружений в приватном репозитории на бесплатном плане недоступны): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; variables `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), чистка старых образов. Откат — тот же запуск с тегом `sha-…` (есть только у коммитов в `main`, где менялся бэк, и только у 5 последних).
+
+**Подготовить сервер (один раз):** пользователь `deploy` в группе `docker`, вход только по ключу; Docker с compose; каталог `DEPLOY_PATH` с `.env` по `root/.env.example` (новые пароли, `chmod 600`); `ssh-keyscan` хоста — в `DEPLOY_KNOWN_HOSTS`; первый суперпользователь — `docker compose run --rm backend createsuperuser`.
+
+### Заявки: что сделать при переезде на прод
+
+Локально всё работает на тестовом боте и `localhost`. На сервере:
+
+**Telegram (руками, один раз)**
+- [ ] Боевой бот в @BotFather — на аккаунте заказчика или с передачей владения (`/mybots` → Transfer ownership). Тестовый бот остаётся для разработки: один токен нельзя опрашивать из двух мест.
+- [ ] Закрытая группа менеджеров, в ней бот и два админа группы; `/chatid` в группе → id в `.env`.
+- [ ] @BotFather → Bot Settings → Allow Groups → Turn off: бота больше никуда не добавить.
+- [ ] Если группа станет супергруппой (включили историю для новых, сделали публичной…), id меняется на `-100…`: бот пишет в лог `TelegramMigrateToChat` с новым id — заменить `CHAT_ID`.
+
+**`.env` на сервере** (по `root/.env.example`)
+- [ ] `BACKEND__TELEGRAM__BOT_TOKEN` — токен боевого бота; `BACKEND__TELEGRAM__CHAT_ID` — id группы.
+- [ ] `BACKEND__PUBLIC_URL=https://art-teplo.by` — ссылка «Открыть в админке» (адрес nginx, где живёт админка).
+- [ ] `BACKEND__SITE_URL` — ссылка «Открыть товар на сайте». Фронт на том же домене за nginx — оставить пустым (возьмётся `PUBLIC_URL`); фронт отдельно (Vercel) — его адрес.
+- [ ] `BACKEND__CORS_ALLOWED_ORIGINS` — адрес фронта со схемой (`https://art-teplo.by`; пока фронт на Vercel — и его домен), иначе браузер не пустит форму в API.
+- [ ] `BACKEND__ALLOWED_HOSTS`, `BACKEND__CSRF_TRUSTED_ORIGINS` — боевой домен вместо `localhost` и `lvh.me`.
+- [ ] `BACKEND__LEADS__RETENTION_DAYS=365` — срок из политики; поменяли — поправить и `/privacy`.
+
+**Контент**
+- [ ] `docker compose run --rm backend loaddemo` не запускать: на проде фото и тексты заводятся в админке (демо-фото чужие). Заполнить «Сайт → Настройки сайта» — без них в шапке и подвале пусто.
+- [ ] Секрет обновления страниц: `BACKEND__FRONTEND__REVALIDATE_SECRET` у бэка = `REVALIDATE_SECRET` у фронта; `BACKEND__FRONTEND__REVALIDATE_URL=http://web:3000/api/revalidate` (фронт за nginx — изнутри сети compose; снаружи `/api/` уходит в бэк). Фронт на Vercel — его адрес.
+- [ ] **До первой загрузки в админке:** включить S3 или подключить том на `/src/media` у backend. Сейчас тома нет — фото, логотипы и картинки категорий лежат внутри контейнера и пропадут при следующем деплое.
+- [ ] Фото из админки: пока S3 выключен, их отдаёт бэк через `/media/`; с S3 — проверить, что домен бакета попал в `images.remotePatterns` в `web/next.config.ts`.
+
+**Фронт**
+- [ ] `NEXT_PUBLIC_API_URL` — адрес бэка без слеша (`https://art-teplo.by`) там, где собирается боевой фронт. Переменная вшивается при сборке: после изменения — пересобрать. Без неё форма только имитирует отправку.
+
+**Сервер и nginx**
+- [ ] TLS; `limit_req` на `/api/leads/` поверх троттлинга DRF; basic auth на админку.
+- [ ] Том `private_media` (файлы заявок) — в бэкап вместе с Postgres; права — у пользователя контейнера (`584792`, ставит Dockerfile).
+- [ ] После первого запуска: в админке «Periodic tasks» есть `purge-old-leads` (раз в сутки, 3:30).
+- [ ] Проверка: заявка с сайта → сообщение в группе → «Беру» → в админке ответственный; файл приходит ответом.
+
+**Юридическое (от заказчика)**
+- [ ] Где стоит сервер — заглушка «[Уточнить у заказчика…]» в `web/src/app/privacy/page.tsx`.
+- [ ] Текст согласия и политики — проверить юристу. Поменяли текст у галочки — поднять `CONSENT_VERSION` в `LeadForm.tsx`.
+
+**Только для разработки, на прод не переносить:** `lvh.me` в `ALLOWED_HOSTS` / `CSRF_TRUSTED_ORIGINS` / `PUBLIC_URL` / `SITE_URL`, тестовый токен.

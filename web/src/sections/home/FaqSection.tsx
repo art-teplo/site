@@ -4,13 +4,13 @@ import { Section } from "@/components/Section/Section";
 import { Accordion } from "@/components/Accordion/Accordion";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Button } from "@/components/Button/Button";
-import { faq } from "@/data/content";
+import { getFaq } from "@/data/api";
 import styles from "./FaqSection.module.css";
 
 // Вопрос-ответ на главной: четыре самых частых вопроса, остальные — на странице «Клиентам».
-const HOME_FAQ_COUNT = 4;
 
-export function FaqSection() {
+export async function FaqSection() {
+  const faq = (await getFaq()).filter((item) => item.onHome);
   return (
     <Section id="faq" labelledBy="faq-title">
       <Container className={styles.layout}>
@@ -24,7 +24,7 @@ export function FaqSection() {
           </Button>
         </Reveal>
         <Reveal className={styles.main} index={1}>
-          <Accordion items={faq.slice(0, HOME_FAQ_COUNT)} />
+          <Accordion items={faq} />
           <Link href="/klientam#faq" className={styles.more}>
             Все вопросы и ответы
           </Link>

@@ -3,12 +3,14 @@ import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { brands, products } from "@/data/catalog";
+import { getBrands } from "@/data/api";
+import { products } from "@/data/catalog";
 import styles from "./Brands.module.css";
 
 // Бренды: логотип сверху, под ним страна и что берём у завода (как у российских конкурентов).
 // Логотипы приглушены в монохроме и проявляются в цвете при наведении. Нет логотипа — название набором.
-export function Brands({ withHead = true }: { withHead?: boolean }) {
+export async function Brands({ withHead = true }: { withHead?: boolean }) {
+  const brands = await getBrands();
   return (
     <Section tone="white" labelledBy={withHead ? "brands-title" : undefined}>
       <Container>
@@ -30,7 +32,7 @@ export function Brands({ withHead = true }: { withHead?: boolean }) {
                   <span className={styles.meta}>
                     <span className={styles.name}>
                       {b.name}
-                      {b.country !== "—" && <span className={styles.country}> · {b.country}</span>}
+                      {b.country && <span className={styles.country}> · {b.country}</span>}
                     </span>
                     <span>{b.note}</span>
                     {count > 0 && <span className={styles.count}>{count} в каталоге</span>}

@@ -1,0 +1,197 @@
+# Проверки и сборка образов. Каждая часть проверяется, только если её меняли.
+# Оба образа собираются на каждом PR (проверка Dockerfile). В GHCR из main
+# публикуется только backend (теги main и sha-<7>), хранятся 5 последних версий:
+# на бесплатном плане у приватных пакетов 500 МБ. Образ web — когда фронт переедет.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      web: ${{ steps.filter.outputs.web }}
+      root: ${{ steps.filter.outputs.root }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/ci.yml'
+            web:
+              - 'web/**'
+              - '.github/workflows/ci.yml'
+            root:
+              - 'root/**'
+              - '.github/workflows/ci.yml'
+
+  backend:
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:17.11-alpine
+        env:
+          POSTGRES_DB: artteplo
+          POSTGRES_USER: artteplo
+          POSTGRES_PASSWORD: artteplo
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U artteplo"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      BACKEND__SECRET_KEY: ci-secret-key
+      BACKEND__DATABASE_URL: postgres://artteplo:artteplo@localhost:5432/artteplo
+      BACKEND__CACHE_URL: locmemcache://
+      BACKEND__CELERY_BROKER_URL: memory://
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.11.24"
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - run: uv sync --locked
+      - name: Ruff
+        run: |
+          uv run ruff check --output-format=github
+          uv run ruff format --check
+      - name: Django check
+        run: uv run python src/manage.py check
+      - name: Миграции не забыты
+        run: uv run python src/manage.py makemigrations --check --dry-run
+      - name: Тесты
+        run: uv run pytest
+
+  web:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+  compose:
+    needs: changes
+    if: needs.changes.outputs.root == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: root
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Compose-файлы валидны
+        run: |
+          cp .env.example .env
+          docker compose config -q
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml config -q
+          COMPOSE_PROFILES=web docker compose config -q
+
+  images:
+    needs: [changes, backend, web]
+    if: >-
+      !cancelled() && !contains(needs.*.result, 'failure')
+      && (needs.changes.outputs.backend == 'true' || needs.changes.outputs.web == 'true')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [backend, web]
+    env:
+      PUBLISH: ${{ github.event_name == 'push' && matrix.image == 'backend' }}
+    steps:
+      - name: Изменилась ли часть
+        id: skip
+        run: echo "changed=${{ needs.changes.outputs[matrix.image] }}" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.skip.outputs.changed == 'true'
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+        if: steps.skip.outputs.changed == 'true'
+      - uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        if: steps.skip.outputs.changed == 'true' && env.PUBLISH == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        if: steps.skip.outputs.changed == 'true'
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository }}-${{ matrix.image }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix=sha-
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        if: steps.skip.outputs.changed == 'true'
+        with:
+          context: ${{ matrix.image }}
+          push: ${{ env.PUBLISH == 'true' }}
+          # Одна версия пакета на сборку: без attestation-манифестов в GHCR
+          provenance: false
+          sbom: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ github.sha }}
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,scope=${{ matrix.image }},mode=max
+
+  cleanup:
+    needs: images
+    if: github.event_name == 'push' && needs.images.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/delete-package-versions@e5bc658cc4c965c472efe991f8beea3981499c55 # v5.0.0
+        with:
+          package-name: art-teplo-backend
+          package-type: container
+          min-versions-to-keep: 5
+
+  # Одна галочка «весь CI зелёный»: пропущенные части не считаются ошибкой
+  ci-ok:
+    needs: [changes, backend, web, compose, images]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Проверить результаты
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: exit 1
+      - run: echo "CI ok"
