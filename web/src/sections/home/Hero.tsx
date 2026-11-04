@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { Button } from "@/components/Button/Button";
 import { Picture } from "@/components/Picture/Picture";
 import { SplitText } from "@/components/SplitText/SplitText";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import styles from "./Hero.module.css";
 
 // Где на фото светящиеся плафоны, в процентах кадра 1940×1201 — сюда ложится свечение ламп
@@ -15,7 +15,8 @@ const lamps = [
 
 // Первый экран: вечерний интерьер. При загрузке комната в полумраке, лампы зажигаются по очереди,
 // свет проявляет комнату, у радиатора остаётся тёплое «дыхание». При прокрутке кадр уходит с параллаксом.
-export function Hero() {
+export async function Hero() {
+  const site = await getSite();
   return (
     <section className={styles.hero} data-tone="dark" aria-labelledby="hero-title">
       <div className={styles.stage}>

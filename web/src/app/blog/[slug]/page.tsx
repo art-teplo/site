@@ -7,24 +7,24 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import { SplitText } from "@/components/SplitText/SplitText";
-import { getPost, posts } from "@/data/content";
+import { getPost, getPosts } from "@/data/api";
 import { formatDate } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
 import styles from "./page.module.css";
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await getPosts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
-  const post = getPost((await params).slug);
+  const post = await getPost((await params).slug);
   return post ? { title: post.title, description: post.lead } : {};
 }
 
 export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
-  const post = getPost((await params).slug);
+  const post = await getPost((await params).slug);
   if (!post) notFound();
-  const others = posts.filter((p) => p.slug !== post.slug);
+  const others = (await getPosts()).filter((p) => p.slug !== post.slug);
 
   return (
     <>
@@ -46,21 +46,8 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               <Picture image={post.image} sizes="(max-width: 1023px) 100vw, 1200px" eager />
             </Frame>
 
-            <div className={styles.body}>
-              {post.body.map((block, i) =>
-                "h2" in block ? (
-                  <h2 key={i}>{block.h2}</h2>
-                ) : "list" in block ? (
-                  <ul key={i}>
-                    {block.list.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p key={i}>{block.p}</p>
-                ),
-              )}
-            </div>
+            {/* HTML из редактора админки; бэк оставляет только безопасные теги (apps/content/html.py) */}
+            <div className={styles.body} dangerouslySetInnerHTML={{ __html: post.body }} />
           </article>
         </Container>
       </Section>

@@ -14,7 +14,7 @@ export type Category = {
   slug: CategorySlug;
   name: string;
   short: string;
-  image: ImageAsset;
+  image: ImageAsset; // товар без фона, PNG с прозрачностью
 };
 
 export type Brand = {
@@ -72,22 +72,41 @@ export type Project = {
   kind: "квартира" | "дом" | "ЖК";
   place: string;
   image: ImageAsset;
+  photos: ImageAsset[]; // ещё фото — листаются в галерее вместе с главным
   products: string[]; // Product.slug — связь необязательная
 };
 
-export type Faq = { q: string; a: string };
+export type Faq = { q: string; a: string; onHome: boolean };
 
-// Тело статьи — простые блоки; из админки придёт тем же списком
-export type PostBlock = { h2: string } | { p: string } | { list: string[] };
-
-export type Post = {
+// Карточка статьи в списках; текст — только на странице статьи
+export type PostCard = {
   slug: string;
   title: string;
   date: string;
   readMinutes: number;
   image: ImageAsset;
   lead: string;
-  body: PostBlock[];
+};
+
+// body — HTML из редактора админки, очищенный бэком (apps/content/html.py)
+export type Post = PostCard & { body: string };
+
+// Контакты и реквизиты — «Настройки сайта» в админке
+export type Site = {
+  city: string;
+  address: string;
+  mapUrl: string;
+  phone: string;
+  phoneHref: string;
+  email: string;
+  hours: { days: string; time: string }[];
+  viber: string;
+  telegram: string;
+  instagram: string;
+  instagramHandle: string;
+  legalName: string;
+  unp: string;
+  replyPromise: string;
 };
 
 export type Service = {

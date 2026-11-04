@@ -5,12 +5,13 @@ import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import { Button } from "@/components/Button/Button";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import styles from "./Showroom.module.css";
 
 // 09 · Шоурум. Видео — постер с кнопкой (файл подставится позже, см. images-manifest.md);
 // карта Яндекса — ссылкой, чтобы не грузить тяжёлый iframe на главной.
-export function Showroom() {
+export async function Showroom() {
+  const site = await getSite();
   return (
     <Section id="showroom" tone="dark" labelledBy="showroom-title">
       <Container>

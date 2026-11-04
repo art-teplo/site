@@ -10,7 +10,7 @@ import { Picture } from "@/components/Picture/Picture";
 import { ProductCard } from "@/components/ProductCard/ProductCard";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { getBrand, getCategory, getProduct, priceFrom, products } from "@/data/catalog";
-import { projects } from "@/data/content";
+import { getProjects } from "@/data/api";
 import { formatPrice } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
 import { ProductHero } from "@/sections/product/ProductHero";
@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: PageProps<"/catalog/[categ
   if (!product || !category || product.category !== category.slug) notFound();
 
   const brand = getBrand(product.brand);
-  const inProjects = projects.filter((p) => p.products.includes(product.slug));
+  const inProjects = (await getProjects()).filter((p) => p.products.includes(product.slug));
   const related = products.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 3);
 
   return (

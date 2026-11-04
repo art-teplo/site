@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/Button/Button";
 import { Checkbox, ChoiceGroup, FileField, TextArea, TextField } from "@/components/Field/Field";
-import { site } from "@/data/site";
+import { useSite } from "@/components/SiteProvider/SiteProvider";
 import { cx } from "@/lib/format";
 import styles from "./LeadForm.module.css";
 
@@ -32,6 +32,7 @@ const FIELD_ERRORS = ["name", "phone", "consent", "file"] as const;
 
 // Единая форма заявки (brief.md → «Заявка»): POST /api/leads/ → группа менеджеров в Telegram.
 export function LeadForm({ source, context, withFile = true, submitLabel = "Отправить заявку", compact, partner }: Props) {
+  const site = useSite();
   const [method, setMethod] = useState<string>(CONTACT_METHODS[0]);
   const [fileName, setFileName] = useState("");
   const [errors, setErrors] = useState<Errors>({});

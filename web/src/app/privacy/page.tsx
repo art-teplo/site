@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = { title: "Политика обработки персональных данных" };
 
 // ЧЕРНОВИК структуры. Текст политики не юридически проверен (docs/brief.md, «Юридическое»).
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const site = await getSite();
   return (
     <Section className={styles.page} labelledBy="privacy-title">
       <Container className={styles.layout}>

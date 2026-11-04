@@ -5,7 +5,8 @@ import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Accordion } from "@/components/Accordion/Accordion";
 import { brands, products } from "@/data/catalog";
-import { delivery, faq, LEAD_TIMES_UPDATED, payment } from "@/data/content";
+import { getFaq } from "@/data/api";
+import { delivery, LEAD_TIMES_UPDATED, payment } from "@/data/content";
 import { formatDate } from "@/lib/format";
 import { PageIntro, AnchorNav } from "@/sections/page/PageIntro";
 import { InfoGrid } from "@/sections/page/InfoGrid";
@@ -20,7 +21,8 @@ export const metadata: Metadata = {
 // Ориентир по серии; наличие на сайте не показываем — его уточняет менеджер
 const leadTime = (p: Product) => (p.leadDays ? `до ${p.leadDays} дней` : "уточнит менеджер");
 
-export default function KlientamPage() {
+export default async function KlientamPage() {
+  const faq = await getFaq();
   const warranty = brands
     .map((b) => {
       const own = products.filter((p) => p.brand === b.slug);

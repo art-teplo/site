@@ -6,13 +6,15 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Logo } from "@/components/Logo/Logo";
 import { Button } from "@/components/Button/Button";
 import { getLenis } from "@/components/SmoothScroll/SmoothScroll";
-import { menu, nav, site } from "@/data/site";
+import { menu, nav } from "@/data/site";
+import { useSite } from "@/components/SiteProvider/SiteProvider";
 import { cx } from "@/lib/format";
 import styles from "./Header.module.css";
 
 // Шапка: короткий ряд разделов наверху страницы; при прокрутке он уходит, остаётся «Меню»
 // с полным списком разделов (как у radiator.center). Прозрачная поверх тёмного hero главной.
 export function Header() {
+  const site = useSite();
   const pathname = usePathname();
   const overHero = pathname === "/";
   const [scrolled, setScrolled] = useState(false);

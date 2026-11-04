@@ -3,12 +3,13 @@ import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Button } from "@/components/Button/Button";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import styles from "./Reviews.module.css";
 
 // 10 · Отзывы. Своих отзывов не пишем (brief.md) — здесь будет виджет Яндекс.Карт.
 // TODO: вставить iframe виджета (yandex.ru/sprav/widget/...) с id организации, загрузка по клику.
-export function Reviews() {
+export async function Reviews() {
+  const site = await getSite();
   return (
     <Section tone="white" labelledBy="reviews-title">
       <Container>

@@ -3,17 +3,21 @@ import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { Button } from "@/components/Button/Button";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import { PageIntro } from "@/sections/page/PageIntro";
 import { LeadSection } from "@/sections/home/LeadSection";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "Контакты",
-  description: `Шоурум АртТепло: ${site.city}, ${site.address}. Телефон ${site.phone}, Viber, Telegram.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  return {
+    title: "Контакты",
+    description: `Шоурум АртТепло: ${site.city}, ${site.address}. Телефон ${site.phone}, Viber, Telegram.`,
+  };
+}
 
-export default function KontaktyPage() {
+export default async function KontaktyPage() {
+  const site = await getSite();
   return (
     <>
       <PageIntro title="Контакты" intro="Звоните, пишите в мессенджер или приезжайте — радиаторы лучше выбирать вживую." />

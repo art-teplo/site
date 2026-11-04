@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { showroomHall } from "@/data/content";
+import { getShowroom } from "@/data/api";
 import { PageIntro, AnchorNav } from "@/sections/page/PageIntro";
 import { Gallery } from "@/sections/page/Gallery";
 import { Showroom } from "@/sections/home/Showroom";
@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 };
 
 // Шоурум: где и когда, как выглядит зал, затем о компании и брендах.
-export default function ShourumPage() {
+export default async function ShourumPage() {
+  const showroomHall = await getShowroom();
   return (
     <>
       <PageIntro

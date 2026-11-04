@@ -2,7 +2,7 @@ import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { LeadForm } from "@/components/LeadForm/LeadForm";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { site } from "@/data/site";
+import { getSite } from "@/data/api";
 import styles from "./LeadSection.module.css";
 
 type Props = {
@@ -14,13 +14,14 @@ type Props = {
 };
 
 // Главная форма заявки внизу страниц. Сюда ведут все кнопки «Заявка».
-export function LeadSection({
+export async function LeadSection({
   source = "home",
   id = "lead",
   title = "Остались вопросы",
   text = "Оставьте телефон или пришлите план — посчитаем мощность и подберём 2–3 варианта. Бесплатно и ни к чему не обязывает.",
   partner,
 }: Props) {
+  const site = await getSite();
   return (
     <Section id={id} tone="dark" labelledBy={`${id}-title`}>
       <Container className={styles.layout}>

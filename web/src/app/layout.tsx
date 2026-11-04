@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Onest } from "next/font/google";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
+import { SiteProvider } from "@/components/SiteProvider/SiteProvider";
 import { SmoothScroll } from "@/components/SmoothScroll/SmoothScroll";
+import { getSite } from "@/data/api";
 import "@/styles/tokens.css";
 import "@/styles/base.css";
 
@@ -23,7 +25,8 @@ export const viewport: Viewport = {
   themeColor: "#0e0c0b",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const site = await getSite();
   return (
     <html lang="ru" className={onest.variable} suppressHydrationWarning>
       <head>
@@ -35,9 +38,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           К содержанию
         </a>
         <SmoothScroll />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <SiteProvider site={site}>
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+        </SiteProvider>
       </body>
     </html>
   );
