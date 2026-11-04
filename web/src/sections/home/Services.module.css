@@ -32,10 +32,6 @@
   transition: transform var(--dur-fast) var(--ease-out);
 }
 
-.num {
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
 
 .title {
   font-family: var(--font-display);

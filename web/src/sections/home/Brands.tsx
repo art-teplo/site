@@ -24,7 +24,7 @@ export async function Brands({ withHead = true }: { withHead?: boolean }) {
                   <span className={styles.logoBox}>
                     {b.logo ? (
                       // eslint-disable-next-line @next/next/no-img-element -- SVG/PNG логотипы без оптимизации
-                      <img src={b.logo.src} width={b.logo.width} height={b.logo.height} alt={b.name} loading="lazy" className={styles.logo} />
+                      <img src={b.logo} alt={b.name} loading="lazy" className={styles.logo} />
                     ) : (
                       <span className={styles.wordmark}>{b.name}</span>
                     )}
