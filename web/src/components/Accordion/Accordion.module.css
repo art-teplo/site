@@ -27,10 +27,6 @@
   color: var(--color-accent);
 }
 
-.num {
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
 
 .q {
   transition: color var(--dur-fast) var(--ease-out);
@@ -86,19 +82,5 @@
   .item[open]::details-content {
     height: auto;
     opacity: 1;
-  }
-}
-
-@media (max-width: 767px) {
-  .summary {
-    grid-template-columns: 1fr auto;
-  }
-
-  .num {
-    display: none;
-  }
-
-  .a {
-    margin-left: 0;
   }
 }

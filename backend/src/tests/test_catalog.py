@@ -1,57 +1,12 @@
 from unittest.mock import patch
 
 import pytest
-from django.core.exceptions import ValidationError
-from django.core.files.base import ContentFile
 from django.urls import reverse
 
-from apps.catalog.models import Brand, Category, LeadTime, logo_size
+from apps.catalog.models import Brand, Category, LeadTime
 from apps.content.models import Tag
 from apps.content.tasks import revalidate_frontend
-from tests.test_content import media, png, with_image  # noqa: F401
-
-SVG = (
-    b'<?xml version="1.0"?>\n'
-    b'<svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" '
-    b'viewBox="0 0 224 52"><path d="M0 0h1"/></svg>'
-)
-
-
-def svg(content=SVG):
-    return ContentFile(content, name='logo.svg')
-
-
-# --- размеры логотипа ---
-
-
-def test_logo_size_from_svg_view_box():
-    assert logo_size(svg()) == (224, 52)
-
-
-def test_logo_size_from_svg_width_height():
-    content = b'<svg width="168px" height="87.4" stroke-width="3"></svg>'
-
-    assert logo_size(svg(content)) == (168, 87)
-
-
-def test_logo_size_from_png():
-    assert logo_size(png(120, 40)) == (120, 40)
-
-
-def test_logo_size_rejects_svg_without_size():
-    with pytest.raises(ValidationError):
-        logo_size(svg(b'<svg xmlns="http://www.w3.org/2000/svg"></svg>'))
-
-
-@pytest.mark.django_db
-def test_brand_saves_logo_size():
-    brand = Brand(slug='guardo', name='Guardo', note='Радиаторы')
-    brand.logo.save('logo.svg', svg(), save=False)
-    brand.save()
-
-    brand.refresh_from_db()
-    assert (brand.logo_width, brand.logo_height) == (224, 52)
-
+from tests.test_content import media, with_image  # noqa: F401
 
 # --- API ---
 

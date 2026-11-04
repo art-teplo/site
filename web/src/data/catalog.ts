@@ -32,12 +32,12 @@ export const categories: Category[] = [
 ];
 
 export const brands: Brand[] = [
-  { slug: "kzto", name: "КЗТО", country: "Россия", note: "Официальный представитель в Беларуси", logo: { src: "/images/brands/kzto.png", width: 111, height: 81 }, warrantyYears: 10 },
-  { slug: "guardo", name: "Guardo", country: "Россия", note: "Трубчатые радиаторы и полотенцесушители", logo: { src: "/images/brands/guardo.svg", width: 224, height: 52 }, warrantyYears: 10 },
-  { slug: "radimax", name: "Радимакс", country: "Россия", note: "Чугунные радиаторы Style Retro", logo: { src: "/images/brands/radimax.png", width: 686, height: 296 }, warrantyYears: 10 },
-  { slug: "royal-thermo", name: "Royal Thermo", country: "Италия", note: "Радиаторы", logo: { src: "/images/brands/royal-thermo.svg", width: 168, height: 87 }, warrantyYears: 10 },
+  { slug: "kzto", name: "КЗТО", country: "Россия", note: "Официальный представитель в Беларуси", logo: "/images/brands/kzto.png", warrantyYears: 10 },
+  { slug: "guardo", name: "Guardo", country: "Россия", note: "Трубчатые радиаторы и полотенцесушители", logo: "/images/brands/guardo.svg", warrantyYears: 10 },
+  { slug: "radimax", name: "Радимакс", country: "Россия", note: "Чугунные радиаторы Style Retro", logo: "/images/brands/radimax.png", warrantyYears: 10 },
+  { slug: "royal-thermo", name: "Royal Thermo", country: "Италия", note: "Радиаторы", logo: "/images/brands/royal-thermo.svg", warrantyYears: 10 },
   { slug: "nova", name: "Nova", country: "Китай", note: "Трубчатые радиаторы", warrantyYears: 5 },
-  { slug: "carisa", name: "Carisa", country: "", note: "Дизайн-радиаторы и полотенцесушители", logo: { src: "/images/brands/carisa.png", width: 900, height: 285 }, warrantyYears: 3 },
+  { slug: "carisa", name: "Carisa", country: "", note: "Дизайн-радиаторы и полотенцесушители", logo: "/images/brands/carisa.png", warrantyYears: 3 },
   { slug: "sr", name: "SR Rubinetterie", country: "Италия", note: "Арматура и автоматика", warrantyYears: 5 },
 ];
 

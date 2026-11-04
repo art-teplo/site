@@ -1,9 +1,5 @@
-import re
-
-from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
-from PIL import Image, UnidentifiedImageError
 
 from apps.content.models import (
     MAX_IMAGE_MB,
@@ -15,43 +11,6 @@ from apps.content.models import (
 from apps.core.utils import AutoUploadTo, FileSizeValidator, SizeUnit
 
 LOGO_EXTENSIONS = ['svg', 'png', 'webp']
-SVG_TAG = re.compile(rb'<svg\b[^>]*>', re.IGNORECASE)
-NUMBER = re.compile(r'[\d.]+')
-
-
-def svg_attribute(tag: str, name: str) -> str:
-    # (?<![\w-]) — чтобы width не нашёлся внутри stroke-width
-    match = re.search(rf'(?<![\w-]){name}\s*=\s*["\']([^"\']*)', tag)
-    return match[1] if match else ''
-
-
-def logo_size(file) -> tuple[int, int]:
-    """Размеры логотипа для вёрстки: у PNG/WebP — в пикселях,
-    у SVG — из viewBox или width/height."""
-    file.seek(0)
-    if file.name.lower().endswith('.svg'):
-        match = SVG_TAG.search(file.read())
-        if not match:
-            msg = 'Не получилось прочитать SVG'
-            raise ValidationError(msg)
-        tag = match[0].decode(errors='ignore')
-        view_box = svg_attribute(tag, 'viewBox').replace(',', ' ').split()
-        if len(view_box) == 4:
-            width, height = view_box[2:]
-        else:
-            width = svg_attribute(tag, 'width')
-            height = svg_attribute(tag, 'height')
-        sizes = [NUMBER.match(value) for value in (width, height)]
-        if not all(sizes):
-            msg = 'У SVG нет viewBox или width/height'
-            raise ValidationError(msg)
-        return tuple(round(float(size[0])) for size in sizes)
-    try:
-        with Image.open(file) as image:
-            return image.size
-    except UnidentifiedImageError as error:
-        msg = 'Файл не похож на картинку'
-        raise ValidationError(msg) from error
 
 
 class Category(Published, WithImage, Sortable):
@@ -110,14 +69,6 @@ class Brand(Published, Sortable):
         ],
         help_text='Лучше SVG или PNG без фона. Пусто — на сайте название текстом',
     )
-    logo_width = models.PositiveIntegerField(
-        editable=False,
-        null=True,
-    )
-    logo_height = models.PositiveIntegerField(
-        editable=False,
-        null=True,
-    )
     warranty_years = models.PositiveSmallIntegerField(
         'гарантия до, лет',
         null=True,
@@ -131,17 +82,6 @@ class Brand(Published, Sortable):
 
     def __str__(self):
         return self.name
-
-    def clean(self):
-        if self.logo and not self.logo._committed:  # noqa: SLF001 — новый файл
-            self.logo_width, self.logo_height = logo_size(self.logo)
-
-    def save(self, *args, **kwargs):
-        if not self.logo:
-            self.logo_width = self.logo_height = None
-        elif not self.logo._committed or not self.logo_width:  # noqa: SLF001
-            self.logo_width, self.logo_height = logo_size(self.logo)
-        super().save(*args, **kwargs)
 
 
 class LeadTime(Sortable):

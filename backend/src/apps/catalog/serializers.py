@@ -21,11 +21,7 @@ class BrandSerializer(serializers.ModelSerializer):
     def get_logo(self, obj):
         if not obj.logo:
             return None
-        return {
-            'src': absolute(obj.logo.url, self.context.get('request')),
-            'width': obj.logo_width,
-            'height': obj.logo_height,
-        }
+        return absolute(obj.logo.url, self.context.get('request'))
 
 
 class LeadTimeSerializer(serializers.ModelSerializer):
