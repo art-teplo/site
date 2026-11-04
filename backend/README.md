@@ -1,7 +1,7 @@
 # art-teplo.by — бэкенд
 
 Django 6.0 + DRF + Unfold, Celery, Postgres, Redis; ASGI на uvicorn. Зависимости — [uv](https://docs.astral.sh/uv/).
-Как устроено и почему — [`../docs/stack.md`](../docs/stack.md) (раздел 7) и [`../docs/decisions.md`](../docs/decisions.md) (№ 63–78).
+Как устроено и почему — [`../docs/stack.md`](../docs/stack.md) (раздел 7) и [`../docs/decisions.md`](../docs/decisions.md) (с № 63).
 
 ## Запуск локально
 
@@ -16,7 +16,7 @@ docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backen
 
 - API: http://localhost:8000/api/health/, Swagger: http://localhost:8000/api/schema/swagger/
 - Админка через nginx: http://localhost:8080/admin/
-- Команды Django: `docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backend <команда>` (в образе нет shell)
+- Команды Django: `docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backend <команда>`. В уже запущенном контейнере — `… exec -T backend python3 manage.py <команда>`: образ distroless, нет `sh` и `python`, только `python3`.
 
 ## Проверки (из `backend/`)
 
@@ -41,7 +41,7 @@ src/
   apps/content/   настройки сайта (django-solo), вопрос-ответ, проекты, блог, шоурум: API только на чтение,
                   html.py (чистка текста статей), сигнал фронту обновить страницы; команда loaddemo
                   (заливает и каталог)
-  apps/catalog/   категории, бренды (логотип SVG/PNG, «гарантия до»), сроки изготовления по сериям;
+  apps/catalog/   категории, бренды (логотип SVG/PNG/WebP, «гарантия до»), сроки изготовления по сериям;
                   товары пока в коде фронта и ссылаются на них по slug. Тег кэша фронта — catalog
   tests/          pytest
 ```
@@ -50,10 +50,10 @@ src/
 
 ## Контент локально
 
-Настройки сайта, вопрос-ответ, проекты, блог и шоурум — в админке, раздел «Сайт». Наполнить демо-записями с фронта (вместе с фото из `web/public/images`):
+Настройки сайта (с видео шоурума), вопрос-ответ, проекты, блог и шоурум — в админке, раздел «Сайт»; категории, бренды и сроки — раздел «Каталог». Наполнить демо-записями с фронта (вместе с фото из `web/public/images`):
 
 ```bash
-docker compose run --rm backend loaddemo   # из root/, с dev-compose
+docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backend loaddemo   # из root/
 ```
 
 Повторный запуск обновляет записи и не дублирует фото. Чтобы правки сразу появлялись на `localhost:3000`, задайте одинаковый секрет в `root/.env` (`BACKEND__FRONTEND__REVALIDATE_URL=http://host.docker.internal:3000/api/revalidate`, `BACKEND__FRONTEND__REVALIDATE_SECRET`) и в `web/.env.local` (`REVALIDATE_SECRET`), см. `web/.env.example`. Без этого фронт обновит страницы сам — в течение часа.
