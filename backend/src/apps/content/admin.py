@@ -137,7 +137,6 @@ class PostAdmin(ModelAdmin):
     ]
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
-        # Редактор — только для текста статьи, лид — обычное поле
         if db_field.name == 'body':
             kwargs['widget'] = WysiwygWidget
         return super().formfield_for_dbfield(db_field, request, **kwargs)

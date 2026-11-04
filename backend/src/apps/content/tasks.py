@@ -34,7 +34,6 @@ def revalidate_frontend(tag: str):
         with urlopen(request, timeout=TIMEOUT):  # noqa: S310
             logger.info('Фронт обновит тег %s', tag)
     except HTTPError as error:
-        # 4xx — не тот секрет или адрес: повтор не поможет, нужна правка .env
         if error.code < 500:
             logger.exception(
                 'Фронт отклонил обновление тега %s: %s', tag, error.code

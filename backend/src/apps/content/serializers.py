@@ -70,7 +70,6 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
             'showroom_video',
         ]
 
-    # Пока настройки не заполнены, телефона нет — отдаём пустые строки
     def get_phone(self, obj):
         return obj.phone.as_international if obj.phone else ''
 
