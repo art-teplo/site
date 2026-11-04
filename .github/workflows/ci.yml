@@ -31,6 +31,10 @@ jobs:
       - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
         id: filter
         with:
+          # Пуш в main сравниваем с прошлым состоянием main. По умолчанию — с веткой по умолчанию
+          # (develop), а после релиза они совпадают: 0 изменений, образ не публиковался. В PR пусто —
+          # список файлов берётся из самого PR
+          base: ${{ github.event_name == 'push' && github.ref || '' }}
           filters: |
             backend:
               - 'backend/**'
