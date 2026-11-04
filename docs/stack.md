@@ -160,7 +160,7 @@ art-teplo/
 
 **Образ бэка.** Builder на `python:3.14-slim` + uv ставит только основные зависимости, собирает статику и байткод. Runtime — distroless `ubuntu/python:3.14-26.04`: нет shell, процесс от `_daemon_`, код только для чтения. Команды Django: `docker compose run --rm backend <команда>`.
 
-**nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/` → backend; `/` → `web:3000` (пока нет — 502). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
+**nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/` → backend; `/` → `web:3000` (пока нет — 502). `X-Forwarded-For` nginx заменяет на `$remote_addr`, а не дописывает, и в DRF `NUM_PROXIES = 1`: клиент не может подставить свой IP (обход троттлинга, журнал согласий). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
 
 **CI** (`ci.yml`, на каждый PR и push в `main`; push в `develop` не запускает — всё проверено в PR): проверяется только изменённая часть, итог — задача `ci-ok`.
 - backend: ruff, `manage.py check`, `makemigrations --check`, pytest на Postgres;

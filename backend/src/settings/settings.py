@@ -262,6 +262,8 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '120/min',
     },
+    # Перед бэком ровно один прокси (nginx): IP клиента — последний в X-Forwarded-For
+    'NUM_PROXIES': 1,
 }
 
 # --- unfold ---
