@@ -1,0 +1,170 @@
+{
+  "categories": [
+    {
+      "slug": "radiatory",
+      "name": "Радиаторы",
+      "short": "Трубчатые, дизайн-радиаторы, чугунные",
+      "image": {
+        "src": "/images/categories/radiatory.png",
+        "alt": "Трубчатый радиатор с термоголовкой"
+      }
+    },
+    {
+      "slug": "konvektory",
+      "name": "Конвекторы",
+      "short": "Внутрипольные и напольные",
+      "image": {
+        "src": "/images/categories/konvektory.png",
+        "alt": "Внутрипольный конвектор со свёрнутой решёткой"
+      }
+    },
+    {
+      "slug": "polotentsesushiteli",
+      "name": "Полотенцесушители",
+      "short": "Водяные и электрические",
+      "image": {
+        "src": "/images/categories/polotentsesushiteli.png",
+        "alt": "Водяной полотенцесушитель-лесенка"
+      }
+    },
+    {
+      "slug": "armatura",
+      "name": "Арматура",
+      "short": "Вентили и автоматика",
+      "image": {
+        "src": "/images/categories/armatura.png",
+        "alt": "Узел нижнего подключения радиатора"
+      }
+    }
+  ],
+  "brands": [
+    {
+      "slug": "kzto",
+      "name": "КЗТО",
+      "country": "Россия",
+      "note": "Официальный представитель в Беларуси",
+      "logo": "/images/brands/kzto.png",
+      "warranty_years": 10
+    },
+    {
+      "slug": "guardo",
+      "name": "Guardo",
+      "country": "Россия",
+      "note": "Трубчатые радиаторы и полотенцесушители",
+      "logo": "/images/brands/guardo.svg",
+      "warranty_years": 10
+    },
+    {
+      "slug": "radimax",
+      "name": "Радимакс",
+      "country": "Россия",
+      "note": "Чугунные радиаторы Style Retro",
+      "logo": "/images/brands/radimax.png",
+      "warranty_years": 10
+    },
+    {
+      "slug": "royal-thermo",
+      "name": "Royal Thermo",
+      "country": "Италия",
+      "note": "Радиаторы",
+      "logo": "/images/brands/royal-thermo.svg",
+      "warranty_years": 10
+    },
+    {
+      "slug": "nova",
+      "name": "Nova",
+      "country": "Китай",
+      "note": "Трубчатые радиаторы",
+      "logo": null,
+      "warranty_years": 5
+    },
+    {
+      "slug": "carisa",
+      "name": "Carisa",
+      "country": "",
+      "note": "Дизайн-радиаторы и полотенцесушители",
+      "logo": "/images/brands/carisa.png",
+      "warranty_years": 3
+    },
+    {
+      "slug": "sr",
+      "name": "SR Rubinetterie",
+      "country": "Италия",
+      "note": "Арматура и автоматика",
+      "logo": null,
+      "warranty_years": 5
+    }
+  ],
+  "lead_times": [
+    {
+      "series": "Guardo Retta 6P",
+      "brand": "guardo",
+      "days": 15
+    },
+    {
+      "series": "Guardo Pilon",
+      "brand": "guardo",
+      "days": null
+    },
+    {
+      "series": "Guardo Torre 4D",
+      "brand": "guardo",
+      "days": 15
+    },
+    {
+      "series": "КЗТО Quadrum",
+      "brand": "kzto",
+      "days": null
+    },
+    {
+      "series": "КЗТО вертикальный трубчатый",
+      "brand": "kzto",
+      "days": 15
+    },
+    {
+      "series": "Радимакс Style Retro",
+      "brand": "radimax",
+      "days": 30
+    },
+    {
+      "series": "Nova трубчатый",
+      "brand": "nova",
+      "days": null
+    },
+    {
+      "series": "Royal Thermo секционный",
+      "brand": "royal-thermo",
+      "days": null
+    },
+    {
+      "series": "КЗТО внутрипольный конвектор",
+      "brand": "kzto",
+      "days": 20
+    },
+    {
+      "series": "КЗТО напольный конвектор",
+      "brand": "kzto",
+      "days": 20
+    },
+    {
+      "series": "Guardo полотенцесушитель",
+      "brand": "guardo",
+      "days": null
+    },
+    {
+      "series": "Carisa полотенцесушитель",
+      "brand": "carisa",
+      "days": null
+    },
+    {
+      "series": "SR вентиль угловой",
+      "brand": "sr",
+      "days": null
+    },
+    {
+      "series": "Радимакс арматура Retro",
+      "brand": "radimax",
+      "days": 30
+    }
+  ]
+}

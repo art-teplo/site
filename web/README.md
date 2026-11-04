@@ -21,7 +21,8 @@ src/
   sections/        ← секции страниц, собранные из компонентов (home/, catalog/, product/, page/ — блоки внутренних страниц)
   app/             ← страницы (роуты Next): /, /catalog, /catalog/[category], /catalog/[category]/[product],
                      /podbor, /uslugi, /proekty, /shourum, /klientam, /partneram, /blog, /kontakty, /brendy, /privacy
-  data/            ← данные отдельно от разметки; форма повторяет будущий API Django/DRF
+  data/            ← данные отдельно от разметки. api.ts — контент из админки (getSite, getFaq, getProjects, getPosts…)
+                     с кэшем по тегам; без NEXT_PUBLIC_API_URL — демо из content.ts / site.ts
   lib/             ← чистые функции: форматирование, фильтры каталога, текущий год
 public/images/     ← изображения; сейчас демо-фото (docs/demo-photos.md), реальные кладутся по тем же путям
 ```
@@ -37,6 +38,7 @@ public/images/     ← изображения; сейчас демо-фото (d
 5. **Изображения** — только через `<Picture>` (`<picture>`, AVIF/WebP, width/height, lazy). Для первого экрана — `eager`. Новый слот — запись в `docs/images-manifest.md`. Заменили файлы в `public/images` — увеличьте `IMAGES_VERSION` в `lib/asset.ts`, иначе браузеры до 4 часов показывают старые.
 6. **Типографика:** один шрифт Onest: заголовки `h1–h4` — 500 с плотным трекингом (из `base.css`), текст — 400. Размеры — `--text-*`.
 7. **Cache Components:** `new Date()` в серверных компонентах нельзя — используйте `currentYear()` из `lib/year.ts` (`"use cache"`). `useSearchParams` — только внутри `<Suspense>`.
+8. **Данные из админки** — только через `data/api.ts` в серверных компонентах (`await getSite()`…); клиентским контакты даёт `useSite()` из `SiteProvider`. Новый раздел — функция в `api.ts` с `cacheTag`, тег — тот же, что `Tag` в `backend/src/apps/content/models.py` и список в `app/api/revalidate/route.ts`.
 
 ## Как добавить компонент
 
@@ -49,6 +51,6 @@ public/images/     ← изображения; сейчас демо-фото (d
 ## Что пока заглушка
 
 - Отправка формы (`LeadForm`) идёт в `POST /api/leads/`, только если при сборке задан `NEXT_PUBLIC_API_URL` (адрес бэка без слеша, локально `http://localhost:8000`); без него — имитация, как на демо в Vercel.
-- Данные каталога, проекты, FAQ и блог — демо (`src/data`).
+- Контакты, вопрос-ответ, проекты, блог и шоурум берутся из админки через `data/api.ts`, если задан `NEXT_PUBLIC_API_URL` (см. `.env.example`); иначе — демо из `src/data`. Категории, бренды и сроки изготовления — тоже из админки (тег `catalog`); товары — пока демо (`data/catalog.ts`) и ссылаются на них по slug.
 - Виджет отзывов Яндекс.Карт, видео шоурума, страницы отдельных проектов. Тексты статей — черновик.
 - Тексты внутренних страниц — черновик (`data/content.ts`), сверить с заказчиком.

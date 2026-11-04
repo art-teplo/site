@@ -5,11 +5,15 @@ import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { HorizontalRail } from "@/components/HorizontalRail/HorizontalRail";
 import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { Arrow } from "@/components/Button/Button";
-import { projects } from "@/data/content";
+import { getProjects } from "@/data/api";
 import styles from "./Projects.module.css";
 
+// Остальные — на /proekty. Какие попадут на главную, решает порядок в админке
+const HOME_COUNT = 6;
+
 // Портфолио на главной: лента проектов едет вбок при прокрутке. Под каждым кадром — радиаторы из него.
-export function Projects() {
+export async function Projects() {
+  const projects = (await getProjects()).slice(0, HOME_COUNT);
   return (
     <Section id="projects" labelledBy="projects-title" flush className={styles.section}>
       <Container>

@@ -38,10 +38,25 @@ src/
   apps/core/utils.py  AutoUploadTo, валидаторы файлов, client_ip
   apps/leads/     заявки: POST /api/leads/, админка, Celery (Telegram, чистка); команда runbot
   apps/leads/telegram/  aiogram: texts.py (все тексты), service.py (сообщение, отправка), handlers.py (кнопки, команды)
+  apps/content/   настройки сайта (django-solo), вопрос-ответ, проекты, блог, шоурум: API только на чтение,
+                  html.py (чистка текста статей), сигнал фронту обновить страницы; команда loaddemo
+                  (заливает и каталог)
+  apps/catalog/   категории, бренды (логотип SVG/PNG, «гарантия до»), сроки изготовления по сериям;
+                  товары пока в коде фронта и ссылаются на них по slug. Тег кэша фронта — catalog
   tests/          pytest
 ```
 
 Новое приложение — `src/apps/<name>/` с `apps.py` (`name = 'apps.<name>'`), в `INSTALLED_APPS`, URL — внутри `api/` в `settings/urls.py`.
+
+## Контент локально
+
+Настройки сайта, вопрос-ответ, проекты, блог и шоурум — в админке, раздел «Сайт». Наполнить демо-записями с фронта (вместе с фото из `web/public/images`):
+
+```bash
+docker compose run --rm backend loaddemo   # из root/, с dev-compose
+```
+
+Повторный запуск обновляет записи и не дублирует фото. Чтобы правки сразу появлялись на `localhost:3000`, задайте одинаковый секрет в `root/.env` (`BACKEND__FRONTEND__REVALIDATE_URL=http://host.docker.internal:3000/api/revalidate`, `BACKEND__FRONTEND__REVALIDATE_SECRET`) и в `web/.env.local` (`REVALIDATE_SECRET`), см. `web/.env.example`. Без этого фронт обновит страницы сам — в течение часа.
 
 ## Telegram локально
 

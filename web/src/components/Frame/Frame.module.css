@@ -19,50 +19,6 @@
   height: 100%;
 }
 
-/* Уголки видоискателя (DGC) */
-.corners {
-  position: absolute;
-  inset: var(--spacing-16);
-  pointer-events: none;
-  z-index: var(--z-base);
-  --corner: var(--spacing-24);
-}
-
-.corners i {
-  position: absolute;
-  width: var(--corner);
-  height: var(--corner);
-  border: 0 solid color-mix(in srgb, var(--color-cream-paper) 70%, transparent);
-}
-
-.corners i:nth-child(1) {
-  top: 0;
-  left: 0;
-  border-top-width: 1px;
-  border-left-width: 1px;
-}
-
-.corners i:nth-child(2) {
-  top: 0;
-  right: 0;
-  border-top-width: 1px;
-  border-right-width: 1px;
-}
-
-.corners i:nth-child(3) {
-  bottom: 0;
-  left: 0;
-  border-bottom-width: 1px;
-  border-left-width: 1px;
-}
-
-.corners i:nth-child(4) {
-  bottom: 0;
-  right: 0;
-  border-bottom-width: 1px;
-  border-right-width: 1px;
-}
-
 /* Параллакс только содержимого рамки и только там, где браузер умеет scroll-driven animations */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {

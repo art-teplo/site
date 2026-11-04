@@ -5,16 +5,15 @@ import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard/ProductCard";
 import { RangeSlider } from "@/components/RangeSlider/RangeSlider";
 import { Button } from "@/components/Button/Button";
-import { brands } from "@/data/catalog";
 import type { Product } from "@/data/types";
 import { activeCount, applyFilters, buildFacets, buildRanges, parseFilters, type FacetKey, type RangeKey } from "@/lib/catalog-filter";
-import { cx } from "@/lib/format";
+import { cx, plural } from "@/lib/format";
 import styles from "./CatalogBrowser.module.css";
 
-const brandName = (slug: string) => brands.find((b) => b.slug === slug)?.name ?? slug;
+type BrandNames = Record<string, string>; // slug → название, из админки
 
 // Список с фильтрами. Состояние — в URL: ссылку с фильтрами можно отправить менеджеру.
-export function CatalogBrowser({ products }: { products: Product[] }) {
+export function CatalogBrowser({ products, brands }: { products: Product[]; brands: BrandNames }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -99,7 +98,7 @@ export function CatalogBrowser({ products }: { products: Product[] }) {
                   <label key={value} className={styles.option}>
                     <input type="checkbox" checked={checked} onChange={() => toggle(f.key, value)} className={styles.optionInput} />
                     <span className={styles.optionLabel}>
-                      {f.key === "brand" ? brandName(value) : value}
+                      {f.key === "brand" ? (brands[value] ?? value) : value}
                       <span className={styles.optionCount}>{n}</span>
                     </span>
                   </label>
@@ -121,7 +120,7 @@ export function CatalogBrowser({ products }: { products: Product[] }) {
           <ul className={styles.grid}>
             {result.map((p, i) => (
               <li key={p.slug}>
-                <ProductCard product={p} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" priority={i < 2} />
+                <ProductCard product={p} brand={brands[p.brand]} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" priority={i < 2} />
               </li>
             ))}
           </ul>
@@ -140,18 +139,18 @@ export function CatalogBrowser({ products }: { products: Product[] }) {
 }
 
 // Без JS и во время гидрации — тот же список без фильтров (его видят поисковики).
-export function CatalogFallback({ products }: { products: Product[] }) {
+export function CatalogFallback({ products, brands }: { products: Product[]; brands: BrandNames }) {
   return (
     <div className={styles.layout}>
       <div className={styles.toolbar}>
-        <p className={styles.found}>{products.length} моделей</p>
+        <p className={styles.found}>{plural(products.length, "модель", "модели", "моделей")}</p>
       </div>
       <div className={styles.filters} aria-hidden="true" />
       <div className={styles.results}>
         <ul className={styles.grid}>
           {products.map((p, i) => (
             <li key={p.slug}>
-              <ProductCard product={p} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" priority={i < 2} />
+              <ProductCard product={p} brand={brands[p.brand]} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" priority={i < 2} />
             </li>
           ))}
         </ul>

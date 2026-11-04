@@ -26,10 +26,10 @@
 | `images/blog/konvektor-u-panoramnogo-okna.jpg` | home_soc-slider-16.jpg | kztoradiator.by (сайт заказчика) |
 | `images/blog/radiator-v-cvet-steny.jpg` | home_1714723391-nva547.png | kztoradiator.by (сайт заказчика) |
 | `images/blog/trubchatyy-ili-sekcionnyy.jpg` | home_soc-slider-3.jpg | kztoradiator.by (сайт заказчика) |
-| `images/categories/armatura.jpg` | home_soc-slider-18.jpg | kztoradiator.by (сайт заказчика) |
-| `images/categories/konvektory.jpg` | home_yglovoi-konvektor2.jpg | kztoradiator.by (сайт заказчика) |
-| `images/categories/polotentsesushiteli.jpg` | guardo-diagonale-black.jpg | guardo.ru (официальный сайт Guardo) |
-| `images/categories/radiatory.jpg` | home_soc-slider-20.jpg | kztoradiator.by (сайт заказчика) |
+| `images/categories/armatura.png` | рендер без фона | home-heat.ru (партнёр) — **чужой рендер, только для демо** |
+| `images/categories/konvektory.png` | рендер без фона | home-heat.ru (партнёр) — **чужой рендер, только для демо** |
+| `images/categories/polotentsesushiteli.png` | рендер без фона | home-heat.ru (партнёр) — **чужой рендер, только для демо** |
+| `images/categories/radiatory.png` | рендер без фона | home-heat.ru (партнёр) — **чужой рендер, только для демо** |
 | `images/hero/hero-desktop.jpg` | materials/references/main.jpeg | прислал разработчик (референс, источник и права не выяснены — перед запуском заменить или получить разрешение) |
 | `images/products/carisa-polotentsesushitel/detail.jpg` | home_soc-slider-24.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/carisa-polotentsesushitel/interior.jpg` | home_soc-slider-20.jpg | kztoradiator.by (сайт заказчика) |

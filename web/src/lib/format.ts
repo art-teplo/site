@@ -8,3 +8,8 @@ export const formatDate = (iso: string) =>
 export const pad2 = (n: number) => String(n).padStart(2, "0");
 
 export const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(Boolean).join(" ");
+
+const pluralRules = new Intl.PluralRules("ru");
+// «1 модель», «2 модели», «5 моделей»
+export const plural = (n: number, one: string, few: string, many: string) =>
+  `${n} ${{ one, few, many, other: few, zero: many, two: few }[pluralRules.select(n)]}`;
