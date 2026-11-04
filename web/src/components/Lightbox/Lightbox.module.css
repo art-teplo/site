@@ -1,0 +1,191 @@
+/* Превью — кнопка: вся карточка-кадр кликабельна, в углу — сколько фото */
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: inherit;
+  cursor: zoom-in;
+  -webkit-touch-callout: none;
+}
+
+.trigger img {
+  transition: transform var(--dur-slow) var(--ease-out);
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.trigger:hover img {
+  transform: scale(1.04);
+}
+
+.trigger:active {
+  transform: scale(var(--press-scale));
+}
+
+.badge {
+  position: absolute;
+  right: var(--spacing-16);
+  bottom: var(--spacing-16);
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-coal) 72%, transparent);
+  color: var(--color-cream-paper);
+  font-size: var(--text-caption);
+  backdrop-filter: blur(6px);
+}
+
+/* Окно на весь экран: тёмная подложка, кадр по центру, сверху подпись и счётчик */
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  color: var(--text);
+  overscroll-behavior: contain;
+}
+
+.dialog[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  animation: fade var(--dur-base) var(--ease-out);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-16) var(--gutter);
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-subheading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.counter {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.stage {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--spacing-12);
+  min-height: 0;
+  padding: 0 var(--gutter) var(--spacing-24);
+  touch-action: pan-y; /* горизонтальный жест — наш свайп, вертикальный — браузеру */
+  user-select: none;
+}
+
+.picture {
+  height: 100%;
+  background: transparent;
+  animation: fade var(--dur-base) var(--ease-out);
+}
+
+.caption {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  text-align: center;
+}
+
+/* Крестик из двух линий — как в окне заявки */
+.close {
+  position: relative;
+  flex: none;
+  width: var(--control-height);
+  height: var(--control-height);
+  border-radius: var(--radius-pill);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.close::before,
+.close::after {
+  content: "";
+  position: absolute;
+  inset: 50% 30% auto;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.close::after {
+  transform: rotate(-45deg);
+}
+
+.close:hover,
+.nav:hover {
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+.close:active,
+.nav:active {
+  transform: scale(var(--press-scale));
+}
+
+.nav {
+  position: fixed;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: var(--control-height);
+  height: var(--control-height);
+  margin-top: calc(var(--control-height) / -2);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.prev {
+  left: var(--spacing-16);
+}
+
+.prev svg {
+  transform: rotate(180deg);
+}
+
+.next {
+  right: var(--spacing-16);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* На телефоне стрелки внизу, чтобы не закрывать кадр; листать удобнее свайпом */
+@media (max-width: 767px) {
+  .stage {
+    padding-bottom: calc(var(--control-height) + var(--spacing-24));
+  }
+
+  .nav {
+    top: auto;
+    bottom: var(--spacing-16);
+    margin-top: 0;
+  }
+
+  .prev {
+    left: calc(50% - var(--control-height) - var(--spacing-8));
+  }
+
+  .next {
+    right: calc(50% - var(--control-height) - var(--spacing-8));
+  }
+}

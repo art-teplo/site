@@ -36,6 +36,17 @@ svg {
   max-width: 100%;
 }
 
+/* Карточки-ссылки с фото: на iPhone долгое нажатие «поднимало» картинку
+   (перетаскивание и превью ссылки). У текстовых ссылок меню остаётся */
+a:has(img) {
+  -webkit-touch-callout: none;
+}
+
+a img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 img {
   height: auto;
 }

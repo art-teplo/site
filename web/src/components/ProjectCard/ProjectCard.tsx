@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Frame } from "@/components/Frame/Frame";
+import { Lightbox } from "@/components/Lightbox/Lightbox";
 import { Picture } from "@/components/Picture/Picture";
 import { getProduct } from "@/data/catalog";
 import type { Project } from "@/data/types";
@@ -9,11 +10,21 @@ const KIND: Record<Project["kind"], string> = { квартира: "Кварти�
 
 // Проект: кадр интерьера в уголках видоискателя, подпись и радиаторы, которые в нём стоят.
 export function ProjectCard({ project, ratio = "4 / 5", sizes = "(max-width: 767px) 80vw, 30vw" }: { project: Project; ratio?: string; sizes?: string }) {
+  const frame = (
+    <Frame ratio={ratio} corners>
+      <Picture image={project.image} sizes={sizes} />
+    </Frame>
+  );
   return (
     <figure className={styles.card}>
-      <Frame ratio={ratio} corners>
-        <Picture image={project.image} sizes={sizes} />
-      </Frame>
+      {/* Одно фото — просто кадр; несколько — по клику галерея на весь экран */}
+      {project.photos.length > 0 ? (
+        <Lightbox images={[project.image, ...project.photos]} title={project.title}>
+          {frame}
+        </Lightbox>
+      ) : (
+        frame
+      )}
       <figcaption className={styles.caption}>
         <span className={styles.meta}>
           {KIND[project.kind]} · {project.place}
