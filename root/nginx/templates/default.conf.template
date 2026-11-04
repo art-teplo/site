@@ -41,6 +41,14 @@ server {
         add_header X-Content-Type-Options "nosniff" always;
     }
 
+    # Фото из админки, пока S3 выключен (с S3 адреса ведут прямо в бакет).
+    # Имя файла — UUID, при замене фото меняется, поэтому кэш долгий
+    location /media/ {
+        proxy_pass http://backend;
+        add_header Cache-Control "public, max-age=2592000" always;
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
     # Next (профиль web). Пока его нет — 502, фронт живёт на Vercel
     location / {
         set $web http://web:3000;

@@ -75,6 +75,14 @@ TELEGRAM__CHAT_ID = env.int('TELEGRAM__CHAT_ID', default=None)  # pyright: ignor
 # Срок хранения заявок и файлов (Закон РБ № 99-З: не дольше, чем нужно)
 LEADS__RETENTION_DAYS = env.int('LEADS__RETENTION_DAYS', default=365)
 
+# Куда стучаться после правки контента, чтобы фронт обновил страницы
+# (POST /api/revalidate на Next). Пусто — не стучимся: фронт обновится
+# сам по истечении кэша
+FRONTEND__REVALIDATE_URL = env.str('FRONTEND__REVALIDATE_URL', default='')
+FRONTEND__REVALIDATE_SECRET = env.str(
+    'FRONTEND__REVALIDATE_SECRET', default=''
+)
+
 S3__ENABLED = env.bool('S3__ENABLED', default=False)
 s3_options = (
     {
@@ -99,6 +107,7 @@ INSTALLED_APPS = [
     # admin
     'unfold',
     'unfold.contrib.filters',
+    'unfold.contrib.forms',
     'django.contrib.admin',
     # base
     'django.contrib.auth',
@@ -106,6 +115,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     # modules
     'corsheaders',
     'rest_framework',
@@ -114,9 +124,11 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'storages',
     'phonenumber_field',
+    'solo',
     # apps
     'apps.core',
     'apps.leads',
+    'apps.content',
 ]
 
 MIDDLEWARE = [
@@ -319,6 +331,42 @@ UNFOLD = {
                         'title': 'Заявки',
                         'icon': 'inbox',
                         'link': reverse_lazy('admin:leads_lead_changelist'),
+                    },
+                ],
+            },
+            {
+                'title': 'Сайт',
+                'items': [
+                    {
+                        'title': 'Настройки сайта',
+                        'icon': 'settings',
+                        'link': reverse_lazy(
+                            'admin:content_sitesettings_change',
+                        ),
+                    },
+                    {
+                        'title': 'Вопрос-ответ',
+                        'icon': 'help',
+                        'link': reverse_lazy('admin:content_faq_changelist'),
+                    },
+                    {
+                        'title': 'Проекты',
+                        'icon': 'photo_library',
+                        'link': reverse_lazy(
+                            'admin:content_project_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Блог',
+                        'icon': 'article',
+                        'link': reverse_lazy('admin:content_post_changelist'),
+                    },
+                    {
+                        'title': 'Шоурум',
+                        'icon': 'storefront',
+                        'link': reverse_lazy(
+                            'admin:content_showroomphoto_changelist',
+                        ),
                     },
                 ],
             },

@@ -22,6 +22,10 @@ services:
   backend:
     <<: *backend_dev
     command: ["runserver", "0.0.0.0:8000"]
+    # Фото для loaddemo: docker compose run --rm backend loaddemo
+    volumes: !override
+      - ../backend/src:/src
+      - ../web/public/images:/demo-images:ro
     environment:
       BACKEND__DEBUG: "1"
     ports:
@@ -29,6 +33,9 @@ services:
 
   celery_worker:
     <<: *backend_dev
+    # Next в разработке запущен на хосте (npm run dev): revalidate идёт туда
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   celery_beat:
     <<: *backend_dev
