@@ -146,7 +146,7 @@ nginx	0,02 ГБ
 
 ## 7. Как устроено сейчас (каркас, 2026-11-02)
 
-Решения и причины — [decisions.md](decisions.md), № 63–74.
+Решения и причины — [decisions.md](decisions.md), № 63–78.
 
 ```
 art-teplo/
@@ -162,12 +162,13 @@ art-teplo/
 
 **nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/` → backend; `/` → `web:3000` (пока нет — 502). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
 
-**CI** (`ci.yml`, на каждый PR и push в develop/main): проверяется только изменённая часть.
+**CI** (`ci.yml`, на каждый PR и push в `main`; push в `develop` не запускает — всё проверено в PR): проверяется только изменённая часть, итог — задача `ci-ok`.
 - backend: ruff, `manage.py check`, `makemigrations --check`, pytest на Postgres;
 - web: `npm run lint`, `npm run build`;
 - root: `docker compose config` для прода, dev и профиля web;
-- образы backend и web собираются на каждом PR (проверка Dockerfile), из develop и main пушатся в `ghcr.io/leonenkk/art-teplo-{backend,web}` с тегами `<ветка>` и `sha-<7>`.
+- образы backend и web собираются на каждом PR (проверка Dockerfile). Из `main` публикуется только `ghcr.io/leonenkk/art-teplo-backend` с тегами `main` и `sha-<7>`; задача `cleanup` оставляет 5 последних версий. Образ web начнём публиковать, когда фронт переедет на сервер.
+- лимиты бесплатного плана для приватного репозитория: Actions — $12 в месяц (около 2000 минут Linux, прогон CI около 11 минут); GHCR — 500 МБ хранения (вместе с артефактами Actions) и 1 ГБ скачиваний в месяц; сжатый образ бэка около 75 МБ, сервер при деплое качает только изменённые слои.
 
-**Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Окружение `production` в GitHub (разрешено только для `main`): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; vars `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), чистка старых образов. Откат — тот же запуск с тегом `sha-…` (есть только у коммитов, где менялся бэк).
+**Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Запуск только из `main` (проверка в workflow). В GitHub — секреты и переменные **репозитория** (секреты окружений в приватном репозитории на бесплатном плане недоступны): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; variables `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), чистка старых образов. Откат — тот же запуск с тегом `sha-…` (есть только у коммитов в `main`, где менялся бэк, и только у 5 последних).
 
 **Подготовить сервер (один раз):** пользователь `deploy` в группе `docker`, вход только по ключу; Docker с compose; каталог `DEPLOY_PATH` с `.env` по `root/.env.example` (новые пароли, `chmod 600`); `ssh-keyscan` хоста — в `DEPLOY_KNOWN_HOSTS`; первый суперпользователь — `docker compose run --rm backend createsuperuser`.

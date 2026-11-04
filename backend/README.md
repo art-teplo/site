@@ -1,7 +1,7 @@
 # art-teplo.by — бэкенд
 
 Django 6.0 + DRF + Unfold, Celery, Postgres, Redis; ASGI на uvicorn. Зависимости — [uv](https://docs.astral.sh/uv/).
-Как устроено и почему — [`../docs/stack.md`](../docs/stack.md) (раздел 7) и [`../docs/decisions.md`](../docs/decisions.md) (№ 63–74).
+Как устроено и почему — [`../docs/stack.md`](../docs/stack.md) (раздел 7) и [`../docs/decisions.md`](../docs/decisions.md) (№ 63–78).
 
 ## Запуск локально
 
