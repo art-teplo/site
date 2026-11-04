@@ -23,7 +23,7 @@ export type Brand = {
   name: string;
   country: string; // пусто — не показываем
   note: string;
-  logo?: { src: string; width: number; height: number }; // с официальных сайтов производителей
+  logo?: string; // с официальных сайтов производителей
   warrantyYears: number | null; // «гарантия до»; пусто — бренда нет в таблице гарантий
 };
 
