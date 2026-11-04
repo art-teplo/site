@@ -220,3 +220,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 old-version/
+# Загрузки бэка в dev-compose (код смонтирован в контейнер)
+/backend/src/media/
+/backend/src/private/

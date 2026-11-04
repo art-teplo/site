@@ -17,6 +17,7 @@ schema_urls = [
 
 api_urls = [
     path('', include('apps.core.urls')),
+    path('', include('apps.leads.urls')),
     path('schema/', include(schema_urls)),
 ]
 

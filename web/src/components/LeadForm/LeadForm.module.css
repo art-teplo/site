@@ -28,6 +28,18 @@
   gap: var(--spacing-16) var(--spacing-24);
 }
 
+.formError {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-accent);
+}
+
+[data-tone="dark"] .formError {
+  color: var(--color-cream-paper);
+  text-decoration: underline var(--color-accent) 2px;
+  text-underline-offset: 0.25em;
+}
+
 .promise {
   font-size: var(--text-caption);
   color: var(--text-muted);

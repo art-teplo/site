@@ -10,7 +10,9 @@ x-backend-dev: &backend_dev
   build:
     context: ../backend
   user: "${UID:-1000}:${GID:-1000}"
-  volumes:
+  # !override: вместо тома private_media — папка в смонтированном коде,
+  # иначе том создастся с владельцем из образа и UID 1000 не сможет писать
+  volumes: !override
     - ../backend/src:/src
 
 services:
@@ -29,6 +31,9 @@ services:
     <<: *backend_dev
 
   celery_beat:
+    <<: *backend_dev
+
+  telegram_bot:
     <<: *backend_dev
 
   nginx:

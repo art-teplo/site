@@ -31,10 +31,10 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 RUN ln -s "/.venv/lib/python${PYTHON_VERSION}/site-packages" /site-packages
 
 COPY src /src
-RUN mkdir -p /src/static /src/media \
+RUN mkdir -p /src/static /src/media /src/private \
     && BUILD_MODE=1 /.venv/bin/python /src/manage.py collectstatic --noinput \
     && /.venv/bin/python -m compileall -q /src \
-    && chown 584792:584792 /src/media
+    && chown -R 584792:584792 /src/media /src/private
 
 # --- runtime ---
 FROM ubuntu/python:${PYTHON_VERSION}-${UBUNTU_VERSION} AS runtime
@@ -52,7 +52,8 @@ ENV PYTHONUNBUFFERED=1 \
     BACKEND__VERSION="${VERSION}"
 
 # Код и зависимости принадлежат root: процесс их только читает.
-# Писать может лишь в /src/media (chown в builder; локальные файлы, пока S3 выключен)
+# Писать может лишь в /src/media и /src/private (chown в builder): локальные
+# файлы, пока S3 выключен; private — файлы заявок, наружу не отдаются
 COPY --from=builder /.venv/lib/python${PYTHON_VERSION}/site-packages /site-packages
 COPY --from=builder /src /src
 
