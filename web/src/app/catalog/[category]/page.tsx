@@ -4,6 +4,10 @@ import { getCategories } from "@/data/api";
 import { productsIn } from "@/data/catalog";
 import { CatalogPage } from "@/sections/catalog/CatalogPage";
 
+// Страница собирается под адрес, без общей заготовки: в шапке и плавном скролле usePathname() вне
+// <Suspense>, и после правки в админке Next не смог бы пересобрать заготовку — отдавал 500
+export const instant = false;
+
 const getCategory = async (slug: string) => (await getCategories()).find((c) => c.slug === slug);
 
 export async function generateStaticParams() {

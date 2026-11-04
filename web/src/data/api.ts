@@ -15,7 +15,9 @@ async function load<T>(path: string, tag: Tag): Promise<T | null> {
   "use cache";
   cacheTag(tag);
   cacheLife("hours"); // страховка, если бэк не достучался до /api/revalidate
-  const response = await fetch(`${API_URL}/api/${path}`);
+  // no-store: кэшем управляет только "use cache" с тегом. Иначе fetch ещё раз кладёт ответ в кэш Next
+  // без тега — после правки в админке страница берёт старый ответ, а сборка переносит его в новую версию
+  const response = await fetch(`${API_URL}/api/${path}`, { cache: "no-store" });
   if (response.status === 404) return null;
   if (!response.ok) throw new Error(`API ${path}: ${response.status}`);
   return response.json();

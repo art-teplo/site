@@ -12,6 +12,10 @@ import { formatDate } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
 import styles from "./page.module.css";
 
+// Страница собирается под адрес, без общей заготовки: в шапке и плавном скролле usePathname() вне
+// <Suspense>, и после правки в админке Next не смог бы пересобрать заготовку — отдавал 500
+export const instant = false;
+
 export async function generateStaticParams() {
   return (await getPosts()).map((p) => ({ slug: p.slug }));
 }

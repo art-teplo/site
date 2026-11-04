@@ -17,6 +17,10 @@ import { ProductHero } from "@/sections/product/ProductHero";
 import { ProductSpecs } from "@/sections/product/ProductSpecs";
 import styles from "./page.module.css";
 
+// Страница собирается под адрес, без общей заготовки: в шапке и плавном скролле usePathname() вне
+// <Suspense>, и после правки в админке Next не смог бы пересобрать заготовку — отдавал 500
+export const instant = false;
+
 export function generateStaticParams() {
   return products.map((p) => ({ category: p.category, product: p.slug }));
 }
