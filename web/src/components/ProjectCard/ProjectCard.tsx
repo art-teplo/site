@@ -8,10 +8,10 @@ import styles from "./ProjectCard.module.css";
 
 const KIND: Record<Project["kind"], string> = { квартира: "Квартира", дом: "Дом", ЖК: "Жилой комплекс" };
 
-// Проект: кадр интерьера в уголках видоискателя, подпись и радиаторы, которые в нём стоят.
+// Проект: кадр интерьера, подпись и радиаторы, которые в нём стоят.
 export function ProjectCard({ project, ratio = "4 / 5", sizes = "(max-width: 767px) 80vw, 30vw" }: { project: Project; ratio?: string; sizes?: string }) {
   const frame = (
-    <Frame ratio={ratio} corners>
+    <Frame ratio={ratio}>
       <Picture image={project.image} sizes={sizes} />
     </Frame>
   );
