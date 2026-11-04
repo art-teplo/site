@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import environ
+from celery.schedules import crontab
 from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -60,6 +61,20 @@ CELERY_BROKER_URL = env.str(
 
 TIME_ZONE = env.str('TIME_ZONE', default='Europe/Minsk')
 
+# Адрес сайта со схемой, без слеша в конце — для ссылок на админку из Telegram
+PUBLIC_URL = env.str('PUBLIC_URL', default='').rstrip('/')
+
+# Адрес фронта — для ссылок на страницы сайта (товар) в Telegram и админке.
+# Пока фронт на Vercel, он отличается от PUBLIC_URL; пусто — как PUBLIC_URL
+SITE_URL = env.str('SITE_URL', default='').rstrip('/') or PUBLIC_URL
+
+# Бот пишет заявки в одну закрытую группу; пусто — уведомления выключены
+TELEGRAM__BOT_TOKEN = env.str('TELEGRAM__BOT_TOKEN', default='')
+TELEGRAM__CHAT_ID = env.int('TELEGRAM__CHAT_ID', default=None)  # pyright: ignore[reportArgumentType]
+
+# Срок хранения заявок и файлов (Закон РБ № 99-З: не дольше, чем нужно)
+LEADS__RETENTION_DAYS = env.int('LEADS__RETENTION_DAYS', default=365)
+
 S3__ENABLED = env.bool('S3__ENABLED', default=False)
 s3_options = (
     {
@@ -98,8 +113,10 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'django_celery_beat',
     'storages',
+    'phonenumber_field',
     # apps
     'apps.core',
+    'apps.leads',
 ]
 
 MIDDLEWARE = [
@@ -173,6 +190,15 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_ROOT.mkdir(exist_ok=True)
 
+# Файлы заявок (планы, спецификации): вне MEDIA_ROOT, который ASGI отдаёт
+# открыто, пока S3 выключен. Скачать — только из админки
+PRIVATE_MEDIA_ROOT = BASE_DIR / 'private'
+PRIVATE_MEDIA_ROOT.mkdir(exist_ok=True)
+
+# Большие загрузки пишутся во временный файл; /tmp в образе может не быть
+FILE_UPLOAD_TEMP_DIR = PRIVATE_MEDIA_ROOT / 'tmp'
+FILE_UPLOAD_TEMP_DIR.mkdir(exist_ok=True)
+
 CACHES = {
     'default': DEFAULT_CACHE,
 }
@@ -188,6 +214,10 @@ STORAGES = {
             'BACKEND': 'django.core.files.storage.FileSystemStorage',
         }
     ),
+    'private': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {'location': PRIVATE_MEDIA_ROOT},
+    },
     'staticfiles': {
         'BACKEND': (
             'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -261,6 +291,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '120/min',
+        'leads_burst': '3/min',
+        'leads_day': '20/day',
     },
     # Перед бэком ровно один прокси (nginx): IP клиента — последний в X-Forwarded-For
     'NUM_PROXIES': 1,
@@ -282,6 +314,11 @@ UNFOLD = {
                         'title': 'Главная',
                         'icon': 'home',
                         'link': reverse_lazy('admin:index'),
+                    },
+                    {
+                        'title': 'Заявки',
+                        'icon': 'inbox',
+                        'link': reverse_lazy('admin:leads_lead_changelist'),
                     },
                 ],
             },
@@ -310,6 +347,19 @@ CELERY_TASK_SOFT_TIME_LIMIT = 540
 CELERY_TASK_TIME_LIMIT = 600
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# DatabaseScheduler сам заносит эти задачи в БД при старте beat
+CELERY_BEAT_SCHEDULE = {
+    'purge-old-leads': {
+        'task': 'apps.leads.tasks.purge_old_leads',
+        'schedule': crontab(hour=3, minute=30),
+    },
+}
+
+# --- phonenumber_field ---
+
+# Номер без кода страны считаем белорусским; хранится в E.164
+PHONENUMBER_DEFAULT_REGION = 'BY'
 
 # --- corsheaders ---
 

@@ -35,13 +35,31 @@ src/
   manage.py
   settings/       settings.py (env с префиксом BACKEND__), asgi.py, celery.py, urls.py
   apps/core/      healthcheck, команда startservice (uvicorn)
+  apps/core/utils.py  AutoUploadTo, валидаторы файлов, client_ip
+  apps/leads/     заявки: POST /api/leads/, админка, Celery (Telegram, чистка); команда runbot
+  apps/leads/telegram/  aiogram: texts.py (все тексты), service.py (сообщение, отправка), handlers.py (кнопки, команды)
   tests/          pytest
 ```
 
 Новое приложение — `src/apps/<name>/` с `apps.py` (`name = 'apps.<name>'`), в `INSTALLED_APPS`, URL — внутри `api/` в `settings/urls.py`.
+
+## Telegram локально
+
+Заявки уходят в закрытую группу, кнопки «Беру» / «Отказаться» принимает сервис `telegram_bot` (long polling). Для разработки — свой тестовый бот, не боевой: один токен нельзя опрашивать из двух мест.
+
+1. @BotFather → `/newbot`, токен — в `root/.env` (`BACKEND__TELEGRAM__BOT_TOKEN`).
+2. Группа, в неё — бот и вы; в группе `/chatid`, ответ — в `BACKEND__TELEGRAM__CHAT_ID`.
+3. @BotFather → Bot Settings → Allow Groups → Turn off: бота больше никуда не добавить.
+4. Перезапустить compose. Без токена уведомления выключены, бот спит.
+
+Что сделать на сервере (боевой бот, `.env`, фронт, бэкап файлов) — чек-лист в [`../docs/stack.md`](../docs/stack.md), раздел «Заявки: что сделать при переезде на прод».
+
+Ссылки в сообщении («Открыть в админке», «Открыть товар на сайте») собираются из `BACKEND__PUBLIC_URL` и `BACKEND__SITE_URL`. Адреса `localhost` Telegram ссылками не делает — для проверки подставьте `lvh.me` (публичное имя, которое смотрит на 127.0.0.1): `http://lvh.me:8080` и `http://lvh.me:3000`, а `lvh.me` добавьте в `BACKEND__ALLOWED_HOSTS` и `BACKEND__CSRF_TRUSTED_ORIGINS`.
 
 ## Правила
 
 - Настройки только из env (`BACKEND__…`), новая переменная — ещё в `root/.env.example` и `root/docker-compose.yaml`.
 - Публичный API — только чтение (`IsAuthenticatedOrReadOnly` по умолчанию), запись открывается точечно.
 - Код — ruff (одинарные кавычки, 79 символов), сообщения коммитов — как в [`../CLAUDE.md`](../CLAUDE.md).
+- Вызовы и поля с несколькими аргументами — по одному на строку, с запятой в конце: ruff format сохраняет столбик, но сам его не делает, если вызов влезает в строку.
+- HTTP-коды — `rest_framework.status` в ответах DRF; тексты для людей — константами (бот — `apps/leads/telegram/texts.py`).

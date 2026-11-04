@@ -26,12 +26,20 @@ x-backend-env: &backend_env
   BACKEND__S3__BUCKET_NAME: ${BACKEND__S3__BUCKET_NAME:-}
   BACKEND__S3__CUSTOM_DOMAIN: ${BACKEND__S3__CUSTOM_DOMAIN:-}
   BACKEND__S3__LOCATION: ${BACKEND__S3__LOCATION:-}
+  BACKEND__PUBLIC_URL: ${BACKEND__PUBLIC_URL:-}
+  BACKEND__SITE_URL: ${BACKEND__SITE_URL:-}
+  BACKEND__TELEGRAM__BOT_TOKEN: ${BACKEND__TELEGRAM__BOT_TOKEN:-}
+  BACKEND__TELEGRAM__CHAT_ID: ${BACKEND__TELEGRAM__CHAT_ID:-}
+  BACKEND__LEADS__RETENTION_DAYS: ${BACKEND__LEADS__RETENTION_DAYS:-365}
 
 x-backend: &backend
   image: ghcr.io/leonenkk/art-teplo-backend:${IMAGE_TAG:-main}
   init: true
   restart: unless-stopped
   environment: *backend_env
+  # Файлы заявок: пишет backend, отправляет в Telegram celery_worker
+  volumes:
+    - private_media:/src/private
   depends_on:
     migrate:
       condition: service_completed_successfully
@@ -73,6 +81,13 @@ services:
     command: ["-A", "settings", "beat", "--loglevel=info"]
     mem_limit: 192m
 
+  # Кнопки «Беру» / «Отказаться»: long polling, только исходящие соединения.
+  # Один экземпляр на токен — второй получит от Telegram 409
+  telegram_bot:
+    <<: *backend
+    command: ["runbot"]
+    mem_limit: 192m
+
   # Единственный сервис с портом наружу. TLS добавим при запуске сервера
   nginx:
     image: nginx:1.30.6-alpine
@@ -98,3 +113,6 @@ services:
     init: true
     restart: unless-stopped
     mem_limit: 512m
+
+volumes:
+  private_media:

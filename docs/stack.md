@@ -160,7 +160,9 @@ art-teplo/
 
 **Образ бэка.** Builder на `python:3.14-slim` + uv ставит только основные зависимости, собирает статику и байткод. Runtime — distroless `ubuntu/python:3.14-26.04`: нет shell, процесс от `_daemon_`, код только для чтения. Команды Django: `docker compose run --rm backend <команда>`.
 
-**nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/` → backend; `/` → `web:3000` (пока нет — 502). `X-Forwarded-For` nginx заменяет на `$remote_addr`, а не дописывает, и в DRF `NUM_PROXIES = 1`: клиент не может подставить свой IP (обход троттлинга, журнал согласий). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
+**Заявки.** `apps/leads`: `POST /api/leads/` (multipart, throttling 3/мин и 20/сутки на IP, honeypot, проверка телефона и сигнатуры файла) → Celery `notify_lead` → закрытая группа Telegram. Файлы — в `/src/private` (том `private_media`, общий для backend и celery_worker), не в `/src/media`, который ASGI отдаёт открыто; скачать — только из админки. Бот — aiogram 3 внутри бэка: сервис `telegram_bot` (команда `runbot`, `Dispatcher.start_polling`) принимает нажатия, Celery отправляет через тот же `aiogram.Bot`; хендлеры работают с `Lead` через асинхронный ORM Django. Обработка от способа получения не зависит — для вебхука хватит адреса в Django с `Dispatcher.feed_update`. Beat раз в сутки удаляет заявки старше `BACKEND__LEADS__RETENTION_DAYS` (365).
+
+**nginx.** Единственный порт наружу. `/api/`, `/<ADMIN_PATH>/`, `/static/` → backend; `/` → `web:3000` (пока нет — 502). Тело запроса — до 55 МБ (файл заявки до 50 МБ). `X-Forwarded-For` nginx заменяет на `$remote_addr`, а не дописывает, и в DRF `NUM_PROXIES = 1`: клиент не может подставить свой IP (обход троттлинга, журнал согласий). TLS, basic auth на админку и лимит на `/api/leads/` — при запуске сервера.
 
 **CI** (`ci.yml`, на каждый PR и push в `main`; push в `develop` не запускает — всё проверено в PR): проверяется только изменённая часть, итог — задача `ci-ok`.
 - backend: ruff, `manage.py check`, `makemigrations --check`, pytest на Postgres;
@@ -172,3 +174,36 @@ art-teplo/
 **Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Запуск только из `main` (проверка в workflow). В GitHub — секреты и переменные **репозитория** (секреты окружений в приватном репозитории на бесплатном плане недоступны): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; variables `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), чистка старых образов. Откат — тот же запуск с тегом `sha-…` (есть только у коммитов в `main`, где менялся бэк, и только у 5 последних).
 
 **Подготовить сервер (один раз):** пользователь `deploy` в группе `docker`, вход только по ключу; Docker с compose; каталог `DEPLOY_PATH` с `.env` по `root/.env.example` (новые пароли, `chmod 600`); `ssh-keyscan` хоста — в `DEPLOY_KNOWN_HOSTS`; первый суперпользователь — `docker compose run --rm backend createsuperuser`.
+
+### Заявки: что сделать при переезде на прод
+
+Локально всё работает на тестовом боте и `localhost`. На сервере:
+
+**Telegram (руками, один раз)**
+- [ ] Боевой бот в @BotFather — на аккаунте заказчика или с передачей владения (`/mybots` → Transfer ownership). Тестовый бот остаётся для разработки: один токен нельзя опрашивать из двух мест.
+- [ ] Закрытая группа менеджеров, в ней бот и два админа группы; `/chatid` в группе → id в `.env`.
+- [ ] @BotFather → Bot Settings → Allow Groups → Turn off: бота больше никуда не добавить.
+- [ ] Если группа станет супергруппой (включили историю для новых, сделали публичной…), id меняется на `-100…`: бот пишет в лог `TelegramMigrateToChat` с новым id — заменить `CHAT_ID`.
+
+**`.env` на сервере** (по `root/.env.example`)
+- [ ] `BACKEND__TELEGRAM__BOT_TOKEN` — токен боевого бота; `BACKEND__TELEGRAM__CHAT_ID` — id группы.
+- [ ] `BACKEND__PUBLIC_URL=https://art-teplo.by` — ссылка «Открыть в админке» (адрес nginx, где живёт админка).
+- [ ] `BACKEND__SITE_URL` — ссылка «Открыть товар на сайте». Фронт на том же домене за nginx — оставить пустым (возьмётся `PUBLIC_URL`); фронт отдельно (Vercel) — его адрес.
+- [ ] `BACKEND__CORS_ALLOWED_ORIGINS` — адрес фронта со схемой (`https://art-teplo.by`; пока фронт на Vercel — и его домен), иначе браузер не пустит форму в API.
+- [ ] `BACKEND__ALLOWED_HOSTS`, `BACKEND__CSRF_TRUSTED_ORIGINS` — боевой домен вместо `localhost` и `lvh.me`.
+- [ ] `BACKEND__LEADS__RETENTION_DAYS=365` — срок из политики; поменяли — поправить и `/privacy`.
+
+**Фронт**
+- [ ] `NEXT_PUBLIC_API_URL` — адрес бэка без слеша (`https://art-teplo.by`) там, где собирается боевой фронт. Переменная вшивается при сборке: после изменения — пересобрать. Без неё форма только имитирует отправку.
+
+**Сервер и nginx**
+- [ ] TLS; `limit_req` на `/api/leads/` поверх троттлинга DRF; basic auth на админку.
+- [ ] Том `private_media` (файлы заявок) — в бэкап вместе с Postgres; права — у пользователя контейнера (`584792`, ставит Dockerfile).
+- [ ] После первого запуска: в админке «Periodic tasks» есть `purge-old-leads` (раз в сутки, 3:30).
+- [ ] Проверка: заявка с сайта → сообщение в группе → «Беру» → в админке ответственный; файл приходит ответом.
+
+**Юридическое (от заказчика)**
+- [ ] Где стоит сервер — заглушка «[Уточнить у заказчика…]» в `web/src/app/privacy/page.tsx`.
+- [ ] Текст согласия и политики — проверить юристу. Поменяли текст у галочки — поднять `CONSENT_VERSION` в `LeadForm.tsx`.
+
+**Только для разработки, на прод не переносить:** `lvh.me` в `ALLOWED_HOSTS` / `CSRF_TRUSTED_ORIGINS` / `PUBLIC_URL` / `SITE_URL`, тестовый токен.
