@@ -1,10 +1,3 @@
-"""Чистка HTML из редактора статей (Trix в Unfold).
-
-Остаются только теги, которые фронт умеет оформить; стили, классы,
-скрипты и картинки уходят. Заголовок статьи на странице — h1, поэтому
-h1 из редактора становится h2.
-"""
-
 import re
 
 import nh3
@@ -36,7 +29,6 @@ URL_SCHEMES = {'http', 'https', 'mailto', 'tel'}
 WORDS_PER_MINUTE = 180
 
 H1 = re.compile(r'<(/?)h1\b', re.IGNORECASE)
-# Trix пишет абзацы как <div>…</div>; пустые абзацы — <div><br></div>
 DIV = re.compile(r'<(/?)div\b', re.IGNORECASE)
 EMPTY_P = re.compile(r'<p>(\s|<br>)*</p>')
 

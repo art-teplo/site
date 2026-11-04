@@ -150,6 +150,7 @@ dependencies = [
     { name = "aiogram" },
     { name = "celery", extra = ["redis"] },
     { name = "django" },
+    { name = "django-axes" },
     { name = "django-celery-beat" },
     { name = "django-cors-headers" },
     { name = "django-environ" },
@@ -186,6 +187,7 @@ requires-dist = [
     { name = "aiogram", specifier = ">=3.31.0" },
     { name = "celery", extras = ["redis"], specifier = ">=5.6" },
     { name = "django", specifier = ">=6.0,<6.1" },
+    { name = "django-axes", specifier = ">=8.0" },
     { name = "django-celery-beat", specifier = ">=2.9" },
     { name = "django-cors-headers", specifier = ">=4.9" },
     { name = "django-environ", specifier = ">=0.14" },
@@ -395,6 +397,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/13/1f/e4c69ec67bedee10428875a44b8b4554d0448a264b50298bfa63d2162708/django-6.0.9.tar.gz", hash = "sha256:8ce037c971f421cfb47d38c097ca233a8f6dd42d9e9501a37e02dd7d08c5cb3f", size = 10955325, upload-time = "2026-10-06T12:57:57.479Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/01/3f/f0378bc671b528caf61b143ba91c1057204a7e863d9a309d62a64203f9c4/django-6.0.9-py3-none-any.whl", hash = "sha256:5c6473d05bbea9c43359cc36701b5deec3c925f5311963786e1346544c1a68c0", size = 8377504, upload-time = "2026-10-06T12:57:52.649Z" },
+]
+
+[[package]]
+name = "django-axes"
+version = "9.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/be/99/5c830ecc3933a1b8ce2edbd9570dee7399a8c0fd001e496733a7bddf3ac9/django_axes-9.0.0.tar.gz", hash = "sha256:863aef4563673c1e77bb3d21be1ba1d2612b0cf9d5365c27c9af9ae1c614c3c0", size = 265598, upload-time = "2026-10-30T20:54:52.763Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2d/a0/da4e8cb4c43c8aa5266a5fcde1394fe68b2e86b43fc2a0df2b282b18962b/django_axes-9.0.0-py3-none-any.whl", hash = "sha256:fb7b0322a09d8f090d5a980690cb5468dc1903d3d950f1968c4e067348d58059", size = 79432, upload-time = "2026-10-30T20:54:51.056Z" },
 ]
 
 [[package]]
