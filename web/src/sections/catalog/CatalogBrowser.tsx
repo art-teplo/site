@@ -8,7 +8,7 @@ import { Button } from "@/components/Button/Button";
 import { brands } from "@/data/catalog";
 import type { Product } from "@/data/types";
 import { activeCount, applyFilters, buildFacets, buildRanges, parseFilters, type FacetKey, type RangeKey } from "@/lib/catalog-filter";
-import { cx } from "@/lib/format";
+import { cx, plural } from "@/lib/format";
 import styles from "./CatalogBrowser.module.css";
 
 const brandName = (slug: string) => brands.find((b) => b.slug === slug)?.name ?? slug;
@@ -144,7 +144,7 @@ export function CatalogFallback({ products }: { products: Product[] }) {
   return (
     <div className={styles.layout}>
       <div className={styles.toolbar}>
-        <p className={styles.found}>{products.length} моделей</p>
+        <p className={styles.found}>{plural(products.length, "модель", "модели", "моделей")}</p>
       </div>
       <div className={styles.filters} aria-hidden="true" />
       <div className={styles.results}>

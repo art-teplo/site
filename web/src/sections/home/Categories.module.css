@@ -9,12 +9,17 @@
   margin-top: var(--spacing-58);
 }
 
+/* Тёмная плитка цвета тёмных блоков: название сверху, кнопка снизу слева,
+   товар без фона уходит в правый нижний угол, за ним — тёплое свечение, как от радиатора */
 .tile {
   position: relative;
   display: block;
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-cards);
   overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 85%, color-mix(in srgb, var(--color-ember) 32%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--color-umber) 0%, var(--color-umber-deep) 60%, var(--color-coal) 100%);
   color: var(--color-cream-paper);
   isolation: isolate;
 }
@@ -26,35 +31,29 @@
 
 .img {
   position: absolute;
-  inset: 0;
-  z-index: -2;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 82%;
+  height: 58%;
+  background: transparent;
+  transform-origin: right bottom;
   transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.img img {
+  object-position: right bottom;
 }
 
 .tile:hover .img {
   transform: scale(1.04);
 }
 
-.shade {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--scrim);
-}
-
-.num {
-  position: absolute;
-  top: var(--spacing-18);
-  left: var(--spacing-18);
-  font-size: var(--text-caption);
-  color: color-mix(in srgb, var(--color-cream-paper) 80%, transparent);
-}
-
 .caption {
   position: absolute;
-  left: var(--spacing-18);
-  right: calc(var(--control-height) + 2 * var(--spacing-18));
-  bottom: var(--spacing-18);
+  top: var(--spacing-24);
+  left: var(--spacing-24);
+  right: var(--spacing-24);
   display: grid;
   gap: var(--spacing-4);
 }
@@ -63,6 +62,7 @@
   font-family: var(--font-display);
   font-size: var(--text-heading-sm);
   line-height: var(--leading-heading);
+  hyphens: auto;
 }
 
 .short {
@@ -72,8 +72,8 @@
 
 .arrow {
   position: absolute;
-  right: var(--spacing-18);
-  bottom: var(--spacing-18);
+  left: var(--spacing-24);
+  bottom: var(--spacing-24);
   width: var(--control-height);
   height: var(--control-height);
   padding: var(--spacing-12);
@@ -91,30 +91,37 @@
   transform: translateX(var(--hover-shift));
 }
 
+/* Планшет: те же 4 в ряд, но ровно и компактнее — плитки узкие */
 @media (max-width: 1023px) {
-  .list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .item:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .caption {
+    top: var(--spacing-16);
+    left: var(--spacing-16);
+    right: var(--spacing-16);
+  }
+
+  .name {
+    font-size: var(--text-body);
+  }
+
+  .desc {
+    display: none;
+  }
+
+  .arrow {
+    left: var(--spacing-16);
+    bottom: var(--spacing-16);
+    width: var(--spacing-40);
+    height: var(--spacing-40);
   }
 }
 
+/* Телефон: сетка 2×2 вместо ленты */
 @media (max-width: 767px) {
   .list {
-    grid-auto-flow: column;
-    grid-template-columns: none;
-    grid-auto-columns: 72%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    margin-inline: calc(-1 * var(--gutter));
-    padding-inline: var(--gutter);
-    scroll-padding-inline: var(--gutter);
-    scrollbar-width: none;
-  }
-
-  .item {
-    scroll-snap-align: start;
-  }
-
-  .item:nth-child(even) {
-    margin-top: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

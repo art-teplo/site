@@ -9,25 +9,25 @@ export const categories: Category[] = [
     slug: "radiatory",
     name: "Радиаторы",
     short: "Трубчатые, дизайн-радиаторы, чугунные",
-    image: img("/images/categories/radiatory.jpg", 1200, 1500, "Вертикальный трубчатый радиатор в гостиной"),
+    image: img("/images/categories/radiatory.png", 315, 241, "Трубчатый радиатор с термоголовкой"),
   },
   {
     slug: "konvektory",
     name: "Конвекторы",
     short: "Внутрипольные и напольные",
-    image: img("/images/categories/konvektory.jpg", 1200, 1500, "Внутрипольный конвектор у панорамного окна"),
+    image: img("/images/categories/konvektory.png", 800, 389, "Внутрипольный конвектор со свёрнутой решёткой"),
   },
   {
     slug: "polotentsesushiteli",
     name: "Полотенце\u00adсушители",
     short: "Водяные и электрические",
-    image: img("/images/categories/polotentsesushiteli.jpg", 1200, 1500, "Полотенцесушитель в ванной комнате"),
+    image: img("/images/categories/polotentsesushiteli.png", 216, 229, "Водяной полотенцесушитель-лесенка"),
   },
   {
     slug: "armatura",
     name: "Арматура",
     short: "Вентили и автоматика",
-    image: img("/images/categories/armatura.jpg", 1200, 1500, "Запорная арматура для радиатора крупным планом"),
+    image: img("/images/categories/armatura.png", 190, 229, "Узел нижнего подключения радиатора"),
   },
 ];
 

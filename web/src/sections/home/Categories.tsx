@@ -6,9 +6,10 @@ import { Picture } from "@/components/Picture/Picture";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Arrow, Button } from "@/components/Button/Button";
 import { categories, productsIn } from "@/data/catalog";
+import { plural } from "@/lib/format";
 import styles from "./Categories.module.css";
 
-// 02 · Категории крупными плитками. На мобильном — лента, уходящая за край.
+// 02 · Категории — тёмные плитки цвета наших тёмных блоков, товар без фона в углу. На телефоне — 2×2.
 export function Categories() {
   return (
     <Section id="catalog" labelledBy="categories-title">
@@ -28,12 +29,12 @@ export function Categories() {
           {categories.map((c, i) => (
             <Reveal as="li" key={c.slug} index={i} className={styles.item}>
               <Link href={`/catalog/${c.slug}`} className={styles.tile}>
-                <Picture image={c.image} sizes="(max-width: 767px) 75vw, (max-width: 1023px) 45vw, 25vw" className={styles.img} />
-                <span className={styles.shade} aria-hidden="true" />
+                <Picture image={c.image} fit="contain" sizes="(max-width: 767px) 40vw, 20vw" className={styles.img} />
                 <span className={styles.caption}>
                   <span className={styles.name}>{c.name}</span>
                   <span className={styles.short}>
-                    {c.short} · {productsIn(c.slug).length} моделей
+                    <span className={styles.desc}>{c.short} · </span>
+                    {plural(productsIn(c.slug).length, "модель", "модели", "моделей")}
                   </span>
                 </span>
                 <Arrow className={styles.arrow} />
