@@ -6,6 +6,15 @@ name: art-teplo
 include:
   - docker-compose.infra.yaml
 
+# Лимит логов Docker: дублирует /etc/docker/daemon.json на сервере (docs/stack.md),
+# чтобы лимит жил в git и работал на любой машине
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "20m"
+    max-file: "5"
+    compress: "true"
+
 x-backend-env: &backend_env
   BACKEND__SECRET_KEY: ${BACKEND__SECRET_KEY}
   BACKEND__DEBUG: ${BACKEND__DEBUG:-0}
@@ -38,6 +47,7 @@ x-backend: &backend
   image: ghcr.io/leonenkk/art-teplo-backend:${IMAGE_TAG:-main}
   init: true
   restart: unless-stopped
+  logging: *logging
   environment: *backend_env
   # Файлы заявок: пишет backend, отправляет в Telegram celery_worker
   volumes:
@@ -106,6 +116,7 @@ services:
       backend:
         condition: service_healthy
     mem_limit: 64m
+    logging: *logging
 
   # Фронт пока на Vercel, образ web в GHCR ещё не публикуется (см. ci.yml).
   # Включить на сервере: публикация в ci.yml + COMPOSE_PROFILES=web в .env
@@ -115,6 +126,7 @@ services:
     init: true
     restart: unless-stopped
     mem_limit: 512m
+    logging: *logging
 
 volumes:
   private_media:
