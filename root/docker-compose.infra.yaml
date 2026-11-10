@@ -25,7 +25,7 @@ services:
     logging: *logging
 
   redis:
-    image: redis:7.4.12-alpine
+    image: redis:8.10.3-alpine
     restart: unless-stopped
     # Кэш и брокер Celery в одном инстансе: volatile-lru вытесняет только
     # ключи с TTL (кэш), очередь задач без TTL не теряется
