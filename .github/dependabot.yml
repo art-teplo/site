@@ -1,3 +1,6 @@
+# Только минорные и патч-версии: мажорные (postgres 18, typescript 7…) ломают
+# совместимость — их обновляем сами, отдельной задачей с проверкой (решение 117).
+# Исключение — GitHub Actions: мажорные там из-за смены Node в раннерах, CI их проверит.
 version: 2
 
 updates:
@@ -12,6 +15,9 @@ updates:
     groups:
       python:
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directory: /web
@@ -24,6 +30,9 @@ updates:
     groups:
       npm:
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
@@ -45,6 +54,9 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: docker-compose
     directory: /root
@@ -54,3 +66,6 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
