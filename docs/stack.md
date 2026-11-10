@@ -185,7 +185,7 @@ art-teplo/
 - backend: ruff, `manage.py check`, `makemigrations --check`, pytest на Postgres;
 - web: `npm run lint`, `npm run build`;
 - root: `docker compose config` для прода, dev и профиля web;
-- образы backend и web собираются на каждом PR (проверка Dockerfile). Из `main` публикуется только `ghcr.io/leonenkk/art-teplo-backend` с тегами `main` и `sha-<7>`; задача `cleanup` оставляет 5 последних версий. Образ web начнём публиковать, когда фронт переедет на сервер.
+- образы backend и web собираются на каждом PR (проверка Dockerfile). Из `main` публикуется только `ghcr.io/art-teplo/site-backend` с тегами `main` и `sha-<7>`; задача `cleanup` оставляет 5 последних версий. Образ web начнём публиковать, когда фронт переедет на сервер.
 - лимиты бесплатного плана для приватного репозитория: Actions — $12 в месяц (около 2000 минут Linux, прогон CI около 11 минут); GHCR — 500 МБ хранения (вместе с артефактами Actions) и 1 ГБ скачиваний в месяц; сжатый образ бэка около 75 МБ, сервер при деплое качает только изменённые слои.
 
 **Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Запуск только из `main` (проверка в workflow). В GitHub — секреты и переменные **репозитория** (секреты окружений в приватном репозитории на бесплатном плане недоступны): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; variables `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), чистка старых образов. Откат — тот же запуск с тегом `sha-…` (есть только у коммитов в `main`, где менялся бэк, и только у 5 последних).

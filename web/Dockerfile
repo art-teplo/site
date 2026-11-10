@@ -18,7 +18,7 @@ FROM node:${NODE_VERSION} AS runtime
 WORKDIR /app
 
 LABEL org.opencontainers.image.title="art-teplo web" \
-      org.opencontainers.image.source="https://github.com/leonenkk/art-teplo"
+      org.opencontainers.image.source="https://github.com/art-teplo/site"
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
