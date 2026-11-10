@@ -24,21 +24,26 @@ export default async function BlogPage() {
       <PageIntro title="Блог и акции" intro="Пишем о том, что спрашивают в шоуруме: как выбрать тип, мощность, цвет и подключение." />
       <Section tone="white">
         <Container>
-          <Reveal className={cx(styles.featured, styles.post)}>
-            <Frame ratio="16 / 9">
-              <Picture image={first.image} sizes="(max-width: 1023px) 100vw, 60vw" />
-            </Frame>
-            <div className={styles.featuredText}>
-              <p className={styles.meta}>
-                <time dateTime={first.date}>{formatDate(first.date)}</time> · {first.readMinutes} мин
-              </p>
-              <h2 className={styles.featuredTitle}>
-                <Link href={`/blog/${first.slug}`} className={styles.link}>
-                  {first.title}
-                </Link>
-              </h2>
-            </div>
-          </Reveal>
+          {/* В админке может не быть ни одной статьи — тогда вместо главной статьи заметка */}
+          {first ? (
+            <Reveal className={cx(styles.featured, styles.post)}>
+              <Frame ratio="16 / 9">
+                <Picture image={first.image} sizes="(max-width: 1023px) 100vw, 60vw" />
+              </Frame>
+              <div className={styles.featuredText}>
+                <p className={styles.meta}>
+                  <time dateTime={first.date}>{formatDate(first.date)}</time> · {first.readMinutes} мин
+                </p>
+                <h2 className={styles.featuredTitle}>
+                  <Link href={`/blog/${first.slug}`} className={styles.link}>
+                    {first.title}
+                  </Link>
+                </h2>
+              </div>
+            </Reveal>
+          ) : (
+            <p className={styles.note}>Статей пока нет.</p>
+          )}
           <ul className={styles.list}>
             {rest.map((post, i) => (
               <Reveal as="li" key={post.slug} index={i}>
