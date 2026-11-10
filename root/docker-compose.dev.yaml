@@ -43,6 +43,11 @@ services:
   telegram_bot:
     <<: *backend_dev
 
+  # Next в разработке — на хосте (npm run dev), образ из GHCR не нужен:
+  # docker compose ... --profile web up — если всё же хочется
+  web:
+    profiles: ["web"]
+
   nginx:
     ports: !override
       - "8080:80"

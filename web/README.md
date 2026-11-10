@@ -22,7 +22,7 @@ src/
   app/             ← страницы (роуты Next): /, /catalog, /catalog/[category], /catalog/[category]/[product],
                      /podbor, /uslugi, /proekty, /shourum, /klientam, /partneram, /blog, /kontakty, /brendy, /privacy
   data/            ← данные отдельно от разметки. api.ts — контент из админки (getSite, getFaq, getProjects, getPosts…)
-                     с кэшем по тегам; без NEXT_PUBLIC_API_URL — демо из content.ts / site.ts
+                     с кэшем по тегам; без API_URL — демо из content.ts / site.ts
   lib/             ← чистые функции: форматирование, фильтры каталога, текущий год
 public/images/     ← изображения; сейчас демо-фото (docs/demo-photos.md), реальные кладутся по тем же путям
 ```
@@ -50,7 +50,7 @@ public/images/     ← изображения; сейчас демо-фото (d
 
 ## Что пока заглушка
 
-- Отправка формы (`LeadForm`) идёт в `POST /api/leads/`, только если при сборке задан `NEXT_PUBLIC_API_URL` (адрес бэка без слеша, локально `http://localhost:8000`); без него — имитация, как на демо в Vercel.
-- Контакты, вопрос-ответ, проекты, блог и шоурум берутся из админки через `data/api.ts`, если задан `NEXT_PUBLIC_API_URL` (см. `.env.example`); иначе — демо из `src/data`. Категории, бренды и сроки изготовления — тоже из админки (тег `catalog`); товары и фильтры — пока демо (`data/catalog.ts`, ждём xlsx заказчика) и ссылаются на них по slug.
+- Отправка формы (`LeadForm`) идёт в `POST /api/leads/` своего домена (на сервере — nginx, в `npm run dev` — rewrites из `next.config.ts`), только если при сборке задан `API_URL` (адрес бэка без слеша, локально `http://localhost:8000`, в Docker `http://backend:8000`); без него — имитация.
+- Контакты, вопрос-ответ, проекты, блог и шоурум берутся из админки через `data/api.ts`, если задан `API_URL` (см. `.env.example`); иначе — демо из `src/data`. При `next build` бэк не нужен: страницы собираются на демо, а на сервере `root/deploy.sh` сразу сбрасывает теги. Категории, бренды и сроки изготовления — тоже из админки (тег `catalog`); товары и фильтры — пока демо (`data/catalog.ts`, ждём xlsx заказчика) и ссылаются на них по slug.
 - Виджет отзывов Яндекс.Карт, страницы отдельных проектов. Тексты статей — черновик.
 - Тексты внутренних страниц — черновик (`data/content.ts`), сверить с заказчиком.

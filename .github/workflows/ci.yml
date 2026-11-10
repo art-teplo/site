@@ -122,7 +122,7 @@ jobs:
           cp .env.example .env
           docker compose config -q
           docker compose -f docker-compose.yaml -f docker-compose.dev.yaml config -q
-          COMPOSE_PROFILES=web docker compose config -q
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml --profile web config -q
 
   images:
     needs: [changes, backend, web]
@@ -138,7 +138,7 @@ jobs:
       matrix:
         image: [backend, web]
     env:
-      PUBLISH: ${{ github.event_name == 'push' && matrix.image == 'backend' }}
+      PUBLISH: ${{ github.event_name == 'push' }}
     steps:
       - name: Изменилась ли часть
         id: skip
@@ -182,10 +182,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
+    strategy:
+      matrix:
+        package: [site-backend, site-web]
     steps:
       - uses: actions/delete-package-versions@e5bc658cc4c965c472efe991f8beea3981499c55 # v5.0.0
         with:
-          package-name: site-backend
+          package-name: ${{ matrix.package }}
           package-type: container
           min-versions-to-keep: 5
 

@@ -12,16 +12,16 @@ from .models import (
 )
 
 
-def absolute(url, request):
-    """Абсолютный адрес: фото грузит Next, видео — браузер со страницы сайта,
-    а сайт и бэк могут жить на разных доменах."""
-    return request.build_absolute_uri(url) if request else url
+def image_asset(obj):
+    """Фото в форме ImageAsset фронта.
 
-
-def image_asset(obj, request):
-    """Фото в форме ImageAsset фронта."""
+    Адрес файла — как его отдаёт хранилище: на диске /media/… без домена (сайт и бэк
+    на одном домене за nginx, Next берёт фото через свои rewrites), в S3 — полный адрес.
+    Домен из запроса не подставляем: Next ходит сюда по http://backend:8000,
+    браузеру этот адрес не виден. Так же отдаются видео шоурума и логотипы брендов.
+    """
     return {
-        'src': absolute(obj.image.url, request),
+        'src': obj.image.url,
         'width': obj.image_width,
         'height': obj.image_height,
         'alt': obj.image_alt,
@@ -32,7 +32,7 @@ class ImageAssetMixin(serializers.Serializer):
     image = serializers.SerializerMethodField()
 
     def get_image(self, obj):
-        return image_asset(obj, self.context.get('request'))
+        return image_asset(obj)
 
 
 class OpeningHoursSerializer(serializers.ModelSerializer):
@@ -90,17 +90,16 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
         """Видео и постер; без видео — null, на сайте фото «скоро»."""
         if not obj.showroom_video:
             return None
-        request = self.context.get('request')
         poster = None
         if obj.showroom_poster:
             poster = {
-                'src': absolute(obj.showroom_poster.url, request),
+                'src': obj.showroom_poster.url,
                 'width': obj.showroom_poster_width,
                 'height': obj.showroom_poster_height,
                 'alt': 'Шоурум АртТепло',
             }
         return {
-            'src': absolute(obj.showroom_video.url, request),
+            'src': obj.showroom_video.url,
             'poster': poster,
         }
 
@@ -128,8 +127,7 @@ class ProjectSerializer(ImageAssetMixin, serializers.ModelSerializer):
         ]
 
     def get_photos(self, obj):
-        request = self.context.get('request')
-        return [image_asset(photo, request) for photo in obj.photos.all()]
+        return [image_asset(photo) for photo in obj.photos.all()]
 
 
 class PostListSerializer(ImageAssetMixin, serializers.ModelSerializer):

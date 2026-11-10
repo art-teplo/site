@@ -15,8 +15,8 @@ const MAX_FILE_MB = 50; // лимит Bot API на отправку файла �
 const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024; // как FileSizeValidator на бэке
 // Версия текста согласия — сохраняется с заявкой (Закон РБ № 99-З). Поменяли текст у галочки — поднимите
 const CONSENT_VERSION = "2026-11-04";
-// Адрес бэка. Не задан (демо на Vercel) — отправка имитируется
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// Бэка нет (демо на Vercel, сборка без API_URL) — отправка имитируется. Флаг вшивает next.config.ts
+const DEMO = process.env.NEXT_PUBLIC_DEMO === "1";
 
 type Props = {
   source: string; // откуда пришла заявка — видно менеджеру
@@ -56,7 +56,7 @@ export function LeadForm({ source, context, withFile = true, submitLabel = "От
     if (Object.keys(next).length) return;
 
     setState("sending");
-    if (!API_URL) {
+    if (DEMO) {
       await new Promise((resolve) => setTimeout(resolve, 600));
       setState("sent");
       return;
@@ -71,7 +71,7 @@ export function LeadForm({ source, context, withFile = true, submitLabel = "От
 
     const failed = `Не получилось отправить. Позвоните нам: ${site.phone}`;
     try {
-      const response = await fetch(`${API_URL}/api/leads/`, { method: "POST", body: form });
+      const response = await fetch("/api/leads/", { method: "POST", body: form });
       if (response.ok) {
         setState("sent");
         return;

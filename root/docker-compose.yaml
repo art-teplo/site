@@ -40,7 +40,8 @@ x-backend-env: &backend_env
   BACKEND__TELEGRAM__BOT_TOKEN: ${BACKEND__TELEGRAM__BOT_TOKEN:-}
   BACKEND__TELEGRAM__CHAT_ID: ${BACKEND__TELEGRAM__CHAT_ID:-}
   BACKEND__LEADS__RETENTION_DAYS: ${BACKEND__LEADS__RETENTION_DAYS:-365}
-  BACKEND__FRONTEND__REVALIDATE_URL: ${BACKEND__FRONTEND__REVALIDATE_URL:-}
+  # Celery зовёт фронт по внутренней сети после правки в админке
+  BACKEND__FRONTEND__REVALIDATE_URL: ${BACKEND__FRONTEND__REVALIDATE_URL:-http://web:3000/api/revalidate}
   BACKEND__FRONTEND__REVALIDATE_SECRET: ${BACKEND__FRONTEND__REVALIDATE_SECRET:-}
 
 x-backend: &backend
@@ -103,7 +104,7 @@ services:
 
   # Единственный сервис с портом наружу. TLS добавим при запуске сервера
   nginx:
-    image: nginx:1.30.6-alpine
+    image: nginx:1.31.8-alpine
     init: true
     restart: unless-stopped
     ports:
@@ -119,13 +120,24 @@ services:
     mem_limit: 64m
     logging: *logging
 
-  # Фронт пока на Vercel, образ web в GHCR ещё не публикуется (см. ci.yml).
-  # Включить на сервере: публикация в ci.yml + COMPOSE_PROFILES=web в .env
+  # Фронт: Next standalone (web/Dockerfile). Снаружи — только через nginx.
+  # Адрес бэка (API_URL=http://backend:8000) вшит в образ при сборке
   web:
     image: ghcr.io/art-teplo/site-web:${IMAGE_TAG:-main}
-    profiles: ["web"]
     init: true
     restart: unless-stopped
+    environment:
+      # Тот же секрет, что у бэка: им Celery и deploy.sh просят обновить страницы
+      REVALIDATE_SECRET: ${BACKEND__FRONTEND__REVALIDATE_SECRET:-}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/robots.txt').then(r => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
+    depends_on:
+      backend:
+        condition: service_healthy
     mem_limit: 512m
     logging: *logging
 
