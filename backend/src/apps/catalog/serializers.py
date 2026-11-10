@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.content.serializers import ImageAssetMixin, absolute
+from apps.content.serializers import ImageAssetMixin
 
 from .models import Brand, Category, LeadTime
 
@@ -19,9 +19,7 @@ class BrandSerializer(serializers.ModelSerializer):
         fields = ['slug', 'name', 'country', 'note', 'logo', 'warranty_years']
 
     def get_logo(self, obj):
-        if not obj.logo:
-            return None
-        return absolute(obj.logo.url, self.context.get('request'))
+        return obj.logo.url if obj.logo else None
 
 
 class LeadTimeSerializer(serializers.ModelSerializer):
