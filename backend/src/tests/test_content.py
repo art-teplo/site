@@ -160,7 +160,7 @@ def test_showroom_video_with_poster(client):
 
     video = client.get(reverse('site')).json()['showroom_video']
 
-    assert video['src'].startswith('http://testserver/media/')
+    assert video['src'].startswith('/media/')
     assert video['src'].endswith('.mp4')
     poster = video['poster']
     assert (poster['width'], poster['height']) == (160, 90)
@@ -207,7 +207,7 @@ def test_projects_published_with_image(client, make_project):
     assert len(data) == 1
     assert data[0]['kind'] == 'квартира'
     image = data[0]['image']
-    assert image['src'].startswith('http://testserver/media/content_project/')
+    assert image['src'].startswith('/media/content_project/')
     assert (image['width'], image['height'], image['alt']) == (
         40,
         30,

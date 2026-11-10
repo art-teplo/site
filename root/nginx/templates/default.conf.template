@@ -54,7 +54,8 @@ server {
         add_header Content-Security-Policy "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; sandbox" always;
     }
 
-    # Next (профиль web). Пока его нет — 502, фронт живёт на Vercel
+    # Остальное — Next (сервис web). Адрес через переменную: nginx стартует и тогда,
+    # когда web ещё не поднялся (resolver в nginx.conf), сайт при этом отдаёт 502
     location / {
         set $web http://web:3000;
         proxy_pass $web;

@@ -4,17 +4,24 @@ import { faq, LEAD_TIMES_UPDATED, posts, projects, showroomHall } from "./conten
 import { demoSite } from "./site";
 import type { Brand, Category, Faq, ImageAsset, LeadTime, Post, PostCard, Project, Site } from "./types";
 
-// Контент из админки (бэк: apps/content). Без NEXT_PUBLIC_API_URL — демо-данные из src/data,
-// как на Vercel. Ответы кэшируются по тегам; после правки бэк зовёт /api/revalidate с тегом раздела.
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// Контент из админки (бэк: apps/content). Без API_URL — демо-данные из src/data, как на Vercel.
+// Ответы кэшируются по тегам; после правки бэк зовёт /api/revalidate с тегом раздела.
+// API_URL — адрес бэка для сервера Next: в Docker http://backend:8000, локально http://localhost:8000.
+// Браузер в бэк напрямую не ходит: /api/ и /media/ на том же домене (nginx, а в разработке — rewrites).
+const API_URL = process.env.API_URL;
+// При сборке бэка нет (CI собирает образ без него): страницы собираются на демо, а при деплое
+// deploy.sh сбрасывает все теги, и первый же заход берёт данные из админки
+const BUILDING = process.env.NEXT_PHASE === "phase-production-build";
 
 // Теги — те же, что models.Tag на бэке
 type Tag = "site" | "faq" | "projects" | "posts" | "showroom" | "catalog";
 
-async function load<T>(path: string, tag: Tag): Promise<T | null> {
+// undefined — бэка нет (демо), null — бэк ответил 404
+async function load<T>(path: string, tag: Tag): Promise<T | null | undefined> {
   "use cache";
   cacheTag(tag);
   cacheLife("hours"); // страховка, если бэк не достучался до /api/revalidate
+  if (!API_URL || BUILDING) return undefined; // демо — тоже с тегом, чтобы его можно было сбросить
   // no-store: кэшем управляет только "use cache" с тегом. Иначе fetch ещё раз кладёт ответ в кэш Next
   // без тега — после правки в админке страница берёт старый ответ, а сборка переносит его в новую версию
   const response = await fetch(`${API_URL}/api/${path}`, { cache: "no-store" });
@@ -46,7 +53,7 @@ type ApiPostCard = Omit<PostCard, "date" | "readMinutes"> & { published_at: stri
 type ApiPost = ApiPostCard & { body: string };
 
 export async function getSite(): Promise<Site> {
-  const data = API_URL ? await load<ApiSite>("site/", "site") : null;
+  const data = await load<ApiSite>("site/", "site");
   if (!data) return demoSite;
   return {
     city: data.city,
@@ -69,13 +76,13 @@ export async function getSite(): Promise<Site> {
 }
 
 export async function getFaq(): Promise<Faq[]> {
-  const data = API_URL ? await load<ApiFaq[]>("faq/", "faq") : null;
+  const data = await load<ApiFaq[]>("faq/", "faq");
   if (!data) return faq;
   return data.map((item) => ({ q: item.question, a: item.answer, onHome: item.on_home }));
 }
 
 export async function getProjects(): Promise<Project[]> {
-  const data = API_URL ? await load<ApiProject[]>("projects/", "projects") : null;
+  const data = await load<ApiProject[]>("projects/", "projects");
   if (!data) return projects;
   return data.map(({ product_slugs, ...project }) => ({ ...project, products: product_slugs }));
 }
@@ -87,19 +94,19 @@ const toCard = ({ published_at, read_minutes, ...post }: ApiPostCard): PostCard 
 });
 
 export async function getPosts(): Promise<PostCard[]> {
-  const data = API_URL ? await load<ApiPostCard[]>("posts/", "posts") : null;
+  const data = await load<ApiPostCard[]>("posts/", "posts");
   if (!data) return posts;
   return data.map(toCard);
 }
 
 export async function getPost(slug: string): Promise<Post | null> {
-  if (!API_URL) return posts.find((p) => p.slug === slug) ?? null;
   const data = await load<ApiPost>(`posts/${encodeURIComponent(slug)}/`, "posts");
+  if (data === undefined) return posts.find((p) => p.slug === slug) ?? null;
   return data && { ...toCard(data), body: data.body };
 }
 
 export async function getShowroom(): Promise<ImageAsset[]> {
-  const data = API_URL ? await load<{ image: ImageAsset }[]>("showroom/", "showroom") : null;
+  const data = await load<{ image: ImageAsset }[]>("showroom/", "showroom");
   if (!data) return showroomHall;
   return data.map((photo) => photo.image);
 }
@@ -110,19 +117,19 @@ type ApiBrand = Omit<Brand, "warrantyYears" | "logo"> & { logo: Brand["logo"] | 
 type ApiLeadTime = LeadTime & { updated_at: string };
 
 export async function getCategories(): Promise<Category[]> {
-  const data = API_URL ? await load<Category[]>("categories/", "catalog") : null;
+  const data = await load<Category[]>("categories/", "catalog");
   return data ?? categories;
 }
 
 export async function getBrands(): Promise<Brand[]> {
-  const data = API_URL ? await load<ApiBrand[]>("brands/", "catalog") : null;
+  const data = await load<ApiBrand[]>("brands/", "catalog");
   if (!data) return brands;
   return data.map(({ warranty_years, logo, ...brand }) => ({ ...brand, logo: logo ?? undefined, warrantyYears: warranty_years }));
 }
 
 // Таблица сроков и дата последней правки — она подписана под таблицей
 export async function getLeadTimes(): Promise<{ rows: LeadTime[]; updated: string }> {
-  const data = API_URL ? await load<ApiLeadTime[]>("lead-times/", "catalog") : null;
+  const data = await load<ApiLeadTime[]>("lead-times/", "catalog");
   if (!data) {
     const rows = products.map((p) => ({ series: p.name, brand: p.brand, days: p.leadDays ?? null }));
     return { rows, updated: LEAD_TIMES_UPDATED };
