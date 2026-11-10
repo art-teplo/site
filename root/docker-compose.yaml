@@ -44,7 +44,7 @@ x-backend-env: &backend_env
   BACKEND__FRONTEND__REVALIDATE_SECRET: ${BACKEND__FRONTEND__REVALIDATE_SECRET:-}
 
 x-backend: &backend
-  image: ghcr.io/leonenkk/art-teplo-backend:${IMAGE_TAG:-main}
+  image: ghcr.io/art-teplo/site-backend:${IMAGE_TAG:-main}
   init: true
   restart: unless-stopped
   logging: *logging
@@ -121,7 +121,7 @@ services:
   # Фронт пока на Vercel, образ web в GHCR ещё не публикуется (см. ci.yml).
   # Включить на сервере: публикация в ci.yml + COMPOSE_PROFILES=web в .env
   web:
-    image: ghcr.io/leonenkk/art-teplo-web:${IMAGE_TAG:-main}
+    image: ghcr.io/art-teplo/site-web:${IMAGE_TAG:-main}
     profiles: ["web"]
     init: true
     restart: unless-stopped

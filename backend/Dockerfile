@@ -43,7 +43,7 @@ ARG PYTHON_VERSION
 ARG VERSION=0.0.0
 
 LABEL org.opencontainers.image.title="art-teplo backend" \
-      org.opencontainers.image.source="https://github.com/leonenkk/art-teplo"
+      org.opencontainers.image.source="https://github.com/art-teplo/site"
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
