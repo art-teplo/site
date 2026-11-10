@@ -273,7 +273,6 @@ class Project(Published, WithImage, Sortable):
         'место',
         max_length=150,
     )
-    # До каталога в базе — slug товаров с фронта
     product_slugs = ArrayField(
         models.CharField(max_length=100),
         verbose_name='товары (slug)',

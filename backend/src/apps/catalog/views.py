@@ -17,7 +17,6 @@ class BrandListView(PublicReadMixin, generics.ListAPIView):
 
 
 class LeadTimeListView(PublicReadMixin, generics.ListAPIView):
-    # Порядок как в админке; скрытый бренд прячет и свои сроки
     queryset = LeadTime.objects.filter(
         brand__is_published=True
     ).select_related(

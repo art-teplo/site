@@ -6,6 +6,15 @@ name: art-teplo
 include:
   - docker-compose.infra.yaml
 
+# Лимит логов Docker: дублирует /etc/docker/daemon.json на сервере (docs/stack.md),
+# чтобы лимит жил в git и работал на любой машине
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "20m"
+    max-file: "5"
+    compress: "true"
+
 x-backend-env: &backend_env
   BACKEND__SECRET_KEY: ${BACKEND__SECRET_KEY}
   BACKEND__DEBUG: ${BACKEND__DEBUG:-0}
@@ -35,9 +44,10 @@ x-backend-env: &backend_env
   BACKEND__FRONTEND__REVALIDATE_SECRET: ${BACKEND__FRONTEND__REVALIDATE_SECRET:-}
 
 x-backend: &backend
-  image: ghcr.io/leonenkk/art-teplo-backend:${IMAGE_TAG:-main}
+  image: ghcr.io/art-teplo/site-backend:${IMAGE_TAG:-main}
   init: true
   restart: unless-stopped
+  logging: *logging
   environment: *backend_env
   # Файлы заявок: пишет backend, отправляет в Telegram celery_worker
   volumes:
@@ -75,20 +85,20 @@ services:
     <<: *backend
     entrypoint: ["python3", "-m", "celery"]
     command: ["-A", "settings", "worker", "--concurrency=2", "--loglevel=info"]
-    mem_limit: 384m
+    mem_limit: 512m
 
   celery_beat:
     <<: *backend
     entrypoint: ["python3", "-m", "celery"]
     command: ["-A", "settings", "beat", "--loglevel=info"]
-    mem_limit: 192m
+    mem_limit: 320m
 
   # Кнопки «Беру» / «Отказаться»: long polling, только исходящие соединения.
   # Один экземпляр на токен — второй получит от Telegram 409
   telegram_bot:
     <<: *backend
     command: ["runbot"]
-    mem_limit: 192m
+    mem_limit: 320m
 
   # Единственный сервис с портом наружу. TLS добавим при запуске сервера
   nginx:
@@ -106,15 +116,17 @@ services:
       backend:
         condition: service_healthy
     mem_limit: 64m
+    logging: *logging
 
   # Фронт пока на Vercel, образ web в GHCR ещё не публикуется (см. ci.yml).
   # Включить на сервере: публикация в ci.yml + COMPOSE_PROFILES=web в .env
   web:
-    image: ghcr.io/leonenkk/art-teplo-web:${IMAGE_TAG:-main}
+    image: ghcr.io/art-teplo/site-web:${IMAGE_TAG:-main}
     profiles: ["web"]
     init: true
     restart: unless-stopped
     mem_limit: 512m
+    logging: *logging
 
 volumes:
   private_media:
