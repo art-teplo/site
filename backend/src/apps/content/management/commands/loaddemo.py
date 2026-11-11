@@ -59,7 +59,6 @@ class Command(BaseCommand):
         with transaction.atomic():
             self.load_site(demo['site'])
             self.load_faq(demo['faq'])
-            self.load_projects(demo['projects'])
             self.load_posts(demo['posts'])
             self.load_promos(demo['promos'])
             self.load_showroom(demo['showroom'])
@@ -67,6 +66,7 @@ class Command(BaseCommand):
             self.load_brands(catalog['brands'])
             self.load_lead_times(catalog['lead_times'])
             self.load_series(catalog['series'])
+            self.load_projects(demo['projects'])
         self.stdout.write(self.style.SUCCESS('Демо-контент загружен'))
 
     def attach(self, obj, image):
@@ -102,6 +102,7 @@ class Command(BaseCommand):
         for position, item in enumerate(items):
             image = item.pop('image')
             photos = item.pop('photos')
+            series_slugs = item.pop('series_slugs', [])
             project = Project.objects.filter(slug=item['slug']).first()
             project = project or Project(slug=item['slug'])
             for field, value in item.items():
@@ -109,6 +110,7 @@ class Command(BaseCommand):
             project.position = position
             self.attach(project, image)
             project.save()
+            project.series.set(Series.objects.filter(slug__in=series_slugs))
             for photo_position, photo_image in enumerate(photos):
                 photo = project.photos.filter(
                     image_alt=photo_image['alt'],

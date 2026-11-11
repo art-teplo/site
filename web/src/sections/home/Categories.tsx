@@ -6,7 +6,6 @@ import { Picture } from "@/components/Picture/Picture";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Arrow, Button } from "@/components/Button/Button";
 import { getCategories } from "@/data/api";
-import { productsIn } from "@/data/catalog";
 import { plural } from "@/lib/format";
 import styles from "./Categories.module.css";
 
@@ -36,7 +35,7 @@ export async function Categories() {
                   <span className={styles.name}>{c.name}</span>
                   <span className={styles.short}>
                     <span className={styles.desc}>{c.short} · </span>
-                    {plural(productsIn(c.slug).length, "модель", "модели", "моделей")}
+                    {plural(c.seriesCount, "модель", "модели", "моделей")}
                   </span>
                 </span>
                 <Arrow className={styles.arrow} />

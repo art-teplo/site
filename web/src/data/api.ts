@@ -1,5 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { brands, categories, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
+import { brands, categories, demoSeries, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
 import { mapRow, mapVariants, mapShowcase, type ApiRow, type ApiShowcase, type ApiVariants } from "./catalog-map";
 import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
@@ -74,7 +74,7 @@ type ApiSite = {
   showroom_video: Site["showroomVideo"];
 };
 type ApiFaq = { question: string; answer: string; on_home: boolean };
-type ApiProject = Omit<Project, "products"> & { product_slugs: string[] };
+type ApiProject = Omit<Project, "series"> & { series_slugs: string[] };
 type ApiPostCard = Omit<PostCard, "date" | "readMinutes"> & { published_at: string; read_minutes: number };
 type ApiPost = ApiPostCard & { body: string };
 
@@ -111,7 +111,7 @@ export async function getFaq(): Promise<Faq[]> {
 export async function getProjects(): Promise<Project[]> {
   const data = await load<ApiProject[]>("projects/", "projects");
   if (!data) return projects;
-  return data.map(({ product_slugs, ...project }) => ({ ...project, products: product_slugs }));
+  return data.map(({ series_slugs, ...project }) => ({ ...project, series: series_slugs }));
 }
 
 const toCard = ({ published_at, read_minutes, ...post }: ApiPostCard): PostCard => ({
@@ -147,18 +147,29 @@ export async function getShowroom(): Promise<ImageAsset[]> {
 
 // --- Каталог (бэк: apps.catalog). Товары пока в коде и ссылаются на категории и бренды по slug ---
 
-type ApiBrand = Omit<Brand, "warrantyYears" | "logo"> & { logo: Brand["logo"] | null; warranty_years: number | null };
+type ApiCategory = Omit<Category, "seriesCount"> & { series_count: number };
+type ApiBrand = Omit<Brand, "warrantyYears" | "logo" | "seriesCount"> & {
+  logo: Brand["logo"] | null;
+  warranty_years: number | null;
+  series_count: number;
+};
 type ApiLeadTime = LeadTime & { updated_at: string };
 
 export async function getCategories(): Promise<Category[]> {
-  const data = await load<Category[]>("categories/", "catalog");
-  return data ?? categories;
+  const data = await load<ApiCategory[]>("categories/", "catalog");
+  if (!data) return categories.map((c) => ({ ...c, seriesCount: demoSeries.filter((s) => s.category === c.slug).length }));
+  return data.map(({ series_count, ...category }) => ({ ...category, seriesCount: series_count }));
 }
 
 export async function getBrands(): Promise<Brand[]> {
   const data = await load<ApiBrand[]>("brands/", "catalog");
-  if (!data) return brands;
-  return data.map(({ warranty_years, logo, ...brand }) => ({ ...brand, logo: logo ?? undefined, warrantyYears: warranty_years }));
+  if (!data) return brands.map((b) => ({ ...b, seriesCount: demoSeries.filter((s) => s.brand.slug === b.slug).length }));
+  return data.map(({ warranty_years, logo, series_count, ...brand }) => ({
+    ...brand,
+    logo: logo ?? undefined,
+    warrantyYears: warranty_years,
+    seriesCount: series_count,
+  }));
 }
 
 // Таблица сроков и дата последней правки — она подписана под таблицей

@@ -7,17 +7,28 @@ from .models import Brand, Category, LeadTime
 
 
 class CategorySerializer(ImageAssetMixin, serializers.ModelSerializer):
+    series_count = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Category
-        fields = ['slug', 'name', 'short', 'image']
+        fields = ['slug', 'name', 'short', 'image', 'series_count']
 
 
 class BrandSerializer(serializers.ModelSerializer):
     logo = serializers.SerializerMethodField()
+    series_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Brand
-        fields = ['slug', 'name', 'country', 'note', 'logo', 'warranty_years']
+        fields = [
+            'slug',
+            'name',
+            'country',
+            'note',
+            'logo',
+            'warranty_years',
+            'series_count',
+        ]
 
     def get_logo(self, obj):
         return obj.logo.url if obj.logo else None

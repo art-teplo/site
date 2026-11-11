@@ -1,14 +1,15 @@
+import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { Container } from "@/components/Container/Container";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Schematic } from "@/components/PipeChips/PipeChips";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
-import type { SeriesDetail, ShowcaseCard as Card } from "@/data/types";
+import type { Project, SeriesDetail, ShowcaseCard as Card } from "@/data/types";
 import { CONNECTION_LABEL, pipeGroup } from "@/lib/connections";
 import styles from "./SeriesAbout.module.css";
 
-type Props = { series: SeriesDetail; related: Card[]; category: string; brandNames: Record<string, string> };
+type Props = { series: SeriesDetail; projects: Project[]; related: Card[]; category: string; brandNames: Record<string, string> };
 
 const facts = (s: SeriesDetail): [string, string][] => {
   const heating = { water: "водяной", electric: "электрический", combined: "комбинированный" }[s.heating];
@@ -22,8 +23,8 @@ const facts = (s: SeriesDetail): [string, string][] => {
 };
 
 // О серии: описание, исполнения и подключения, файлы, похожие серии.
-// «В интерьерах» (проекты, где выбрана серия) добавляет Task 12 — между «Как подключается» и «Похожими сериями».
-export function SeriesAbout({ series, related, category, brandNames }: Props) {
+// «В интерьерах» — проекты, где стоит серия; без проектов блока нет.
+export function SeriesAbout({ series, projects, related, category, brandNames }: Props) {
   const connections = series.executions.filter((e) => e.connection);
   return (
     <>
@@ -84,7 +85,20 @@ export function SeriesAbout({ series, related, category, brandNames }: Props) {
         </Section>
       )}
 
-      {/* Сюда — «В интерьерах» (Task 12) */}
+      {projects.length > 0 && (
+        <Section tone="white" labelledBy="interiors-title">
+          <Container>
+            <SectionHead titleId="interiors-title" title="В интерьерах" />
+            <ul className={styles.projects}>
+              {projects.map((p, i) => (
+                <Reveal as="li" key={p.slug} index={i}>
+                  <ProjectCard project={p} ratio="4 / 3" sizes="(max-width: 767px) 100vw, 33vw" />
+                </Reveal>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
 
       {related.length > 0 && (
         <Section labelledBy="related-title">

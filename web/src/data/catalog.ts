@@ -18,7 +18,7 @@ import type {
 
 const img = (src: string, width: number, height: number, alt: string) => ({ src, width, height, alt });
 
-export const categories: Category[] = [
+export const categories: Omit<Category, "seriesCount">[] = [
   {
     slug: "radiatory",
     name: "Радиаторы",
@@ -45,7 +45,7 @@ export const categories: Category[] = [
   },
 ];
 
-export const brands: Brand[] = [
+export const brands: Omit<Brand, "seriesCount">[] = [
   { slug: "kzto", name: "КЗТО", country: "Россия", note: "Официальный представитель в Беларуси", logo: "/images/brands/kzto.png", warrantyYears: 10 },
   { slug: "guardo", name: "Guardo", country: "Россия", note: "Трубчатые радиаторы и полотенцесушители", logo: "/images/brands/guardo.svg", warrantyYears: 10 },
   { slug: "radimax", name: "Радимакс", country: "Россия", note: "Чугунные радиаторы Style Retro", logo: "/images/brands/radimax.png", warrantyYears: 10 },

@@ -1,9 +1,8 @@
 from django.contrib import admin
-from django.contrib.postgres.fields import ArrayField
 from django.utils.html import format_html
 from solo.admin import SingletonModelAdmin
 from unfold.admin import ModelAdmin, TabularInline
-from unfold.contrib.forms.widgets import ArrayWidget, WysiwygWidget
+from unfold.contrib.forms.widgets import WysiwygWidget
 
 from .models import (
     Faq,
@@ -103,9 +102,7 @@ class ProjectAdmin(ModelAdmin):
     ordering_field = 'position'
     hide_ordering_field = True
     prepopulated_fields = {'slug': ['title']}
-    formfield_overrides = {
-        ArrayField: {'widget': ArrayWidget},
-    }
+    autocomplete_fields = ['series']
     fields = [
         'title',
         'slug',
@@ -113,7 +110,7 @@ class ProjectAdmin(ModelAdmin):
         'place',
         'image',
         'image_alt',
-        'product_slugs',
+        'series',
         'is_published',
     ]
 

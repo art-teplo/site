@@ -71,10 +71,8 @@
         "src": "/images/projects/kvartira-zelenyy-lug.jpg",
         "alt": "Гостиная с чёрным вертикальным радиатором у окна"
       },
-      "product_slugs": [
-        "guardo-retta-6p",
-        "guardo-pilon",
-        "guardo-polotentsesushitel"
+      "series_slugs": [
+        "guardo-retta-3p"
       ],
       "photos": [
         {
@@ -100,10 +98,8 @@
         "src": "/images/projects/dom-zhdanovichi.jpg",
         "alt": "Каминный зал с дизайн-радиатором"
       },
-      "product_slugs": [
-        "kzto-quadrum",
-        "guardo-torre-4d",
-        "guardo-retta-6p"
+      "series_slugs": [
+        "guardo-retta-3p"
       ],
       "photos": [
         {
@@ -129,11 +125,7 @@
         "src": "/images/projects/zhk-minsk-mir.jpg",
         "alt": "Панорамное остекление с внутрипольными конвекторами"
       },
-      "product_slugs": [
-        "kzto-vnutripolnyy",
-        "kzto-vertikalnyy",
-        "guardo-torre-4d"
-      ],
+      "series_slugs": [],
       "photos": []
     },
     {
@@ -145,11 +137,7 @@
         "src": "/images/projects/kvartira-nemiga.jpg",
         "alt": "Чугунный ретро-радиатор под высоким окном"
       },
-      "product_slugs": [
-        "radimax-style-retro",
-        "kzto-quadrum",
-        "carisa-polotentsesushitel"
-      ],
+      "series_slugs": [],
       "photos": []
     }
   ],

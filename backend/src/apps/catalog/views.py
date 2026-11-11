@@ -1,7 +1,7 @@
 from decimal import ROUND_HALF_UP, Decimal
 
 from django.core.paginator import Paginator
-from django.db.models import Case, Count, Min, Prefetch, When
+from django.db.models import Case, Count, Min, Prefetch, Q, When
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
@@ -29,12 +29,24 @@ VARIANTS_PAGE_SIZE = 20
 
 
 class CategoryListView(PublicReadMixin, generics.ListAPIView):
-    queryset = Category.objects.filter(is_published=True)
+    queryset = (
+        Category.objects.filter(is_published=True)
+        .annotate(
+            series_count=Count('series', filter=Q(series__is_published=True)),
+        )
+        .order_by('position', 'pk')
+    )
     serializer_class = serializers.CategorySerializer
 
 
 class BrandListView(PublicReadMixin, generics.ListAPIView):
-    queryset = Brand.objects.filter(is_published=True)
+    queryset = (
+        Brand.objects.filter(is_published=True)
+        .annotate(
+            series_count=Count('series', filter=Q(series__is_published=True)),
+        )
+        .order_by('position', 'pk')
+    )
     serializer_class = serializers.BrandSerializer
 
 

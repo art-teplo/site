@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import { getBrands, getCategories, getSeries, getShowcases, getVariants } from "@/data/api";
+import { getBrands, getCategories, getProjects, getSeries, getShowcases, getVariants } from "@/data/api";
 import { formatPrice } from "@/lib/format";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { LeadSection } from "@/sections/home/LeadSection";
@@ -45,7 +45,7 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
   const { category: categorySlug, series: slug } = await params;
   const series = await getSeries(slug);
   if (!series || series.category !== categorySlug) notFound();
-  const [categories, brands] = await Promise.all([getCategories(), getBrands()]);
+  const [categories, brands, allProjects] = await Promise.all([getCategories(), getBrands(), getProjects()]);
   const category = categories.find((c) => c.slug === series.category);
   if (!category) notFound();
 
@@ -80,7 +80,7 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
         }
         topClassName={styles.top}
       />
-      <SeriesAbout series={series} related={unique} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
+      <SeriesAbout series={series} projects={allProjects.filter((p) => p.series.includes(series.slug))} related={unique} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
       <LeadSection source={`series/${series.slug}`} />
     </>
   );

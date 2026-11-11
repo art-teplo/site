@@ -73,7 +73,7 @@ export const projects: Project[] = [
       { src: "/images/products/guardo-pilon/interior.jpg", width: 1200, height: 1500, alt: "Guardo Pilon в интерьере" },
       { src: "/images/products/guardo-polotentsesushitel/interior.jpg", width: 1200, height: 1500, alt: "Guardo полотенцесушитель в интерьере" },
     ],
-    products: ["guardo-retta-6p", "guardo-pilon", "guardo-polotentsesushitel"],
+    series: ["guardo-retta-3p"],
   },
   {
     slug: "dom-zhdanovichi",
@@ -86,7 +86,7 @@ export const projects: Project[] = [
       { src: "/images/products/guardo-torre-4d/interior.jpg", width: 1200, height: 1500, alt: "Guardo Torre 4D в интерьере" },
       { src: "/images/products/guardo-retta-6p/interior.jpg", width: 1200, height: 1500, alt: "Guardo Retta 6P в интерьере" },
     ],
-    products: ["kzto-quadrum", "guardo-torre-4d", "guardo-retta-6p"],
+    series: ["guardo-retta-3p"],
   },
   {
     slug: "zhk-minsk-mir",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
     place: "Минск Мир",
     image: { src: "/images/projects/zhk-minsk-mir.jpg", width: 1600, height: 1200, alt: "Панорамное остекление с внутрипольными конвекторами" },
     photos: [],
-    products: ["kzto-vnutripolnyy", "kzto-vertikalnyy", "guardo-torre-4d"],
+    series: [],
   },
   {
     slug: "kvartira-nemiga",
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     place: "Минск, Немига",
     image: { src: "/images/projects/kvartira-nemiga.jpg", width: 1600, height: 2000, alt: "Чугунный ретро-радиатор под высоким окном" },
     photos: [],
-    products: ["radimax-style-retro", "kzto-quadrum", "carisa-polotentsesushitel"],
+    series: [],
   },
 ];
 

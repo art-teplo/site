@@ -245,6 +245,34 @@ def test_projects_published_with_image(client, make_project):
 
 
 @pytest.mark.django_db
+def test_project_series_slugs(client, make_project):
+    brand = Brand.objects.create(slug='kzto', name='КЗТО', note='—')
+    category = Category.objects.create(
+        slug='radiatory',
+        name='Радиаторы',
+        short='—',
+    )
+
+    def make_series(slug, **fields):
+        return Series.objects.create(
+            brand=brand,
+            category=category,
+            slug=slug,
+            name=slug,
+            **fields,
+        )
+
+    project = make_project()
+    project.series.set(
+        [make_series('a'), make_series('hidden', is_published=False)],
+    )
+
+    data = client.get(reverse('project-list')).json()
+
+    assert data[0]['series_slugs'] == ['a']
+
+
+@pytest.mark.django_db
 def test_project_photos_in_order(client, make_project):
     project = make_project()
     with_image(ProjectPhoto(project=project, image_alt='Спальня', position=2))

@@ -16,6 +16,7 @@ export type Category = {
   name: string;
   short: string;
   image: ImageAsset; // товар без фона, PNG с прозрачностью
+  seriesCount: number; // опубликованные серии
 };
 
 export type Brand = {
@@ -25,6 +26,7 @@ export type Brand = {
   note: string;
   logo?: string; // с официальных сайтов производителей
   warrantyYears: number | null; // «гарантия до»; пусто — бренда нет в таблице гарантий
+  seriesCount: number; // опубликованные серии
 };
 
 // Ориентир срока изготовления по серии — таблица на «Клиентам»
@@ -82,7 +84,7 @@ export type Project = {
   place: string;
   image: ImageAsset;
   photos: ImageAsset[]; // ещё фото — листаются в галерее вместе с главным
-  products: string[]; // Product.slug — связь необязательная
+  series: string[]; // Series.slug — связь необязательная
 };
 
 export type Faq = { q: string; a: string; onHome: boolean };

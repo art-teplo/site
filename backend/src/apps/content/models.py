@@ -1,4 +1,3 @@
-from django.contrib.postgres.fields import ArrayField
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 from django.utils import timezone
@@ -275,10 +274,10 @@ class Project(Published, WithImage, Sortable):
         'место',
         max_length=150,
     )
-    product_slugs = ArrayField(
-        models.CharField(max_length=100),
-        verbose_name='товары (slug)',
-        default=list,
+    series = models.ManyToManyField(
+        'catalog.Series',
+        verbose_name='серии',
+        related_name='projects',
         blank=True,
     )
 
