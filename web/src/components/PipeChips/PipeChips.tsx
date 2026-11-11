@@ -116,7 +116,8 @@ export function PipeChips({
   const inGroup = activeGroup ? executions.filter((e) => groupOf(e) === activeGroup) : executions.filter((e) => groupOf(e) === null);
   // Исполнения без группы (электро, без подключения) показываем обычными чипами, если группы не выбрано
   const chips = present.length === 0 ? executions : inGroup;
-  const count = (g: PipeGroup) => executions.filter((e) => groupOf(e) === g).length;
+  // число вариантов, а не исполнений: у исполнения много размеров
+  const count = (g: PipeGroup) => executions.filter((e) => groupOf(e) === g).reduce((sum, e) => sum + e.count, 0);
   const loose = present.length > 0 ? executions.filter((e) => groupOf(e) === null) : [];
 
   return (
