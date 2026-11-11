@@ -11,6 +11,7 @@ from apps.content.models import (
     Post,
     Project,
     ProjectPhoto,
+    Promo,
     ShowroomPhoto,
     SiteSettings,
 )
@@ -49,6 +50,7 @@ class Command(BaseCommand):
             self.load_faq(demo['faq'])
             self.load_projects(demo['projects'])
             self.load_posts(demo['posts'])
+            self.load_promos(demo['promos'])
             self.load_showroom(demo['showroom'])
             self.load_categories(catalog['categories'])
             self.load_brands(catalog['brands'])
@@ -113,6 +115,17 @@ class Command(BaseCommand):
                 setattr(post, field, value)
             self.attach(post, image)
             post.save()
+
+    def load_promos(self, items):
+        for position, item in enumerate(items):
+            image = item.pop('image')
+            promo = Promo.objects.filter(title=item['title']).first()
+            promo = promo or Promo()
+            for field, value in item.items():
+                setattr(promo, field, value)
+            promo.position = position
+            self.attach(promo, image)
+            promo.save()
 
     def load_showroom(self, items):
         for position, image in enumerate(items):

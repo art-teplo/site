@@ -1,8 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { brands, categories, products } from "./catalog";
-import { faq, LEAD_TIMES_UPDATED, posts, projects, showroomHall } from "./content";
+import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
-import type { Brand, Category, Faq, ImageAsset, LeadTime, Post, PostCard, Project, Site } from "./types";
+import type { Brand, Category, Faq, ImageAsset, LeadTime, Post, PostCard, Project, Promo, Site } from "./types";
 
 // Контент из админки (бэк: apps/content). Без API_URL — демо-данные из src/data, как на Vercel.
 // Ответы кэшируются по тегам; после правки бэк зовёт /api/revalidate с тегом раздела.
@@ -103,6 +103,13 @@ export async function getPost(slug: string): Promise<Post | null> {
   const data = await load<ApiPost>(`posts/${encodeURIComponent(slug)}/`, "posts");
   if (data === undefined) return posts.find((p) => p.slug === slug) ?? null;
   return data && { ...toCard(data), body: data.body };
+}
+
+// Тег — тот же, что у статей: акции живут на «Блог и акции». Закончившиеся бэк не отдаёт сам
+export async function getPromos(): Promise<Promo[]> {
+  const data = await load<(Omit<Promo, "endsAt"> & { ends_at: string | null })[]>("promos/", "posts");
+  if (!data) return promos;
+  return data.map(({ ends_at, ...promo }) => ({ ...promo, endsAt: ends_at }));
 }
 
 export async function getShowroom(): Promise<ImageAsset[]> {

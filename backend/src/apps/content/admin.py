@@ -11,6 +11,7 @@ from .models import (
     Post,
     Project,
     ProjectPhoto,
+    Promo,
     ShowroomPhoto,
     SiteSettings,
 )
@@ -117,8 +118,17 @@ class ProjectAdmin(ModelAdmin):
     ]
 
 
+class ArticleAdmin(ModelAdmin):
+    """Статья и акция: текст — в визуальном редакторе."""
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name == 'body':
+            kwargs['widget'] = WysiwygWidget
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+
 @admin.register(Post)
-class PostAdmin(ModelAdmin):
+class PostAdmin(ArticleAdmin):
     list_display = [preview, 'title', 'published_at', 'is_published']
     list_display_links = ['title']
     list_filter = ['is_published']
@@ -136,10 +146,23 @@ class PostAdmin(ModelAdmin):
         'is_published',
     ]
 
-    def formfield_for_dbfield(self, db_field, request, **kwargs):
-        if db_field.name == 'body':
-            kwargs['widget'] = WysiwygWidget
-        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+@admin.register(Promo)
+class PromoAdmin(ArticleAdmin):
+    list_display = [preview, 'title', 'ends_at', 'is_published']
+    list_display_links = ['title']
+    list_filter = ['is_published']
+    search_fields = ['title']
+    ordering_field = 'position'
+    hide_ordering_field = True
+    fields = [
+        'title',
+        'image',
+        'image_alt',
+        'body',
+        'ends_at',
+        'is_published',
+    ]
 
 
 @admin.register(ShowroomPhoto)
