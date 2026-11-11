@@ -307,7 +307,10 @@ class CurrencyRateAdmin(ModelAdmin):
     date_hierarchy = 'date'
     actions_list = ['update_now']
 
-    @action(description='Обновить курсы сейчас')
+    @action(
+        description='Обновить курсы сейчас',
+        permissions=['view'],
+    )
     def update_now(self, request):
         # Только тянет публичные курсы Нацбанка — менеджеру можно
         update_rates.delay()

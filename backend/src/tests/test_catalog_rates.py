@@ -171,3 +171,38 @@ def test_no_rate_means_price_on_request(variant):
 
     variant.refresh_from_db()
     assert variant.price_byn is None
+
+
+BAD_BODIES = {
+    'zero rate': nbrb('RUB', 100, 0),
+    'negative rate': nbrb('RUB', 100, -1),
+    'nan rate': b'{"Date":"2026-11-11T00:00:00","Cur_Scale":1,'
+    b'"Cur_OfficialRate":NaN}',
+    'infinite rate': b'{"Date":"2026-11-11T00:00:00","Cur_Scale":1,'
+    b'"Cur_OfficialRate":Infinity}',
+    'zero scale': nbrb('RUB', 0, 3.6),
+    'missing key': b'{"Date":"2026-11-11T00:00:00","Cur_Scale":100}',
+    'not json': b'<html>502</html>',
+}
+
+
+@pytest.mark.parametrize('body', BAD_BODIES.values(), ids=BAD_BODIES.keys())
+def test_bad_response_keeps_old_rate(variant, monkeypatch, body):
+    CurrencyRate.objects.create(
+        currency='RUB',
+        rate=Decimal('0.036399'),
+        date=date(2026, 11, 10),
+    )
+    recalculate()
+    monkeypatch.setattr(
+        rates,
+        'urlopen',
+        fake_urlopen(dict.fromkeys(('RUB', 'EUR', 'USD'), body)),
+    )
+    monkeypatch.setattr(tasks.revalidate_frontend, 'delay', lambda _tag: None)
+
+    assert tasks.update_rates() == []
+
+    variant.refresh_from_db()
+    assert variant.price_byn == Decimal('199.47')
+    assert CurrencyRate.objects.count() == 1
