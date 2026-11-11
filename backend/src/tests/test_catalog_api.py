@@ -727,7 +727,7 @@ def test_variant_detail(client, catalog):
     data = client.get(url, {'series': 'garmoniya-a40'}).json()
     assert data['article'] == 'GA-334-B'
     assert data['available_groups'] == [catalog.black.pk]
-    assert data['price'] == 120  # базовая группа серии
+    assert data['price'] == 132  # базовой нет — единственная доступная
     inherited = client.get(
         reverse('variant-detail', args=['GA-334-S']),
         {'series': 'garmoniya-a40'},
@@ -775,3 +775,80 @@ def test_variants_query_count_does_not_grow(
     with django_assert_max_num_queries(16):
         data = rows_of(client, page='all', color='RAL 9005')
     assert data['count'] == 34
+
+
+def test_price_without_color_picks_cheapest_available_group(client, catalog):
+    extra = ColorGroup.objects.create(
+        series=catalog.garmoniya,
+        name='Дорогой',
+        percent=Decimal('50'),
+        position=3,
+    )
+    any_ral = ColorGroup.objects.create(
+        series=catalog.garmoniya,
+        name='RAL',
+        percent=Decimal('-5'),
+        any_ral=True,
+        position=4,
+    )
+    variant = catalog.variants.low_bottom
+    variant.color_groups.add(extra, catalog.black, any_ral)
+    url = reverse('variant-detail', args=['GA-334-B'])
+    data = client.get(url, {'series': 'garmoniya-a40'}).json()
+    assert data['price'] == 132
+    rows = rows_of(client)['results']
+    assert next(r for r in rows if r['article'] == 'GA-334-B')['price'] == 132
+
+
+def test_variant_detail_unavailable_color_has_no_price(client, catalog):
+    catalog.variants.low_bottom.color_groups.add(catalog.standard)
+    url = reverse('variant-detail', args=['GA-334-B'])
+    response = client.get(
+        url,
+        {'series': 'garmoniya-a40', 'color': 'RAL 9005'},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data['price'] is None
+    assert data['available_groups'] == [catalog.standard.pk]
+    ok = client.get(url, {'series': 'garmoniya-a40', 'color': 'RAL 9016'})
+    assert ok.json()['price'] == 120
+
+
+def test_variants_color_is_single_valued(client, catalog):
+    catalog.variants.low_bottom.color_groups.add(catalog.standard)
+    data = rows_of(client, color='RAL 9005,RAL 9016')
+    assert [r['article'] for r in data['results']] == [
+        'GA-334-S',
+        'GA-1284-S',
+        'GA-1284-B',
+    ]
+    assert data['results'][0]['price'] == 111
+    data = rows_of(client, color='RAL 9016,RAL 9005')
+    assert data['count'] == 4
+    assert data['results'][0]['price'] == 101
+
+
+def test_null_and_zero_tubes_share_one_execution(client, catalog):
+    make_variant(
+        catalog.garmoniya,
+        'GA-Z-0',
+        height_mm=1,
+        tubes=0,
+        connection='diagonal',
+    )
+    make_variant(
+        catalog.garmoniya,
+        'GA-Z-N',
+        height_mm=2,
+        connection='diagonal',
+    )
+    data = client.get(reverse('series-detail', args=['garmoniya-a40'])).json()
+    keys = [e['key'] for e in data['executions']]
+    assert keys.count('0-diagonal') == 1
+    assert (
+        next(e for e in data['executions'] if e['key'] == '0-diagonal')[
+            'count'
+        ]
+        == 2
+    )

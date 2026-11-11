@@ -238,10 +238,12 @@ def _executions(variants) -> list[dict]:
         .values('tubes', 'connection')
         .annotate(count=Count('pk'))
     )
-    result = []
+    merged: dict[tuple[int, str], int] = {}
     for row in rows:
-        tubes = row['tubes'] or 0
-        connection = row['connection']
+        key = (row['tubes'] or 0, row['connection'])
+        merged[key] = merged.get(key, 0) + row['count']
+    result = []
+    for (tubes, connection), count in merged.items():
         parts = []
         if tubes:
             parts.append(f'{tubes}-трубный')
@@ -253,7 +255,7 @@ def _executions(variants) -> list[dict]:
                 'tubes': tubes,
                 'connection': connection,
                 'label': ', '.join(parts) or 'Стандартное',
-                'count': row['count'],
+                'count': count,
             }
         )
     result.sort(
@@ -300,23 +302,30 @@ def _available_groups(variant, groups: dict[int, ColorGroup]):
 
 
 def _variant_price(variant, groups: dict[int, ColorGroup], color):
-    """Цена в группе выбранного цвета, иначе в базовой; без базовой группы —
-    цена варианта."""
-    group = None
+    """Цена в группе выбранного цвета; цвета нет у варианта — None. Без цвета:
+    базовая группа, если она доступна варианту, иначе самая дешёвая из
+    доступных (не any_ral); у серии без групп — цена варианта."""
+    if not groups:
+        return _whole_byn(variant.price_byn)
+    available = _available_groups(variant, groups)
     if color:
         group = next(
             (
                 g
-                for g in _available_groups(variant, groups)
+                for g in available
                 if any(c.code == color for c in g.colors.all())
             ),
             None,
         )
-    if group is None:
-        group = next((g for g in groups.values() if g.is_base), None)
-    if group is None:
-        return _whole_byn(variant.price_byn)
-    return in_color(variant.price_byn, group)
+    else:
+        group = next((g for g in available if g.is_base), None)
+        if group is None:
+            group = min(
+                (g for g in available if not g.any_ral),
+                key=lambda g: g.percent,
+                default=None,
+            )
+    return None if group is None else in_color(variant.price_byn, group)
 
 
 def _selected_color(parsed: dict) -> str | None:
@@ -332,7 +341,11 @@ class SeriesVariantsView(PublicReadMixin, APIView):
     def get(self, request, slug):
         series = _published_series(slug)
         fields = _series_fields(series)
-        parsed = filters.parse(request.query_params, fields)
+        params = request.query_params.copy()
+        # Цвет один: из списка берём первый
+        raw = params.get(filters.COLOR_KEY, '')
+        params[filters.COLOR_KEY] = raw.split(',')[0].strip()
+        parsed = filters.parse(params, fields)
         base = _series_variants(series)
         filtered = filters.apply(base, parsed)
         wanted = request.query_params.get(filters.EXECUTION_KEY, '').strip()

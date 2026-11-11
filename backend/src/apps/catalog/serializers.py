@@ -150,7 +150,7 @@ def row(variant, price: int | None) -> dict:
         'sections': variant.sections,
         'power_w': variant.power_w,
         'area_m2': (
-            round(variant.power_w / schema.WATTS_PER_M2, 2)
+            round(variant.power_w / schema.WATTS_PER_M2, 1)
             if variant.power_w is not None
             else None
         ),
