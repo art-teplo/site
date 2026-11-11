@@ -1,19 +1,18 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/Button/Button";
 import { ColorSwatches } from "@/components/ColorSwatches/ColorSwatches";
 import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
-import type { Brand, CatalogField, Category, ColorGroup, Facet, ModelTile, ShowcaseCard as Card } from "@/data/types";
+import { mapShowcase, type ApiShowcase, type Showcase } from "@/data/catalog-map";
+import type { Brand, CatalogField, Category, ColorGroup, Facet } from "@/data/types";
 import { csv, parseCatalogQuery, serializeCatalogQuery, type CatalogQuery, PAGE_SIZE_CARDS } from "@/lib/catalog-query";
 import { cx, plural } from "@/lib/format";
 import { ModelRange } from "./ModelRange";
 import styles from "./CatalogBrowser.module.css";
 
-export type Showcase = { count: number; results: Card[]; facets: Facet[]; modelRange: ModelTile[] };
 type Loaded = Showcase & { key: string; page: number };
-type ApiCard = Omit<Card, "heightMm" | "priceFrom"> & { height_mm: number | null; price_from: number | null };
 
 const fieldsOf = (facets: Facet[]): CatalogField[] =>
   facets.map((f) => ({ key: f.key, label: f.label, kind: f.kind, unit: f.kind === "range" ? f.unit : (f.unit ?? ""), column: false, filter: true }));
@@ -27,9 +26,7 @@ async function fetchShowcase(category: string, query: CatalogQuery, signal: Abor
   const q = `category=${encodeURIComponent(category)}&${serializeCatalogQuery(query)}`;
   const response = await fetch(`/api/series/?${q}`, { signal });
   if (!response.ok) throw new Error(String(response.status));
-  const data = (await response.json()) as { count: number; results: ApiCard[]; facets: Facet[]; model_range: ModelTile[] };
-  const results = data.results.map(({ height_mm, price_from, ...card }) => ({ ...card, heightMm: height_mm, priceFrom: price_from }));
-  return { count: data.count, results, facets: data.facets, modelRange: data.model_range };
+  return mapShowcase((await response.json()) as ApiShowcase);
 }
 
 const sizes = "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw";
@@ -43,6 +40,8 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState<Loaded>({ ...initial, key: "", page: 1 });
   const [busy, setBusy] = useState(false);
+  const [moreFailed, setMoreFailed] = useState(false);
+  const moreController = useRef<AbortController | null>(null);
 
   // «Показать ещё» живёт в состоянии, в адрес page не попадает
   const key = useMemo(() => {
@@ -56,10 +55,13 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   // Страница меняется только вместе с адресом: старый список остаётся, пока не пришёл новый
   useEffect(() => {
     if (key === loaded.key) return;
+    moreController.current?.abort(); // «Показать ещё» от прежнего запроса не должен дописаться к новому списку
     const controller = new AbortController();
     fetchShowcase(category.slug, { ...query, page: 1 }, controller.signal)
       .then((data) => {
+        if (controller.signal.aborted) return;
         setFailed(false);
+        setMoreFailed(false);
         setLoaded({ ...data, key, page: 1 });
       })
       .catch((e) => !controller.signal.aborted && (console.error(e), setFailed(true)));
@@ -76,8 +78,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
     replace({ ...query, brand: next.length ? next.join(",") : undefined });
   };
   const toggleColor = (code: string) => {
-    const next = toggleIn(csv(query.color ?? ""), code);
-    replace({ ...query, color: next.length ? next.join(",") : undefined });
+    replace({ ...query, color: query.color === code ? undefined : code });
   };
   const toggleList = (facetKey: string, value: string) => {
     replace({ ...query, lists: { ...query.lists, [facetKey]: toggleIn(query.lists[facetKey] ?? [], value) } });
@@ -94,15 +95,21 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   };
 
   const more = async () => {
+    moreController.current?.abort();
+    const controller = new AbortController();
+    moreController.current = controller;
     setBusy(true);
+    setMoreFailed(false);
     try {
-      const data = await fetchShowcase(category.slug, { ...query, page: loaded.page + 1 }, new AbortController().signal);
+      const data = await fetchShowcase(category.slug, { ...query, page: loaded.page + 1 }, controller.signal);
+      if (controller.signal.aborted) return;
       setLoaded((prev) => (prev.key === key ? { ...prev, results: [...prev.results, ...data.results], count: data.count, page: prev.page + 1 } : prev));
     } catch (e) {
+      if (controller.signal.aborted) return;
       console.error(e);
-      setFailed(true);
+      setMoreFailed(true);
     } finally {
-      setBusy(false);
+      if (moreController.current === controller) setBusy(false);
     }
   };
 
@@ -111,7 +118,9 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   const active =
     selectedBrands.length + selectedColors.length + Object.keys(query.ranges).length + Object.values(query.lists).reduce((n, v) => n + v.length, 0);
   const brandLabel = (slug: string) => brandNames[slug] ?? slug;
-  const brandsOfCategory = brands;
+  // Бренды с сериями в этой категории — по фасету brand первого экрана; нет фасета — все
+  const brandFacet = initial.facets.find((f) => f.key === "brand");
+  const brandsOfCategory = brandFacet && brandFacet.kind !== "range" ? brands.filter((b) => brandFacet.values.some((v) => v.value === b.slug)) : brands;
   const facets = loaded.facets.filter((f) => f.key !== "brand");
   const pending = key !== loaded.key;
 
@@ -243,10 +252,11 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
                 </li>
               ))}
             </ul>
+            {moreFailed && <p className={styles.error}>Не удалось загрузить остальные.</p>}
             {loaded.results.length < loaded.count && (
               <div className={styles.more}>
                 <Button variant="secondary" onClick={more} disabled={busy}>
-                  {busy ? "Загружаем…" : `Показать ещё (${Math.min(PAGE_SIZE_CARDS, loaded.count - loaded.results.length)})`}
+                  {busy ? "Загружаем…" : moreFailed ? "Повторить" : `Показать ещё (${Math.min(PAGE_SIZE_CARDS, loaded.count - loaded.results.length)})`}
                 </Button>
               </div>
             )}

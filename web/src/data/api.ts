@@ -1,6 +1,7 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { brands, categories, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
+import { mapShowcase, type ApiShowcase } from "./catalog-map";
 import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
 import { rowPrice } from "@/lib/price";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
@@ -175,7 +176,6 @@ export async function getLeadTimes(): Promise<{ rows: LeadTime[]; updated: strin
 // --- Серии и варианты (пути плоские: /api/series/…, /api/variants/…) ---
 
 type ApiField = Pick<CatalogField, "key" | "label" | "kind" | "unit">;
-type ApiCard = Omit<ShowcaseCard, "heightMm" | "priceFrom"> & { height_mm: number | null; price_from: number | null };
 type ApiRow = {
   article: string;
   height_mm: number | null;
@@ -235,13 +235,12 @@ export async function getShowcases(
   query: CatalogQuery,
 ): Promise<{ count: number; results: ShowcaseCard[]; facets: Facet[]; modelRange: ModelTile[] }> {
   const params = `category=${encodeURIComponent(category)}&${serializeCatalogQuery({ ...query, v: undefined })}`;
-  const data = await load<{ count: number; results: ApiCard[]; facets: Facet[]; model_range: ModelTile[] }>(
+  const data = await load<ApiShowcase>(
     `series/?${params}`,
     "catalog",
   );
   if (!data) return demoShowcases(category, query);
-  const results = data.results.map(({ height_mm, price_from, ...card }) => ({ ...card, heightMm: height_mm, priceFrom: price_from }));
-  return { count: data.count, results, facets: data.facets, modelRange: data.model_range };
+  return mapShowcase(data);
 }
 
 export async function getSeries(slug: string): Promise<SeriesDetail | null> {
