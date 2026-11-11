@@ -119,6 +119,7 @@ export type Site = {
   legalName: string;
   unp: string;
   replyPromise: string;
+  yandexOrgId: number | null; // карточка на Яндекс.Картах для виджета отзывов; null — только ссылка на карту
   showroomVideo: { src: string; poster: ImageAsset | null } | null; // файл из админки; нет — фото «скоро»
 };
 

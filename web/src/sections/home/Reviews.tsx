@@ -3,20 +3,21 @@ import { Section } from "@/components/Section/Section";
 import { Button } from "@/components/Button/Button";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { SplitText } from "@/components/SplitText/SplitText";
+import { getSite } from "@/data/api";
+import { cx } from "@/lib/format";
 import styles from "./Reviews.module.css";
 
-// Карточка шоурума на Яндекс.Картах. Пока это «Плаг Сити» — живая, с отзывами; заказчица её переименует.
-// У карточки «ArtTeplo» (16890731657) по тому же адресу два отзыва и не подтверждён владелец (решение 120)
-const YANDEX_ORG_ID = "141315425329";
-const REVIEWS_URL = `https://yandex.by/maps/org/${YANDEX_ORG_ID}/reviews/`;
-
 // 10 · Отзывы. Своих отзывов не пишем (brief.md) — виджет Яндекс.Карт как есть.
+// Карточка — «id организации» в настройках сайта. Пусто — без виджета, только ссылка на карту.
 // loading="lazy": iframe грузится, только когда до него докрутили, и не тормозит первый экран (решение 16)
-export function Reviews() {
+export async function Reviews() {
+  const site = await getSite();
+  const orgId = site.yandexOrgId;
+  const reviewsUrl = orgId ? `https://yandex.by/maps/org/${orgId}/reviews/` : site.mapUrl;
   return (
     <Section tone="white" labelledBy="reviews-title">
       <Container className={styles.layout}>
-        <div className={styles.aside}>
+        <div className={cx(styles.aside, !orgId && styles.asideOnly)}>
           <Reveal effect="mask">
             <h2 id="reviews-title" className={styles.title}>
               <SplitText>Что говорят на Яндекс.Картах</SplitText>
@@ -24,19 +25,21 @@ export function Reviews() {
           </Reveal>
           <Reveal className={styles.text} index={2}>
             <p className={styles.intro}>Отзывы подтягиваются с Яндекс.Карт как есть — мы их не редактируем.</p>
-            <Button href={REVIEWS_URL} target="_blank" rel="noopener noreferrer" variant="secondary" arrow>
+            <Button href={reviewsUrl} target="_blank" rel="noopener noreferrer" variant="secondary" arrow>
               Все отзывы на Яндекс.Картах
             </Button>
           </Reveal>
         </div>
-        <Reveal className={styles.widget} index={3}>
-          <iframe
-            className={styles.frame}
-            src={`https://yandex.ru/maps-reviews-widget/${YANDEX_ORG_ID}?comments`}
-            title="Отзывы о шоуруме на Яндекс.Картах"
-            loading="lazy"
-          />
-        </Reveal>
+        {orgId ? (
+          <Reveal className={styles.widget} index={3}>
+            <iframe
+              className={styles.frame}
+              src={`https://yandex.ru/maps-reviews-widget/${orgId}?comments`}
+              title="Отзывы о шоуруме на Яндекс.Картах"
+              loading="lazy"
+            />
+          </Reveal>
+        ) : null}
       </Container>
     </Section>
   );

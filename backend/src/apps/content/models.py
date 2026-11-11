@@ -132,11 +132,13 @@ class SiteSettings(SingletonModel):
             RegexValidator(r'^\d{9}$', 'УНП — 9 цифр'),
         ],
     )
-    yandex_org_id = models.CharField(
+    yandex_org_id = models.PositiveBigIntegerField(
         'id организации в Яндекс.Картах',
-        max_length=32,
+        null=True,
         blank=True,
-        help_text='Для виджета отзывов',
+        help_text='Для виджета отзывов: число из адреса карточки, '
+        'yandex.by/maps/org/…/141315425329/. Пусто — вместо виджета '
+        'только ссылка на карту',
     )
     showroom_video = models.FileField(
         'видео шоурума',

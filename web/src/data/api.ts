@@ -45,6 +45,7 @@ type ApiSite = {
   reply_promise: string;
   legal_name: string;
   unp: string;
+  yandex_org_id: number | null;
   showroom_video: Site["showroomVideo"];
 };
 type ApiFaq = { question: string; answer: string; on_home: boolean };
@@ -71,6 +72,7 @@ export async function getSite(): Promise<Site> {
     // Пока заказчик не прислал реквизиты — видимая заглушка, как в демо
     legalName: data.legal_name || "[Уточнить у заказчика: юрлицо]",
     unp: data.unp || "[УНП]",
+    yandexOrgId: data.yandex_org_id,
     showroomVideo: data.showroom_video,
   };
 }

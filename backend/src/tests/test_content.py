@@ -143,6 +143,7 @@ def test_site_settings(client):
     site.phone = '+375293190286'
     site.email = 'info@art-teplo.by'
     site.instagram_url = 'https://www.instagram.com/artteplo_minsk/'
+    site.yandex_org_id = 141315425329
     site.save()
     site.hours.create(days='Сб', time='10:00–17:00', position=1)
     site.hours.create(days='Пн–Пт', time='9:00–18:00', position=0)
@@ -153,6 +154,7 @@ def test_site_settings(client):
     assert data['phone_href'] == 'tel:+375293190286'
     assert data['viber_url'] == 'viber://chat?number=%2B375293190286'
     assert data['instagram_handle'] == '@artteplo_minsk'
+    assert data['yandex_org_id'] == 141315425329
     assert [row['days'] for row in data['hours']] == ['Пн–Пт', 'Сб']
 
 
@@ -162,6 +164,7 @@ def test_site_settings_empty(client):
 
     assert data['phone'] == ''
     assert data['viber_url'] == ''
+    assert data['yandex_org_id'] is None
 
 
 @pytest.mark.django_db
