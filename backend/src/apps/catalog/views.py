@@ -319,9 +319,17 @@ class SeriesDetailView(PublicReadMixin, APIView):
             for key, facet in filters.range_facets(variants, fields).items()
         }
         groups = {g.pk: g for g in series.color_groups.all()}
-        offers = [
+        # Как в _cards: варианты без своих групп — одним агрегатом, в Python
+        # грузим только варианты с явными группами.
+        plain = variants.filter(color_groups__isnull=True).aggregate(
+            price=Min('price_byn')
+        )['price']
+        offers = [(plain, list(groups.values()))] if plain is not None else []
+        offers += [
             (v.price_byn, available_groups(v, groups))
-            for v in variants.prefetch_related('color_groups')
+            for v in variants.filter(color_groups__isnull=False)
+            .distinct()
+            .prefetch_related('color_groups')
         ]
         return Response(
             serializers.series_detail(

@@ -19,7 +19,7 @@ const facts = (s: SeriesDetail): [string, string][] => {
     ...(s.material ? ([["Материал", s.material]] as [string, string][]) : []),
     ["Нагрев", heating],
     ...(s.pressureBar ? ([["Рабочее давление", `${s.pressureBar} бар`]] as [string, string][]) : []),
-    ["Гарантия", s.warrantyYears ? `${s.warrantyYears} ${plural(s.warrantyYears, "год", "года", "лет")}` : "[Уточнить у заказчика: срок гарантии]"],
+    ["Гарантия", s.warrantyYears ? plural(s.warrantyYears, "год", "года", "лет") : "[Уточнить у заказчика: срок гарантии]"],
   ];
 };
 
