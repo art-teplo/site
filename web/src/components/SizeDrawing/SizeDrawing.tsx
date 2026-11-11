@@ -11,9 +11,10 @@ const mid = (r?: Range) => (r && r[0] != null && r[1] != null ? Math.round((r[0]
 export function SizeDrawing({ row, ranges }: { row: DrawingRow | null; ranges?: Record<string, Range> }) {
   const r = row ?? null;
   // Конвектор: нет высоты, но есть длина — рисуем вид сверху: длина × ширина
-  const plan = r ? r.heightMm == null && r.lengthMm != null : false;
-  const width = r ? (plan ? r.lengthMm : r.widthMm) : (mid(ranges?.width_mm) ?? mid(ranges?.length_mm));
-  const height = r ? (plan ? r.widthMm : r.heightMm) : (mid(ranges?.height_mm) ?? mid(ranges?.width_mm));
+  const plan = r ? r.heightMm == null && r.lengthMm != null : mid(ranges?.height) == null && mid(ranges?.length) != null;
+  // ключи ranges — как у полей схемы бэка: height, width, length
+  const width = r ? (plan ? r.lengthMm : r.widthMm) : plan ? mid(ranges?.length) : mid(ranges?.width);
+  const height = r ? (plan ? r.widthMm : r.heightMm) : plan ? mid(ranges?.width) : mid(ranges?.height);
   const depth = r?.depthMm ?? null;
   if (!width || !height) return null;
 
