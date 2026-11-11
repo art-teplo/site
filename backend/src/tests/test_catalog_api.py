@@ -1,0 +1,511 @@
+import io
+from decimal import Decimal
+from types import SimpleNamespace
+
+import pytest
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+from PIL import Image
+
+from apps.catalog.models import (
+    Brand,
+    Category,
+    Color,
+    ColorGroup,
+    Series,
+    SeriesImage,
+    Showcase,
+    Variant,
+)
+
+URL = reverse('series-list')
+
+
+@pytest.fixture(autouse=True)
+def media(settings, tmp_path):
+    settings.MEDIA_ROOT = tmp_path / 'media'
+
+
+def png():
+    buffer = io.BytesIO()
+    Image.new('RGB', (4, 3)).save(buffer, 'PNG')
+    return SimpleUploadedFile('c.png', buffer.getvalue(), 'image/png')
+
+
+def make_variant(series, article, **fields):
+    return Variant.objects.create(series=series, article=article, **fields)
+
+
+@pytest.fixture
+def catalog(db):  # noqa: ARG001
+    """КЗТО «Гармония А40»: высоты 334 и 1284, подключения side и
+    bottom_left, две витрины и две группы цветов; Guardo «Retta» без
+    витрин и фото; неопубликованная серия КЗТО."""
+    kzto = Brand.objects.create(slug='kzto', name='КЗТО', note='n')
+    guardo = Brand.objects.create(slug='guardo', name='Guardo', note='n')
+    radiatory = Category.objects.create(
+        slug='radiatory',
+        name='Радиаторы',
+        short='р',
+        image=png(),
+        image_alt='a',
+    )
+    garmoniya = Series.objects.create(
+        brand=kzto,
+        category=radiatory,
+        slug='garmoniya-a40',
+        name='Гармония А40',
+        position=1,
+    )
+    ral9016 = Color.objects.create(
+        code='RAL 9016',
+        name='Белый',
+        hex='#f6f6f6',
+    )
+    ral9005 = Color.objects.create(
+        code='RAL 9005',
+        name='Чёрный',
+        hex='#0a0a0a',
+    )
+    standard = ColorGroup.objects.create(
+        series=garmoniya,
+        name='Стандартные',
+        percent=0,
+        is_base=True,
+        position=1,
+    )
+    standard.colors.add(ral9016)
+    black = ColorGroup.objects.create(
+        series=garmoniya,
+        name='Чёрный',
+        percent=Decimal('10'),
+        position=2,
+    )
+    black.colors.add(ral9005)
+    low_side = make_variant(
+        garmoniya,
+        'GA-334-S',
+        height_mm=334,
+        width_mm=500,
+        power_w=400,
+        tubes=2,
+        connection='side',
+        orientation='h',
+        price_byn=Decimal('100.50'),
+    )
+    low_bottom = make_variant(
+        garmoniya,
+        'GA-334-B',
+        height_mm=334,
+        width_mm=500,
+        power_w=420,
+        tubes=2,
+        connection='bottom_left',
+        orientation='h',
+        price_byn=Decimal('120.00'),
+    )
+    tall_side = make_variant(
+        garmoniya,
+        'GA-1284-S',
+        height_mm=1284,
+        width_mm=500,
+        power_w=1200,
+        tubes=2,
+        connection='side',
+        orientation='v',
+        price_byn=Decimal('300.00'),
+    )
+    tall_bottom = make_variant(
+        garmoniya,
+        'GA-1284-B',
+        height_mm=1284,
+        width_mm=500,
+        power_w=1250,
+        tubes=2,
+        connection='bottom_left',
+        orientation='v',
+        price_byn=Decimal('320.00'),
+    )
+    Showcase.objects.create(
+        series=garmoniya,
+        label='334 мм',
+        variant=low_side,
+        position=1,
+    )
+    Showcase.objects.create(
+        series=garmoniya,
+        label='1284 мм, вертикальный',
+        variant=tall_side,
+        position=2,
+    )
+    retta = Series.objects.create(
+        brand=guardo,
+        category=radiatory,
+        slug='retta',
+        name='Retta',
+        position=2,
+    )
+    retta_a = make_variant(
+        retta,
+        'R-500-A',
+        height_mm=500,
+        power_w=800,
+        connection='diagonal',
+        price_byn=Decimal('210.00'),
+    )
+    retta_b = make_variant(
+        retta,
+        'R-500-B',
+        height_mm=500,
+        power_w=900,
+        connection='diagonal',
+        price_byn=Decimal('190.00'),
+    )
+    hidden = Series.objects.create(
+        brand=kzto,
+        category=radiatory,
+        slug='hidden',
+        name='Скрытая',
+        is_published=False,
+    )
+    make_variant(hidden, 'H-1', height_mm=300, price_byn=Decimal('50'))
+    return SimpleNamespace(
+        kzto=kzto,
+        guardo=guardo,
+        category=radiatory,
+        garmoniya=garmoniya,
+        retta=retta,
+        hidden=hidden,
+        ral9016=ral9016,
+        ral9005=ral9005,
+        standard=standard,
+        black=black,
+        variants=SimpleNamespace(
+            low_side=low_side,
+            low_bottom=low_bottom,
+            tall_side=tall_side,
+            tall_bottom=tall_bottom,
+            retta_a=retta_a,
+            retta_b=retta_b,
+        ),
+    )
+
+
+def fetch(client, **params):
+    response = client.get(URL, {'category': 'radiatory', **params})
+    assert response.status_code == 200
+    return response.json()
+
+
+def facet(data, key):
+    return next(f for f in data['facets'] if f['key'] == key)
+
+
+def test_series_list_one_card_per_showcase(client, catalog):  # noqa: ARG001
+    data = fetch(client, brand='kzto')
+    assert data['count'] == 2
+    first, second = data['results']
+    assert first == {
+        'series': 'garmoniya-a40',
+        'name': 'Гармония А40',
+        'brand': 'kzto',
+        'label': '334 мм',
+        'height_mm': 334,
+        'price_from': 101,
+        'image': None,
+        'colors': [
+            {'code': 'RAL 9016', 'name': 'Белый', 'hex': '#f6f6f6'},
+            {'code': 'RAL 9005', 'name': 'Чёрный', 'hex': '#0a0a0a'},
+        ],
+    }
+    assert second['label'] == '1284 мм, вертикальный'
+    assert second['height_mm'] == 1284
+    assert second['price_from'] == 300
+
+
+def test_series_without_showcase_and_photo_still_listed(client, catalog):  # noqa: ARG001
+    data = fetch(client, brand='guardo')
+    assert data['count'] == 1
+    card = data['results'][0]
+    assert card['label'] == ''
+    assert card['image'] is None
+    assert card['price_from'] == 190
+    assert card['colors'] == []
+
+
+def test_card_image_falls_back_to_first_series_photo(client, catalog):
+    SeriesImage.objects.create(
+        series=catalog.garmoniya,
+        image=png(),
+        image_alt='общее',
+    )
+    cards = fetch(client, brand='kzto')['results']
+    assert {c['image']['alt'] for c in cards} == {'общее'}
+    own = Showcase.objects.get(label='334 мм')
+    own.image = png()
+    own.save()
+    # Своё фото витрины важнее
+    cards = fetch(client, brand='kzto')['results']
+    assert cards[0]['image']['src'].startswith('/media/catalog_showcase/')
+    assert cards[1]['image']['alt'] == 'общее'
+
+
+def test_filter_height_hides_other_showcases(client, catalog):  # noqa: ARG001
+    data = fetch(client, height_min='1000')
+    assert [c['label'] for c in data['results']] == ['1284 мм, вертикальный']
+    assert data['count'] == 1
+
+
+def test_price_from_uses_matching_variants_only(client, catalog):  # noqa: ARG001
+    data = fetch(client, brand='kzto', connection='bottom_left')
+    assert [(c['label'], c['price_from']) for c in data['results']] == [
+        ('334 мм', 120),
+        ('1284 мм, вертикальный', 320),
+    ]
+
+
+def test_price_rounds_half_up(client, catalog):  # noqa: ARG001
+    Variant.objects.filter(article='R-500-B').update(
+        price_byn=Decimal('190.50'),
+    )
+    Variant.objects.filter(article='R-500-A').update(
+        price_byn=Decimal('300'),
+    )
+    assert fetch(client, brand='guardo')['results'][0]['price_from'] == 191
+
+
+def test_facet_counts_ignore_own_filter(client, catalog):  # noqa: ARG001
+    data = fetch(client, connection='side')
+    values = {v['value']: v for v in facet(data, 'connection')['values']}
+    assert values['side']['count'] == 2
+    assert values['side']['label'] == 'боковое'
+    assert values['bottom_left']['count'] == 2
+    assert values['diagonal']['count'] == 2
+    # Чужие фильтры считаются: высота сужает счётчик
+    data = fetch(client, connection='side', height_min='1000')
+    values = {
+        v['value']: v['count'] for v in facet(data, 'connection')['values']
+    }
+    assert values == {'side': 1, 'bottom_left': 1}
+
+
+def test_range_facets_cover_whole_category(client, catalog):  # noqa: ARG001
+    data = fetch(client, height_min='1000')
+    height = facet(data, 'height')
+    assert (height['min'], height['max'], height['unit']) == (334, 1284, 'мм')
+    area = facet(data, 'area')
+    assert (area['min'], area['max']) == (4, 12.5)
+    price = facet(data, 'price')
+    assert (price['min'], price['max']) == (100, 320)
+
+
+def test_area_filter_is_power_over_100(client, catalog):  # noqa: ARG001
+    data = fetch(client, area_min='11')
+    assert [c['label'] for c in data['results']] == ['1284 мм, вертикальный']
+    assert fetch(client, area_max='3')['count'] == 0
+
+
+def test_brand_facet_has_names(client, catalog):  # noqa: ARG001
+    values = facet(fetch(client), 'brand')['values']
+    assert values == [
+        {'value': 'guardo', 'label': 'Guardo', 'count': 2},
+        {'value': 'kzto', 'label': 'КЗТО', 'count': 4},
+    ]
+
+
+def test_color_filter_inherits_series_groups(client, catalog):  # noqa: ARG001
+    data = fetch(client, color='RAL 9005')
+    assert {c['series'] for c in data['results']} == {'garmoniya-a40'}
+    colors = facet(data, 'color')['values']
+    assert {c['value']: c['count'] for c in colors} == {
+        'RAL 9016': 4,
+        'RAL 9005': 4,
+    }
+    assert colors[0]['hex']
+
+
+def test_color_filter_respects_explicit_variant_groups(client, catalog):
+    # Вариант с явным списком групп доступен только в них
+    catalog.variants.tall_side.color_groups.add(catalog.standard)
+    data = fetch(client, height_min='1000', color='RAL 9005')
+    assert data['count'] == 0 or all(
+        c['series'] == 'garmoniya-a40' for c in data['results']
+    )
+    black = next(
+        v
+        for v in facet(fetch(client), 'color')['values']
+        if v['value'] == 'RAL 9005'
+    )
+    assert black['count'] == 3
+
+
+def test_unknown_color_ignored(client, catalog):  # noqa: ARG001
+    assert fetch(client, color='RAL 0000')['count'] == fetch(client)['count']
+
+
+def test_execution_filter(client, catalog):  # noqa: ARG001
+    data = fetch(client, execution='2-side')
+    assert [c['label'] for c in data['results']] == [
+        '334 мм',
+        '1284 мм, вертикальный',
+    ]
+    assert fetch(client, execution='3-side')['count'] == 0
+    # 0 — без трубности
+    assert [
+        c['series'] for c in fetch(client, execution='0-diagonal')['results']
+    ] == ['retta']
+
+
+@pytest.mark.parametrize(
+    'params',
+    [
+        {'height_min': 'abc'},
+        {'height_max': 'nan'},
+        {'height_min': 'inf'},
+        {'power_min': '1e999999'},
+        {'tubes': 'x,y'},
+        {'page': 'zzz'},
+    ],
+)
+def test_bad_values_ignored(client, catalog, params):  # noqa: ARG001
+    assert fetch(client, **params)['count'] == fetch(client)['count'] == 3
+
+
+def test_page_out_of_range_returns_last(client, catalog):  # noqa: ARG001
+    data = fetch(client, page='99')
+    assert data['count'] == 3
+    assert len(data['results']) == 3
+
+
+def test_pagination_24_per_page(client, catalog):
+    for i in range(30):
+        series = Series.objects.create(
+            brand=catalog.kzto,
+            category=catalog.category,
+            slug=f's{i}',
+            name=f'S{i}',
+            position=10 + i,
+        )
+        make_variant(series, f'S{i}-1', height_mm=100, price_byn=Decimal(5))
+    first = fetch(client)
+    assert first['count'] == 33
+    assert len(first['results']) == 24
+    assert len(fetch(client, page='2')['results']) == 9
+
+
+def test_brand_returns_model_range(client, catalog):
+    SeriesImage.objects.create(
+        series=catalog.garmoniya,
+        image=png(),
+        image_alt='общее',
+    )
+    # Модельный ряд — все серии бренда, даже если фильтры их скрыли
+    data = fetch(client, brand='kzto', height_min='5000')
+    assert data['count'] == 0
+    assert [t['series'] for t in data['model_range']] == ['garmoniya-a40']
+    assert data['model_range'][0]['name'] == 'Гармония А40'
+    assert data['model_range'][0]['image']['alt'] == 'общее'
+    assert fetch(client)['model_range'] == []
+
+
+def test_unpublished_and_inactive_hidden(client, catalog):
+    data = fetch(client)
+    assert 'hidden' not in {c['series'] for c in data['results']}
+    assert fetch(client, brand='kzto', height_max='300')['count'] == 0
+    Variant.objects.filter(series=catalog.retta).update(is_active=False)
+    data = fetch(client)
+    assert 'retta' not in {c['series'] for c in data['results']}
+    assert [v['value'] for v in facet(data, 'brand')['values']] == ['kzto']
+    catalog.kzto.is_published = False
+    catalog.kzto.save()
+    assert fetch(client)['count'] == 0
+    assert fetch(client, brand='kzto')['model_range'] == []
+
+
+def test_price_on_request_sorted_last(client, catalog):
+    nova = Brand.objects.create(slug='nova', name='Nova', note='n')
+    series = Series.objects.create(
+        brand=nova,
+        category=catalog.category,
+        slug='nova-x',
+        name='Nova X',
+        position=0,
+    )
+    make_variant(series, 'N-1', height_mm=400, price_byn=None)
+    data = fetch(client)
+    cards = data['results']
+    assert cards[-1]['series'] == 'nova-x'
+    assert cards[-1]['price_from'] is None
+    assert all(c['price_from'] is not None for c in cards[:-1])
+    assert facet(data, 'price')['min'] == 100
+
+
+def test_konvektory_attrs_filters(client, catalog):
+    konvektory = Category.objects.create(
+        slug='konvektory',
+        name='Конвекторы',
+        short='к',
+        image=png(),
+        image_alt='a',
+    )
+    series = Series.objects.create(
+        brand=catalog.kzto,
+        category=konvektory,
+        slug='floor',
+        name='Floor',
+    )
+    make_variant(
+        series,
+        'F-1',
+        length_mm=1000,
+        power_w=900,
+        price_byn=Decimal(10),
+        attrs={'fan': True, 'voltage': 24, 'grille_type': 'рулонная'},
+    )
+    make_variant(
+        series,
+        'F-2',
+        length_mm=1500,
+        power_w=1300,
+        price_byn=Decimal(20),
+        attrs={'fan': False, 'voltage': 220, 'grille_type': 'рулонная'},
+    )
+    data = fetch(client, category='konvektory')
+    fan = facet(data, 'fan')['values']
+    assert {(v['value'], v['label']) for v in fan} == {
+        ('true', 'да'),
+        ('false', 'нет'),
+    }
+    assert [v['value'] for v in facet(data, 'voltage')['values']] == [
+        '24',
+        '220',
+    ]
+    assert facet(data, 'length')['max'] == 1500
+    assert all(f['key'] != 'height' for f in data['facets'])
+    only_fan = fetch(client, category='konvektory', fan='true')
+    assert only_fan['count'] == 1
+    assert only_fan['results'][0]['price_from'] == 10
+
+
+def test_unknown_category_uses_radiators_schema(client, catalog):  # noqa: ARG001
+    data = client.get(URL, {'category': 'nope'}).json()
+    assert data['count'] == 0
+    assert 'height' in {f['key'] for f in data['facets']}
+
+
+def test_query_count_does_not_grow_with_cards(
+    client,
+    catalog,
+    django_assert_max_num_queries,
+):
+    for i in range(10):
+        series = Series.objects.create(
+            brand=catalog.kzto,
+            category=catalog.category,
+            slug=f'q{i}',
+            name=f'Q{i}',
+        )
+        make_variant(series, f'Q{i}-1', height_mm=100, price_byn=Decimal(5))
+        Showcase.objects.create(series=series, label='x')
+    with django_assert_max_num_queries(25):
+        fetch(client, brand='kzto', color='RAL 9005')

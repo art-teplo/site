@@ -8,6 +8,11 @@ urlpatterns = [
         views.CategoryListView.as_view(),
         name='category-list',
     ),
+    path(
+        'series/',
+        views.SeriesListView.as_view(),
+        name='series-list',
+    ),
     path('brands/', views.BrandListView.as_view(), name='brand-list'),
     path(
         'lead-times/',
