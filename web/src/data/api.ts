@@ -1,8 +1,31 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { brands, categories, products } from "./catalog";
+import { brands, categories, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
+import { demoShowcases, demoVariants, serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
+import { rowPrice } from "@/lib/price";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
-import type { Brand, Category, Faq, ImageAsset, LeadTime, Post, PostCard, Project, Promo, Site } from "./types";
+import type {
+  Brand,
+  CatalogField,
+  Category,
+  ColorGroup,
+  Connection,
+  Execution,
+  Facet,
+  Faq,
+  ImageAsset,
+  LeadTime,
+  ModelTile,
+  Post,
+  PostCard,
+  Project,
+  Promo,
+  SeriesDetail,
+  SeriesImage,
+  ShowcaseCard,
+  Site,
+  VariantRow,
+} from "./types";
 
 // Контент из админки (бэк: apps/content). Без API_URL — демо-данные из src/data, как на Vercel.
 // Ответы кэшируются по тегам; после правки бэк зовёт /api/revalidate с тегом раздела.
@@ -146,4 +169,127 @@ export async function getLeadTimes(): Promise<{ rows: LeadTime[]; updated: strin
   const updated = data.reduce((last, row) => (row.updated_at > last ? row.updated_at : last), "");
   const rows = data.map(({ series, brand, days }) => ({ series, brand, days }));
   return { rows, updated: updated.slice(0, 10) };
+}
+
+// --- Серии и варианты (пути плоские: /api/series/…, /api/variants/…) ---
+
+type ApiField = Pick<CatalogField, "key" | "label" | "kind" | "unit">;
+type ApiCard = Omit<ShowcaseCard, "heightMm" | "priceFrom"> & { height_mm: number | null; price_from: number | null };
+type ApiRow = {
+  article: string;
+  height_mm: number | null;
+  width_mm: number | null;
+  depth_mm: number | null;
+  length_mm: number | null;
+  axis_mm: number | null;
+  sections: number | null;
+  power_w: number | null;
+  area_m2: number | null;
+  tubes: number | null;
+  connection: Connection | "" | null;
+  thermovalve: boolean;
+  orientation: VariantRow["orientation"] | null;
+  mount: VariantRow["mount"] | null;
+  attrs: VariantRow["attrs"];
+  price: number | null;
+};
+type ApiGroup = Omit<ColorGroup, "isBase" | "anyRal"> & { is_base: boolean; any_ral: boolean };
+type ApiSeries = Omit<
+  SeriesDetail,
+  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions"
+> & {
+  pressure_bar: number | null;
+  warranty_years: number | null;
+  video_url: string;
+  images: SeriesImage[];
+  color_groups: ApiGroup[];
+  executions: Execution[];
+  default_execution: string | null;
+  columns: ApiField[];
+  filters: ApiField[];
+};
+
+const mapRow = (row: ApiRow): VariantRow => ({
+  article: row.article,
+  heightMm: row.height_mm,
+  widthMm: row.width_mm,
+  depthMm: row.depth_mm,
+  lengthMm: row.length_mm,
+  axisMm: row.axis_mm,
+  sections: row.sections,
+  powerW: row.power_w,
+  areaM2: row.area_m2,
+  tubes: row.tubes,
+  connection: row.connection || null,
+  thermovalve: row.thermovalve,
+  orientation: row.orientation ?? "",
+  mount: row.mount ?? "",
+  attrs: row.attrs ?? {},
+  price: row.price,
+});
+
+// Витрина категории: карточки (серия в одном формфакторе), фильтры и модельный ряд выбранных брендов
+export async function getShowcases(
+  category: string,
+  query: CatalogQuery,
+): Promise<{ count: number; results: ShowcaseCard[]; facets: Facet[]; modelRange: ModelTile[] }> {
+  const params = `category=${encodeURIComponent(category)}&${serializeCatalogQuery({ ...query, v: undefined })}`;
+  const data = await load<{ count: number; results: ApiCard[]; facets: Facet[]; model_range: ModelTile[] }>(
+    `series/?${params}`,
+    "catalog",
+  );
+  if (!data) return demoShowcases(category, query);
+  const results = data.results.map(({ height_mm, price_from, ...card }) => ({ ...card, heightMm: height_mm, priceFrom: price_from }));
+  return { count: data.count, results, facets: data.facets, modelRange: data.model_range };
+}
+
+export async function getSeries(slug: string): Promise<SeriesDetail | null> {
+  const data = await load<ApiSeries>(`series/${encodeURIComponent(slug)}/`, "catalog");
+  if (data === undefined) return demoSeriesBySlug(slug) ?? null;
+  if (data === null) return null;
+  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, ...rest } = data;
+  return {
+    ...rest,
+    pressureBar: pressure_bar,
+    warrantyYears: warranty_years,
+    videoUrl: video_url,
+    colorGroups: color_groups.map(({ is_base, any_ral, ...group }) => ({ ...group, isBase: is_base, anyRal: any_ral })),
+    defaultExecution: default_execution,
+    columns: columns.map((c) => ({ ...c, column: true, filter: false })),
+    filters: filters.map((c) => ({ ...c, column: false, filter: true })),
+  };
+}
+
+// Строки таблицы серии. Бренд и v в бэк не уходят: бренд серии известен, v — только для адреса страницы
+export async function getVariants(
+  slug: string,
+  query: CatalogQuery,
+): Promise<{ count: number; results: VariantRow[]; facets: Facet[] }> {
+  const params = serializeCatalogQuery({ ...query, brand: undefined, v: undefined });
+  const data = await load<{ count: number; results: ApiRow[]; facets: Facet[] }>(
+    `series/${encodeURIComponent(slug)}/variants/?${params}`,
+    "catalog",
+  );
+  if (!data) return demoVariants(slug, query);
+  return { count: data.count, results: data.results.map(mapRow), facets: data.facets };
+}
+
+// Один вариант с группами цветов, доступными ему. Один артикул в серии может быть дважды с разным
+// подключением (повёрнутый радиатор) — тогда нужен connection из выбранного исполнения.
+export async function getVariant(
+  slug: string,
+  article: string,
+  connection?: Connection,
+): Promise<(VariantRow & { availableGroups: number[] }) | null> {
+  const params = `series=${encodeURIComponent(slug)}${connection ? `&connection=${connection}` : ""}`;
+  const data = await load<ApiRow & { available_groups: number[] }>(`variants/${encodeURIComponent(article)}/?${params}`, "catalog");
+  if (data === null) return null;
+  if (data) return { ...mapRow(data), availableGroups: data.available_groups };
+  const series = demoSeriesBySlug(slug);
+  const source = demoSource(slug).find((r) => r.article === article && (!connection || r.connection === connection));
+  if (!series || !source) return null;
+  return {
+    ...publicRow(source, rowPrice(source, series.colorGroups)),
+    availableGroups: source.colorGroups.length ? source.colorGroups : series.colorGroups.map((g) => g.id),
+  };
 }

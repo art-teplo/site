@@ -128,3 +128,99 @@ export type Service = {
   title: string;
   text: string;
 };
+
+// --- Новый каталог: серии и варианты (бэк: apps.catalog, ответы /api/series/…) ---
+
+export type Connection =
+  | "side"
+  | "diagonal"
+  | "bottom_left"
+  | "bottom_right"
+  | "bottom_universal"
+  | "bottom_ends"
+  | "bottom_center"
+  | "electric_left"
+  | "electric_right";
+
+export type ColorSwatch = { code: string; name: string; hex: string; finish?: string };
+
+export type ColorGroup = {
+  id: number;
+  name: string;
+  percent: number;
+  isBase: boolean;
+  anyRal: boolean;
+  colors: ColorSwatch[];
+};
+
+export type CatalogField = {
+  key: string;
+  label: string;
+  kind: "range" | "list" | "colors";
+  unit: string;
+  column: boolean;
+  filter: boolean;
+};
+
+export type FacetValue = { value: string; label: string; count: number; hex?: string };
+export type Facet =
+  | { key: string; label: string; kind: "range"; unit: string; min: number | null; max: number | null }
+  | { key: string; label: string; kind: "list" | "colors"; unit?: string; values: FacetValue[] };
+
+export type ShowcaseCard = {
+  series: string;
+  name: string;
+  brand: string;
+  label: string;
+  heightMm: number | null;
+  priceFrom: number | null;
+  image: ImageAsset | null;
+  colors: ColorSwatch[];
+};
+
+export type ModelTile = { series: string; name: string; image: ImageAsset | null };
+
+// key = "<трубы>-<подключение>", трубы 0 = без труб; подключения нет — "0-None"
+export type Execution = { key: string; tubes: number; connection: Connection | null; label: string; count: number };
+
+export type VariantRow = {
+  article: string;
+  heightMm: number | null;
+  widthMm: number | null;
+  depthMm: number | null;
+  lengthMm: number | null;
+  axisMm: number | null;
+  sections: number | null;
+  powerW: number | null;
+  areaM2: number | null; // 1 знак
+  tubes: number | null;
+  connection: Connection | null;
+  thermovalve: boolean;
+  orientation: "h" | "v" | "";
+  mount: "wall" | "floor" | "";
+  attrs: Record<string, string | number | boolean>;
+  price: number | null; // целые BYN, с учётом выбранного цвета; null — по запросу
+};
+
+export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | "" };
+
+export type SeriesDetail = {
+  slug: string;
+  name: string;
+  category: string;
+  brand: { slug: string; name: string; country: string };
+  description: string; // html
+  material: string;
+  heating: "water" | "electric" | "combined";
+  pressureBar: number | null;
+  warrantyYears: number | null;
+  videoUrl: string;
+  images: SeriesImage[];
+  files: { title: string; url: string }[];
+  colorGroups: ColorGroup[];
+  ranges: Record<string, [number | null, number | null]>;
+  executions: Execution[];
+  defaultExecution: string | null;
+  columns: CatalogField[];
+  filters: CatalogField[];
+};
