@@ -382,6 +382,11 @@ UNFOLD = {
                         'link': reverse_lazy('admin:content_post_changelist'),
                     },
                     {
+                        'title': 'Акции',
+                        'icon': 'sell',
+                        'link': reverse_lazy('admin:content_promo_changelist'),
+                    },
+                    {
                         'title': 'Шоурум',
                         'icon': 'storefront',
                         'link': reverse_lazy(

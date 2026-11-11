@@ -7,6 +7,7 @@ from .models import (
     OpeningHours,
     Post,
     Project,
+    Promo,
     ShowroomPhoto,
     SiteSettings,
 )
@@ -148,6 +149,17 @@ class PostSerializer(PostListSerializer):
         fields = [
             *PostListSerializer.Meta.fields,
             'body',
+        ]
+
+
+class PromoSerializer(ImageAssetMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Promo
+        fields = [
+            'title',
+            'image',
+            'body',
+            'ends_at',
         ]
 
 

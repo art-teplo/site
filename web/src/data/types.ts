@@ -100,6 +100,9 @@ export type PostCard = {
 // body — HTML из редактора админки, очищенный бэком (apps/content/html.py)
 export type Post = PostCard & { body: string };
 
+// Акция: своей страницы нет, весь текст — в карточке на /blog. endsAt — «действует до», null — бессрочная
+export type Promo = { title: string; image: ImageAsset; body: string; endsAt: string | null };
+
 // Контакты и реквизиты — «Настройки сайта» в админке
 export type Site = {
   city: string;
@@ -116,6 +119,7 @@ export type Site = {
   legalName: string;
   unp: string;
   replyPromise: string;
+  yandexOrgId: number | null; // карточка на Яндекс.Картах для виджета отзывов; null — только ссылка на карту
   showroomVideo: { src: string; poster: ImageAsset | null } | null; // файл из админки; нет — фото «скоро»
 };
 

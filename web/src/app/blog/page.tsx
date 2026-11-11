@@ -5,7 +5,7 @@ import { Section } from "@/components/Section/Section";
 import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { getPosts } from "@/data/api";
+import { getPosts, getPromos } from "@/data/api";
 import { cx, formatDate } from "@/lib/format";
 import { PageIntro } from "@/sections/page/PageIntro";
 import { LeadSection } from "@/sections/home/LeadSection";
@@ -13,17 +13,45 @@ import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Блог и акции",
-  description: "Как выбрать радиатор, цвет и подключение: статьи шоурума АртТепло.",
+  description: "Как выбрать радиатор, цвет и подключение: статьи и акции шоурума АртТепло.",
 };
 
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const [posts, promos] = await Promise.all([getPosts(), getPromos()]);
   const [first, ...rest] = posts;
   return (
     <>
       <PageIntro title="Блог и акции" intro="Пишем о том, что спрашивают в шоуруме: как выбрать тип, мощность, цвет и подключение." />
       <Section tone="white">
         <Container>
+          {/* Акции — над статьями, весь текст в карточке, своей страницы нет. Нет акций — нет и блока */}
+          {promos.length > 0 && (
+            <ul className={styles.promos} aria-label="Акции">
+              {promos.map((promo, i) => (
+                <Reveal as="li" key={promo.title} index={i}>
+                  <article className={styles.promo}>
+                    <Frame ratio="4 / 3">
+                      <Picture image={promo.image} sizes="(max-width: 767px) 100vw, 40vw" />
+                    </Frame>
+                    <div className={styles.promoText}>
+                      <p className={styles.meta}>
+                        Акция ·{" "}
+                        {promo.endsAt ? (
+                          <>
+                            до <time dateTime={promo.endsAt}>{formatDate(promo.endsAt)}</time>
+                          </>
+                        ) : (
+                          "бессрочная"
+                        )}
+                      </p>
+                      <h2 className={styles.promoTitle}>{promo.title}</h2>
+                      <div className={styles.promoBody} dangerouslySetInnerHTML={{ __html: promo.body }} />
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </ul>
+          )}
           {/* В админке может не быть ни одной статьи — тогда вместо главной статьи заметка */}
           {first ? (
             <Reveal className={cx(styles.featured, styles.post)}>
@@ -63,7 +91,6 @@ export default async function BlogPage() {
               </Reveal>
             ))}
           </ul>
-          <p className={styles.note}>Акций сейчас нет. Когда появятся — будут здесь, без таймеров и «последнего дня».</p>
         </Container>
       </Section>
       <LeadSection source="blog" />

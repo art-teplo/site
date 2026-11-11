@@ -1,5 +1,6 @@
 import io
 import json
+from datetime import timedelta
 from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
@@ -9,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.management import call_command
 from django.urls import reverse
+from django.utils import timezone
 from PIL import Image
 
 from apps.catalog.models import Brand, Category, LeadTime
@@ -18,6 +20,7 @@ from apps.content.models import (
     Post,
     Project,
     ProjectPhoto,
+    Promo,
     ShowroomPhoto,
     SiteSettings,
     Tag,
@@ -77,6 +80,20 @@ def make_post(db):  # noqa: ARG001
     return make
 
 
+@pytest.fixture
+def make_promo(db):  # noqa: ARG001
+    def make(**fields):
+        data = {
+            'title': 'Акция',
+            'body': '<p>текст</p>',
+            'image_alt': 'Фото',
+            **fields,
+        }
+        return with_image(Promo(**data))
+
+    return make
+
+
 # --- текст статьи ---
 
 
@@ -126,6 +143,7 @@ def test_site_settings(client):
     site.phone = '+375293190286'
     site.email = 'info@art-teplo.by'
     site.instagram_url = 'https://www.instagram.com/artteplo_minsk/'
+    site.yandex_org_id = 141315425329
     site.save()
     site.hours.create(days='Сб', time='10:00–17:00', position=1)
     site.hours.create(days='Пн–Пт', time='9:00–18:00', position=0)
@@ -136,6 +154,7 @@ def test_site_settings(client):
     assert data['phone_href'] == 'tel:+375293190286'
     assert data['viber_url'] == 'viber://chat?number=%2B375293190286'
     assert data['instagram_handle'] == '@artteplo_minsk'
+    assert data['yandex_org_id'] == 141315425329
     assert [row['days'] for row in data['hours']] == ['Пн–Пт', 'Сб']
 
 
@@ -145,6 +164,7 @@ def test_site_settings_empty(client):
 
     assert data['phone'] == ''
     assert data['viber_url'] == ''
+    assert data['yandex_org_id'] is None
 
 
 @pytest.mark.django_db
@@ -246,6 +266,41 @@ def test_posts_list_and_detail(client, make_post):
     assert client.get(hidden).status_code == 404
 
 
+@pytest.mark.django_db
+def test_promos_list_hides_drafts_and_ended(client, make_promo):
+    today = timezone.localdate()
+    make_promo(title='Бессрочная', position=2)
+    make_promo(title='Последний день', ends_at=today, position=1)
+    make_promo(title='Кончилась', ends_at=today - timedelta(days=1))
+    make_promo(title='Черновик', is_published=False)
+
+    data = client.get(reverse('promo-list')).json()
+
+    assert [promo['title'] for promo in data] == [
+        'Последний день',
+        'Бессрочная',
+    ]
+    assert data[0]['ends_at'] == today.isoformat()
+    assert data[1]['ends_at'] is None
+    assert data[0]['image']['width'] == 40
+
+
+@pytest.mark.django_db
+def test_promo_body_cleaned_and_revalidates_blog(
+    make_promo,
+    django_capture_on_commit_callbacks,
+):
+    with (
+        patch.object(revalidate_frontend, 'delay') as delay,
+        django_capture_on_commit_callbacks(execute=True),
+    ):
+        promo = make_promo(body='<h1>Раз</h1><script>x</script>')
+
+    promo.refresh_from_db()
+    assert promo.body == '<h2>Раз</h2>'
+    delay.assert_called_with(Tag.POSTS)
+
+
 # --- обновление фронта ---
 
 
@@ -313,6 +368,7 @@ def test_loaddemo_is_repeatable(media):
     assert Faq.objects.filter(on_home=True).count() == 4
     assert Project.objects.count() == 4
     assert Post.objects.count() == 3
+    assert Promo.objects.count() == 1
     assert ShowroomPhoto.objects.count() == 5
     site = SiteSettings.get_solo()
     assert site.hours.count() == 3
@@ -322,8 +378,8 @@ def test_loaddemo_is_repeatable(media):
     assert LeadTime.objects.count() == 14
     files = [path for path in media.rglob('*') if path.is_file()]
     assert ProjectPhoto.objects.count() == 6
-    # проекты, их доп. фото, статьи, шоурум, категории, логотипы
-    assert len(files) == 4 + 6 + 3 + 5 + 4 + 5
+    # проекты, их доп. фото, статьи, акции, шоурум, категории, логотипы
+    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5
 
 
 # --- админка ---
@@ -339,6 +395,8 @@ def test_loaddemo_is_repeatable(media):
         'admin:content_project_add',
         'admin:content_post_changelist',
         'admin:content_post_add',
+        'admin:content_promo_changelist',
+        'admin:content_promo_add',
         'admin:content_showroomphoto_changelist',
     ],
 )

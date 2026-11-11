@@ -15,6 +15,7 @@ MANAGER_PERMISSIONS = {
     'content.project': ALL,
     'content.projectphoto': ALL,
     'content.post': ALL,
+    'content.promo': ALL,
     'content.showroomphoto': ALL,
     'catalog.category': ALL,
     'catalog.brand': ALL,

@@ -132,11 +132,13 @@ class SiteSettings(SingletonModel):
             RegexValidator(r'^\d{9}$', 'УНП — 9 цифр'),
         ],
     )
-    yandex_org_id = models.CharField(
+    yandex_org_id = models.PositiveBigIntegerField(
         'id организации в Яндекс.Картах',
-        max_length=32,
+        null=True,
         blank=True,
-        help_text='Для виджета отзывов',
+        help_text='Для виджета отзывов: число из адреса карточки, '
+        'yandex.by/maps/org/…/141315425329/. Пусто — вместо виджета '
+        'только ссылка на карту',
     )
     showroom_video = models.FileField(
         'видео шоурума',
@@ -307,29 +309,22 @@ class ProjectPhoto(WithImage, Sortable):
         return self.image_alt
 
 
-class Post(Published, WithImage):
+class Article(WithImage):
+    """Заголовок, фото и текст из редактора — общее у статьи и акции.
+    Обе на странице «Блог и акции», поэтому и тег кэша один."""
+
     cache_tag = Tag.POSTS
 
     title = models.CharField(
         'заголовок',
         max_length=200,
     )
-    published_at = models.DateField(
-        'дата',
-        default=timezone.localdate,
-    )
-    lead = models.TextField(
-        'лид',
-        help_text='Пара предложений под заголовком и в списке статей',
-    )
     body = models.TextField(
         'текст',
     )
 
     class Meta:
-        verbose_name = 'статья'
-        verbose_name_plural = 'блог'
-        ordering = ['-published_at', '-pk']
+        abstract = True
 
     def __str__(self):
         return self.title
@@ -338,9 +333,57 @@ class Post(Published, WithImage):
         self.body = clean_html(self.body)
         super().save(*args, **kwargs)
 
+
+class Post(Published, Article):
+    published_at = models.DateField(
+        'дата',
+        default=timezone.localdate,
+    )
+    lead = models.TextField(
+        'лид',
+        help_text='Пара предложений под заголовком и в списке статей',
+    )
+
+    class Meta:
+        verbose_name = 'статья'
+        verbose_name_plural = 'блог'
+        ordering = ['-published_at', '-pk']
+
     @property
     def read_minutes(self):
         return read_minutes(self.body)
+
+
+class PromoQuerySet(models.QuerySet):
+    def active(self):
+        """На сайте: включённые, бессрочные или срок ещё не кончился."""
+        return self.filter(
+            models.Q(ends_at__isnull=True)
+            | models.Q(ends_at__gte=timezone.localdate()),
+            is_published=True,
+        )
+
+
+class Promo(Article, Sortable):
+    """Акция: своей страницы нет, весь текст — в карточке на «Блог и акции»."""
+
+    ends_at = models.DateField(
+        'действует до',
+        null=True,
+        blank=True,
+        help_text='Включительно. Пусто — бессрочная. После даты акция '
+        'пропадёт с сайта сама',
+    )
+    is_published = models.BooleanField(
+        'на сайте',
+        default=True,
+    )
+
+    objects = PromoQuerySet.as_manager()
+
+    class Meta(Sortable.Meta):
+        verbose_name = 'акция'
+        verbose_name_plural = 'акции'
 
 
 class ShowroomPhoto(WithImage, Sortable):
