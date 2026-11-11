@@ -1,7 +1,7 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { brands, categories, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
-import { mapShowcase, type ApiShowcase } from "./catalog-map";
+import { mapRow, mapVariants, mapShowcase, type ApiRow, type ApiShowcase, type ApiVariants } from "./catalog-map";
 import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
 import { rowPrice } from "@/lib/price";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
@@ -176,24 +176,6 @@ export async function getLeadTimes(): Promise<{ rows: LeadTime[]; updated: strin
 // --- Серии и варианты (пути плоские: /api/series/…, /api/variants/…) ---
 
 type ApiField = Pick<CatalogField, "key" | "label" | "kind" | "unit">;
-type ApiRow = {
-  article: string;
-  height_mm: number | null;
-  width_mm: number | null;
-  depth_mm: number | null;
-  length_mm: number | null;
-  axis_mm: number | null;
-  sections: number | null;
-  power_w: number | null;
-  area_m2: number | null;
-  tubes: number | null;
-  connection: Connection | "" | null;
-  thermovalve: boolean;
-  orientation: VariantRow["orientation"] | null;
-  mount: VariantRow["mount"] | null;
-  attrs: VariantRow["attrs"];
-  price: number | null;
-};
 type ApiGroup = Omit<ColorGroup, "isBase" | "anyRal"> & { is_base: boolean; any_ral: boolean };
 type ApiSeries = Omit<
   SeriesDetail,
@@ -210,24 +192,6 @@ type ApiSeries = Omit<
   filters: ApiField[];
 };
 
-const mapRow = (row: ApiRow): VariantRow => ({
-  article: row.article,
-  heightMm: row.height_mm,
-  widthMm: row.width_mm,
-  depthMm: row.depth_mm,
-  lengthMm: row.length_mm,
-  axisMm: row.axis_mm,
-  sections: row.sections,
-  powerW: row.power_w,
-  areaM2: row.area_m2,
-  tubes: row.tubes,
-  connection: row.connection || null,
-  thermovalve: row.thermovalve,
-  orientation: row.orientation ?? "",
-  mount: row.mount ?? "",
-  attrs: row.attrs ?? {},
-  price: row.price,
-});
 
 // Витрина категории: карточки (серия в одном формфакторе), фильтры и модельный ряд выбранных брендов
 export async function getShowcases(
@@ -268,12 +232,9 @@ export async function getVariants(
   query: CatalogQuery,
 ): Promise<{ count: number; results: VariantRow[]; facets: Facet[] }> {
   const params = serializeCatalogQuery({ ...query, brand: undefined, v: undefined });
-  const data = await load<{ count: number; results: ApiRow[]; facets: Facet[] }>(
-    `series/${encodeURIComponent(slug)}/variants/?${params}`,
-    "catalog",
-  );
+  const data = await load<ApiVariants>(`series/${encodeURIComponent(slug)}/variants/?${params}`, "catalog");
   if (!data) return demoVariants(slug, query);
-  return { count: data.count, results: data.results.map(mapRow), facets: data.facets };
+  return mapVariants(data);
 }
 
 // Один вариант с группами цветов, доступными ему. Один артикул в серии может быть дважды с разным

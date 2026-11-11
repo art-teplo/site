@@ -1,0 +1,115 @@
+.layout {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: var(--spacing-40);
+}
+
+.text {
+  grid-column: 1 / span 6;
+  display: grid;
+  align-content: start;
+  gap: var(--spacing-24);
+}
+
+.side {
+  grid-column: 8 / -1;
+}
+
+.title {
+  font-size: var(--text-heading-lg);
+}
+
+.body {
+  display: grid;
+  gap: var(--spacing-16);
+  max-width: var(--measure);
+  color: var(--text-muted);
+}
+
+.body ul {
+  padding-left: var(--spacing-24);
+  list-style: disc;
+}
+
+.files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-12);
+}
+
+.file {
+  display: inline-flex;
+  min-height: var(--spacing-40);
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-16);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.file:hover {
+  border-color: var(--text);
+}
+
+.file:active {
+  transform: scale(var(--press-scale));
+}
+
+.facts {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.facts th,
+.facts td {
+  padding: var(--spacing-12) 0;
+  border-bottom: var(--border-hairline);
+  text-align: left;
+  font-weight: var(--weight-regular);
+}
+
+.facts th {
+  color: var(--text-muted);
+  padding-right: var(--spacing-16);
+}
+
+.executions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--spacing-24) var(--grid-gap);
+  margin-top: var(--spacing-32);
+}
+
+.execution {
+  display: grid;
+  justify-items: start;
+  gap: var(--spacing-12);
+  font-size: var(--text-caption);
+}
+
+.related {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-40) var(--grid-gap);
+}
+
+@media (max-width: 1023px) {
+  .text,
+  .side {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .related {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .related > :nth-child(3) {
+    display: none;
+  }
+}

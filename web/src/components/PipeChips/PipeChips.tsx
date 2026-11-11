@@ -6,7 +6,7 @@ import { PIPE_GROUPS, pipeGroup, type PipeGroup } from "@/lib/connections";
 import styles from "./PipeChips.module.css";
 
 // Мини-схемка 64×44: контур радиатора и патрубки (красные) для группы подключений
-function Schematic({ group }: { group: PipeGroup }) {
+export function Schematic({ group }: { group: PipeGroup }) {
   const pipes: Record<PipeGroup, [number, number, number, number][]> = {
     side: [
       [4, 12, 12, 12],
