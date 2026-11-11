@@ -166,5 +166,465 @@
       "brand": "radimax",
       "days": 30
     }
+  ],
+  "series": [
+    {
+      "slug": "nova-siluet",
+      "brand": "nova",
+      "category": "radiatory",
+      "name": "Nova Siluet",
+      "description": "",
+      "material": "",
+      "heating": "water",
+      "pressure_bar": null,
+      "color_groups": [
+        {
+          "name": "Стандартные",
+          "percent": "0.00",
+          "is_base": true,
+          "any_ral": false,
+          "colors": [
+            {
+              "code": "RAL 9010",
+              "name": "Белый молочный матовый RAL9010",
+              "hex": "#f7f5eb",
+              "finish": "matte"
+            }
+          ]
+        },
+        {
+          "name": "Черный матовый +10 %",
+          "percent": "10.00",
+          "is_base": false,
+          "any_ral": false,
+          "colors": [
+            {
+              "code": "RAL 9005",
+              "name": "Черный матовый",
+              "hex": "#0a0a0a",
+              "finish": "matte"
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "article": "NS-T2 300 4 S",
+          "height_mm": 300,
+          "width_mm": 200,
+          "depth_mm": 70,
+          "axis_mm": 225,
+          "sections": 4,
+          "power_w": 144,
+          "tubes": 2,
+          "connection": "side",
+          "price": "5480.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "NS-T2 300 5 S",
+          "height_mm": 300,
+          "width_mm": 245,
+          "depth_mm": 70,
+          "axis_mm": 225,
+          "sections": 5,
+          "power_w": 180,
+          "tubes": 2,
+          "connection": "side",
+          "price": "6850.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "NS-T2 1800 4 S",
+          "height_mm": 1800,
+          "width_mm": 200,
+          "depth_mm": 70,
+          "axis_mm": 1725,
+          "sections": 4,
+          "power_w": 824,
+          "tubes": 2,
+          "connection": "side",
+          "price": "14996.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "NS-T2 1800 5 S",
+          "height_mm": 1800,
+          "width_mm": 245,
+          "depth_mm": 70,
+          "axis_mm": 1725,
+          "sections": 5,
+          "power_w": 1030,
+          "tubes": 2,
+          "connection": "side",
+          "price": "18745.00",
+          "currency": "RUB"
+        }
+      ],
+      "images": [
+        {
+          "src": "/images/products/nova-tube/main.jpg",
+          "alt": "Nova Siluet: общий вид"
+        },
+        {
+          "src": "/images/products/nova-tube/interior.jpg",
+          "alt": "Nova Siluet: в интерьере"
+        },
+        {
+          "src": "/images/products/nova-tube/detail.jpg",
+          "alt": "Nova Siluet: деталь"
+        }
+      ],
+      "showcases": [
+        {
+          "label": "300 мм, боковое подключение",
+          "variant": "NS-T2 300 4 S"
+        },
+        {
+          "label": "1800 мм, боковое подключение",
+          "variant": "NS-T2 1800 5 S"
+        }
+      ]
+    },
+    {
+      "slug": "guardo-retta-3p",
+      "brand": "guardo",
+      "category": "radiatory",
+      "name": "Guardo Retta 3P",
+      "description": "",
+      "material": "",
+      "heating": "water",
+      "pressure_bar": null,
+      "color_groups": [
+        {
+          "name": "Стандартные",
+          "percent": "0.00",
+          "is_base": true,
+          "any_ral": false,
+          "colors": [
+            {
+              "code": "RAL 1015",
+              "name": "RAL 1015 матовый",
+              "hex": "#e6d2b5",
+              "finish": "matte"
+            },
+            {
+              "code": "RAL 1015 глянец",
+              "name": "RAL 1015 глянец",
+              "hex": "#e6d2b5",
+              "finish": "gloss"
+            },
+            {
+              "code": "RAL 7040",
+              "name": "Серый матовый",
+              "hex": "#9da3a6",
+              "finish": "matte"
+            },
+            {
+              "code": "RAL 7040 глянец",
+              "name": "Серый глянец",
+              "hex": "#9da3a6",
+              "finish": "gloss"
+            },
+            {
+              "code": "RAL 9005",
+              "name": "Черный матовый",
+              "hex": "#0a0a0a",
+              "finish": "matte"
+            },
+            {
+              "code": "RAL 9005 глянец",
+              "name": "Черный глянцевый",
+              "hex": "#0a0a0a",
+              "finish": "gloss"
+            },
+            {
+              "code": "RAL 9016",
+              "name": "Белый матовый",
+              "hex": "#f1f0ea",
+              "finish": "matte"
+            },
+            {
+              "code": "RAL 9016 глянец",
+              "name": "Белый глянцевый",
+              "hex": "#f1f0ea",
+              "finish": "gloss"
+            }
+          ]
+        },
+        {
+          "name": "Любой RAL",
+          "percent": "0.00",
+          "is_base": false,
+          "any_ral": true,
+          "colors": []
+        }
+      ],
+      "variants": [
+        {
+          "article": "3P-0500-08 NK-GOR-L",
+          "height_mm": 380,
+          "width_mm": 500,
+          "depth_mm": 57,
+          "axis_mm": 50,
+          "sections": 8,
+          "power_w": 429,
+          "connection": "bottom_left",
+          "orientation": "h",
+          "price": "23543.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-0500-08 BK-GOR",
+          "height_mm": 380,
+          "width_mm": 500,
+          "depth_mm": 57,
+          "axis_mm": 350,
+          "sections": 8,
+          "power_w": 429,
+          "connection": "side",
+          "orientation": "h",
+          "price": "20543.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-0600-08 NK-GOR-L",
+          "height_mm": 380,
+          "width_mm": 600,
+          "depth_mm": 57,
+          "axis_mm": 50,
+          "sections": 8,
+          "power_w": 498,
+          "connection": "bottom_left",
+          "orientation": "h",
+          "price": "25510.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-0600-08 BK-GOR",
+          "height_mm": 380,
+          "width_mm": 600,
+          "depth_mm": 57,
+          "axis_mm": 350,
+          "sections": 8,
+          "power_w": 498,
+          "connection": "side",
+          "orientation": "h",
+          "price": "22510.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-1800-02 NK-VER-L",
+          "height_mm": 1800,
+          "width_mm": 80,
+          "depth_mm": 57,
+          "axis_mm": 50,
+          "sections": 2,
+          "power_w": 328,
+          "connection": "bottom_left",
+          "orientation": "v",
+          "price": "16456.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-1800-02 BK-VER",
+          "height_mm": 1800,
+          "width_mm": 80,
+          "depth_mm": 57,
+          "axis_mm": 1700,
+          "sections": 2,
+          "power_w": 328,
+          "connection": "side",
+          "orientation": "v",
+          "price": "13456.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-1800-03 NK-VER-L",
+          "height_mm": 1800,
+          "width_mm": 130,
+          "depth_mm": 57,
+          "axis_mm": 50,
+          "sections": 3,
+          "power_w": 494,
+          "connection": "bottom_left",
+          "orientation": "v",
+          "price": "20079.00",
+          "currency": "RUB"
+        },
+        {
+          "article": "3P-1800-03 BK-VER",
+          "height_mm": 1800,
+          "width_mm": 130,
+          "depth_mm": 57,
+          "axis_mm": 1700,
+          "sections": 3,
+          "power_w": 494,
+          "connection": "side",
+          "orientation": "v",
+          "price": "17079.00",
+          "currency": "RUB"
+        }
+      ],
+      "images": [
+        {
+          "src": "/images/products/guardo-retta-6p/main.jpg",
+          "alt": "Guardo Retta 3P: общий вид"
+        },
+        {
+          "src": "/images/products/guardo-retta-6p/interior.jpg",
+          "alt": "Guardo Retta 3P: в интерьере"
+        },
+        {
+          "src": "/images/products/guardo-retta-6p/detail.jpg",
+          "alt": "Guardo Retta 3P: деталь"
+        }
+      ],
+      "showcases": [
+        {
+          "label": "Горизонтальный, 380 мм",
+          "variant": "3P-0500-08 BK-GOR"
+        },
+        {
+          "label": "Вертикальный, 1800 мм",
+          "variant": "3P-1800-02 BK-VER"
+        }
+      ]
+    },
+    {
+      "slug": "guardo-stretto",
+      "brand": "guardo",
+      "category": "polotentsesushiteli",
+      "name": "Guardo Stretto",
+      "description": "",
+      "material": "",
+      "heating": "water",
+      "pressure_bar": null,
+      "color_groups": [
+        {
+          "name": "Стандартные",
+          "percent": "0.00",
+          "is_base": true,
+          "any_ral": false,
+          "colors": [
+            {
+              "code": "RAL 9005",
+              "name": "Черный матовый",
+              "hex": "#0a0a0a",
+              "finish": "matte"
+            },
+            {
+              "code": "RAL 9016",
+              "name": "Белый матовый",
+              "hex": "#f1f0ea",
+              "finish": "matte"
+            }
+          ]
+        },
+        {
+          "name": "Хром −4 %",
+          "percent": "-4.00",
+          "is_base": false,
+          "any_ral": false,
+          "colors": [
+            {
+              "code": "Хром",
+              "name": "Хром",
+              "hex": "#c0c4c8",
+              "finish": ""
+            }
+          ]
+        },
+        {
+          "name": "Любой RAL",
+          "percent": "0.00",
+          "is_base": false,
+          "any_ral": true,
+          "colors": []
+        }
+      ],
+      "variants": [
+        {
+          "article": "STRETTO 0685",
+          "height_mm": 600,
+          "width_mm": 82,
+          "depth_mm": 87,
+          "axis_mm": 50,
+          "sections": 2,
+          "power_w": 111,
+          "price": "164.00",
+          "currency": "USD",
+          "attrs": {
+            "heating": "water"
+          }
+        },
+        {
+          "article": "STRETTO 0614",
+          "height_mm": 600,
+          "width_mm": 140,
+          "depth_mm": 87,
+          "axis_mm": 108,
+          "sections": 3,
+          "power_w": 165,
+          "price": "228.00",
+          "currency": "USD",
+          "attrs": {
+            "heating": "water"
+          }
+        },
+        {
+          "article": "STRETTO 1285",
+          "height_mm": 1200,
+          "width_mm": 82,
+          "depth_mm": 87,
+          "axis_mm": 50,
+          "sections": 2,
+          "power_w": 219,
+          "price": "191.00",
+          "currency": "USD",
+          "attrs": {
+            "heating": "water"
+          }
+        },
+        {
+          "article": "STRETTO 1214",
+          "height_mm": 1200,
+          "width_mm": 140,
+          "depth_mm": 87,
+          "axis_mm": 108,
+          "sections": 3,
+          "power_w": 326,
+          "price": "275.00",
+          "currency": "USD",
+          "attrs": {
+            "heating": "water"
+          }
+        }
+      ],
+      "images": [
+        {
+          "src": "/images/products/guardo-polotentsesushitel/main.jpg",
+          "alt": "Guardo Stretto: общий вид"
+        },
+        {
+          "src": "/images/products/guardo-polotentsesushitel/interior.jpg",
+          "alt": "Guardo Stretto: в интерьере"
+        },
+        {
+          "src": "/images/products/guardo-polotentsesushitel/detail.jpg",
+          "alt": "Guardo Stretto: деталь"
+        }
+      ],
+      "showcases": [
+        {
+          "label": "Водяной, 600 мм",
+          "variant": "STRETTO 0685"
+        },
+        {
+          "label": "Водяной, 1200 мм",
+          "variant": "STRETTO 1285"
+        }
+      ]
+    }
   ]
 }

@@ -5,7 +5,18 @@ from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from apps.catalog.models import Brand, Category, LeadTime
+from apps.catalog import pricing
+from apps.catalog.models import (
+    Brand,
+    Category,
+    Color,
+    ColorGroup,
+    LeadTime,
+    Series,
+    SeriesImage,
+    Showcase,
+    Variant,
+)
 from apps.content.models import (
     Faq,
     Post,
@@ -55,6 +66,7 @@ class Command(BaseCommand):
             self.load_categories(catalog['categories'])
             self.load_brands(catalog['brands'])
             self.load_lead_times(catalog['lead_times'])
+            self.load_series(catalog['series'])
         self.stdout.write(self.style.SUCCESS('Демо-контент загружен'))
 
     def attach(self, obj, image):
@@ -171,3 +183,79 @@ class Command(BaseCommand):
                     'position': position,
                 },
             )
+
+    def load_series(self, items):
+        """Демо-серии: по slug, варианты — по (бренд, артикул), фото — по
+        описанию. На базе с полным импортом прайса серии и варианты с теми
+        же slug и артикулами обновляются, дублей нет."""
+        variants = []
+        for position, item in enumerate(items):
+            series = Series.objects.filter(slug=item['slug']).first()
+            series = series or Series(slug=item['slug'])
+            series.brand = Brand.objects.get(slug=item['brand'])
+            series.category = Category.objects.get(slug=item['category'])
+            for field in (
+                'name',
+                'description',
+                'material',
+                'heating',
+                'pressure_bar',
+            ):
+                setattr(series, field, item[field])
+            series.position = position
+            series.is_published = True
+            series.save()
+            self.load_color_groups(series, item['color_groups'])
+            variants += self.load_variants(series, item['variants'])
+            self.load_series_images(series, item['images'])
+            self.load_showcases(series, item['showcases'])
+        pricing.recalculate(Variant.objects.filter(pk__in=variants))
+
+    def load_color_groups(self, series, groups):
+        for position, group in enumerate(groups):
+            colors = [
+                Color.objects.update_or_create(
+                    code=color['code'],
+                    defaults=color,
+                )[0]
+                for color in group['colors']
+            ]
+            obj, _ = ColorGroup.objects.update_or_create(
+                series=series,
+                name=group['name'],
+                defaults={
+                    'percent': group['percent'],
+                    'is_base': group['is_base'],
+                    'any_ral': group['any_ral'],
+                    'position': position,
+                },
+            )
+            obj.colors.set(colors)
+
+    def load_variants(self, series, rows):
+        ids = []
+        for row in rows:
+            variant, _ = Variant.objects.update_or_create(
+                brand=series.brand,
+                article=row['article'],
+                defaults={**row, 'series': series},
+            )
+            ids.append(variant.pk)
+        return ids
+
+    def load_series_images(self, series, images):
+        for position, image in enumerate(images):
+            obj = series.images.filter(image_alt=image['alt']).first()
+            obj = obj or SeriesImage(series=series)
+            obj.position = position
+            self.attach(obj, image)
+            obj.save()
+
+    def load_showcases(self, series, items):
+        for position, item in enumerate(items):
+            showcase = series.showcases.filter(label=item['label']).first()
+            showcase = showcase or Showcase(series=series)
+            showcase.label = item['label']
+            showcase.variant = series.variants.get(article=item['variant'])
+            showcase.position = position
+            showcase.save()
