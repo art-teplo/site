@@ -20,6 +20,14 @@ MANAGER_PERMISSIONS = {
     'catalog.category': ALL,
     'catalog.brand': ALL,
     'catalog.leadtime': ALL,
+    'catalog.color': ALL,
+    'catalog.series': ALL,
+    'catalog.colorgroup': ALL,
+    'catalog.variant': ALL,
+    'catalog.seriesimage': ALL,
+    'catalog.seriesfile': ALL,
+    'catalog.showcase': ALL,
+    'catalog.currencyrate': ('view',),
 }
 
 
