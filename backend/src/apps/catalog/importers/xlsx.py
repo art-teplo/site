@@ -43,8 +43,9 @@ BASE_COLOR = {'nova': 'RAL 9010'}
 DEFAULT_BASE_COLOR = 'RAL 9016'
 
 # Цвет попадает в группу на первом импорте, только если он есть хотя бы у
-# 5 % артикулов серии (не меньше трёх, но не больше, чем артикулов в серии)
-# и не дешевле базового: иначе это, скорее всего, ошибка прайса.
+# 5 % артикулов серии (не меньше трёх, но не больше, чем артикулов в серии):
+# цвет у пары артикулов — скорее ошибка или остаток прайса. Знак надбавки
+# не важен: хром у части сушителей честно дешевле белого.
 MIN_SUPPORT_SHARE = Decimal('0.05')
 MIN_SUPPORT = 3
 
@@ -423,7 +424,8 @@ def _base_code(support: Counter, brand_slug: str) -> str | None:
 
 
 def _group_name(name: str, percent: int) -> str:
-    return f'{name} +{percent} %'
+    sign = '+' if percent > 0 else '−'
+    return f'{name} {sign}{abs(percent)} %'
 
 
 def _update_groups(report: SeriesReport, bases, brand_slug):
@@ -456,7 +458,7 @@ def _update_groups(report: SeriesReport, bases, brand_slug):
     base_code = _base_code(support, brand_slug)
     by_percent = defaultdict(list)
     for code, percent in _percents(bases, base_code).items():
-        if support[code] >= threshold and (percent or 0) >= 0:
+        if support[code] >= threshold:
             by_percent[percent or 0].append(code)
         else:
             report.skipped.append(

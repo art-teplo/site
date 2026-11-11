@@ -18,7 +18,8 @@ SHEET_LINE = (
 )
 NEW_SERIES = '  новая серия: {name} ({slug}, {category})'
 SERIES = '  серия: {name} ({slug})'
-GROUP = '    группа «{name}»: {percent}, артикулов {count}'
+GROUP = '    группа «{name}»: {percent}, артикулов {count}{note}'
+CHEAPER = ' ⚠ дешевле базового'
 SKIPPED_COLOR = (
     '    пропущены, проверьте прайс: {color} {percent}, артикулов {count}'
 )
@@ -135,6 +136,9 @@ class Command(BaseCommand):
                     name=name,
                     percent=label or percent_label(percent),
                     count=count,
+                    note=CHEAPER
+                    if percent is not None and percent < 0
+                    else '',
                 ),
             )
         for color, percent, count in report.skipped:

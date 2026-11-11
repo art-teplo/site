@@ -571,15 +571,16 @@ def test_manager_group_edits_survive_reimport(price_file):
 
 @pytest.mark.django_db
 @pytest.mark.usefixtures('no_revalidate')
-def test_first_import_skips_negative_and_rare_colors(tmp_path):
+def test_first_import_groups_by_support_not_sign(tmp_path):
     rows = [
         *guardo_rows(),
-        # −30 % на трёх артикулах из четырёх — похоже на ошибку прайса
+        # −30 % на трёх артикулах из четырёх — своя группа с пометкой
         *[
             pilon(height, ' черный глянец', 'Черный глянцевый', '70,00 euro')
             for height in (300, 400, 500)
         ],
-        # +40 %, но только у одного артикула
+        # −50 % и +40 % только у одного артикула — пропущены
+        pilon(300, ' SALE (распродажа)', 'Распродажа', '50,00 euro'),
         pilon(300, ' GOLD (золото)', 'Золото', '140,00 euro'),
     ]
     path = write_price(tmp_path / 'outliers.xlsx', {'Guardo': rows})
@@ -589,14 +590,19 @@ def test_first_import_skips_negative_and_rare_colors(tmp_path):
     series = Series.objects.get(slug='guardo-pilon')
     assert [(g.name, g.percent) for g in series.color_groups.all()] == [
         ('Стандартные', 0),
+        ('Черный глянцевый −30 %', -30),
         ('Бесцветный лак (технолак) глянец +18 %', 18),
     ]
-    assert not Color.objects.filter(
-        code__in=['Черный глянцевый', 'Золото'],
-    ).exists()
     assert (
-        'пропущены, проверьте прайс: Черный глянцевый −30 %, артикулов 3'
+        'группа «Черный глянцевый −30 %»: −30 %, артикулов 3 '
+        '⚠ дешевле базового'
     ) in out
+    marked = [line for line in out.splitlines() if 'дешевле базового' in line]
+    assert len(marked) == 1
+    assert not Color.objects.filter(
+        code__in=['Распродажа', 'Золото'],
+    ).exists()
+    assert ('пропущены, проверьте прайс: Распродажа −50 %, артикулов 1') in out
     assert 'пропущены, проверьте прайс: Золото +40 %, артикулов 1' in out
     # Пропущенные цвета не делают варианты «частичными»
     assert not Variant.objects.get(
@@ -752,7 +758,7 @@ def test_cheaper_color_does_not_set_base_price(tmp_path):
     assert variant.attrs == {'heating': 'electric'}
     assert variant.series.heating == 'electric'
     assert variant.series.category.slug == 'polotentsesushiteli'
-    assert [g.name for g in variant.series.color_groups.all()] == [
-        'Стандартные',
-    ]
-    assert 'пропущены, проверьте прайс: Хром −12 %, артикулов 1' in out
+    assert [
+        (g.name, g.percent) for g in variant.series.color_groups.all()
+    ] == [('Стандартные', 0), ('Хром −12 %', -12)]
+    assert 'группа «Хром −12 %»: −12 %, артикулов 1 ⚠ дешевле базового' in out
