@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/Button/Button";
 import { ColorSwatches } from "@/components/ColorSwatches/ColorSwatches";
@@ -33,7 +33,6 @@ const sizes = "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw";
 
 // Список с фильтрами. Состояние — в адресе: ссылку с фильтрами можно отправить менеджеру.
 export function CatalogBrowser({ category, initial, brands }: { category: Category; initial: Showcase; brands: Brand[] }) {
-  const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -68,9 +67,12 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
     return () => controller.abort();
   }, [key, loaded.key, category.slug, query]);
 
+  // Адрес меняем в истории без перехода: useSearchParams его подхватывает, сервер страницу не пересобирает
+  // (список браузер грузит сам)
+  const go = (url: string) => window.history.replaceState(null, "", url);
   const replace = (next: CatalogQuery) => {
     const q = serializeCatalogQuery({ ...next, page: undefined });
-    router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
+    go(q ? `${pathname}?${q}` : pathname);
   };
   const toggleIn = (list: string[], value: string) => (list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
   const toggleBrand = (slug: string) => {
@@ -235,7 +237,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
           );
         })}
         {active > 0 && (
-          <Button variant="ghost" onClick={() => router.replace(pathname, { scroll: false })}>
+          <Button variant="ghost" onClick={() => go(pathname)}>
             Сбросить фильтры
           </Button>
         )}
@@ -265,7 +267,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
           <div className={styles.empty}>
             <p className={styles.emptyTitle}>По этим фильтрам ничего нет</p>
             <p>Ослабьте условия или опишите задачу менеджеру — подберём под размеры вручную.</p>
-            <Button variant="secondary" onClick={() => router.replace(pathname, { scroll: false })}>
+            <Button variant="secondary" onClick={() => go(pathname)}>
               Сбросить фильтры
             </Button>
           </div>

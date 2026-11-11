@@ -196,18 +196,7 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
                           </button>
                         </th>
                         {columns.map((c) =>
-                          c.kind === "colors" ? (
-                            <td key={c.key}>
-                              {picked && !picked.anyRal ? (
-                                <span className={styles.color}>
-                                  <span className={styles.dot} style={{ background: picked.hex }} aria-hidden="true" />
-                                  {picked.name}
-                                </span>
-                              ) : (
-                                <span className={styles.muted}>{picked ? picked.name : "на выбор"}</span>
-                              )}
-                            </td>
-                          ) : c.key === "price" ? (
+                          c.key === "price" ? (
                             <td key={c.key} className={styles.price}>
                               {priceCell(row)}
                             </td>
@@ -223,7 +212,12 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
               {loaded.results.length === 0 && !pending && <p className={styles.empty}>Под такие параметры вариантов нет. Сбросьте фильтры или смените подключение.</p>}
             </div>
 
-            {loaded.results.length < loaded.count && (
+            {loaded.all && loaded.results.length < loaded.count && (
+              <p className={styles.hint}>
+                Показаны первые {loaded.results.length} из {loaded.count} — уточните фильтры, чтобы увидеть остальные.
+              </p>
+            )}
+            {!loaded.all && loaded.results.length < loaded.count && (
               <div className={styles.more}>
                 <Button variant="secondary" onClick={onShowAll} disabled={loading || pending}>
                   {loading ? "Загружаем…" : `Показать все (${loaded.count})`}

@@ -207,3 +207,11 @@ export function demoVariants(
   const results = pageOf(rows, query.page, PAGE_SIZE_ROWS).map((i) => publicRow(i.row, rowPrice(i.row, i.groups, color)));
   return { count: rows.length, results, facets: buildFacets(pool, query, fields, options) };
 }
+
+// Один вариант серии (как /api/variants/<артикул>/): подключение — для повёрнутых двойников
+export function demoVariant(slug: string, article: string, connection?: Connection, color?: string): VariantRow | null {
+  const series = demoSeries.find((s) => s.slug === slug);
+  const source = demoSource(slug).find((r) => r.article === article && (!connection || r.connection === connection));
+  if (!series || !source) return null;
+  return publicRow(source, rowPrice(source, series.colorGroups, knownCodes(csv(color ?? "").slice(0, 1))[0]));
+}

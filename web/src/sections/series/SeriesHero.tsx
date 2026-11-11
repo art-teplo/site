@@ -9,14 +9,12 @@ import { useSite } from "@/components/SiteProvider/SiteProvider";
 import type { SeriesDetail, VariantRow } from "@/data/types";
 import { CONNECTION_LABEL } from "@/lib/connections";
 import { cx, formatPrice } from "@/lib/format";
-import { priceInColor } from "@/lib/price";
 import { pickColor } from "@/lib/series-color";
 import styles from "./SeriesHero.module.css";
 
 type Props = {
   series: SeriesDetail;
   row: VariantRow | null; // выбранный вариант; null — не выбран
-  rows: VariantRow[]; // строки таблицы: нужны, чтобы назвать цену «от», когда в серии нет сводной цены
   color: string | undefined;
   stale: "pending" | "failed" | null; // строки загружены с другим цветом: цена из них неверна
   onColor: (code: string) => void;
@@ -35,7 +33,7 @@ const sizeOf = (row: VariantRow) => {
 };
 
 // Верх страницы серии: галерея, название, цена и цвет; «Уточнить наличие» уносит выбранный вариант в заявку.
-export function SeriesHero({ series, row, rows, color, stale, onColor }: Props) {
+export function SeriesHero({ series, row, color, stale, onColor }: Props) {
   const site = useSite();
   const [active, setActive] = useState(0);
   const [asking, setAsking] = useState(false);
@@ -51,10 +49,8 @@ export function SeriesHero({ series, row, rows, color, stale, onColor }: Props) 
   })();
   const image = images[Math.min(active, images.length - 1)];
 
-  const base = series.ranges.price?.[0] ?? null;
-  const prices = rows.map((r) => r.price).filter((p): p is number => p != null);
-  const fromBase = picked ? (picked.anyRal ? null : priceInColor(base, picked.group)) : base;
-  const from = fromBase ?? (!stale && prices.length && !picked?.anyRal ? Math.min(...prices) : null);
+  // «От» считает бэк (и демо) по правилам цены: без цвета и по группе выбранного цвета
+  const from = picked ? (picked.anyRal ? null : (series.priceFromByGroup[picked.group.id] ?? null)) : series.priceFrom;
   const price = row ? (picked?.anyRal || stale ? null : row.price) : from;
   const priceText = price == null ? (stale === "pending" ? "Цена уточняется" : "Цена по запросу") : `${row ? "" : "от "}${formatPrice(price)}`;
 

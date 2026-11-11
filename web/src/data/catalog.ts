@@ -1,7 +1,7 @@
 // ДЕМО-ДАННЫЕ. Серии взяты из списка для парсинга (materials/client/Забираем с Home-heat.docx),
 // размеры, мощности и цены — условные, для вёрстки. Заменятся данными из админки.
 import { CONNECTION_LABEL } from "@/lib/connections";
-import { rowPrice } from "@/lib/price";
+import { priceFrom, rowPrice } from "@/lib/price";
 import type {
   Brand,
   CatalogField,
@@ -164,11 +164,6 @@ const group = (id: number, name: string, percent: number, isBase: boolean, anyRa
 });
 const anyRal = (id: number) => group(id, "Любой RAL", 0, false, true, []);
 
-const BRAND_INFO: Record<string, SeriesDetail["brand"]> = {
-  nova: { slug: "nova", name: "Nova", country: "Россия" },
-  guardo: { slug: "guardo", name: "Guardo", country: "Россия" },
-};
-
 type DemoDef = {
   slug: string;
   name: string;
@@ -323,21 +318,24 @@ function executionsOf(rows: DemoVariant[]): Execution[] {
 export const demoSeries: SeriesDetail[] = DEFS.map((def) => {
   const fields = catalogFields(def.category).filter((x) => x.key !== "brand");
   const executions = executionsOf(def.variants);
+  const brand = brands.find((b) => b.slug === def.brand)!;
   return {
     slug: def.slug,
     name: def.name,
     category: def.category,
-    brand: BRAND_INFO[def.brand],
+    brand: { slug: brand.slug, name: brand.name, country: brand.country },
     description: "",
     material: "",
     heating: "water",
     pressureBar: null,
-    warrantyYears: 10,
+    warrantyYears: brand.warrantyYears, // у серии своей гарантии нет — берётся бренда
     videoUrl: "",
     images: photos(def.photoDir, def.name),
     files: [],
     colorGroups: def.groups,
     ranges: ranges(def.category, def.variants),
+    priceFrom: priceFrom(def.variants, def.groups),
+    priceFromByGroup: Object.fromEntries(def.groups.map((g) => [g.id, priceFrom(def.variants, def.groups, g)])),
     executions,
     defaultExecution: executions[0]?.key ?? null,
     columns: fields.filter((x) => x.column).map((x) => ({ ...x, filter: false })),
@@ -375,14 +373,13 @@ export function demoCards(
       const height = def.variants.find((v) => v.article === showcase.article)?.heightMm ?? null;
       const same = height == null ? rows : rows.filter((r) => r.heightMm === height);
       if (!same.length) continue;
-      const prices = same.map((r) => rowPrice(r, def.groups)).filter((p): p is number => p != null);
       cards.push({
         series: def.slug,
         name: def.name,
         brand: def.brand,
         label: showcase.label,
         heightMm: height,
-        priceFrom: prices.length ? Math.min(...prices) : null,
+        priceFrom: priceFrom(same, def.groups),
         image: series.images[0],
         colors,
       });

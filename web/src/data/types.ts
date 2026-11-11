@@ -179,7 +179,9 @@ export type SeriesDetail = {
   images: SeriesImage[];
   files: { title: string; url: string }[];
   colorGroups: ColorGroup[];
-  ranges: Record<string, [number | null, number | null]>;
+  ranges: Record<string, [number | null, number | null]>; // только для полей фильтра, не для цены «от»
+  priceFrom: number | null; // «от» без выбранного цвета
+  priceFromByGroup: Record<number, number | null>; // «от» при выбранном цвете, по id группы; null — по запросу
   executions: Execution[];
   defaultExecution: string | null;
   columns: CatalogField[];

@@ -29,3 +29,16 @@ export function rowPrice(row: PriceSource, groups: ColorGroup[], color?: string)
   const valid = prices.filter((p): p is number => p != null);
   return valid.length ? Math.min(...valid) : null;
 }
+
+// «От» по строкам серии, как pricing.price_from на бэке. Без группы — минимум цен без выбранного цвета.
+// С группой — минимум priceByn среди строк, где она доступна, в цене этой группы (процент монотонен); «Любой RAL» — null.
+export function priceFrom(rows: PriceSource[], groups: ColorGroup[], group?: ColorGroup): number | null {
+  if (!group) {
+    const prices = rows.map((r) => rowPrice(r, groups)).filter((p): p is number => p != null);
+    return prices.length ? Math.min(...prices) : null;
+  }
+  const known = rows
+    .filter((r) => r.priceByn != null && (r.colorGroups.length === 0 || r.colorGroups.includes(group.id)))
+    .map((r) => r.priceByn as number);
+  return known.length ? priceInColor(Math.min(...known), group) : null;
+}

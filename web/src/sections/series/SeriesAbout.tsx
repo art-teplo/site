@@ -7,6 +7,7 @@ import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
 import type { Project, SeriesDetail, ShowcaseCard as Card } from "@/data/types";
 import { CONNECTION_LABEL, pipeGroup } from "@/lib/connections";
+import { plural } from "@/lib/format";
 import styles from "./SeriesAbout.module.css";
 
 type Props = { series: SeriesDetail; projects: Project[]; related: Card[]; category: string; brandNames: Record<string, string> };
@@ -18,7 +19,7 @@ const facts = (s: SeriesDetail): [string, string][] => {
     ...(s.material ? ([["Материал", s.material]] as [string, string][]) : []),
     ["Нагрев", heating],
     ...(s.pressureBar ? ([["Рабочее давление", `${s.pressureBar} бар`]] as [string, string][]) : []),
-    ["Гарантия", s.warrantyYears ? `${s.warrantyYears} лет` : "[Уточнить у заказчика: срок гарантии]"],
+    ["Гарантия", s.warrantyYears ? `${s.warrantyYears} ${plural(s.warrantyYears, "год", "года", "лет")}` : "[Уточнить у заказчика: срок гарантии]"],
   ];
 };
 

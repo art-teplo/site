@@ -1,17 +1,19 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
-import { mapVariants, type ApiVariants, type Variants } from "@/data/catalog-map";
-import type { SeriesDetail } from "@/data/types";
-import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
+import { mapRow, mapVariants, type ApiRow, type ApiVariants, type Variants } from "@/data/catalog-map";
+import type { SeriesDetail, VariantRow } from "@/data/types";
+import { executionConnection, serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
 import { colorForApi } from "@/lib/series-color";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { SeriesHero } from "./SeriesHero";
 import { SeriesVariants } from "./SeriesVariants";
 
+// Выбранный ?v, которого нет на первой странице таблицы: одна строка с эндпоинта варианта (null — такого нет)
+type Extra = { key: string; row: VariantRow | null };
 type Loaded = Variants & { key: string; color: string | undefined; dropped: boolean; all: boolean };
 type Props = {
   series: SeriesDetail;
@@ -33,9 +35,25 @@ async function fetchVariants(slug: string, raw: CatalogQuery, signal: AbortSigna
   return mapVariants((await response.json()) as ApiVariants);
 }
 
+// Один вариант: /api/variants/<артикул>/?series=…&connection=…; в демо — из src/data. Нет такого — null
+async function fetchVariant(slug: string, article: string, query: CatalogQuery, signal: AbortSignal): Promise<VariantRow | null> {
+  const connection = executionConnection(query.execution);
+  const color = colorForApi(query.color);
+  if (process.env.NEXT_PUBLIC_DEMO === "1") {
+    const { demoVariant } = await import("@/data/catalog-demo");
+    return demoVariant(slug, article, connection, color);
+  }
+  const params = new URLSearchParams({ series: slug });
+  if (connection) params.set("connection", connection);
+  if (color) params.set("color", color);
+  const response = await fetch(`/api/variants/${encodeURIComponent(article)}/?${params}`, { signal });
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(String(response.status));
+  return mapRow((await response.json()) as ApiRow);
+}
+
 // Состояние страницы серии живёт в адресе: ?execution, ?color, ?v, фильтры. Ссылку можно отправить менеджеру.
 function Body({ series, initial, breadcrumbs, topClassName }: Props) {
-  const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const [failed, setFailed] = useState(false);
@@ -53,7 +71,7 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
   const [attempt, setAttempt] = useState(0);
   const controller = useRef<AbortController | null>(null);
   const allController = useRef<AbortController | null>(null);
-  const triedAll = useRef<string | null>(null);
+  const [extra, setExtra] = useState<Extra | null>(null);
 
   // если по ?h строк нет — работаем без высоты, пока пользователь сам не задаст фильтр
   const dropH = parsed.fromH && loaded.dropped && loaded.key === key;
@@ -106,35 +124,52 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
     else void showAll();
   }, [pending, showAll]);
 
+  // Адрес меняем в истории без перехода: useSearchParams подхватывает его, а сервер страницу не пересобирает
+  // (строки браузер и так грузит сам)
   const replace = useCallback(
     (next: CatalogQuery) => {
       const q = serializeCatalogQuery({ ...next, page: undefined });
-      router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
+      window.history.replaceState(null, "", q ? `${pathname}?${q}` : pathname);
     },
-    [pathname, router],
+    [pathname],
   );
 
-  // Выбранный вариант: ?v=<артикул> среди строк текущего исполнения. Нет такого — выбор молча сбрасывается.
+  // Выбранный вариант: ?v=<артикул> среди строк текущего исполнения. Остался за первой страницей — берём его
+  // отдельным запросом, а не грузим всю таблицу. Нет такого — выбор молча сбрасывается.
   const article = query.v;
-  const selected = article ? (loaded.results.find((r) => r.article === article) ?? null) : null;
+  const attemptKey = article ? `${key}|${article}` : null;
+  const inRows = article ? (loaded.results.find((r) => r.article === article) ?? null) : null;
+  const beyondFirstPage = loaded.results.length < loaded.count;
+  const fetched = extra && extra.key === attemptKey ? extra : null;
+  const selected = inRows ?? fetched?.row ?? null;
   useEffect(() => {
-    if (!article || pending || selected || loading) return;
-    // строки обрезаны первой страницей — артикул мог остаться за ней, тогда один раз загружаем все (на пару запрос + артикул)
-    const attemptKey = `${key}|${article}`;
-    if (loaded.results.length < loaded.count && !loaded.all && triedAll.current !== attemptKey) {
-      triedAll.current = attemptKey;
-      const timer = setTimeout(() => void showAll()); // не синхронно в теле эффекта
-      return () => clearTimeout(timer);
+    if (!article || !attemptKey || pending || inRows) return;
+    if (!beyondFirstPage) {
+      replace({ ...query, v: undefined });
+      return;
     }
-    replace({ ...query, v: undefined });
-  }, [article, key, pending, loading, selected, loaded, query, replace, showAll]);
+    if (fetched) {
+      if (!fetched.row) replace({ ...query, v: undefined });
+      return;
+    }
+    const c = new AbortController();
+    (async () => {
+      const row = await fetchVariant(series.slug, article, query, c.signal);
+      if (!c.signal.aborted) setExtra({ key: attemptKey, row });
+    })().catch((e) => {
+      if (c.signal.aborted) return;
+      console.error(e);
+      setExtra({ key: attemptKey, row: null }); // не получилось — как будто ?v не было
+    });
+    return () => c.abort();
+  }, [article, attemptKey, pending, inRows, beyondFirstPage, fetched, query, replace, series.slug]);
 
   return (
     <>
       <Section className={topClassName} labelledBy="series-title">
         <Container>
           {breadcrumbs}
-          <SeriesHero series={series} row={selected} rows={loaded.results} color={query.color} stale={stale} onColor={(color) => replace({ ...query, color })} />
+          <SeriesHero series={series} row={selected} color={query.color} stale={stale} onColor={(color) => replace({ ...query, color })} />
         </Container>
       </Section>
       <SeriesVariants

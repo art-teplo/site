@@ -1,9 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { brands, categories, demoSeries, demoSeriesBySlug, demoSource, publicRow } from "./catalog";
+import { brands, categories, demoSeries, demoSeriesBySlug } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
-import { mapRow, mapVariants, mapShowcase, type ApiRow, type ApiShowcase, type ApiVariants } from "./catalog-map";
+import { mapVariants, mapShowcase, type ApiShowcase, type ApiVariants } from "./catalog-map";
 import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
-import { rowPrice } from "@/lib/price";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
 import type {
@@ -11,7 +10,6 @@ import type {
   CatalogField,
   Category,
   ColorGroup,
-  Connection,
   Execution,
   Facet,
   Faq,
@@ -192,8 +190,10 @@ type ApiField = Pick<CatalogField, "key" | "label" | "kind" | "unit">;
 type ApiGroup = Omit<ColorGroup, "isBase" | "anyRal"> & { is_base: boolean; any_ral: boolean };
 type ApiSeries = Omit<
   SeriesDetail,
-  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions"
+  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions" | "priceFrom" | "priceFromByGroup"
 > & {
+  price_from: number | null;
+  price_from_by_group: Record<string, number | null>;
   pressure_bar: number | null;
   warranty_years: number | null;
   video_url: string;
@@ -224,9 +224,11 @@ export async function getSeries(slug: string): Promise<SeriesDetail | null> {
   const data = await load<ApiSeries>(`series/${encodeURIComponent(slug)}/`, "catalog");
   if (data === undefined) return demoSeriesBySlug(slug) ?? null;
   if (data === null) return null;
-  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, ...rest } = data;
+  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, price_from, price_from_by_group, ...rest } = data;
   return {
     ...rest,
+    priceFrom: price_from,
+    priceFromByGroup: Object.fromEntries(Object.entries(price_from_by_group).map(([id, price]) => [Number(id), price])),
     pressureBar: pressure_bar,
     warrantyYears: warranty_years,
     videoUrl: video_url,
@@ -248,24 +250,4 @@ export async function getVariants(
   const data = await load<ApiVariants>(`series/${encodeURIComponent(slug)}/variants/?${params}`, "catalog");
   if (!data) return demoVariants(slug, query);
   return mapVariants(data);
-}
-
-// Один вариант с группами цветов, доступными ему. Один артикул в серии может быть дважды с разным
-// подключением (повёрнутый радиатор) — тогда нужен connection из выбранного исполнения.
-export async function getVariant(
-  slug: string,
-  article: string,
-  connection?: Connection,
-): Promise<(VariantRow & { availableGroups: number[] }) | null> {
-  const params = `series=${encodeURIComponent(slug)}${connection ? `&connection=${connection}` : ""}`;
-  const data = await load<ApiRow & { available_groups: number[] }>(`variants/${encodeURIComponent(article)}/?${params}`, "catalog");
-  if (data === null) return null;
-  if (data) return { ...mapRow(data), availableGroups: data.available_groups };
-  const series = demoSeriesBySlug(slug);
-  const source = demoSource(slug).find((r) => r.article === article && (!connection || r.connection === connection));
-  if (!series || !source) return null;
-  return {
-    ...publicRow(source, rowPrice(source, series.colorGroups)),
-    availableGroups: source.colorGroups.length ? source.colorGroups : series.colorGroups.map((g) => g.id),
-  };
 }
