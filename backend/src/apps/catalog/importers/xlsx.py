@@ -21,12 +21,11 @@ from apps.content.models import Tag
 from apps.content.signals import muted_revalidation
 from apps.content.tasks import revalidate_frontend
 
-from ..choices import Connection, Heating
+from ..choices import Heating
 from ..models import Brand, Category, Color, ColorGroup, Series, Variant
 from ..pricing import recalculate
 from .parse import (
     ANY_RAL,
-    BK_CODE,
     COLUMNS,
     TOWEL_RAILS,
     ParsedRow,
@@ -126,6 +125,8 @@ class Summary:
     rows: int = 0
     skipped: Counter = field(default_factory=Counter)
     duplicates: int = 0
+    # артикулы, у которых есть и «стоя», и повёрнутая строка
+    twins: int = 0
     # артикул → сколько строк с другими размерами или подключением
     conflicts: Counter = field(default_factory=Counter)
     series: list = field(default_factory=list)
@@ -198,7 +199,7 @@ def import_file(path, sheets=None, *, dry_run=False) -> list[Summary]:
 
 
 def _group_rows(summary: Summary, rows):
-    """Строки → серия → артикул → код цвета → строка."""
+    """Строки → серия → (артикул, подключение) → код цвета → строка."""
     grouped = defaultdict(dict)
     article_series = {}
     for row in rows:
@@ -214,7 +215,7 @@ def _group_rows(summary: Summary, rows):
             summary.conflicts[parsed.base_article] += 1
             continue
         colors = grouped[parsed.series_slug].setdefault(
-            parsed.base_article,
+            (parsed.base_article, parsed.connection),
             {},
         )
         kept = colors.get(parsed.color_code)
@@ -223,9 +224,11 @@ def _group_rows(summary: Summary, rows):
                 summary.duplicates += 1
             else:
                 summary.conflicts[parsed.base_article] += 1
-            if not _prefer(parsed, kept):
-                continue
+            continue
         colors[parsed.color_code] = parsed
+    for bases in grouped.values():
+        articles = Counter(article for article, _ in bases)
+        summary.twins += sum(1 for n in articles.values() if n > 1)
     return grouped, article_series
 
 
@@ -235,7 +238,7 @@ def _first(bases) -> ParsedRow:
 
 def import_rows(sheet: str, rows) -> Summary:
     summary = Summary(sheet)
-    grouped, article_series = _group_rows(summary, rows)
+    grouped, _ = _group_rows(summary, rows)
 
     brands, variants = {}, {}
     for slug, bases in grouped.items():
@@ -244,7 +247,7 @@ def import_rows(sheet: str, rows) -> Summary:
             brand = _brand(first)
             brands[first.brand_slug] = brand
             variants[first.brand_slug] = {
-                variant.article: variant
+                (variant.article, variant.connection): variant
                 for variant in Variant.objects.filter(brand=brand)
             }
         brand = brands[first.brand_slug]
@@ -273,8 +276,10 @@ def import_rows(sheet: str, rows) -> Summary:
         )
 
     # Пропавшие из файла варианты бренда скрываются с сайта
-    for brand_slug, article in article_series:
-        variants[brand_slug].pop(article, None)
+    for bases in grouped.values():
+        brand_slug = _first(bases).brand_slug
+        for key in bases:
+            variants[brand_slug].pop(key, None)
     hidden = [
         variant.pk
         for existing in variants.values()
@@ -293,18 +298,6 @@ def _same_variant(kept: ParsedRow, parsed: ParsedRow) -> bool:
         parsed.height_mm,
         parsed.width_mm,
         parsed.connection,
-    )
-
-
-def _prefer(parsed: ParsedRow, kept: ParsedRow) -> bool:
-    """Один артикул Retta / Torre в выгрузке дважды: стоя с боковым
-    подключением и повёрнутый, с нижним по краям. Ключ — артикул, поэтому
-    остаётся одна строка — та, что совпадает с кодом «BK» (боковое), чтобы
-    выбор не зависел от порядка строк в файле."""
-    return (
-        BK_CODE.search(parsed.base_article) is not None
-        and parsed.connection == Connection.SIDE
-        and kept.connection != Connection.SIDE
     )
 
 
@@ -539,7 +532,8 @@ def _save_variants(summary, series, bases, groups, existing):
     towel_rail = series.category.slug == TOWEL_RAILS
 
     new, changed, availability = [], [], {}
-    for article, colors in bases.items():
+    for key, colors in bases.items():
+        article = key[0]
         reference = _reference(colors, known, preferred)
         if reference:
             price, _, code = reference
@@ -549,7 +543,7 @@ def _save_variants(summary, series, bases, groups, existing):
         values = {name: getattr(parsed, name) for name in NUMBER_FIELDS}
         values['price'] = price
         values['is_active'] = any(row.is_active for row in colors.values())
-        variant = existing.get(article)
+        variant = existing.get(key)
         if reference is None and variant is not None:
             # Ни одного цвета варианта нет в группах (менеджер их убрал):
             # базовую цену не вывести — оставляем прежнюю, не обнуляем
@@ -573,14 +567,14 @@ def _save_variants(summary, series, bases, groups, existing):
                 setattr(variant, name, value)
             changed.append(variant)
         available = {group_of[code] for code in colors if code in group_of}
-        availability[article] = available if available != in_file else set()
+        availability[key] = available if available != in_file else set()
 
     Variant.objects.bulk_create(new, batch_size=BATCH_SIZE)
     Variant.objects.bulk_update(changed, VARIANT_FIELDS, batch_size=BATCH_SIZE)
     summary.created += len(new)
     summary.updated += len(changed)
     for variant in new:
-        existing[variant.article] = variant
+        existing[variant.article, variant.connection] = variant
     _save_availability(series, existing, availability)
 
 
@@ -595,8 +589,8 @@ def _save_availability(series, existing, availability):
     ).values_list('variant_id', 'colorgroup_id'):
         current[variant_id].add(group_id)
     stale, links = [], []
-    for article, wanted in availability.items():
-        variant = existing[article]
+    for key, wanted in availability.items():
+        variant = existing[key]
         if variant.series_id != series.pk or current[variant.pk] == wanted:
             continue
         stale.append(variant.pk)

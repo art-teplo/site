@@ -1,7 +1,8 @@
 from decimal import ROUND_HALF_UP, Decimal
 
 from django.core.paginator import Paginator
-from django.db.models import Count, Min, Prefetch
+from django.db.models import Case, Count, Min, Prefetch, When
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.response import Response
@@ -382,10 +383,20 @@ class VariantDetailView(PublicReadMixin, APIView):
     def get(self, request, article):
         slug = request.query_params.get('series', '')
         series = _published_series(slug)
-        variant = get_object_or_404(
-            _series_variants(series).prefetch_related('color_groups'),
-            article=article,
+        found = _series_variants(series).prefetch_related('color_groups')
+        found = found.filter(article=article)
+        connection = request.query_params.get('connection')
+        if connection:
+            found = found.filter(connection=connection)
+        # Без подключения: боковое («стоя»), иначе первый по размерам
+        found = found.order_by(
+            Case(When(connection=Connection.SIDE, then=0), default=1),
+            'height_mm',
+            'width_mm',
         )
+        variant = found.first()
+        if variant is None:
+            raise Http404
         groups = {g.pk: g for g in series.color_groups.all()}
         color = request.query_params.get('color') or None
         data = serializers.row(variant, _variant_price(variant, groups, color))

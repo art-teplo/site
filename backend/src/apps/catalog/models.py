@@ -395,8 +395,8 @@ class Variant(models.Model):
         verbose_name_plural = 'варианты'
         constraints = [
             models.UniqueConstraint(
-                fields=['brand', 'article'],
-                name='unique_article_per_brand',
+                fields=['brand', 'article', 'connection'],
+                name='unique_article_connection_per_brand',
             ),
         ]
         indexes = [

@@ -703,7 +703,7 @@ def test_sheet_option_limits_import(tmp_path):
 
 @pytest.mark.django_db
 @pytest.mark.usefixtures('no_revalidate')
-def test_same_article_rotated_keeps_side_connection(tmp_path):
+def test_same_article_rotated_is_a_separate_variant(tmp_path):
     def rotated(name, height, width):
         return row(
             Название=f'Радиатор GUARDO RETTA 3P, 3 секции, {name}',
@@ -728,10 +728,17 @@ def test_same_article_rotated_keeps_side_connection(tmp_path):
         },
     )
 
+    out = io.StringIO()
+    call_command('import_price', path, stdout=out)
     call_command('import_price', path)
 
-    variant = Variant.objects.get()
-    assert (variant.connection, variant.height_mm) == ('side', 500)
+    assert 'двойником' in out.getvalue()
+    sizes = {
+        v.connection: (v.height_mm, v.width_mm)
+        for v in Variant.objects.filter(article='3P-0500-03 BK-VER')
+    }
+    assert sizes == {'side': (500, 130), 'bottom_ends': (130, 500)}
+    assert Variant.objects.count() == 2
 
 
 @pytest.mark.django_db

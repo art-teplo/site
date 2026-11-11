@@ -29,9 +29,12 @@ SKIPPED_COLOR = (
 )
 UNGROUPED = '  {slug}: новые цвета, не в группах: {colors}'
 SKIPPED_ROWS = '  пропущено строк: {count} — {models}'
-DUPLICATES = '  повторы артикула и цвета (оставлена одна строка): {count}'
+DUPLICATES = (
+    '  повторы артикула, подключения и цвета (оставлена одна строка): {count}'
+)
+TWINS = '  артикулов с повёрнутым двойником (два варианта): {count}'
 CONFLICTS = (
-    '  один артикул с разными размерами, подключением или в двух сериях — '
+    '  один артикул и подключение с разными размерами или в двух сериях — '
     'оставлена одна строка: {count} артикулов, например {examples}'
 )
 ERROR = '  не импортировано: {}'
@@ -109,6 +112,8 @@ class Command(BaseCommand):
             )
         if summary.duplicates:
             self.stdout.write(DUPLICATES.format(count=summary.duplicates))
+        if summary.twins:
+            self.stdout.write(TWINS.format(count=summary.twins))
         if summary.kept_price:
             self.stdout.write(KEPT_PRICE.format(count=summary.kept_price))
         if summary.conflicts:

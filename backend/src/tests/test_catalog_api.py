@@ -739,6 +739,32 @@ def test_variant_detail(client, catalog):
     assert inherited['price'] == 101
 
 
+def test_variant_detail_connection_param(client, catalog):
+    make_variant(
+        catalog.retta,
+        'R-TWIN',
+        connection='bottom_ends',
+        height_mm=500,
+        width_mm=580,
+    )
+    make_variant(
+        catalog.retta,
+        'R-TWIN',
+        connection='side',
+        height_mm=580,
+        width_mm=500,
+    )
+    url = reverse('variant-detail', args=['R-TWIN'])
+    params = {'series': 'retta'}
+    assert client.get(url, params).json()['connection'] == 'side'
+    rotated = client.get(url, {**params, 'connection': 'bottom_ends'}).json()
+    assert (rotated['height_mm'], rotated['width_mm']) == (500, 580)
+    assert (
+        client.get(url, {**params, 'connection': 'bottom_left'}).status_code
+        == 404
+    )
+
+
 def test_variant_detail_404_for_inactive(client, catalog):
     Variant.objects.filter(pk=catalog.variants.low_side.pk).update(
         is_active=False

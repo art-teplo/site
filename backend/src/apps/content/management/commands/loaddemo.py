@@ -238,6 +238,7 @@ class Command(BaseCommand):
             variant, _ = Variant.objects.update_or_create(
                 brand=series.brand,
                 article=row['article'],
+                connection=row.get('connection', ''),
                 defaults={**row, 'series': series},
             )
             ids.append(variant.pk)
@@ -251,11 +252,20 @@ class Command(BaseCommand):
             self.attach(obj, image)
             obj.save()
 
+    def showcase_variant(self, series, item):
+        # Артикул может быть и у «стоя», и у повёрнутого: берём указанное
+        # подключение, без него — боковое, иначе первый по размерам
+        found = series.variants.filter(article=item['variant'])
+        if 'connection' in item:
+            return found.get(connection=item['connection'])
+        found = found.order_by('height_mm', 'width_mm')
+        return found.filter(connection='side').first() or found.first()
+
     def load_showcases(self, series, items):
         for position, item in enumerate(items):
             showcase = series.showcases.filter(label=item['label']).first()
             showcase = showcase or Showcase(series=series)
             showcase.label = item['label']
-            showcase.variant = series.variants.get(article=item['variant'])
+            showcase.variant = self.showcase_variant(series, item)
             showcase.position = position
             showcase.save()
