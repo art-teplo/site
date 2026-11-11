@@ -571,6 +571,22 @@ def test_manager_group_edits_survive_reimport(price_file):
 
 @pytest.mark.django_db
 @pytest.mark.usefixtures('no_revalidate')
+def test_variant_without_grouped_colors_keeps_price(price_file):
+    run(price_file)
+    series = Series.objects.get(slug='guardo-pilon')
+    prices = dict(series.variants.values_list('article', 'price'))
+    for group in series.color_groups.all():
+        group.colors.clear()
+
+    out = run(price_file)
+
+    assert dict(series.variants.values_list('article', 'price')) == prices
+    assert all(prices.values())
+    assert 'цена оставлена прежней у' in out
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('no_revalidate')
 def test_first_import_groups_by_support_not_sign(tmp_path):
     rows = [
         *guardo_rows(),

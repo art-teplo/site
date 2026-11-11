@@ -133,6 +133,8 @@ class Summary:
     created: int = 0
     updated: int = 0
     hidden: int = 0
+    # варианты, у которых ни один цвет не в группах: цена оставлена прежней
+    kept_price: int = 0
 
     @property
     def series_new(self) -> list[Series]:
@@ -548,6 +550,12 @@ def _save_variants(summary, series, bases, groups, existing):
         values['price'] = price
         values['is_active'] = any(row.is_active for row in colors.values())
         variant = existing.get(article)
+        if reference is None and variant is not None:
+            # Ни одного цвета варианта нет в группах (менеджер их убрал):
+            # базовую цену не вывести — оставляем прежнюю, не обнуляем
+            values['price'] = variant.price
+            values['currency'] = variant.currency
+            summary.kept_price += 1
         attrs = dict(variant.attrs) if variant else {}
         if towel_rail and parsed.heating:
             attrs['heating'] = parsed.heating

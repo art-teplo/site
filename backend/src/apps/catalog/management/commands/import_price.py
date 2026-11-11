@@ -11,6 +11,10 @@ HELP = (
     'и цены, пропавшие варианты скрывает; описание, фото и группы цветов не '
     'трогает, а цвета вне групп перечисляет.'
 )
+KEPT_PRICE = (
+    'цена оставлена прежней у {count} вариантов: ни одного их цвета нет '
+    'в группах серии — проверьте группы'
+)
 DRY_RUN = 'Пробный прогон: ничего не сохранено'
 SHEET_LINE = (
     '{sheet}: строк {rows}; серий новых {new} из {total}; вариантов '
@@ -105,6 +109,8 @@ class Command(BaseCommand):
             )
         if summary.duplicates:
             self.stdout.write(DUPLICATES.format(count=summary.duplicates))
+        if summary.kept_price:
+            self.stdout.write(KEPT_PRICE.format(count=summary.kept_price))
         if summary.conflicts:
             self.stdout.write(
                 CONFLICTS.format(
