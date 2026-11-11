@@ -652,7 +652,7 @@ function executionsOf(rows: DemoVariant[]): Execution[] {
   const merged = new Map<string, Execution>();
   for (const row of rows) {
     const tubes = row.tubes ?? 0;
-    const key = `${tubes}-${row.connection ?? "None"}`; // как у бэка: None вместо пустого подключения
+    const key = `${tubes}-${row.connection ?? ""}`; // как у бэка: без подключения — пустая строка ("0-")
     const found = merged.get(key);
     if (found) found.count += 1;
     else {

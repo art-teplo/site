@@ -180,7 +180,7 @@ export type ShowcaseCard = {
 
 export type ModelTile = { series: string; name: string; image: ImageAsset | null };
 
-// key = "<трубы>-<подключение>", трубы 0 = без труб; подключения нет — "0-None"
+// key = "<трубы>-<подключение>", трубы 0 = без труб; подключения нет — "0-"
 export type Execution = { key: string; tubes: number; connection: Connection | null; label: string; count: number };
 
 export type VariantRow = {

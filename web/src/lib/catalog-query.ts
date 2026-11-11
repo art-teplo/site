@@ -78,7 +78,7 @@ export function serializeCatalogQuery(q: CatalogQuery): string {
   return params.toString().replace(/%2C/g, ",");
 }
 
-// Подключение из исполнения '<трубы>-<подключение>'; у исполнения без подключения ('0-None') его нет
+// Подключение из исполнения '<трубы>-<подключение>'; у исполнения без подключения ('0-') его нет
 export function executionConnection(execution: string | undefined): Connection | undefined {
   if (!execution) return undefined;
   const connection = execution.slice(execution.indexOf("-") + 1);
@@ -142,8 +142,8 @@ const parseExecutions = (raw: string | undefined): Execution[] | null => {
     const tubes = Number(part.slice(0, at));
     const connection = part.slice(at + 1);
     if (at < 1 || !Number.isInteger(tubes) || tubes < 0) continue;
-    if (connection !== "None" && !(connection in CONNECTION_LABEL)) continue;
-    list.push({ tubes, connection: connection === "None" ? null : connection });
+    if (connection !== "" && !(connection in CONNECTION_LABEL)) continue;
+    list.push({ tubes, connection: connection === "" ? null : connection });
   }
   return list; // пустой — ничего не подходит
 };
