@@ -27,7 +27,7 @@ export async function CatalogPage({ category }: Props) {
         <Container>
           <Breadcrumbs items={[{ href: "/", label: "Главная" }, category ? { href: "/catalog", label: "Каталог" } : { label: "Каталог" }, ...(category ? [{ label: category.name }] : [])]} />
           {/* key — при переходе между категориями шапка и список собираются заново и анимация проигрывается, как на других страницах */}
-          <div key={key} className={styles.head}>
+          <div key={`head-${key}`} className={styles.head}>
             <h1 id="catalog-title" className={styles.title}>
               <SplitText mode="load">{category ? category.name : "Каталог"}</SplitText>
             </h1>
@@ -51,7 +51,7 @@ export async function CatalogPage({ category }: Props) {
             ))}
           </nav>
           <h2 className="visually-hidden">Товары</h2>
-          <div key={key} className={styles.products}>
+          <div key={`products-${key}`} className={styles.products}>
             {category && initial ? (
               <Suspense fallback={<CatalogFallback category={category} initial={initial} brands={brands} />}>
                 <CatalogBrowser category={category} initial={initial} brands={brands} />
