@@ -4,20 +4,22 @@ import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { SplitText } from "@/components/SplitText/SplitText";
-import { getBrands, getCategories } from "@/data/api";
-import type { Category, Product } from "@/data/types";
+import { getBrands, getCategories, getShowcases } from "@/data/api";
+import type { Category } from "@/data/types";
 import { cx } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
 import { CatalogBrowser, CatalogFallback } from "./CatalogBrowser";
 import styles from "./CatalogPage.module.css";
 
-type Props = { category?: Category; products: Product[] };
+type Props = { category?: Category };
 
 // Общий шаблон «Каталог» и «Каталог / категория».
-export async function CatalogPage({ category, products }: Props) {
-  const [categories, brands] = await Promise.all([getCategories(), getBrands()]);
-  // Клиентскому списку хватает названий брендов
-  const brandNames = Object.fromEntries(brands.map((b) => [b.slug, b.name]));
+export async function CatalogPage({ category }: Props) {
+  const [categories, brands, initial] = await Promise.all([
+    getCategories(),
+    getBrands(),
+    category ? getShowcases(category.slug, { ranges: {}, lists: {} }) : Promise.resolve(null),
+  ]);
   const key = category?.slug ?? "all";
   return (
     <>
@@ -50,9 +52,22 @@ export async function CatalogPage({ category, products }: Props) {
           </nav>
           <h2 className="visually-hidden">Товары</h2>
           <div key={key} className={styles.products}>
-            <Suspense fallback={<CatalogFallback products={products} brands={brandNames} />}>
-              <CatalogBrowser products={products} brands={brandNames} />
-            </Suspense>
+            {category && initial ? (
+              <Suspense fallback={<CatalogFallback category={category} initial={initial} brands={brands} />}>
+                <CatalogBrowser category={category} initial={initial} brands={brands} />
+              </Suspense>
+            ) : (
+              <ul className={styles.categories}>
+                {categories.map((c) => (
+                  <li key={c.slug}>
+                    <Link href={`/catalog/${c.slug}`} className={styles.categoryLink}>
+                      <span className={styles.categoryName}>{c.name}</span>
+                      <span className={styles.categoryShort}>{c.short}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </Container>
       </Section>

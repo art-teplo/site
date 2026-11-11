@@ -1,0 +1,133 @@
+.card {
+  position: relative;
+  display: grid;
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-cards);
+  overflow: hidden;
+  background: var(--color-pressed-graphite);
+}
+
+.media > picture {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.card:hover .media > picture {
+  transform: scale(1.03);
+}
+
+.body {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.brand {
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.name {
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading);
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+/* Растягиваем ссылку на всю карточку */
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-cards);
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.link:focus-visible::after {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-8);
+  font-weight: var(--weight-semibold);
+}
+
+.from {
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+}
+
+.arrow {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  margin-left: auto;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.card:hover .arrow {
+  transform: translateX(var(--hover-shift));
+}
+
+.card:active .media {
+  transform: scale(var(--press-scale));
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+@media (max-width: 767px) {
+  .name {
+    font-size: var(--text-body);
+  }
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: var(--spacing-16);
+  text-align: center;
+  font-size: var(--text-heading-sm);
+  color: var(--text-muted);
+}
+
+.colors {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.dot {
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+  border-radius: 50%;
+  border: var(--border-hairline);
+}
+
+.more {
+  margin-left: var(--spacing-4);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}

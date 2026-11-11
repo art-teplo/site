@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCategories } from "@/data/api";
-import { productsIn } from "@/data/catalog";
 import { CatalogPage } from "@/sections/catalog/CatalogPage";
 
 // Страница собирается под адрес, без общей заготовки: в шапке и плавном скролле usePathname() вне
@@ -24,5 +23,5 @@ export default async function CategoryPage({ params }: PageProps<"/catalog/[cate
   const { category } = await params;
   const c = await getCategory(category);
   if (!c) notFound();
-  return <CatalogPage category={c} products={productsIn(c.slug)} />;
+  return <CatalogPage category={c} />;
 }
