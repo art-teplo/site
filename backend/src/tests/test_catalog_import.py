@@ -1,13 +1,15 @@
+import io
 from datetime import date
 from decimal import Decimal
 
 import pytest
-from django.core.management import call_command
+from django.core.management import CommandError, call_command
 from openpyxl import Workbook
 
-from apps.catalog.importers import xlsx
+from apps.catalog.importers import parse, xlsx
 from apps.catalog.models import (
     Brand,
+    Category,
     Color,
     ColorGroup,
     CurrencyRate,
@@ -29,7 +31,7 @@ NOVA = (
 
 
 def row(**fields):
-    base = dict.fromkeys(xlsx.COLUMNS)
+    base = dict.fromkeys(parse.COLUMNS)
     base.update({'Активность': 'Да', 'Тип нагрева': 'Водяной'})
     base.update(fields)
     return base
@@ -82,9 +84,15 @@ def guardo_rows():
     return [
         pilon(200, *WHITE, '89,16 euro'),
         pilon(200, *BLACK, '89,16 euro'),
-        pilon(300, *WHITE, '100,00 euro'),
-        pilon(300, *BLACK, '100,00 euro'),
-        pilon(300, *TECHNOLAK, '118,00 euro'),
+        *[
+            pilon(height, *color, price)
+            for height in (300, 400, 500)
+            for color, price in (
+                (WHITE, '100,00 euro'),
+                (BLACK, '100,00 euro'),
+                (TECHNOLAK, '118,00 euro'),
+            )
+        ],
         retta('R9016(M)', 'Белый матовый', '33 098.00 ₽'),
         retta('R9005(M)', 'Черный матовый', '33 098.00 ₽'),
         retta('RXXXX', 'Цвет RAL', '36 863.00 ₽'),
@@ -111,11 +119,17 @@ def write_price(path, sheets):
     book.remove(book.active)
     for title, rows in sheets.items():
         sheet = book.create_sheet(title)
-        sheet.append(xlsx.COLUMNS)
+        sheet.append(parse.COLUMNS)
         for item in rows:
-            sheet.append([item[column] for column in xlsx.COLUMNS])
+            sheet.append([item[column] for column in parse.COLUMNS])
     book.save(path)
     return str(path)
+
+
+def run(*args):
+    out = io.StringIO()
+    call_command('import_price', *args, stdout=out)
+    return out.getvalue()
 
 
 @pytest.fixture
@@ -150,7 +164,7 @@ def price_file(tmp_path):
     ],
 )
 def test_parse_price(text, expected):
-    assert xlsx.parse_price(text) == expected
+    assert parse.parse_price(text) == expected
 
 
 @pytest.mark.parametrize(
@@ -173,11 +187,11 @@ def test_parse_price(text, expected):
     ],
 )
 def test_parse_connection(name, expected):
-    assert xlsx.parse_connection(name) == expected
+    assert parse.parse_connection(name) == expected
 
 
 def test_parse_row_pilon():
-    parsed = xlsx.parse_row(pilon(200, *WHITE, '89,16 euro'))
+    parsed = parse.parse_row(pilon(200, *WHITE, '89,16 euro'))
 
     assert parsed.brand_slug == 'guardo'
     assert parsed.series_name == 'Guardo Pilon'
@@ -198,7 +212,7 @@ def test_parse_row_pilon():
 
 
 def test_parse_row_pilon_color_in_article():
-    parsed = xlsx.parse_row(pilon(200, *BLACK, '89,16 euro'))
+    parsed = parse.parse_row(pilon(200, *BLACK, '89,16 euro'))
 
     assert parsed.base_article == '2T-0200 4 BK'
     assert parsed.color_code == 'Черный матовый'
@@ -206,7 +220,7 @@ def test_parse_row_pilon_color_in_article():
 
 
 def test_parse_row_retta_electric():
-    parsed = xlsx.parse_row(retta('R9016(M)', 'Белый матовый', '33 098.00 ₽'))
+    parsed = parse.parse_row(retta('R9016(M)', 'Белый матовый', '33 098.00 ₽'))
 
     assert parsed.series_slug == 'guardo-retta-6sp'
     assert parsed.series_name == 'Guardo Retta 6SP'
@@ -221,17 +235,17 @@ def test_parse_row_retta_electric():
 
 
 def test_parse_row_gloss_and_any_ral():
-    gloss = xlsx.parse_row(retta('R9016(G)', 'Белый глянцевый', '1 ₽'))
-    any_ral = xlsx.parse_row(retta('RXXXX', 'Цвет RAL', '1 ₽'))
+    gloss = parse.parse_row(retta('R9016(G)', 'Белый глянцевый', '1 ₽'))
+    any_ral = parse.parse_row(retta('RXXXX', 'Цвет RAL', '1 ₽'))
 
     assert gloss.color_code == 'RAL 9016 глянец'
     assert gloss.finish == 'gloss'
     assert gloss.base_article == any_ral.base_article == '6SP-1500-04 E-L'
-    assert any_ral.color_code == xlsx.ANY_RAL
+    assert any_ral.color_code == parse.ANY_RAL
 
 
 def test_parse_row_orientation_and_mount():
-    parsed = xlsx.parse_row(
+    parsed = parse.parse_row(
         row(
             Название='Радиатор GUARDO RETTA 3P, нижнее по краям подключение',
             Модель='GUARDO RETTA 3P',
@@ -248,7 +262,7 @@ def test_parse_row_orientation_and_mount():
 
 
 def test_parse_row_towel_rail_cyrillic_finish():
-    parsed = xlsx.parse_row(
+    parsed = parse.parse_row(
         row(
             Название=(
                 'Полотенцесушитель GUARDO PIATTO 600x330 с 5 перекладинами '
@@ -283,7 +297,7 @@ def test_parse_row_towel_rail_cyrillic_finish():
             'PIATTO 0603 RALXXXX (factory paint)',
             'Цвет RAL',
             'PIATTO 0603',
-            xlsx.ANY_RAL,
+            parse.ANY_RAL,
         ),
         ('PIATTO 0603 E RALXXX (H-H)', 'Цвет RAL', 'PIATTO 0603 E', 'any'),
         (
@@ -301,17 +315,17 @@ def test_parse_row_towel_rail_cyrillic_finish():
     ],
 )
 def test_parse_row_towel_rail_colors(article, color, base, code):
-    parsed = xlsx.parse_row(
+    parsed = parse.parse_row(
         row(Модель='PIATTO', Бренд='GUARDO', Артикул=article, Цвет=color),
     )
 
     assert parsed.base_article == base
-    assert parsed.color_code == (xlsx.ANY_RAL if code == 'any' else code)
+    assert parsed.color_code == (parse.ANY_RAL if code == 'any' else code)
 
 
 def test_parse_row_nova():
     article = 'NS-T3 1500 11 BV R9010(M)'
-    parsed = xlsx.parse_row(
+    parsed = parse.parse_row(
         row(
             Название=NOVA.format(article=article),
             Модель='Nova Siluet',
@@ -346,7 +360,7 @@ def test_parse_row_skips(fields):
     item = pilon(200, *WHITE, '89,16 euro')
     item.update(fields)
 
-    assert xlsx.parse_row(item) is None
+    assert parse.parse_row(item) is None
 
 
 # --- команда ---
@@ -361,8 +375,14 @@ def test_import_creates_series_groups_and_prices(price_file):
         rate=Decimal('3.4'),
     )
 
-    call_command('import_price', price_file)
+    out = run(price_file)
 
+    assert (
+        'группа «Бесцветный лак (технолак) глянец +18 %»: +18 %, артикулов 3'
+        in out
+    )
+    assert 'группа «Стандартные»: 0 %, артикулов 4' in out
+    assert 'группа «Любой RAL»: по запросу, артикулов 1' in out
     series = {s.slug: s for s in Series.objects.all()}
     assert set(series) == {'guardo-pilon', 'guardo-retta-6sp'}
     pilon_series = series['guardo-pilon']
@@ -392,7 +412,7 @@ def test_import_creates_series_groups_and_prices(price_file):
     ]
     assert not retta_groups[1].colors.exists()
 
-    assert Variant.objects.count() == 3
+    assert Variant.objects.count() == 5
     variant = Variant.objects.get(article='2T-0300 4 BK')
     assert variant.brand.slug == 'guardo'
     assert variant.price == Decimal('100.00')
@@ -403,28 +423,66 @@ def test_import_creates_series_groups_and_prices(price_file):
     assert Color.objects.get(code='RAL 9016').finish == 'matte'
 
 
+def snapshot():
+    return {
+        'series': Series.objects.count(),
+        'variants': Variant.objects.count(),
+        'groups': list(
+            ColorGroup.objects.order_by('pk').values_list(
+                'pk',
+                'name',
+                'percent',
+                'is_base',
+                'any_ral',
+            ),
+        ),
+        'group_colors': sorted(
+            ColorGroup.colors.through.objects.values_list(
+                'colorgroup_id',
+                'color_id',
+            ),
+        ),
+        'colors': Color.objects.count(),
+        # pk связей: неизменный набор не переписывается удалением и вставкой
+        'availability': sorted(
+            Variant.color_groups.through.objects.values_list(
+                'pk',
+                'variant_id',
+                'colorgroup_id',
+            ),
+        ),
+        'brands': Brand.objects.count(),
+        'categories': Category.objects.count(),
+    }
+
+
 @pytest.mark.django_db
 @pytest.mark.usefixtures('no_revalidate')
 def test_reimport_is_idempotent_and_keeps_manual_fields(price_file):
-    call_command('import_price', price_file)
+    run(price_file)
     series = Series.objects.get(slug='guardo-pilon')
     series.description = '<p>Ручное описание</p>'
+    series.is_published = True
     series.save()
     group = series.color_groups.get(is_base=False)
     group.percent = Decimal('25')
     group.name = 'Технолак'
     group.save()
+    before = snapshot()
 
-    call_command('import_price', price_file)
+    out = run(price_file)
 
     series.refresh_from_db()
     group.refresh_from_db()
     assert series.description == '<p>Ручное описание</p>'
+    assert series.is_published is True
     assert group.percent == Decimal('25')
     assert group.name == 'Технолак'
-    assert ColorGroup.objects.filter(series=series).count() == 2
-    assert Series.objects.count() == 2
-    assert Variant.objects.count() == 3
+    assert snapshot() == before
+    assert 'серий новых 0 из 2; вариантов новых 0, обновлено 0, скрыто 0' in (
+        out
+    )
+    assert 'не в группах' not in out
 
 
 @pytest.mark.django_db
@@ -470,28 +528,80 @@ def test_partial_color_availability(price_file):
 
 @pytest.mark.django_db
 @pytest.mark.usefixtures('no_revalidate')
-def test_reimport_new_color_joins_group_by_percent(price_file, tmp_path):
-    call_command('import_price', price_file)
+def test_reimport_lists_new_colors_and_keeps_groups(price_file, tmp_path):
+    run(price_file)
+    before = snapshot()
     rows = [
         *guardo_rows(),
-        # +17 % — к технолаку (+18 %), +40 % — в «Новые цвета»
         pilon(300, ' TR2 (технолак 2)', 'Технолак 2', '117,00 euro'),
         pilon(300, ' GOLD (золото)', 'Золото', '140,00 euro'),
     ]
     bigger = write_price(tmp_path / 'bigger.xlsx', {'Guardo': rows})
 
-    call_command('import_price', bigger)
+    out = run(bigger)
+
+    assert 'guardo-pilon: новые цвета, не в группах: Технолак 2, Золото' in out
+    after = snapshot()
+    assert after['groups'] == before['groups']
+    assert after['group_colors'] == before['group_colors']
+    assert after['variants'] == before['variants']
+    assert after['availability'] == before['availability']
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('no_revalidate')
+def test_manager_group_edits_survive_reimport(price_file):
+    run(price_file)
+    series = Series.objects.get(slug='guardo-pilon')
+    series.color_groups.get(is_base=False).delete()
+    base = series.color_groups.get(is_base=True)
+    base.colors.remove(Color.objects.get(code='Черный матовый'))
+
+    out = run(price_file)
+
+    assert [g.name for g in series.color_groups.all()] == ['Стандартные']
+    assert [c.code for c in base.colors.all()] == ['Белый глянцевый']
+    assert (
+        'guardo-pilon: новые цвета, не в группах: '
+        'Черный матовый, Бесцветный лак (технолак) глянец'
+    ) in out
+    # Доступность считается только по цветам групп: все варианты полные
+    assert not Variant.color_groups.through.objects.exists()
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('no_revalidate')
+def test_first_import_skips_negative_and_rare_colors(tmp_path):
+    rows = [
+        *guardo_rows(),
+        # −30 % на трёх артикулах из четырёх — похоже на ошибку прайса
+        *[
+            pilon(height, ' черный глянец', 'Черный глянцевый', '70,00 euro')
+            for height in (300, 400, 500)
+        ],
+        # +40 %, но только у одного артикула
+        pilon(300, ' GOLD (золото)', 'Золото', '140,00 euro'),
+    ]
+    path = write_price(tmp_path / 'outliers.xlsx', {'Guardo': rows})
+
+    out = run(path)
 
     series = Series.objects.get(slug='guardo-pilon')
-    technolak = series.color_groups.get(percent=18)
-    assert set(technolak.colors.values_list('code', flat=True)) == {
-        'Бесцветный лак (технолак) глянец',
-        'Технолак 2',
-    }
-    new = series.color_groups.get(name='Новые цвета')
-    assert new.percent == 40
-    assert list(new.colors.values_list('code', flat=True)) == ['Золото']
-    assert Variant.objects.count() == 3
+    assert [(g.name, g.percent) for g in series.color_groups.all()] == [
+        ('Стандартные', 0),
+        ('Бесцветный лак (технолак) глянец +18 %', 18),
+    ]
+    assert not Color.objects.filter(
+        code__in=['Черный глянцевый', 'Золото'],
+    ).exists()
+    assert (
+        'пропущены, проверьте прайс: Черный глянцевый −30 %, артикулов 3'
+    ) in out
+    assert 'пропущены, проверьте прайс: Золото +40 %, артикулов 1' in out
+    # Пропущенные цвета не делают варианты «частичными»
+    assert not Variant.objects.get(
+        article='2T-0300 4 BK',
+    ).color_groups.exists()
 
 
 @pytest.mark.django_db
@@ -508,11 +618,33 @@ def test_import_revalidates_once(
 
 @pytest.mark.django_db
 def test_dry_run_saves_nothing(price_file, no_revalidate):
-    call_command('import_price', price_file, '--dry-run')
+    before = snapshot()
 
-    assert not Series.objects.exists()
-    assert not Variant.objects.exists()
+    out = run(price_file, '--dry-run')
+
+    assert snapshot() == before
+    assert before['series'] == before['brands'] == 0
+    assert 'Guardo: строк 17; серий новых 2 из 2; вариантов новых 5' in out
+    assert 'Пробный прогон' in out
     assert no_revalidate == []
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('no_revalidate')
+@pytest.mark.parametrize(
+    ('content', 'message'),
+    [
+        (None, 'Нет файла'),
+        (b'not a spreadsheet', 'Не удалось прочитать'),
+    ],
+)
+def test_bad_file_is_a_command_error(tmp_path, content, message):
+    path = tmp_path / 'price.xlsx'
+    if content is not None:
+        path.write_bytes(content)
+
+    with pytest.raises(CommandError, match=message):
+        call_command('import_price', str(path))
 
 
 @pytest.mark.django_db
@@ -532,12 +664,19 @@ def test_sheet_option_limits_import(tmp_path):
         {'Guardo': guardo_rows(), 'Nova': [nova]},
     )
 
+    call_command('import_price', path, '--sheet', 'Guardo')
     call_command('import_price', path, '--sheet', 'Nova')
 
-    assert list(Series.objects.values_list('slug', flat=True)) == [
+    assert set(Series.objects.values_list('slug', flat=True)) == {
+        'guardo-pilon',
+        'guardo-retta-6sp',
         'nova-siluet',
-    ]
-    assert Variant.objects.get().article == 'NS-T3 1500 11 BV'
+    }
+    assert Variant.objects.get(brand__slug='nova').article == (
+        'NS-T3 1500 11 BV'
+    )
+    guardo = Variant.objects.filter(brand__slug='guardo')
+    assert guardo.count() == guardo.filter(is_active=True).count() == 5
 
 
 @pytest.mark.django_db
@@ -606,12 +745,14 @@ def test_cheaper_color_does_not_set_base_price(tmp_path):
         },
     )
 
-    call_command('import_price', path)
+    out = run(path)
 
     variant = Variant.objects.get()
     assert (variant.price, variant.power_w) == (Decimal('156.00'), 55)
     assert variant.attrs == {'heating': 'electric'}
     assert variant.series.heating == 'electric'
     assert variant.series.category.slug == 'polotentsesushiteli'
-    chrome = variant.series.color_groups.get(is_base=False)
-    assert (chrome.name, chrome.percent) == ('Хром −12 %', -12)
+    assert [g.name for g in variant.series.color_groups.all()] == [
+        'Стандартные',
+    ]
+    assert 'пропущены, проверьте прайс: Хром −12 %, артикулов 1' in out
