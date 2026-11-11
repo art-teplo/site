@@ -188,7 +188,7 @@ def _plain_number(value) -> int | float:
     return float(value)
 
 
-def _range_facets(qs: QuerySet, fields: list[Field]) -> dict[str, dict]:
+def range_facets(qs: QuerySet, fields: list[Field]) -> dict[str, dict]:
     ranges = [f for f in fields if f.kind == RANGE and f.filter]
     if not ranges:
         return {}
@@ -318,7 +318,7 @@ def facets(
 ) -> list[dict]:
     """qs — все активные варианты категории. Диапазоны не сужаются, счётчики
     списков считаются с остальными фильтрами, но без своего."""
-    ranges = _range_facets(qs, fields)
+    ranges = range_facets(qs, fields)
     result = []
     for field in fields:
         if not field.filter:

@@ -1,7 +1,8 @@
 from decimal import ROUND_HALF_UP, Decimal
 
 from django.core.paginator import Paginator
-from django.db.models import Min
+from django.db.models import Count, Min, Prefetch
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,9 +10,21 @@ from rest_framework.views import APIView
 from apps.content.views import PublicReadMixin
 
 from . import filters, schema, serializers
-from .models import Brand, Category, Color, LeadTime, Series, Variant
+from .choices import Connection
+from .models import (
+    Brand,
+    Category,
+    Color,
+    ColorGroup,
+    LeadTime,
+    Series,
+    SeriesImage,
+    Variant,
+)
+from .pricing import in_color
 
 PAGE_SIZE = 24
+VARIANTS_PAGE_SIZE = 20
 
 
 class CategoryListView(PublicReadMixin, generics.ListAPIView):
@@ -182,3 +195,188 @@ class SeriesListView(PublicReadMixin, APIView):
         if category:
             series = series.filter(category__slug=category)
         return [serializers.tile(s) for s in series]
+
+
+def _series_fields(series) -> list[schema.Field]:
+    """Схема категории без бренда: внутри серии он один."""
+    return [
+        f
+        for f in schema.for_category(series.category.slug)
+        if f.key != 'brand'
+    ]
+
+
+def _published_series(slug: str) -> Series:
+    series = get_object_or_404(
+        Series.objects.filter(
+            is_published=True,
+            brand__is_published=True,
+            category__is_published=True,
+        )
+        .select_related('brand', 'category')
+        .prefetch_related(
+            Prefetch(
+                'images',
+                queryset=SeriesImage.objects.select_related('color'),
+            ),
+            'files',
+            Prefetch(
+                'color_groups',
+                queryset=ColorGroup.objects.prefetch_related('colors'),
+            ),
+        ),
+        slug=slug,
+    )
+    return series
+
+
+def _executions(variants) -> list[dict]:
+    order = [str(value) for value in Connection.values]
+    labels = dict(Connection.choices)
+    rows = (
+        variants.order_by()
+        .values('tubes', 'connection')
+        .annotate(count=Count('pk'))
+    )
+    result = []
+    for row in rows:
+        tubes = row['tubes'] or 0
+        connection = row['connection']
+        parts = []
+        if tubes:
+            parts.append(f'{tubes}-трубный')
+        if connection:
+            parts.append(str(labels.get(connection, connection)))
+        result.append(
+            {
+                'key': f'{tubes}-{connection}',
+                'tubes': tubes,
+                'connection': connection,
+                'label': ', '.join(parts) or 'Стандартное',
+                'count': row['count'],
+            }
+        )
+    result.sort(
+        key=lambda e: (
+            -e['count'],
+            -e['tubes'],
+            order.index(e['connection'])
+            if e['connection'] in order
+            else len(order),
+            e['connection'],
+        )
+    )
+    return result
+
+
+class SeriesDetailView(PublicReadMixin, APIView):
+    def get(self, request, slug):  # noqa: ARG002
+        series = _published_series(slug)
+        fields = _series_fields(series)
+        variants = visible_variants().filter(series=series)
+        ranges = {
+            key: [facet['min'], facet['max']]
+            for key, facet in filters.range_facets(variants, fields).items()
+        }
+        return Response(
+            serializers.series_detail(
+                series,
+                ranges=ranges,
+                executions=_executions(variants),
+                columns=[
+                    f for f in fields if f.column and f.kind != schema.COLORS
+                ],
+                filters=[f for f in fields if f.filter],
+            )
+        )
+
+
+def _available_groups(variant, groups: dict[int, ColorGroup]):
+    """Группы цветов варианта; пустой список — все группы серии."""
+    explicit = [
+        groups[g.pk] for g in variant.color_groups.all() if g.pk in groups
+    ]
+    return explicit or list(groups.values())
+
+
+def _variant_price(variant, groups: dict[int, ColorGroup], color):
+    """Цена в группе выбранного цвета, иначе в базовой; без базовой группы —
+    цена варианта."""
+    group = None
+    if color:
+        group = next(
+            (
+                g
+                for g in _available_groups(variant, groups)
+                if any(c.code == color for c in g.colors.all())
+            ),
+            None,
+        )
+    if group is None:
+        group = next((g for g in groups.values() if g.is_base), None)
+    if group is None:
+        return _whole_byn(variant.price_byn)
+    return in_color(variant.price_byn, group)
+
+
+def _selected_color(parsed: dict) -> str | None:
+    entry = parsed.get(filters.COLOR_KEY)
+    return entry[2][0] if entry else None
+
+
+def _series_variants(series):
+    return visible_variants().filter(series=series)
+
+
+class SeriesVariantsView(PublicReadMixin, APIView):
+    def get(self, request, slug):
+        series = _published_series(slug)
+        fields = _series_fields(series)
+        parsed = filters.parse(request.query_params, fields)
+        base = _series_variants(series)
+        filtered = filters.apply(base, parsed)
+        wanted = request.query_params.get(filters.EXECUTION_KEY, '').strip()
+        if wanted and filters.EXECUTION_KEY not in parsed:
+            # Непонятное исполнение — пустая таблица, а не вся серия
+            filtered = filtered.none()
+        filtered = filtered.order_by('height_mm', 'width_mm', 'power_w', 'pk')
+        filtered = filtered.prefetch_related('color_groups')
+
+        if request.query_params.get('page') == 'all':
+            variants = list(filtered)
+            count = len(variants)
+        else:
+            paginator = Paginator(filtered, VARIANTS_PAGE_SIZE)
+            variants = list(
+                paginator.get_page(request.query_params.get('page'))
+            )
+            count = paginator.count
+        groups = {g.pk: g for g in series.color_groups.all()}
+        color = _selected_color(parsed)
+        return Response(
+            {
+                'count': count,
+                'results': [
+                    serializers.row(v, _variant_price(v, groups, color))
+                    for v in variants
+                ],
+                'facets': filters.facets(base, fields, parsed),
+            }
+        )
+
+
+class VariantDetailView(PublicReadMixin, APIView):
+    def get(self, request, article):
+        slug = request.query_params.get('series', '')
+        series = _published_series(slug)
+        variant = get_object_or_404(
+            _series_variants(series).prefetch_related('color_groups'),
+            article=article,
+        )
+        groups = {g.pk: g for g in series.color_groups.all()}
+        color = request.query_params.get('color') or None
+        data = serializers.row(variant, _variant_price(variant, groups, color))
+        data['available_groups'] = [
+            g.pk for g in _available_groups(variant, groups)
+        ]
+        return Response(data)

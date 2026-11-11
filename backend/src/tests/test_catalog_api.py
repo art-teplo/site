@@ -527,3 +527,251 @@ def test_query_count_does_not_grow_with_cards(
     with django_assert_max_num_queries(18):
         data = fetch(client)
     assert data['count'] == 13
+
+
+def variants_url(slug='garmoniya-a40'):
+    return reverse('series-variants', args=[slug])
+
+
+def rows_of(client, slug='garmoniya-a40', **params):
+    response = client.get(variants_url(slug), params)
+    assert response.status_code == 200
+    return response.json()
+
+
+def test_series_detail_shape(client, catalog):
+    SeriesImage.objects.create(
+        series=catalog.garmoniya,
+        image=png(),
+        image_alt='чёрный',
+        color=catalog.ral9005,
+        orientation='h',
+    )
+    response = client.get(reverse('series-detail', args=['garmoniya-a40']))
+    assert response.status_code == 200
+    data = response.json()
+    assert data['brand'] == {'slug': 'kzto', 'name': 'КЗТО', 'country': ''}
+    assert data['category'] == 'radiatory'
+    assert data['images'][0]['color'] == 'RAL 9005'
+    assert data['images'][0]['orientation'] == 'h'
+    assert [g['name'] for g in data['color_groups']] == [
+        'Стандартные',
+        'Чёрный',
+    ]
+    assert data['color_groups'][1]['percent'] == 10.0
+    assert data['color_groups'][1]['colors'][0]['code'] == 'RAL 9005'
+    assert data['ranges']['height'] == [334, 1284]
+    assert data['ranges']['area'] == [4, 12.5]
+    columns = {c['key'] for c in data['columns']}
+    assert {'height', 'power', 'area', 'price'} <= columns
+    assert 'color' not in columns
+    assert 'brand' not in {f['key'] for f in data['filters']}
+    assert 'color' in {f['key'] for f in data['filters']}
+
+
+def test_series_detail_executions_sorted_by_count(client, catalog):
+    make_variant(
+        catalog.garmoniya,
+        'GA-334-D',
+        height_mm=334,
+        tubes=2,
+        connection='bottom_left',
+        price_byn=Decimal(1),
+    )
+    make_variant(
+        catalog.garmoniya,
+        'GA-1-P',
+        height_mm=100,
+        connection='diagonal',
+        price_byn=Decimal(1),
+    )
+    data = client.get(reverse('series-detail', args=['garmoniya-a40'])).json()
+    assert [(e['key'], e['count']) for e in data['executions']] == [
+        ('2-bottom_left', 3),
+        ('2-side', 2),
+        ('0-diagonal', 1),
+    ]
+    assert data['default_execution'] == '2-bottom_left'
+    first = data['executions'][0]
+    assert first['tubes'] == 2
+    assert first['connection'] == 'bottom_left'
+    assert first['label'] == '2-трубный, нижнее левое'
+    assert data['executions'][2]['label'] == 'диагональное'
+
+
+@pytest.mark.parametrize('slug', ['hidden', 'nope'])
+def test_series_detail_404_unpublished(client, catalog, slug):  # noqa: ARG001
+    assert client.get(reverse('series-detail', args=[slug])).status_code == 404
+    assert client.get(variants_url(slug)).status_code == 404
+
+
+def test_variants_row_shape_and_sorting(client, catalog):  # noqa: ARG001
+    data = rows_of(client)
+    assert data['count'] == 4
+    assert [r['article'] for r in data['results']] == [
+        'GA-334-S',
+        'GA-334-B',
+        'GA-1284-S',
+        'GA-1284-B',
+    ]
+    first = data['results'][0]
+    assert first['area_m2'] == 4
+    assert first['power_w'] == 400
+    assert first['tubes'] == 2
+    assert first['connection'] == 'side'
+    assert first['attrs'] == {}
+    assert set(first) >= {
+        'article',
+        'height_mm',
+        'width_mm',
+        'depth_mm',
+        'length_mm',
+        'axis_mm',
+        'sections',
+        'tubes',
+        'thermovalve',
+        'orientation',
+        'mount',
+        'price',
+    }
+    assert {f['key'] for f in data['facets']} >= {'height', 'color'}
+    assert 'brand' not in {f['key'] for f in data['facets']}
+
+
+def test_variants_default_page_is_20_rows(client, catalog):
+    for i in range(21):
+        make_variant(
+            catalog.retta,
+            f'R-{i:02d}',
+            height_mm=600 + i,
+            price_byn=Decimal(1),
+        )
+    first = rows_of(client, 'retta')
+    assert first['count'] == 23
+    assert len(first['results']) == 20
+    assert len(rows_of(client, 'retta', page=2)['results']) == 3
+    assert len(rows_of(client, 'retta', page='all')['results']) == 23
+    assert len(rows_of(client, 'retta', page='zzz')['results']) == 20
+    assert len(rows_of(client, 'retta', page=99)['results']) == 3
+
+
+def test_variants_price_in_color_group(client, catalog):  # noqa: ARG001
+    base = rows_of(client)['results'][0]
+    assert base['price'] == 101
+    black = rows_of(client, color='RAL 9005')['results'][0]
+    assert black['price'] == 111
+    white = rows_of(client, color='RAL 9016')['results'][0]
+    assert white['price'] == 101
+
+
+def test_variants_price_without_base_group_is_plain(client, catalog):
+    catalog.standard.is_base = False
+    catalog.standard.save()
+    assert rows_of(client)['results'][0]['price'] == 101
+
+
+def test_variants_any_ral_price_none(client, catalog):
+    ral = Color.objects.create(code='RAL 3000', name='Красный', hex='#a00')
+    group = ColorGroup.objects.create(
+        series=catalog.garmoniya,
+        name='По RAL',
+        percent=Decimal('30'),
+        any_ral=True,
+        position=3,
+    )
+    group.colors.add(ral)
+    data = rows_of(client, color='RAL 3000')
+    assert data['count'] == 4
+    assert {r['price'] for r in data['results']} == {None}
+    assert rows_of(client)['results'][0]['price'] == 101
+
+
+def test_variants_hide_unavailable_color(client, catalog):
+    catalog.variants.low_bottom.color_groups.add(catalog.standard)
+    data = rows_of(client, color='RAL 9005')
+    assert [r['article'] for r in data['results']] == [
+        'GA-334-S',
+        'GA-1284-S',
+        'GA-1284-B',
+    ]
+    assert rows_of(client, color='RAL 9016')['count'] == 4
+
+
+def test_variants_execution_and_filters(client, catalog):  # noqa: ARG001
+    data = rows_of(client, execution='2-side')
+    assert [r['article'] for r in data['results']] == [
+        'GA-334-S',
+        'GA-1284-S',
+    ]
+    data = rows_of(client, execution='2-side', height_min=1000)
+    assert [r['article'] for r in data['results']] == ['GA-1284-S']
+
+
+@pytest.mark.parametrize('execution', ['9-nope', 'zzz', '2-'])
+def test_unknown_execution_empty_not_400(client, catalog, execution):  # noqa: ARG001
+    data = rows_of(client, execution=execution)
+    assert data['count'] == 0
+    assert data['results'] == []
+
+
+def test_variants_hide_inactive(client, catalog):
+    Variant.objects.filter(pk=catalog.variants.low_side.pk).update(
+        is_active=False
+    )
+    assert rows_of(client)['count'] == 3
+
+
+def test_variant_detail(client, catalog):
+    catalog.variants.low_bottom.color_groups.add(catalog.black)
+    url = reverse('variant-detail', args=['GA-334-B'])
+    data = client.get(url, {'series': 'garmoniya-a40'}).json()
+    assert data['article'] == 'GA-334-B'
+    assert data['available_groups'] == [catalog.black.pk]
+    assert data['price'] == 120  # базовая группа серии
+    inherited = client.get(
+        reverse('variant-detail', args=['GA-334-S']),
+        {'series': 'garmoniya-a40'},
+    ).json()
+    assert inherited['available_groups'] == [
+        catalog.standard.pk,
+        catalog.black.pk,
+    ]
+    assert inherited['price'] == 101
+
+
+def test_variant_detail_404_for_inactive(client, catalog):
+    Variant.objects.filter(pk=catalog.variants.low_side.pk).update(
+        is_active=False
+    )
+    url = reverse('variant-detail', args=['GA-334-S'])
+    assert client.get(url, {'series': 'garmoniya-a40'}).status_code == 404
+
+
+def test_variant_detail_is_scoped_by_series(client, catalog):
+    make_variant(catalog.retta, 'GA-334-S', height_mm=1)
+    url = reverse('variant-detail', args=['GA-334-S'])
+    other = client.get(url, {'series': 'retta'}).json()
+    assert other['height_mm'] == 1
+    assert client.get(url, {'series': 'nope'}).status_code == 404
+    assert client.get(url).status_code == 404
+    hidden = reverse('variant-detail', args=['H-1'])
+    assert client.get(hidden, {'series': 'hidden'}).status_code == 404
+
+
+def test_variants_query_count_does_not_grow(
+    client,
+    catalog,
+    django_assert_max_num_queries,
+):
+    for i in range(30):
+        variant = make_variant(
+            catalog.garmoniya,
+            f'GA-X-{i}',
+            height_mm=500 + i,
+            price_byn=Decimal(10),
+        )
+        if i % 2:
+            variant.color_groups.add(catalog.black)
+    with django_assert_max_num_queries(16):
+        data = rows_of(client, page='all', color='RAL 9005')
+    assert data['count'] == 34
