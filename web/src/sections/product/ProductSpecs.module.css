@@ -16,18 +16,6 @@
   font-size: var(--text-heading-lg);
 }
 
-.drawing {
-  display: grid;
-  gap: var(--spacing-8);
-  max-width: calc(var(--measure) * 0.7);
-  color: var(--text);
-}
-
-.drawing figcaption {
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
-
 .main {
   grid-column: 7 / -1;
   display: grid;
@@ -82,38 +70,5 @@
   .side,
   .main {
     grid-column: 1 / -1;
-  }
-}
-
-/* Чертёж рисует себя по мере прокрутки — только где есть scroll-driven animations */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .lines > * {
-      stroke-dasharray: 1;
-      animation: draw linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 45%;
-    }
-
-    .labels {
-      animation: appear linear both;
-      animation-timeline: view();
-      animation-range: cover 35% cover 50%;
-    }
-  }
-}
-
-@keyframes draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
   }
 }
