@@ -1,5 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { brands, categories, demoSeries, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
+import { brands, categories, demoSeries, demoSeriesBySlug, demoSource, publicRow } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
 import { mapRow, mapVariants, mapShowcase, type ApiRow, type ApiShowcase, type ApiVariants } from "./catalog-map";
 import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
@@ -172,11 +172,13 @@ export async function getBrands(): Promise<Brand[]> {
   }));
 }
 
+const DEMO_LEAD_DAYS: Record<string, number> = { "nova-siluet": 30, "guardo-retta-3p": 15, "guardo-stretto": 15 }; // демо: остальные — «уточнит менеджер»
+
 // Таблица сроков и дата последней правки — она подписана под таблицей
 export async function getLeadTimes(): Promise<{ rows: LeadTime[]; updated: string }> {
   const data = await load<ApiLeadTime[]>("lead-times/", "catalog");
   if (!data) {
-    const rows = products.map((p) => ({ series: p.name, brand: p.brand, days: p.leadDays ?? null }));
+    const rows = demoSeries.map((s) => ({ series: s.name, brand: s.brand.slug, days: DEMO_LEAD_DAYS[s.slug] ?? null }));
     return { rows, updated: LEAD_TIMES_UPDATED };
   }
   const updated = data.reduce((last, row) => (row.updated_at > last ? row.updated_at : last), "");

@@ -36,47 +36,6 @@ export type LeadTime = {
   days: number | null; // пусто — «уточнит менеджер»
 };
 
-export type Availability = "stock" | "order" | "request";
-
-export type Variant = {
-  id: string;
-  heightMm: number;
-  widthMm: number;
-  sections?: number;
-  powerW: number;
-  priceByn: number;
-};
-
-export type ColorOption = {
-  id: string;
-  name: string;
-  hex: string;
-};
-
-export type Product = {
-  slug: string;
-  name: string;
-  brand: string; // Brand.slug
-  category: CategorySlug;
-  type: string;
-  position?: "вертикальный" | "горизонтальный" | "напольный";
-  material: string;
-  heating: "водяной" | "электрический";
-  connections: string[];
-  colors: ColorOption[];
-  variants: Variant[];
-  depthMm: number;
-  axisMm?: number;
-  pressureBar: number;
-  warrantyYears: number;
-  availability: Availability;
-  leadDays?: number;
-  summary: string;
-  images: ImageAsset[];
-  videoUrl?: string;
-  projects: string[]; // Project.slug
-};
-
 export type Project = {
   slug: string;
   title: string;

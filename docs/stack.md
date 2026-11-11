@@ -192,6 +192,10 @@ art-teplo/
 
 **Подготовить сервер (один раз):** пользователь `deploy` в группе `docker`, вход только по ключу; Docker с compose; лимит логов в `/etc/docker/daemon.json` до первого `up` (действует только на новые контейнеры): `{"log-driver": "json-file", "log-opts": {"max-size": "20m", "max-file": "5", "compress": "true"}}`, затем `systemctl restart docker` (тот же лимит прописан в compose через `x-logging`, `daemon.json` — страховка для `docker run` и сервисов без блока); swap 2 ГБ; каталог `DEPLOY_PATH` с `.env` по `root/.env.example` (новые пароли, `chmod 600`); `ssh-keyscan` хоста — в `DEPLOY_KNOWN_HOSTS`; первый суперпользователь — `docker compose run --rm backend createsuperuser`.
 
+### Курс валют
+
+Каталог пересчитывает цены прайса в BYN по курсу НБ РБ. Celery beat запускает задачу `update-currency-rates` каждую ночь в 01:10; она берёт курсы с `api.nbrb.by` (ключ не нужен), поэтому серверу нужен исходящий HTTPS к этому адресу. В админке есть действие «Обновить курсы сейчас». Новых переменных в `.env` нет.
+
 ### Заявки: что сделать при переезде на прод
 
 Локально всё работает на тестовом боте и `localhost`. На сервере:
