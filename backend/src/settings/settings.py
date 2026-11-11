@@ -417,6 +417,32 @@ UNFOLD = {
                             'admin:catalog_leadtime_changelist',
                         ),
                     },
+                    {
+                        'title': 'Серии',
+                        'icon': 'view_list',
+                        'link': reverse_lazy(
+                            'admin:catalog_series_changelist'
+                        ),
+                    },
+                    {
+                        'title': 'Варианты',
+                        'icon': 'table_rows',
+                        'link': reverse_lazy(
+                            'admin:catalog_variant_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Цвета',
+                        'icon': 'palette',
+                        'link': reverse_lazy('admin:catalog_color_changelist'),
+                    },
+                    {
+                        'title': 'Курсы валют',
+                        'icon': 'currency_exchange',
+                        'link': reverse_lazy(
+                            'admin:catalog_currencyrate_changelist',
+                        ),
+                    },
                 ],
             },
         ],

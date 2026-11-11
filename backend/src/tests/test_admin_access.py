@@ -1,9 +1,12 @@
+from decimal import Decimal
+
 import pytest
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
+from apps.catalog.models import Brand, Category, Series, Variant
 from apps.core.groups import (
     MANAGER_GROUP,
     manager_codenames,
@@ -139,3 +142,64 @@ def test_password_needs_twelve_chars(password, ok):
     else:
         with pytest.raises(ValidationError):
             validate_password(password)
+
+
+@pytest.mark.django_db
+def test_manager_sees_catalog_admin_pages(manager_client):
+    for name in [
+        'admin:catalog_series_changelist',
+        'admin:catalog_series_add',
+        'admin:catalog_variant_changelist',
+        'admin:catalog_variant_add',
+        'admin:catalog_color_changelist',
+        'admin:catalog_currencyrate_changelist',
+    ]:
+        assert manager_client.get(reverse(name)).status_code == 200, name
+
+    add = manager_client.get(reverse('admin:catalog_currencyrate_add'))
+
+    assert add.status_code == 403
+
+
+@pytest.mark.django_db
+def test_catalog_admin_series_change_page_opens(manager_client):
+    brand = Brand.objects.create(name='Б', slug='b')
+    category = Category.objects.create(name='К', slug='k')
+    series = Series.objects.create(brand=brand, category=category, name='С')
+
+    url = reverse('admin:catalog_series_change', args=[series.pk])
+
+    assert manager_client.get(url).status_code == 200
+
+
+@pytest.mark.django_db
+def test_brand_markup_change_recalculates_prices(
+    manager_client,
+    django_capture_on_commit_callbacks,
+):
+    brand = Brand.objects.create(name='Б', slug='b')
+    category = Category.objects.create(name='К', slug='k')
+    series = Series.objects.create(brand=brand, category=category, name='С')
+    variant = Variant.objects.create(
+        series=series,
+        article='A1',
+        price=Decimal('100'),
+        price_byn=Decimal('100'),
+    )
+
+    with django_capture_on_commit_callbacks(execute=False):
+        response = manager_client.post(
+            reverse('admin:catalog_brand_change', args=[brand.pk]),
+            {
+                'name': 'Б',
+                'slug': 'b',
+                'country': '',
+                'note': 'Примечание',
+                'markup_percent': '10',
+                'is_published': 'on',
+            },
+        )
+
+    assert response.status_code == 302
+    variant.refresh_from_db()
+    assert variant.price_byn == Decimal('110.00')
