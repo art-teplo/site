@@ -4,12 +4,6 @@
   margin-top: var(--spacing-32);
 }
 
-.pipesTitle {
-  font-size: var(--text-caption);
-  font-weight: var(--weight-medium);
-  color: var(--text-muted);
-}
-
 .layout {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
@@ -242,5 +236,20 @@
 
   .drawing {
     position: static;
+  }
+}
+
+.filterToggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .filterToggle {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .filters:not(.filtersOpen) {
+    display: none;
   }
 }

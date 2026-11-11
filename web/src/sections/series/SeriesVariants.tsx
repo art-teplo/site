@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/Button/Button";
 import { Container } from "@/components/Container/Container";
 import { PipeChips } from "@/components/PipeChips/PipeChips";
@@ -55,10 +56,11 @@ function cellValue(row: VariantRow, key: string): string {
 
 // Таблица вариантов серии с фильтрами и чертежом выбранного размера. Клик по строке — ?v=<артикул>.
 export function SeriesVariants({ series, loaded, query, selected, pending, loading, failed, onQuery, onShowAll, onReset }: Props) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const picked = pickColor(series.colorGroups, query.color);
   const columns = series.columns.some((c) => c.key === "price") ? series.columns : [...series.columns, PRICE_COLUMN];
   const filterKeys = new Set(series.filters.map((f) => f.key));
-  const facets = loaded.facets.filter((f) => filterKeys.has(f.key) && f.kind !== "colors");
+  const facets = loaded.facets.filter((f) => filterKeys.has(f.key) && f.kind !== "colors" && f.key !== "connection" && f.key !== "tubes");
   const active = Object.keys(query.ranges).length + Object.values(query.lists).reduce((n, v) => n + v.length, 0);
 
   const toggleList = (key: string, value: string) => {
@@ -85,7 +87,6 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
         <SectionHead titleId="variants-title" title="Варианты" />
         {series.executions.length > 0 && (
           <div className={styles.pipes}>
-            <p className={styles.pipesTitle}>Как подведены трубы</p>
             <PipeChips executions={series.executions} selected={query.execution ?? ""} onSelect={(execution) => onQuery({ ...query, execution })} />
           </div>
         )}
@@ -93,13 +94,17 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
         <div className={styles.layout}>
           <div className={styles.table}>
             {facets.length > 0 && (
-              <div className={styles.filters} role="group" aria-label="Фильтры">
+              <>
+              <Button variant="secondary" className={styles.filterToggle} aria-expanded={filtersOpen} aria-controls="series-filters" onClick={() => setFiltersOpen((o) => !o)}>
+                Фильтры{active ? ` · ${active}` : ""}
+              </Button>
+              <div id="series-filters" className={cx(styles.filters, filtersOpen && styles.filtersOpen)} role="group" aria-label="Фильтры">
                 {facets.map((f) =>
                   f.kind === "range" ? (
                     f.min == null || f.max == null || f.min === f.max ? null : (
                       <fieldset key={f.key} className={styles.group}>
                         <legend className={styles.legend}>
-                          {f.label}, {f.unit}
+                          {f.unit ? `${f.label}, ${f.unit}` : f.label}
                         </legend>
                         <div className={styles.rangeFields}>
                           {([0, 1] as const).map((bound) => {
@@ -151,6 +156,7 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
                   </Button>
                 )}
               </div>
+              </>
             )}
 
             <p className={styles.found} aria-live="polite">

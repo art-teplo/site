@@ -162,7 +162,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
             return (
               <fieldset key={f.key} className={styles.group}>
                 <legend className={styles.legend}>
-                  {f.label}, {f.unit}
+                  {f.unit ? `${f.label}, ${f.unit}` : f.label}
                 </legend>
                 <div className={styles.rangeFields}>
                   <input

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import type { ColorGroup } from "@/data/types";
+import { colorLabel } from "@/lib/series-color";
 import styles from "./ColorSwatches.module.css";
 
 type Item = { code: string; name: string; hex: string; note: string; anyRal: boolean };
@@ -27,7 +28,7 @@ export function ColorSwatches({
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const items: Item[] = groups.flatMap<Item>((g) =>
     g.colors.length > 0
-      ? g.colors.map((c) => ({ code: c.code, name: c.name, hex: c.hex, note: noteOf(g), anyRal: false }))
+      ? g.colors.map((c) => ({ code: c.code, name: colorLabel(c.name, c.code), hex: c.hex, note: noteOf(g), anyRal: false }))
       : g.anyRal
         ? [{ code: `any-${g.id}`, name: g.name || "Любой цвет RAL", hex: "", note: noteOf(g), anyRal: true }]
         : [],
@@ -48,7 +49,7 @@ export function ColorSwatches({
   return (
     <div className={styles.list} role="radiogroup" aria-label="Цвет" data-size={size}>
       {items.map((it, i) => {
-        const label = `${it.name}${it.anyRal ? "" : `, RAL ${it.code}`}, ${it.note}`;
+        const label = `${it.name}, ${it.note}`;
         return (
           <button
             key={it.code}
@@ -67,7 +68,6 @@ export function ColorSwatches({
             <span className={styles.dot} data-any={it.anyRal || undefined} style={it.anyRal ? undefined : { background: it.hex }} />
             <span className={styles.name}>
               {it.name}
-              {!it.anyRal && <span className={styles.ral}> · {it.code}</span>}
             </span>
             <span className={styles.note}>{it.note}</span>
           </button>
