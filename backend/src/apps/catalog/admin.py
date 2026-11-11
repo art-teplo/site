@@ -1,9 +1,11 @@
 from django import forms
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db import transaction
+from django.shortcuts import redirect
 from django.utils.html import format_html
 from unfold.admin import ModelAdmin, StackedInline, TabularInline
 from unfold.contrib.forms.widgets import WysiwygWidget
+from unfold.decorators import action
 
 from apps.content.admin import PREVIEW_HEIGHT, preview
 from apps.content.models import Tag
@@ -23,6 +25,7 @@ from .models import (
     Showcase,
     Variant,
 )
+from .tasks import update_rates
 
 
 @admin.display(description='логотип')
@@ -302,6 +305,18 @@ class CurrencyRateAdmin(ModelAdmin):
     list_display = ['currency', 'rate', 'date']
     list_filter = ['currency']
     date_hierarchy = 'date'
+    actions_list = ['update_now']
+
+    @action(description='Обновить курсы сейчас')
+    def update_now(self, request):
+        # Только тянет публичные курсы Нацбанка — менеджеру можно
+        update_rates.delay()
+        self.message_user(
+            request,
+            'Курсы запрошены, цены пересчитаются в течение минуты',
+            messages.SUCCESS,
+        )
+        return redirect('admin:catalog_currencyrate_changelist')
 
     def has_add_permission(self, request):  # noqa: ARG002
         return False

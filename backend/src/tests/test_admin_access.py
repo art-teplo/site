@@ -324,3 +324,19 @@ def test_catalog_admin_variant_bulk_delete_revalidates_once(
 
     assert not Variant.objects.exists()
     task.delay.assert_called_once_with(Tag.CATALOG)
+
+
+@pytest.mark.django_db
+def test_manager_can_trigger_rates_update(manager_client):
+    url = reverse('admin:catalog_currencyrate_changelist')
+
+    with patch('apps.catalog.admin.update_rates.delay') as delay:
+        page = manager_client.get(url)
+        response = manager_client.get(
+            reverse('admin:catalog_currencyrate_update_now'),
+        )
+
+    assert page.status_code == 200
+    assert response.status_code == 302
+    assert response.url == url
+    delay.assert_called_once_with()

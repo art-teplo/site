@@ -477,6 +477,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'apps.leads.tasks.purge_old_leads',
         'schedule': crontab(hour=3, minute=30),
     },
+    'update-currency-rates': {
+        'task': 'apps.catalog.tasks.update_rates',
+        'schedule': crontab(hour=1, minute=10),
+    },
 }
 
 # --- phonenumber_field ---
