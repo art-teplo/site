@@ -7,7 +7,6 @@ from unfold.contrib.forms.widgets import WysiwygWidget
 
 from apps.content.admin import PREVIEW_HEIGHT, preview
 from apps.content.models import Tag
-from apps.content.signals import muted_revalidation
 from apps.content.tasks import revalidate_frontend
 
 from . import pricing
@@ -91,8 +90,7 @@ class BrandAdmin(ModelAdmin):
         super().save_model(request, obj, form, change)
         if change and 'markup_percent' in form.changed_data:
             # bulk_update сигналов не шлёт; кэш сбросит сохранение бренда
-            with muted_revalidation():
-                pricing.recalculate(Variant.objects.filter(brand=obj))
+            pricing.recalculate(Variant.objects.filter(brand=obj))
 
 
 @admin.register(LeadTime)
@@ -167,7 +165,8 @@ class ShowcaseInline(StackedInline):
         field = super().formfield_for_foreignkey(db_field, request, **kwargs)
         if db_field.name == 'variant':
             series_id = (request.resolver_match.kwargs or {}).get('object_id')
-            # autocomplete ищет по всем вариантам; в списке — только серии
+            # автодополнение ищет по всем вариантам и queryset не учитывает;
+            # он нужен для проверки при сохранении: чужой вариант не пройдёт
             field.queryset = Variant.objects.filter(series_id=series_id)
         return field
 
@@ -205,8 +204,34 @@ class SeriesAdmin(ModelAdmin):
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
 
+class VariantForm(forms.ModelForm):
+    class Meta:
+        model = Variant
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        series_id = self.instance.series_id
+        # новый вариант: серия ещё не выбрана — группы не предлагаем
+        self.fields['color_groups'].queryset = ColorGroup.objects.filter(
+            series_id=series_id,
+        )
+
+    def clean(self):
+        cleaned = super().clean()
+        series = cleaned.get('series')
+        groups = cleaned.get('color_groups')
+        if series and groups and groups.exclude(series=series).exists():
+            self.add_error(
+                'color_groups',
+                'Группы цветов должны быть из серии варианта',
+            )
+        return cleaned
+
+
 @admin.register(Variant)
 class VariantAdmin(ModelAdmin):
+    form = VariantForm
     list_display = [
         'article',
         'series',
@@ -254,6 +279,19 @@ class VariantAdmin(ModelAdmin):
         super().save_model(request, obj, form, change)
         pricing.recalculate(Variant.objects.filter(pk=obj.pk))
         obj.refresh_from_db(fields=['price_byn'])
+        self.revalidate()
+
+    def delete_model(self, request, obj):
+        super().delete_model(request, obj)
+        self.revalidate()
+
+    def delete_queryset(self, request, queryset):
+        super().delete_queryset(request, queryset)
+        self.revalidate()
+
+    @staticmethod
+    def revalidate():
+        # у Variant нет cache_tag (массовые правки) — сбрасываем кэш сами
         transaction.on_commit(lambda: revalidate_frontend.delay(Tag.CATALOG))
 
 
