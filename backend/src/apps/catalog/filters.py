@@ -172,10 +172,11 @@ def apply(
     qs: QuerySet,
     parsed: dict[str, tuple],
     *,
-    skip: str | None = None,
+    skip: str | tuple[str, ...] | None = None,
 ) -> QuerySet:
+    skipped = (skip,) if isinstance(skip, str) else skip or ()
     for key, entry in parsed.items():
-        if key != skip:
+        if key not in skipped:
             qs = APPLIERS[entry[0]](qs, key, entry)
     return qs
 
@@ -247,9 +248,16 @@ def _sort_key(field: Field, value: str):
     return (2, 0, value)
 
 
+def _own_filters(field: Field) -> tuple[str, ...]:
+    # Чипы исполнений (execution) — тот же выбор, что трубность и подключение
+    if field.key in ('tubes', 'connection'):
+        return (field.key, EXECUTION_KEY)
+    return (field.key,)
+
+
 def _list_facet(qs: QuerySet, field: Field, parsed: dict) -> dict:
     rows = (
-        apply(qs, parsed, skip=field.key)
+        apply(qs, parsed, skip=_own_filters(field))
         .annotate(_v=_expression(field.source))
         .exclude(_v__isnull=True)
     )

@@ -140,8 +140,10 @@ class SeriesListView(PublicReadMixin, APIView):
         paginator = Paginator(_cards(filtered), PAGE_SIZE)
         page = paginator.get_page(request.query_params.get('page'))
         page_series = {c[0].pk for c in page.object_list}
-        images = Series.objects.filter(pk__in=page_series).prefetch_related(
-            'images'
+        images = (
+            Series.objects.filter(pk__in=page_series)
+            .select_related('brand')
+            .prefetch_related('images')
         )
         by_id = {s.pk: s for s in images}
         colors = _series_colors(page_series)

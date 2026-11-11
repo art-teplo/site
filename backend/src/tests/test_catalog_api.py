@@ -327,16 +327,32 @@ def test_color_filter_inherits_series_groups(client, catalog):  # noqa: ARG001
 def test_color_filter_respects_explicit_variant_groups(client, catalog):
     # Вариант с явным списком групп доступен только в них
     catalog.variants.tall_side.color_groups.add(catalog.standard)
-    data = fetch(client, height_min='1000', color='RAL 9005')
-    assert data['count'] == 0 or all(
-        c['series'] == 'garmoniya-a40' for c in data['results']
-    )
+    catalog.variants.tall_bottom.color_groups.add(catalog.black)
+
+    def labels(**params):
+        data = fetch(client, brand='kzto', color='RAL 9005', **params)
+        return [c['label'] for c in data['results']]
+
+    # tall_side чёрным недоступен: по боковому подключению высоких нет
+    assert labels(height_min='1000', connection='side') == []
+    # tall_bottom доступен
+    assert labels(height_min='1000', connection='bottom_left') == [
+        '1284 мм, вертикальный'
+    ]
+    # Низкие без явных групп наследуют группы серии
+    assert labels(height_max='400', connection='side') == ['334 мм']
     black = next(
         v
         for v in facet(fetch(client), 'color')['values']
         if v['value'] == 'RAL 9005'
     )
     assert black['count'] == 3
+
+
+def test_execution_skipped_in_own_facets(client, catalog):  # noqa: ARG001
+    data = fetch(client, execution='2-side')
+    values = {v['value'] for v in facet(data, 'connection')['values']}
+    assert values == {'side', 'bottom_left', 'diagonal'}
 
 
 def test_unknown_color_ignored(client, catalog):  # noqa: ARG001
@@ -507,5 +523,7 @@ def test_query_count_does_not_grow_with_cards(
         )
         make_variant(series, f'Q{i}-1', height_mm=100, price_byn=Decimal(5))
         Showcase.objects.create(series=series, label='x')
-    with django_assert_max_num_queries(25):
-        fetch(client, brand='kzto', color='RAL 9005')
+        SeriesImage.objects.create(series=series, image=png(), image_alt='q')
+    with django_assert_max_num_queries(18):
+        data = fetch(client)
+    assert data['count'] == 13
