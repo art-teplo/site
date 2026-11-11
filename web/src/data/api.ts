@@ -1,6 +1,7 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { brands, categories, demoSeriesBySlug, demoSource, products, publicRow } from "./catalog";
-import { demoShowcases, demoVariants, serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
+import { demoShowcases, demoVariants } from "@/data/catalog-demo";
+import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
 import { rowPrice } from "@/lib/price";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
@@ -203,7 +204,7 @@ type ApiSeries = Omit<
   video_url: string;
   images: SeriesImage[];
   color_groups: ApiGroup[];
-  executions: Execution[];
+  executions: (Omit<Execution, "connection"> & { connection: Execution["connection"] | "" })[];
   default_execution: string | null;
   columns: ApiField[];
   filters: ApiField[];
@@ -247,13 +248,15 @@ export async function getSeries(slug: string): Promise<SeriesDetail | null> {
   const data = await load<ApiSeries>(`series/${encodeURIComponent(slug)}/`, "catalog");
   if (data === undefined) return demoSeriesBySlug(slug) ?? null;
   if (data === null) return null;
-  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, ...rest } = data;
+  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, ...rest } = data;
   return {
     ...rest,
     pressureBar: pressure_bar,
     warrantyYears: warranty_years,
     videoUrl: video_url,
     colorGroups: color_groups.map(({ is_base, any_ral, ...group }) => ({ ...group, isBase: is_base, anyRal: any_ral })),
+    // без подключения бэк отдаёт '' — на фронте это null
+    executions: executions.map((e) => ({ ...e, connection: e.connection || null })),
     defaultExecution: default_execution,
     columns: columns.map((c) => ({ ...c, column: true, filter: false })),
     filters: filters.map((c) => ({ ...c, column: false, filter: true })),
