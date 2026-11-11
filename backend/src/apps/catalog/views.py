@@ -1,5 +1,3 @@
-from decimal import ROUND_HALF_UP, Decimal
-
 from django.core.paginator import Paginator
 from django.db.models import Case, Count, Min, Prefetch, Q, When
 from django.http import Http404
@@ -22,10 +20,17 @@ from .models import (
     SeriesImage,
     Variant,
 )
-from .pricing import in_color
+from .pricing import (
+    available_groups,
+    base_price,
+    in_color,
+    price_from,
+    whole_byn,
+)
 
 PAGE_SIZE = 24
 VARIANTS_PAGE_SIZE = 20
+ALL_ROWS_MAX = 500  # потолок для page=all
 
 
 class CategoryListView(PublicReadMixin, generics.ListAPIView):
@@ -57,12 +62,6 @@ class LeadTimeListView(PublicReadMixin, generics.ListAPIView):
         'brand',
     )
     serializer_class = serializers.LeadTimeSerializer
-
-
-def _whole_byn(value: Decimal | None) -> int | None:
-    if value is None:
-        return None
-    return int(value.quantize(Decimal(1), rounding=ROUND_HALF_UP))
 
 
 def visible_variants(category: str | None = None):
@@ -101,16 +100,42 @@ def _series_colors(series_ids) -> dict[int, list[dict]]:
 def _cards(filtered) -> list[tuple]:
     """(серия, витрина | None, цена) на каждую подходящую карточку, ещё без
     фото и цветов."""
-    rows = (
-        filtered.order_by()
+    # Варианты без своих групп цвета — одним запросом, минимум по цене (в
+    # любой группе серии процент монотонен); с явными группами — по одному.
+    plain = (
+        filtered.filter(color_groups__isnull=True)
+        .order_by()
         .values('series_id', 'height_mm')
         .annotate(price=Min('price_byn'))
     )
-    prices: dict[int, dict] = {}
-    for row in rows:
-        prices.setdefault(row['series_id'], {})[row['height_mm']] = row[
-            'price'
-        ]
+    explicit = (
+        filtered.filter(color_groups__isnull=False)
+        .distinct()
+        .prefetch_related('color_groups')
+    )
+    series_ids = {r['series_id'] for r in plain} | {
+        v.series_id for v in explicit
+    }
+    groups: dict[int, dict[int, ColorGroup]] = {}
+    for group in ColorGroup.objects.filter(series_id__in=series_ids):
+        groups.setdefault(group.series_id, {})[group.pk] = group
+    offers: dict[int, dict] = {}
+    for row in plain:
+        available = list(groups.get(row['series_id'], {}).values())
+        offers.setdefault(row['series_id'], {}).setdefault(
+            row['height_mm'], []
+        ).append((row['price'], available))
+    for variant in explicit:
+        available = available_groups(
+            variant, groups.get(variant.series_id, {})
+        )
+        offers.setdefault(variant.series_id, {}).setdefault(
+            variant.height_mm, []
+        ).append((variant.price_byn, available))
+    prices = {
+        series_id: {h: price_from(o) for h, o in by_height.items()}
+        for series_id, by_height in offers.items()
+    }
     series_list = (
         Series.objects.filter(pk__in=prices)
         .select_related('brand')
@@ -177,7 +202,7 @@ class SeriesListView(PublicReadMixin, APIView):
             serializers.card(
                 by_id[series.pk],
                 showcase,
-                _whole_byn(price),
+                price,
                 colors.get(series.pk, []),
             )
             for series, showcase, price in page.object_list
@@ -293,10 +318,19 @@ class SeriesDetailView(PublicReadMixin, APIView):
             key: [facet['min'], facet['max']]
             for key, facet in filters.range_facets(variants, fields).items()
         }
+        groups = {g.pk: g for g in series.color_groups.all()}
+        offers = [
+            (v.price_byn, available_groups(v, groups))
+            for v in variants.prefetch_related('color_groups')
+        ]
         return Response(
             serializers.series_detail(
                 series,
                 ranges=ranges,
+                price_from=price_from(offers),
+                price_from_by_group={
+                    g.pk: price_from(offers, g) for g in groups.values()
+                },
                 executions=_executions(variants),
                 columns=[
                     f for f in fields if f.column and f.kind != schema.COLORS
@@ -306,38 +340,18 @@ class SeriesDetailView(PublicReadMixin, APIView):
         )
 
 
-def _available_groups(variant, groups: dict[int, ColorGroup]):
-    """Группы цветов варианта; пустой список — все группы серии."""
-    explicit = [
-        groups[g.pk] for g in variant.color_groups.all() if g.pk in groups
-    ]
-    return explicit or list(groups.values())
-
-
 def _variant_price(variant, groups: dict[int, ColorGroup], color):
-    """Цена в группе выбранного цвета; цвета нет у варианта — None. Без цвета:
-    базовая группа, если она доступна варианту, иначе самая дешёвая из
-    доступных (не any_ral); у серии без групп — цена варианта."""
+    """Цена в группе выбранного цвета; цвета нет у варианта — None. Без цвета —
+    pricing.base_price."""
     if not groups:
-        return _whole_byn(variant.price_byn)
-    available = _available_groups(variant, groups)
-    if color:
-        group = next(
-            (
-                g
-                for g in available
-                if any(c.code == color for c in g.colors.all())
-            ),
-            None,
-        )
-    else:
-        group = next((g for g in available if g.is_base), None)
-        if group is None:
-            group = min(
-                (g for g in available if not g.any_ral),
-                key=lambda g: g.percent,
-                default=None,
-            )
+        return whole_byn(variant.price_byn)
+    available = available_groups(variant, groups)
+    if not color:
+        return base_price(variant.price_byn, available)
+    group = next(
+        (g for g in available if any(c.code == color for c in g.colors.all())),
+        None,
+    )
     return None if group is None else in_color(variant.price_byn, group)
 
 
@@ -369,8 +383,8 @@ class SeriesVariantsView(PublicReadMixin, APIView):
         filtered = filtered.prefetch_related('color_groups')
 
         if request.query_params.get('page') == 'all':
-            variants = list(filtered)
-            count = len(variants)
+            count = filtered.count()
+            variants = list(filtered[:ALL_ROWS_MAX])
         else:
             paginator = Paginator(filtered, VARIANTS_PAGE_SIZE)
             variants = list(
@@ -413,6 +427,6 @@ class VariantDetailView(PublicReadMixin, APIView):
         color = request.query_params.get('color') or None
         data = serializers.row(variant, _variant_price(variant, groups, color))
         data['available_groups'] = [
-            g.pk for g in _available_groups(variant, groups)
+            g.pk for g in available_groups(variant, groups)
         ]
         return Response(data)

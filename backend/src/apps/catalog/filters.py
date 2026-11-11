@@ -4,6 +4,7 @@
 apply() не нужна схема: она нужна только разбору и фасетам.
 """
 
+import re
 from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal, InvalidOperation
 
 from django.db.models import Count, F, IntegerField, Max, Min, Q, QuerySet
@@ -65,7 +66,7 @@ def _execution(raw: str | None) -> list[tuple[int, str]]:
     result = []
     for part in _csv(raw):
         tubes, _, connection = part.partition('-')
-        if tubes.isdigit():
+        if re.fullmatch(r'[0-9]+', tubes):
             result.append((int(tubes), connection))
     return result
 

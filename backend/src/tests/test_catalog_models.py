@@ -1,15 +1,19 @@
 import io
 from decimal import Decimal
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
+from django.contrib.admin.sites import AdminSite
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import IntegrityError, transaction
 from PIL import Image
 
+from apps.catalog.admin import SeriesAdmin
 from apps.catalog.models import (
     Brand,
     Category,
+    Color,
     ColorGroup,
     CurrencyRate,
     Series,
@@ -204,3 +208,43 @@ def test_series_warranty_falls_back_to_brand(series):
     series.warranty_years = None
     series.brand.warranty_years = None
     assert series.warranty is None
+
+
+def test_color_save_revalidates_catalog(
+    db,  # noqa: ARG001
+    django_capture_on_commit_callbacks,
+):
+    with (
+        patch.object(revalidate_frontend, 'delay') as delay,
+        django_capture_on_commit_callbacks(execute=True),
+    ):
+        Color.objects.create(code='RAL 9016', name='Белый', hex='#f6f6f6')
+    delay.assert_called_once_with(Tag.CATALOG)
+
+
+def test_variant_str_adds_connection(series):
+    plain = Variant.objects.create(series=series, article='A')
+    rotated = Variant.objects.create(
+        series=series, article='B', connection='bottom_ends'
+    )
+    assert str(plain) == 'A'
+    assert str(rotated) == 'B · нижнее по краям'
+
+
+def test_series_admin_brand_change_moves_variants(series, brand):
+    other = Brand.objects.create(
+        slug='nova', name='Nova', note='n', markup_percent=Decimal('10')
+    )
+    variant = Variant.objects.create(
+        series=series, article='A', price=Decimal('100'), currency='BYN'
+    )
+    series.brand = other
+
+    SeriesAdmin(Series, AdminSite()).save_model(
+        None, series, SimpleNamespace(changed_data=['brand']), True
+    )
+
+    variant.refresh_from_db()
+    assert variant.brand == other
+    assert variant.price_byn == Decimal('110.00')
+    assert brand.pk != other.pk

@@ -201,6 +201,14 @@ class SeriesAdmin(ModelAdmin):
         'is_published',
     ]
 
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if change and 'brand' in form.changed_data:
+            # Variant.brand копируется из серии только в save(); кэш сбросит
+            # сигнал сохранения серии
+            obj.variants.update(brand=obj.brand)
+            pricing.recalculate(obj.variants.all())
+
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         if db_field.name == 'description':
             kwargs['widget'] = WysiwygWidget

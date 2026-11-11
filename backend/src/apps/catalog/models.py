@@ -134,6 +134,8 @@ class LeadTime(Sortable):
 
 
 class Color(models.Model):
+    cache_tag = Tag.CATALOG
+
     code = models.CharField(
         'код',
         max_length=100,
@@ -408,6 +410,8 @@ class Variant(models.Model):
         ]
 
     def __str__(self):
+        if self.connection:
+            return f'{self.article} · {self.get_connection_display()}'
         return self.article
 
     def save(self, *args, **kwargs):

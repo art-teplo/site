@@ -21,7 +21,7 @@ from apps.content.models import Tag
 from apps.content.signals import muted_revalidation
 from apps.content.tasks import revalidate_frontend
 
-from ..choices import Heating
+from ..choices import Connection, Heating, Orientation
 from ..models import Brand, Category, Color, ColorGroup, Series, Variant
 from ..pricing import recalculate
 from .parse import (
@@ -229,7 +229,26 @@ def _group_rows(summary: Summary, rows):
     for bases in grouped.values():
         articles = Counter(article for article, _ in bases)
         summary.twins += sum(1 for n in articles.values() if n > 1)
+        for (article, connection), colors in bases.items():
+            if (
+                connection == Connection.BOTTOM_ENDS
+                and (article, Connection.SIDE) in bases
+            ):
+                _orient_rotated(colors)
     return grouped, article_series
+
+
+def _orient_rotated(colors):
+    """Повёрнутый двойник: артикул (GOR/VER) описывает боковой вариант, а
+    у нижнего по краям высота и ширина поменяны — положение берём из
+    геометрии самой строки."""
+    for parsed in colors.values():
+        if parsed.height_mm and parsed.width_mm:
+            parsed.orientation = str(
+                Orientation.VERTICAL
+                if parsed.height_mm > parsed.width_mm
+                else Orientation.HORIZONTAL
+            )
 
 
 def _first(bases) -> ParsedRow:

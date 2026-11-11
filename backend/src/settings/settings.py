@@ -319,7 +319,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 24,
     'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
+        'apps.core.throttling.ProxiedAnonRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '120/min',

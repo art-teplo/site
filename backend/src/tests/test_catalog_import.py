@@ -739,6 +739,11 @@ def test_same_article_rotated_is_a_separate_variant(tmp_path):
     }
     assert sizes == {'side': (500, 130), 'bottom_ends': (130, 500)}
     assert Variant.objects.count() == 2
+    orientations = {
+        v.connection: v.orientation
+        for v in Variant.objects.filter(article='3P-0500-03 BK-VER')
+    }
+    assert orientations == {'side': 'v', 'bottom_ends': 'h'}
 
 
 @pytest.mark.django_db

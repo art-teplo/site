@@ -878,3 +878,75 @@ def test_null_and_zero_tubes_share_one_execution(client, catalog):
         ]
         == 2
     )
+
+
+def _priced_series(catalog, slug):
+    series = Series.objects.create(
+        brand=catalog.guardo,
+        category=catalog.category,
+        slug=slug,
+        name=slug,
+        position=9,
+    )
+    standard = ColorGroup.objects.create(
+        series=series, name='Стандартные', percent=0, is_base=True
+    )
+    black = ColorGroup.objects.create(
+        series=series, name='Чёрный', percent=Decimal('10')
+    )
+    return series, standard, black
+
+
+def _card_of(client, slug):
+    data = fetch(client, brand='guardo')
+    return next(c for c in data['results'] if c['series'] == slug)
+
+
+def test_price_from_card_and_detail_agree_on_rounding(client, catalog):
+    series, standard, _ = _priced_series(catalog, 'rounded')
+    make_variant(series, 'X-1', height_mm=500, price_byn=Decimal('245.60'))
+
+    detail = client.get(reverse('series-detail', args=['rounded'])).json()
+
+    assert _card_of(client, 'rounded')['price_from'] == 246
+    assert detail['price_from'] == 246
+    assert detail['price_from_by_group'][str(standard.pk)] == 246
+
+
+def test_price_from_by_group_uses_variants_offering_the_group(client, catalog):
+    series, standard, black = _priced_series(catalog, 'grouped')
+    cheap = make_variant(
+        series, 'G-1', height_mm=500, price_byn=Decimal('100')
+    )
+    cheap.color_groups.add(standard)
+    make_variant(series, 'G-2', height_mm=500, price_byn=Decimal('150'))
+    any_ral = ColorGroup.objects.create(
+        series=series, name='Любой RAL', percent=20, any_ral=True
+    )
+
+    detail = client.get(reverse('series-detail', args=['grouped'])).json()
+
+    assert detail['price_from'] == 100
+    by_group = detail['price_from_by_group']
+    assert by_group[str(standard.pk)] == 100
+    assert by_group[str(black.pk)] == 165
+    assert by_group[str(any_ral.pk)] is None
+    assert _card_of(client, 'grouped')['price_from'] == 100
+
+
+def test_page_all_is_capped(client, catalog, monkeypatch):  # noqa: ARG001
+    monkeypatch.setattr('apps.catalog.views.ALL_ROWS_MAX', 2)
+
+    data = rows_of(client, page='all')
+
+    assert data['count'] == 4
+    assert len(data['results']) == 2
+
+
+def test_execution_with_non_ascii_digits_is_ignored(client, catalog):  # noqa: ARG001
+    response = client.get(
+        variants_url('garmoniya-a40'), {'execution': '²-side'}
+    )
+
+    assert response.status_code == 200
+    assert response.json()['count'] == 0
