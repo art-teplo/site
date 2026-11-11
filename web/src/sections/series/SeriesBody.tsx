@@ -12,7 +12,7 @@ import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { SeriesHero } from "./SeriesHero";
 import { SeriesVariants } from "./SeriesVariants";
 
-type Loaded = Variants & { key: string; dropped: boolean; all: boolean };
+type Loaded = Variants & { key: string; color: string | undefined; dropped: boolean; all: boolean };
 type Props = {
   series: SeriesDetail;
   initial: Variants & { dropped: boolean };
@@ -47,20 +47,28 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
     p.delete("page");
     return p.toString();
   }, [params]);
-  const [loaded, setLoaded] = useState<Loaded>({ ...initial, key, all: false });
-  const controller = useRef<AbortController | null>(null);
-
   const parsed = useMemo(() => seriesQuery(new URLSearchParams(params.toString()), series), [params, series]);
+  // color — с каким цветом загружены строки: от него зависят цены в них
+  const [loaded, setLoaded] = useState<Loaded>({ ...initial, key, color: parsed.query.color, all: false });
+  const [attempt, setAttempt] = useState(0);
+  const controller = useRef<AbortController | null>(null);
+  const allController = useRef<AbortController | null>(null);
+  const triedAll = useRef<string | null>(null);
+
   // если по ?h строк нет — работаем без высоты, пока пользователь сам не задаст фильтр
-  const query: CatalogQuery = parsed.fromH && loaded.dropped && loaded.key === key ? withoutHeight(parsed.query) : parsed.query;
+  const dropH = parsed.fromH && loaded.dropped && loaded.key === key;
+  const query: CatalogQuery = useMemo(() => (dropH ? withoutHeight(parsed.query) : parsed.query), [dropH, parsed]);
   const pending = key !== loaded.key;
+  const stale = loaded.color !== query.color ? (failed ? "failed" : "pending") : null;
 
   useEffect(() => {
     if (key === loaded.key) return;
     controller.current?.abort();
+    allController.current?.abort(); // «Показать все» относится к прежнему запросу
     const c = new AbortController();
     controller.current = c;
     (async () => {
+      setFailed(false);
       let data = await fetchVariants(series.slug, { ...parsed.query, page: 1 }, c.signal);
       let dropped = false;
       if (parsed.fromH && data.count === 0) {
@@ -68,16 +76,15 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
         data = await fetchVariants(series.slug, { ...withoutHeight(parsed.query), page: 1 }, c.signal);
       }
       if (c.signal.aborted) return;
-      setFailed(false);
-      setLoaded({ ...data, key, dropped, all: false });
+      setLoaded({ ...data, key, color: parsed.query.color, dropped, all: false });
     })().catch((e) => !c.signal.aborted && (console.error(e), setFailed(true)));
     return () => c.abort();
-  }, [key, loaded.key, parsed, series.slug]);
+  }, [key, loaded.key, parsed, series.slug, attempt]);
 
   const showAll = useCallback(async () => {
-    controller.current?.abort();
+    allController.current?.abort();
     const c = new AbortController();
-    controller.current = c;
+    allController.current = c;
     try {
       setLoading(true);
       const data = await fetchVariants(series.slug, { ...query, page: "all" }, c.signal);
@@ -90,9 +97,14 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
         setFailed(true);
       }
     } finally {
-      setLoading(false);
+      if (allController.current === c) setLoading(false);
     }
   }, [key, query, series.slug]);
+
+  const retry = useCallback(() => {
+    if (pending) setAttempt((n) => n + 1);
+    else void showAll();
+  }, [pending, showAll]);
 
   const replace = useCallback(
     (next: CatalogQuery) => {
@@ -106,21 +118,23 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
   const article = query.v;
   const selected = article ? (loaded.results.find((r) => r.article === article) ?? null) : null;
   useEffect(() => {
-    if (!article || pending || selected) return;
-    // строки обрезаны первой страницей — артикул мог остаться за ней, тогда загружаем все
-    if (loaded.results.length < loaded.count && !loaded.all) {
+    if (!article || pending || selected || loading) return;
+    // строки обрезаны первой страницей — артикул мог остаться за ней, тогда один раз загружаем все (на пару запрос + артикул)
+    const attemptKey = `${key}|${article}`;
+    if (loaded.results.length < loaded.count && !loaded.all && triedAll.current !== attemptKey) {
+      triedAll.current = attemptKey;
       const timer = setTimeout(() => void showAll()); // не синхронно в теле эффекта
       return () => clearTimeout(timer);
     }
     replace({ ...query, v: undefined });
-  }, [article, pending, selected, loaded, query, replace, showAll]);
+  }, [article, key, pending, loading, selected, loaded, query, replace, showAll]);
 
   return (
     <>
       <Section className={topClassName} labelledBy="series-title">
         <Container>
           {breadcrumbs}
-          <SeriesHero series={series} row={selected} rows={loaded.results} color={query.color} onColor={(color) => replace({ ...query, color })} />
+          <SeriesHero series={series} row={selected} rows={loaded.results} color={query.color} stale={stale} onColor={(color) => replace({ ...query, color })} />
         </Container>
       </Section>
       <SeriesVariants
@@ -133,6 +147,7 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
         failed={failed}
         onQuery={replace}
         onShowAll={showAll}
+        onRetry={retry}
         onReset={() => replace({ lists: {}, ranges: {}, execution: query.execution, color: query.color, v: query.v })}
       />
     </>

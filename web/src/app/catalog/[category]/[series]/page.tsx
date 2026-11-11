@@ -26,10 +26,14 @@ export async function generateMetadata({ params }: PageProps<"/catalog/[category
   const { series: slug } = await params;
   const series = await getSeries(slug);
   if (!series) return {};
-  // «от N» — по базовой группе цветов: без ?color бэк и демо считают цену в ней
-  const rows = await getVariants(slug, { execution: series.defaultExecution ?? undefined, lists: {}, ranges: {} });
-  const prices = rows.results.map((r) => r.price).filter((p): p is number => p != null);
-  const from = prices.length ? ` Цена от ${formatPrice(Math.min(...prices))}.` : "";
+  // «от N» — тот же источник, что в шапке страницы: сводная цена серии, а нет её — минимум по строкам (без ?color цена в базовой группе цветов)
+  let min = series.ranges.price?.[0] ?? null;
+  if (min == null) {
+    const rows = await getVariants(slug, { execution: series.defaultExecution ?? undefined, lists: {}, ranges: {} });
+    const prices = rows.results.map((r) => r.price).filter((p): p is number => p != null);
+    min = prices.length ? Math.min(...prices) : null;
+  }
+  const from = min != null ? ` Цена от ${formatPrice(min)}.` : "";
   return {
     title: `${series.name}, ${series.brand.name}`,
     description: `${series.name} — ${series.brand.name}. Размеры, подключения и цвета, цена под ваш вариант.${from}`,

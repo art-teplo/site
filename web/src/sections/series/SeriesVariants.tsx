@@ -25,6 +25,7 @@ type Props = {
   failed: boolean;
   onQuery: (next: CatalogQuery) => void;
   onShowAll: () => void;
+  onRetry: () => void;
   onReset: () => void;
 };
 
@@ -55,7 +56,7 @@ function cellValue(row: VariantRow, key: string): string {
 }
 
 // Таблица вариантов серии с фильтрами и чертежом выбранного размера. Клик по строке — ?v=<артикул>.
-export function SeriesVariants({ series, loaded, query, selected, pending, loading, failed, onQuery, onShowAll, onReset }: Props) {
+export function SeriesVariants({ series, loaded, query, selected, pending, loading, failed, onQuery, onShowAll, onRetry, onReset }: Props) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const picked = pickColor(series.colorGroups, query.color);
   const columns = series.columns.some((c) => c.key === "price") ? series.columns : [...series.columns, PRICE_COLUMN];
@@ -162,7 +163,14 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
             <p className={styles.found} aria-live="polite">
               {plural(loaded.count, "вариант", "варианта", "вариантов")}
             </p>
-            {failed && <p className={styles.error}>Не удалось обновить таблицу. Попробуйте ещё раз или откройте страницу заново.</p>}
+            {failed && (
+              <p className={styles.error}>
+                Не удалось обновить таблицу.{" "}
+                <Button variant="ghost" onClick={onRetry}>
+                  Повторить
+                </Button>
+              </p>
+            )}
 
             <div className={cx(styles.scroll, pending && styles.pending)} aria-busy={pending} tabIndex={0} role="region" aria-label="Таблица вариантов">
               <table className={styles.grid}>
@@ -217,7 +225,7 @@ export function SeriesVariants({ series, loaded, query, selected, pending, loadi
 
             {loaded.results.length < loaded.count && (
               <div className={styles.more}>
-                <Button variant="secondary" onClick={onShowAll} disabled={loading}>
+                <Button variant="secondary" onClick={onShowAll} disabled={loading || pending}>
                   {loading ? "Загружаем…" : `Показать все (${loaded.count})`}
                 </Button>
               </div>

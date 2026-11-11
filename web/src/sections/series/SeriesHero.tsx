@@ -18,6 +18,7 @@ type Props = {
   row: VariantRow | null; // выбранный вариант; null — не выбран
   rows: VariantRow[]; // строки таблицы: нужны, чтобы назвать цену «от», когда в серии нет сводной цены
   color: string | undefined;
+  stale: "pending" | "failed" | null; // строки загружены с другим цветом: цена из них неверна
   onColor: (code: string) => void;
 };
 
@@ -34,7 +35,7 @@ const sizeOf = (row: VariantRow) => {
 };
 
 // Верх страницы серии: галерея, название, цена и цвет; «Уточнить наличие» уносит выбранный вариант в заявку.
-export function SeriesHero({ series, row, rows, color, onColor }: Props) {
+export function SeriesHero({ series, row, rows, color, stale, onColor }: Props) {
   const site = useSite();
   const [active, setActive] = useState(0);
   const [asking, setAsking] = useState(false);
@@ -53,9 +54,9 @@ export function SeriesHero({ series, row, rows, color, onColor }: Props) {
   const base = series.ranges.price?.[0] ?? null;
   const prices = rows.map((r) => r.price).filter((p): p is number => p != null);
   const fromBase = picked ? (picked.anyRal ? null : priceInColor(base, picked.group)) : base;
-  const from = fromBase ?? (prices.length && !picked?.anyRal ? Math.min(...prices) : null);
-  const price = row ? (picked?.anyRal ? null : row.price) : from;
-  const priceText = price == null ? "Цена по запросу" : `${row ? "" : "от "}${formatPrice(price)}`;
+  const from = fromBase ?? (!stale && prices.length && !picked?.anyRal ? Math.min(...prices) : null);
+  const price = row ? (picked?.anyRal || stale ? null : row.price) : from;
+  const priceText = price == null ? (stale === "pending" ? "Цена уточняется" : "Цена по запросу") : `${row ? "" : "от "}${formatPrice(price)}`;
 
   const colorPart = picked ? `цвет: ${picked.name}${picked.anyRal ? " (RAL на выбор — по запросу)" : ""}` : "цвет не выбран";
   const context = row
