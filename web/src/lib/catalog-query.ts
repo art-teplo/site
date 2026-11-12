@@ -32,6 +32,22 @@ const toNumber = (raw: string | null): number | undefined => {
 };
 export const csv = (raw: string | null) => (raw ?? "").split(",").map((x) => x.trim()).filter(Boolean);
 
+// Метки рекламы и аналитики — не фильтры: с ними каталог открывается как без параметров
+export const TRACKING_PARAM = /^(utm_.+|yclid|gclid|fbclid|_openstat)$/;
+
+// Для <head> в app/layout.tsx: страница категории открыта по ссылке с фильтрами — <html data-catalog-query>.
+// Первый экран из HTML собран без фильтров, CSS (CatalogBrowser.module.css) прячет его до своего списка.
+// В <head>, а не рядом со списком: встроенный скрипт в середине страницы ждёт стили и тормозит разбор HTML
+export const CATALOG_QUERY_SCRIPT = `var p=location.pathname.split("/").filter(Boolean);if(p.length===2&&p[0]==="catalog"){var t=${TRACKING_PARAM.toString()};new URLSearchParams(location.search).forEach(function(v,k){if(k!=="page"&&!t.test(k))document.documentElement.setAttribute("data-catalog-query","")})}`;
+
+// Ключ выборки по адресу: без страницы («Показать ещё» живёт в состоянии) и без меток рекламы.
+// Пустой — первый экран без фильтров
+export function catalogKey(params: URLSearchParams): string {
+  const p = new URLSearchParams(params.toString());
+  for (const name of [...p.keys()]) if (name === "page" || TRACKING_PARAM.test(name)) p.delete(name);
+  return p.toString();
+}
+
 // Не число и неизвестный ключ пропускаются, поэтому ?height_min=abc — без фильтра
 export function parseCatalogQuery(params: URLSearchParams, fields: CatalogField[]): CatalogQuery {
   const query: CatalogQuery = { ranges: {}, lists: {} };

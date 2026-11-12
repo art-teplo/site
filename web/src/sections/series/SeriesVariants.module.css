@@ -37,9 +37,32 @@
 }
 
 .group {
+  position: relative;
   border: 0;
   padding: 0;
   min-width: 0;
+}
+
+/* Пришли по чипу «от — до» из шапки: поле коротко подсвечивается красной рамкой (scroll.ts) */
+.group::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--spacing-8) * -1);
+  border-radius: var(--radius-inputs);
+  box-shadow: 0 0 0 2px var(--color-accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.group[data-flash]::after {
+  animation: filter-flash calc(var(--dur-slow) * 3) var(--ease-out);
+}
+
+@keyframes filter-flash {
+  20%,
+  60% {
+    opacity: 1;
+  }
 }
 
 .legend {

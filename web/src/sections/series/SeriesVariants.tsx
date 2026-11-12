@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/Button/Button";
 import { Container } from "@/components/Container/Container";
 import { PipeChips } from "@/components/PipeChips/PipeChips";
@@ -14,6 +14,7 @@ import { CONNECTION_LABEL } from "@/lib/connections";
 import { cx, formatPrice, plural } from "@/lib/format";
 import { facetValueLabel } from "@/lib/facet-labels";
 import { pickColor } from "@/lib/series-color";
+import { OPEN_FILTERS_EVENT } from "./scroll";
 import styles from "./SeriesVariants.module.css";
 
 type Props = {
@@ -64,6 +65,12 @@ function cellValue(row: VariantRow, key: string): string {
 // Таблица вариантов серии с фильтрами и чертежом выбранного размера. Клик по строке — ?v=<артикул>.
 export function SeriesVariants({ series, loaded, query, selected, pending, quiet, loading, failed, onQuery, onShowAll, onRetry, onReset }: Props) {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  // чип «от — до» в шапке серии раскрывает фильтры (scroll.ts, focusSeriesFilter)
+  useEffect(() => {
+    const open = () => setFiltersOpen(true);
+    window.addEventListener(OPEN_FILTERS_EVENT, open);
+    return () => window.removeEventListener(OPEN_FILTERS_EVENT, open);
+  }, []);
   // сколько строк открыто; смена выборки (фильтры, цвет, исполнение) возвращает к первым
   const [shown, setShown] = useState({ key: loaded.key, n: STEP });
   const visible = shown.key === loaded.key ? shown.n : STEP;
@@ -120,7 +127,7 @@ export function SeriesVariants({ series, loaded, query, selected, pending, quiet
         {facets.map((f) =>
               f.kind === "range" ? (
                 f.min == null || f.max == null || f.min === f.max ? null : (
-                  <fieldset key={f.key} className={styles.group}>
+                  <fieldset key={f.key} id={`series-filter-${f.key}`} className={styles.group}>
                     <legend className={styles.legend}>
                       {f.unit ? `${f.label}, ${f.unit}` : f.label}
                     </legend>
