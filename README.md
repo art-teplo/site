@@ -9,9 +9,9 @@
 | [`root/`](root/) | docker compose, nginx и скрипт деплоя |
 | [`.github/`](.github/) | CI, деплой и Dependabot |
 | [`DESIGN.md`](DESIGN.md) | дизайн-система сайта: цвета, шрифт, компоненты, правила |
-| [`docs/`](docs/) | бриф ([`brief.md`](docs/brief.md)), журнал решений ([`decisions.md`](docs/decisions.md)), фото, стек |
+| [`docs/`](docs/) | бриф ([`brief.md`](docs/brief.md)), что осталось ([`todo.md`](docs/todo.md)), журнал решений ([`decisions.md`](docs/decisions.md)), стек и сервер ([`stack.md`](docs/stack.md)), фото; `superpowers/` — архив планов и спецификаций по этапам |
 | [`materials/`](materials/) | исходники: документы заказчика и визуальные референсы, только для чтения |
 
-Сейчас это демо для заказчика (сервер ActiveCloud, фронт и бэк в Docker за nginx; закрыто от поисковиков, часть фото взята из открытых источников). Бэкенд на Django + DRF — пока каркас без моделей, см. [`docs/stack.md`](docs/stack.md).
+Сейчас это демо для заказчика: сервер ActiveCloud, фронт и бэк в Docker за nginx, пока по IP и без HTTPS; закрыто от поисковиков, часть фото взята из открытых источников. Бэк держит заявки (уведомления в Telegram), контент сайта и каталог с импортом прайса. Что готово и что осталось — [`docs/todo.md`](docs/todo.md), как устроено — [`docs/stack.md`](docs/stack.md).
 
 Ветки и сообщения коммитов — gitflow и Conventional Commits, подробнее в [`CLAUDE.md`](CLAUDE.md).
