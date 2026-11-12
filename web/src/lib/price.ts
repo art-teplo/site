@@ -3,10 +3,17 @@ import type { ColorGroup } from "@/data/types";
 // Те же правила, что apps/catalog/pricing.py и выдача бэка: целые BYN, half-up
 const roundHalfUp = (value: number) => Math.floor(Math.round(value * 1e6) / 1e6 + 0.5);
 
+// Надбавка группы в процентах как её видит покупатель: целая, вверх, не ниже нуля — цвет цену не снижает
+export const effectivePercent = (group: Pick<ColorGroup, "percent">) => Math.max(0, Math.ceil(group.percent));
+
+// Подпись надбавки под цветом: «в цене», «+N %» или «по запросу»
+export const colorNote = (group: ColorGroup) =>
+  group.anyRal ? "по запросу" : group.isBase || effectivePercent(group) === 0 ? "в цене" : `+${effectivePercent(group)} %`;
+
 // Цена в группе цветов: наценка группы в процентах; «Любой RAL» — по запросу
 export function priceInColor(priceByn: number | null, group: ColorGroup): number | null {
   if (priceByn == null || group.anyRal) return null;
-  return roundHalfUp(priceByn * (1 + group.percent / 100));
+  return roundHalfUp(priceByn * (1 + effectivePercent(group) / 100));
 }
 
 export type PriceSource = { priceByn: number | null; colorGroups: number[] };

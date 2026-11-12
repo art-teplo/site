@@ -7,6 +7,7 @@ import { Section } from "@/components/Section/Section";
 import { mapRow, mapVariants, type ApiRow, type ApiVariants, type Variants } from "@/data/catalog-map";
 import type { SeriesDetail, VariantRow } from "@/data/types";
 import { executionConnection, serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
+import { rowPrice } from "@/lib/price";
 import { colorForApi } from "@/lib/series-color";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { SeriesHero } from "./SeriesHero";
@@ -20,6 +21,8 @@ type Props = {
   initial: Variants & { dropped: boolean };
   breadcrumbs: ReactNode;
   topClassName: string;
+  tabs: ReactNode; // липкая полоса разделов: между первым экраном и таблицей
+  images: { product: SeriesDetail["images"]; interior: SeriesDetail["images"] };
 };
 
 // Строки таблицы: на бэк по /api/series/<slug>/variants/, в демо — те же правила из src/data (грузим только там)
@@ -52,8 +55,14 @@ async function fetchVariant(slug: string, article: string, query: CatalogQuery, 
   return mapRow((await response.json()) as ApiRow);
 }
 
+const withoutColorKey = (k: string) => {
+  const p = new URLSearchParams(k);
+  p.delete("color");
+  return p.toString();
+};
+
 // Состояние страницы серии живёт в адресе: ?execution, ?color, ?v, фильтры. Ссылку можно отправить менеджеру.
-function Body({ series, initial, breadcrumbs, topClassName }: Props) {
+function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Props) {
   const pathname = usePathname();
   const params = useSearchParams();
   const [failed, setFailed] = useState(false);
@@ -77,7 +86,17 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
   const dropH = parsed.fromH && loaded.dropped && loaded.key === key;
   const query: CatalogQuery = useMemo(() => (dropH ? withoutHeight(parsed.query) : parsed.query), [dropH, parsed]);
   const pending = key !== loaded.key;
-  const stale = loaded.color !== query.color ? (failed ? "failed" : "pending") : null;
+  // сменился только цвет: таблицу не затемняем, старые строки стоят, пока не придут новые (запрос быстрый)
+  const colorOnly = pending && withoutColorKey(key) === withoutColorKey(loaded.key);
+  // Сменился цвет, а строки ещё со старым: если в них есть цена без цвета — пересчитываем сразу, как бэк
+  const repriceable = loaded.color !== query.color && loaded.results.every((r) => r.priceByn !== undefined);
+  const reprice = useCallback(
+    (row: VariantRow): VariantRow =>
+      row.priceByn === undefined ? row : { ...row, price: rowPrice({ priceByn: row.priceByn, colorGroups: row.colorGroups ?? [] }, series.colorGroups, colorForApi(query.color)) },
+    [series.colorGroups, query.color],
+  );
+  const shown: Loaded = useMemo(() => (repriceable ? { ...loaded, results: loaded.results.map(reprice) } : loaded), [repriceable, loaded, reprice]);
+  const stale = loaded.color !== query.color && !repriceable ? (failed ? "failed" : "pending") : null;
 
   useEffect(() => {
     if (key === loaded.key) return;
@@ -138,10 +157,10 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
   // отдельным запросом, а не грузим всю таблицу. Нет такого — выбор молча сбрасывается.
   const article = query.v;
   const attemptKey = article ? `${key}|${article}` : null;
-  const inRows = article ? (loaded.results.find((r) => r.article === article) ?? null) : null;
+  const inRows = article ? (shown.results.find((r) => r.article === article) ?? null) : null;
   const beyondFirstPage = loaded.results.length < loaded.count;
   const fetched = extra && extra.key === attemptKey ? extra : null;
-  const selected = inRows ?? fetched?.row ?? null;
+  const selected = inRows ?? (fetched?.row ? reprice(fetched.row) : null);
   useEffect(() => {
     if (!article || !attemptKey || pending || inRows) return;
     if (!beyondFirstPage) {
@@ -169,15 +188,17 @@ function Body({ series, initial, breadcrumbs, topClassName }: Props) {
       <Section className={topClassName} labelledBy="series-title">
         <Container>
           {breadcrumbs}
-          <SeriesHero series={series} row={selected} color={query.color} stale={stale} onColor={(color) => replace({ ...query, color })} />
+          <SeriesHero series={series} images={images.product} row={selected} color={query.color} stale={stale} onColor={(color) => replace({ ...query, color })} />
         </Container>
       </Section>
+      {tabs}
       <SeriesVariants
         series={series}
-        loaded={loaded}
+        loaded={shown}
         query={query}
         selected={selected}
         pending={pending}
+        quiet={colorOnly}
         loading={loading}
         failed={failed}
         onQuery={replace}

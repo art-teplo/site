@@ -59,7 +59,7 @@
   min-height: var(--spacing-40);
   padding: var(--spacing-8) var(--spacing-18);
   border-radius: var(--radius-pill);
-  border: 1px solid var(--line-strong);
+  border: var(--outline-width) solid var(--outline-color);
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
   transition:
@@ -78,49 +78,7 @@
 }
 
 .tabActive {
-  background: var(--surface);
-  border-color: var(--surface);
-  box-shadow: var(--shadow-xl);
-}
-
-
-.categories {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--grid-gap);
-}
-
-.categoryLink {
-  display: grid;
-  gap: var(--spacing-8);
-  height: 100%;
-  padding: var(--card-padding);
-  border: var(--border-hairline);
-  border-radius: var(--radius-cards);
-  transition:
-    border-color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
-}
-
-.categoryLink:hover {
-  border-color: var(--text);
-}
-
-.categoryLink:active {
-  transform: scale(var(--press-scale));
-}
-
-.categoryName {
-  font-size: var(--text-heading-sm);
-  font-weight: var(--weight-medium);
-}
-
-.categoryShort {
-  color: var(--text-muted);
-}
-
-@media (max-width: 1023px) {
-  .categories {
-    grid-template-columns: 1fr;
-  }
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent); /* вариант B: красный контур вместо белой пилюли */
+  color: var(--color-accent);
 }

@@ -5,7 +5,8 @@ import { getBrands, getCategories, getProjects, getSeries, getShowcases, getVari
 import { formatPrice } from "@/lib/format";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { LeadSection } from "@/sections/home/LeadSection";
-import { SeriesAbout } from "@/sections/series/SeriesAbout";
+import { SeriesAbout, seriesTabs } from "@/sections/series/SeriesAbout";
+import { SeriesTabs } from "@/sections/series/SeriesTabs";
 import { SeriesBody } from "@/sections/series/SeriesBody";
 import styles from "./page.module.css";
 
@@ -53,10 +54,20 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
     initial = await getVariants(slug, { ...withoutHeight(query), page: 1 });
   }
 
-  // Похожие: та же категория и бренд
-  const showcase = await getShowcases(series.category, { brand: series.brand.slug, ranges: {}, lists: {} });
-  const related = showcase.results.filter((c) => c.series !== series.slug);
-  const unique = related.filter((c, i) => related.findIndex((x) => x.series === c.series) === i).slice(0, 3);
+  // Фото: изделие — в галерее первого экрана, интерьер — в своём разделе. Нет разметки kind — всё как изделие
+  const interior = series.images.filter((i) => i.kind === "interior");
+  const product = series.images.filter((i) => i.kind !== "interior");
+  const gallery = product.length ? product : series.images;
+
+  // Проекты и похожие отдаёт бэк; нет их в ответе (демо, старый бэк) — собираем сами
+  const projects = series.projects?.length ? series.projects : allProjects.filter((p) => p.series.includes(series.slug));
+  let similar = series.similar ?? [];
+  if (!similar.length) {
+    const showcase = await getShowcases(series.category, { brand: series.brand.slug, ranges: {}, lists: {} });
+    const related = showcase.results.filter((c) => c.series !== series.slug);
+    similar = related.filter((c, i) => related.findIndex((x) => x.series === c.series) === i).slice(0, 8);
+  }
+  const content = { series, interior, projects, similar };
 
   return (
     <>
@@ -74,8 +85,10 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
           />
         }
         topClassName={styles.top}
+        images={{ product: gallery, interior }}
+        tabs={<SeriesTabs tabs={seriesTabs(content)} />}
       />
-      <SeriesAbout series={series} projects={allProjects.filter((p) => p.series.includes(series.slug))} related={unique} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
+      <SeriesAbout {...content} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
       <LeadSection source={`series/${series.slug}`} />
     </>
   );

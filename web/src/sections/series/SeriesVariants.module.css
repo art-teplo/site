@@ -14,16 +14,17 @@
 }
 
 .table {
-  grid-column: 1 / span 8;
+  grid-column: 1 / span 9;
   display: grid;
   gap: var(--spacing-24);
   min-width: 0;
 }
 
+/* Чертёж стоит рядом с таблицей и едет за ней: липнет под шапкой и полосой разделов */
 .drawing {
-  grid-column: 9 / -1;
+  grid-column: 10 / -1;
   position: sticky;
-  top: calc(var(--header-height) + var(--spacing-24));
+  top: calc(var(--header-height) + var(--control-height) + var(--spacing-24));
 }
 
 /* Фильтры серии — полосой над таблицей: у серии их три-четыре */
@@ -31,7 +32,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: end;
-  gap: var(--spacing-24) var(--spacing-32);
+  gap: var(--spacing-16) var(--spacing-24);
+  margin-top: var(--spacing-32);
 }
 
 .group {
@@ -42,7 +44,7 @@
 
 .legend {
   padding: 0;
-  margin-bottom: var(--spacing-8);
+  margin-bottom: var(--spacing-4);
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
 }
@@ -54,13 +56,14 @@
 }
 
 .numberInput {
-  width: var(--spacing-100);
+  width: calc(var(--spacing-100) * 0.8);
   min-width: 0;
-  min-height: var(--control-height);
-  padding: var(--spacing-8) var(--spacing-12);
-  border: 1px solid var(--line-strong);
+  min-height: var(--spacing-40);
+  padding: var(--spacing-4) var(--spacing-12);
+  font-size: var(--text-caption);
+  border: var(--outline-width) solid var(--outline-color);
   border-radius: var(--radius-inputs);
-  background: var(--surface);
+  background: transparent;
   transition: border-color var(--dur-fast) var(--ease-out);
 }
 
@@ -90,8 +93,8 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-8);
-  min-height: var(--spacing-40);
-  padding: var(--spacing-8) var(--spacing-12);
+  min-height: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-12);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
   font-size: var(--text-caption);
@@ -172,6 +175,8 @@
 }
 
 .grid .price {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
   text-align: right;
   padding-right: var(--spacing-12);
 }
@@ -234,19 +239,27 @@
     grid-column: 1 / -1;
   }
 
+  /* Узкий экран: чертёж над таблицей, чтобы выбранная строка была видна сразу */
   .drawing {
     position: static;
+    order: -1;
+    max-width: calc(var(--spacing-100) * 3);
   }
 }
 
-.filterToggle {
+button.filterToggle {
   display: none;
+  margin-top: var(--spacing-32);
 }
 
 @media (max-width: 767px) {
-  .filterToggle {
+  button.filterToggle {
     display: inline-flex;
     width: 100%;
+  }
+
+  .filters {
+    margin-top: var(--spacing-16);
   }
 
   .filters:not(.filtersOpen) {

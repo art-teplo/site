@@ -23,9 +23,9 @@
 
 .group,
 .chip {
-  background: var(--surface);
+  background: transparent;
   color: var(--text);
-  border: var(--border-hairline);
+  border: var(--outline-width) solid var(--outline-color);
   font: inherit;
   cursor: pointer;
   transition:

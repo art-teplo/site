@@ -3,7 +3,7 @@ import { Arrow } from "@/components/Button/Button";
 import { Frame } from "@/components/Frame/Frame";
 import { Picture } from "@/components/Picture/Picture";
 import type { ShowcaseCard as Card } from "@/data/types";
-import { formatPrice } from "@/lib/format";
+import { cx, formatPrice } from "@/lib/format";
 import styles from "./ShowcaseCard.module.css";
 
 const MAX_DOTS = 5;
@@ -17,9 +17,13 @@ export function ShowcaseCard({ card, category, brand, sizes = "(max-width: 767px
   const extra = card.colors.length - MAX_DOTS;
   return (
     <article className={styles.card}>
-      <div className={styles.media}>
+      <div className={cx(styles.media, card.image && card.hoverImage && styles.swap)}>
         {card.image ? (
-          <Picture image={card.image} sizes={sizes} eager={priority} />
+          <>
+            <Picture image={card.image} sizes={sizes} eager={priority} />
+            {/* второе фото проявляется поверх первого при наведении */}
+            {card.hoverImage && <Picture image={card.hoverImage} sizes={sizes} className={styles.hoverImage} />}
+          </>
         ) : (
           <Frame ratio="4 / 5" rounded={false}>
             <span className={styles.placeholder}>{card.name}</span>

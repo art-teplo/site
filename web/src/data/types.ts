@@ -11,12 +11,15 @@ export type ImageAsset = {
 export type CategorySlug = "radiatory" | "konvektory" | "polotentsesushiteli" | "armatura";
 
 // Категории и бренды — из админки (apps.catalog); товары пока в коде и ссылаются на них по slug
+export type CategoryType = { slug: string; name: string; image: ImageAsset | null; seriesCount: number };
+
 export type Category = {
   slug: string;
   name: string;
   short: string;
   image: ImageAsset; // товар без фона, PNG с прозрачностью
   seriesCount: number; // опубликованные серии
+  types?: CategoryType[]; // подтипы («Стальные», «Биметаллические»…); нет — плитки типов не показываем
 };
 
 export type Brand = {
@@ -132,10 +135,13 @@ export type ShowcaseCard = {
   series: string;
   name: string;
   brand: string;
+  category?: string; // Category.slug — приходит в поиске и «Похожих»
   label: string;
   heightMm: number | null;
   priceFrom: number | null;
   image: ImageAsset | null;
+  hoverImage?: ImageAsset | null; // второе фото: показывается при наведении
+  type?: string | null; // CategoryType.slug
   colors: ColorSwatch[];
 };
 
@@ -161,9 +167,14 @@ export type VariantRow = {
   mount: "wall" | "floor" | "";
   attrs: Record<string, string | number | boolean>;
   price: number | null; // целые BYN, с учётом выбранного цвета; null — по запросу
+  // цена без цвета и id групп варианта (пусто — все группы серии): по ним цена пересчитывается
+  // при смене цвета сразу, до ответа бэка. Нет — пересчёт ждёт запроса
+  priceByn?: number | null;
+  colorGroups?: number[];
 };
 
-export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | "" };
+// kind: product — фото изделия (галерея первого экрана), interior — в интерьере (раздел «В интерьере»); нет поля — product
+export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | ""; kind?: "product" | "interior" };
 
 export type SeriesDetail = {
   slug: string;
@@ -186,4 +197,6 @@ export type SeriesDetail = {
   defaultExecution: string | null;
   columns: CatalogField[];
   filters: CatalogField[];
+  similar?: ShowcaseCard[]; // похожие серии; нет — без раздела
+  projects?: Project[]; // проекты, где стоит серия (нет — страница берёт из общего списка)
 };

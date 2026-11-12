@@ -1,13 +1,24 @@
 import type { Connection, Facet, ModelTile, ShowcaseCard, VariantRow } from "./types";
 
 // Ответ /api/series/ → витрина. Общий для сервера (api.ts) и клиентского списка.
-type ApiCard = Omit<ShowcaseCard, "heightMm" | "priceFrom"> & { height_mm: number | null; price_from: number | null };
+export type ApiCard = Omit<ShowcaseCard, "heightMm" | "priceFrom" | "hoverImage"> & {
+  height_mm: number | null;
+  price_from: number | null;
+  hover_image?: ShowcaseCard["hoverImage"];
+};
+
+export const mapCard = ({ height_mm, price_from, hover_image, ...card }: ApiCard): ShowcaseCard => ({
+  ...card,
+  heightMm: height_mm,
+  priceFrom: price_from,
+  hoverImage: hover_image ?? null,
+});
 export type ApiShowcase = { count: number; results: ApiCard[]; facets: Facet[]; model_range: ModelTile[] };
 export type Showcase = { count: number; results: ShowcaseCard[]; facets: Facet[]; modelRange: ModelTile[] };
 
 export const mapShowcase = (data: ApiShowcase): Showcase => ({
   count: data.count,
-  results: data.results.map(({ height_mm, price_from, ...card }) => ({ ...card, heightMm: height_mm, priceFrom: price_from })),
+  results: data.results.map(mapCard),
   facets: data.facets,
   modelRange: data.model_range,
 });
@@ -30,6 +41,8 @@ export type ApiRow = {
   mount: VariantRow["mount"] | null;
   attrs: VariantRow["attrs"];
   price: number | null;
+  price_byn?: number | null;
+  color_groups?: number[];
 };
 
 export const mapRow = (row: ApiRow): VariantRow => ({
@@ -49,6 +62,8 @@ export const mapRow = (row: ApiRow): VariantRow => ({
   mount: row.mount ?? "",
   attrs: row.attrs ?? {},
   price: row.price,
+  priceByn: row.price_byn,
+  colorGroups: row.color_groups,
 });
 
 export type ApiVariants = { count: number; results: ApiRow[]; facets: Facet[] };

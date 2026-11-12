@@ -75,3 +75,46 @@
 .item[aria-checked="true"] .name {
   font-weight: var(--weight-medium);
 }
+
+/* Компактно: только кружки, подписи — в легенде выбранного цвета и в подсказке */
+.list[data-compact] {
+  --dot: calc(var(--swatch-size) * 0.85);
+  gap: var(--spacing-8);
+}
+
+.list[data-compact] .item {
+  width: auto;
+  padding: var(--spacing-4);
+}
+
+.list[data-compact] .name,
+.list[data-compact] .note {
+  display: none;
+}
+
+.more {
+  display: inline-grid;
+  place-items: center;
+  align-self: center;
+  min-width: var(--spacing-32);
+  height: var(--spacing-32);
+  padding: 0 var(--spacing-8);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-caption);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.more:hover {
+  border-color: var(--text);
+}
+
+.more:active {
+  transform: scale(var(--press-scale));
+}

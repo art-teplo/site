@@ -8,6 +8,7 @@ import { getBrands, getCategories, getShowcases } from "@/data/api";
 import type { Category } from "@/data/types";
 import { cx } from "@/lib/format";
 import { LeadSection } from "@/sections/home/LeadSection";
+import { CategoryTiles } from "./CategoryTiles";
 import { CatalogBrowser, CatalogFallback } from "./CatalogBrowser";
 import styles from "./CatalogPage.module.css";
 
@@ -57,16 +58,7 @@ export async function CatalogPage({ category }: Props) {
                 <CatalogBrowser category={category} initial={initial} brands={brands} />
               </Suspense>
             ) : (
-              <ul className={styles.categories}>
-                {categories.map((c) => (
-                  <li key={c.slug}>
-                    <Link href={`/catalog/${c.slug}`} className={styles.categoryLink}>
-                      <span className={styles.categoryName}>{c.name}</span>
-                      <span className={styles.categoryShort}>{c.short}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <CategoryTiles categories={categories} />
             )}
           </div>
         </Container>

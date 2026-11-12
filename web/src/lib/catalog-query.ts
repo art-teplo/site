@@ -8,15 +8,20 @@ import { CONNECTION_LABEL } from "./connections";
 // (executionConnection): /api/variants/<артикул>/?series=…&connection=….
 export type CatalogQuery = {
   brand?: string;
+  type?: string;
   color?: string;
   execution?: string;
   v?: string;
+  sort?: Sort;
   page?: number | "all";
   ranges: Record<string, [number?, number?]>;
   lists: Record<string, string[]>;
 };
 
-export const RESERVED = new Set(["brand", "color", "execution", "v", "page"]);
+export type Sort = "price" | "-price";
+export const SORT_LABEL: Record<"" | Sort, string> = { "": "Популярные", price: "Сначала дешевле", "-price": "Сначала дороже" };
+
+export const RESERVED = new Set(["brand", "type", "color", "execution", "v", "page", "sort"]);
 export const PAGE_SIZE_CARDS = 24;
 export const PAGE_SIZE_ROWS = 20;
 
@@ -32,12 +37,16 @@ export function parseCatalogQuery(params: URLSearchParams, fields: CatalogField[
   const query: CatalogQuery = { ranges: {}, lists: {} };
   const brand = params.get("brand")?.trim();
   if (brand) query.brand = brand;
+  const type = params.get("type")?.trim();
+  if (type) query.type = type;
   const color = params.get("color")?.trim();
   if (color) query.color = color;
   const execution = params.get("execution")?.trim();
   if (execution) query.execution = execution;
   const v = params.get("v")?.trim();
   if (v) query.v = v;
+  const sort = params.get("sort");
+  if (sort === "price" || sort === "-price") query.sort = sort;
   const page = params.get("page");
   if (page === "all") query.page = "all";
   else {
@@ -61,9 +70,11 @@ export function parseCatalogQuery(params: URLSearchParams, fields: CatalogField[
 export function serializeCatalogQuery(q: CatalogQuery): string {
   const params = new URLSearchParams();
   if (q.brand) params.set("brand", q.brand);
+  if (q.type) params.set("type", q.type);
   if (q.color) params.set("color", q.color);
   if (q.execution) params.set("execution", q.execution);
   if (q.v) params.set("v", q.v);
+  if (q.sort) params.set("sort", q.sort);
   if (q.page !== undefined && q.page !== 1) params.set("page", String(q.page));
   for (const [key, [min, max]] of Object.entries(q.ranges)) {
     if (min !== undefined) params.set(`${key}_min`, String(min));

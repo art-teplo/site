@@ -1,16 +1,18 @@
-import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { Container } from "@/components/Container/Container";
+import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { Reveal } from "@/components/Reveal/Reveal";
-import { Schematic } from "@/components/PipeChips/PipeChips";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
-import type { Project, SeriesDetail, ShowcaseCard as Card } from "@/data/types";
-import { CONNECTION_LABEL, pipeGroup } from "@/lib/connections";
-import { plural } from "@/lib/format";
+import type { Project, SeriesDetail, SeriesImage, ShowcaseCard as Card } from "@/data/types";
+import { cx, plural } from "@/lib/format";
+import { InteriorGallery } from "./InteriorGallery";
 import styles from "./SeriesAbout.module.css";
+import { SeriesVideo } from "./SeriesVideo";
+import type { SeriesTab } from "./SeriesTabs";
 
-type Props = { series: SeriesDetail; projects: Project[]; related: Card[]; category: string; brandNames: Record<string, string> };
+type Content = { series: SeriesDetail; interior: SeriesImage[]; projects: Project[]; similar: Card[] };
+type Props = Content & { category: string; brandNames: Record<string, string> };
 
 const facts = (s: SeriesDetail): [string, string][] => {
   const heating = { water: "водяной", electric: "электрический", combined: "комбинированный" }[s.heating];
@@ -23,73 +25,106 @@ const facts = (s: SeriesDetail): [string, string][] => {
   ];
 };
 
-// О серии: описание, исполнения и подключения, файлы, похожие серии.
-// «В интерьерах» — проекты, где стоит серия; без проектов блока нет.
-export function SeriesAbout({ series, projects, related, category, brandNames }: Props) {
-  const connections = series.executions.filter((e) => e.connection);
+// Разделы под таблицей — только те, где есть содержимое. Тот же список кормит полосу вкладок.
+export function seriesTabs({ series, interior, projects, similar }: Content): SeriesTab[] {
+  return [
+    { id: "variants", label: "Варианты исполнения" },
+    { id: "about", label: "О серии" },
+    ...(interior.length ? [{ id: "interior", label: "В интерьере" }] : []),
+    ...(series.videoUrl ? [{ id: "video", label: "Видеообзор" }] : []),
+    ...(series.files.length ? [{ id: "files", label: "Файлы", count: series.files.length }] : []),
+    ...(projects.length ? [{ id: "projects", label: "Проекты" }] : []),
+    ...(similar.length ? [{ id: "similar", label: "Похожие" }] : []),
+  ];
+}
+
+// О серии, фото в интерьере, видеообзор, файлы, проекты, похожие серии. Тон секций чередуется, начиная после таблицы.
+export function SeriesAbout({ series, interior, projects, similar, category, brandNames }: Props) {
+  let n = 0;
+  const tone = () => (n++ % 2 === 0 ? "light" : "white");
+  const hasText = Boolean(series.description);
+  const rows = facts(series);
+
   return (
     <>
-      <Section labelledBy="about-title">
-        <Container className={styles.layout}>
+      <Section tone={tone()} id="about" labelledBy="about-title">
+        <Container className={cx(styles.layout, !hasText && styles.compact)}>
           <Reveal className={styles.text}>
             <h2 id="about-title" className={styles.title}>
               О серии
             </h2>
-            {series.description ? <div className={styles.body} dangerouslySetInnerHTML={{ __html: series.description }} /> : null}
-            {series.files.length > 0 && (
-              <ul className={styles.files} aria-label="Файлы">
-                {series.files.map((f) => (
-                  <li key={f.url}>
-                    <a href={f.url} target="_blank" rel="noopener noreferrer" className={styles.file}>
-                      {f.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
+            {hasText && <div className={styles.body} dangerouslySetInnerHTML={{ __html: series.description }} />}
           </Reveal>
           <Reveal className={styles.side} index={1}>
-            <table className={styles.facts}>
-              <caption className="visually-hidden">Характеристики {series.name}</caption>
-              <tbody>
-                {facts(series).map(([k, v]) => (
-                  <tr key={k}>
-                    <th scope="row">{k}</th>
-                    <td>{v}</td>
-                  </tr>
+            {hasText ? (
+              <table className={styles.facts}>
+                <caption className="visually-hidden">Характеристики {series.name}</caption>
+                <tbody>
+                  {rows.map(([k, v]) => (
+                    <tr key={k}>
+                      <th scope="row">{k}</th>
+                      <td>{v}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <dl className={styles.factsRow}>
+                {rows.map(([k, v]) => (
+                  <div key={k}>
+                    <dt>{k}</dt>
+                    <dd>{v}</dd>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </dl>
+            )}
           </Reveal>
         </Container>
       </Section>
 
-      {connections.length > 0 && (
-        <Section tone="white" labelledBy="connect-title">
+      {interior.length > 0 && (
+        <Section tone={tone()} id="interior" labelledBy="interior-title">
           <Container>
-            <SectionHead titleId="connect-title" title="Как подключается" />
-            <ul className={styles.executions}>
-              {connections.map((e, i) => {
-                const group = e.connection ? pipeGroup(e.connection) : null;
-                return (
-                  <Reveal as="li" key={e.key} index={i} className={styles.execution}>
-                    {group && <Schematic group={group} />}
-                    <span>
-                      {e.connection ? CONNECTION_LABEL[e.connection] : e.label}
-                      {e.tubes ? `, ${e.tubes}-трубное` : ""}
-                    </span>
-                  </Reveal>
-                );
-              })}
+            <SectionHead titleId="interior-title" title="В интерьере" />
+            <Reveal>
+              <InteriorGallery images={interior} title={`${series.name} в интерьере`} />
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
+      {series.videoUrl && (
+        <Section tone={tone()} id="video" labelledBy="video-title">
+          <Container>
+            <SectionHead titleId="video-title" title="Видеообзор" />
+            <Reveal>
+              <SeriesVideo url={series.videoUrl} poster={series.images.find((i) => i.kind !== "interior") ?? series.images[0] ?? null} title={series.name} />
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
+      {series.files.length > 0 && (
+        <Section tone={tone()} id="files" labelledBy="files-title">
+          <Container>
+            <SectionHead titleId="files-title" title="Файлы" />
+            <ul className={styles.files}>
+              {series.files.map((f) => (
+                <li key={f.url}>
+                  <a href={f.url} target="_blank" rel="noopener noreferrer" className={styles.file}>
+                    {f.title}
+                  </a>
+                </li>
+              ))}
             </ul>
           </Container>
         </Section>
       )}
 
       {projects.length > 0 && (
-        <Section tone="white" labelledBy="interiors-title">
+        <Section tone={tone()} id="projects" labelledBy="projects-title">
           <Container>
-            <SectionHead titleId="interiors-title" title="В интерьерах" />
+            <SectionHead titleId="projects-title" title="Проекты" />
             <ul className={styles.projects}>
               {projects.map((p, i) => (
                 <Reveal as="li" key={p.slug} index={i}>
@@ -101,14 +136,14 @@ export function SeriesAbout({ series, projects, related, category, brandNames }:
         </Section>
       )}
 
-      {related.length > 0 && (
-        <Section labelledBy="related-title">
+      {similar.length > 0 && (
+        <Section tone={tone()} id="similar" labelledBy="similar-title">
           <Container>
-            <SectionHead titleId="related-title" title="Похожие серии" />
+            <SectionHead titleId="similar-title" title="Похожие серии" />
             <ul className={styles.related}>
-              {related.map((card, i) => (
+              {similar.slice(0, 4).map((card, i) => (
                 <Reveal as="li" key={card.series} index={i}>
-                  <ShowcaseCard card={card} category={category} brand={brandNames[card.brand]} sizes="(max-width: 767px) 50vw, 33vw" />
+                  <ShowcaseCard card={card} category={category} brand={brandNames[card.brand]} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" />
                 </Reveal>
               ))}
             </ul>

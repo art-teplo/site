@@ -1,7 +1,7 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { brands, categories, demoSeries, demoSeriesBySlug } from "./catalog";
+import { brands, categories, demoCards, demoSeries, demoSeriesBySlug } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
-import { mapVariants, mapShowcase, type ApiShowcase, type ApiVariants } from "./catalog-map";
+import { mapCard, mapVariants, mapShowcase, type ApiCard, type ApiShowcase, type ApiVariants } from "./catalog-map";
 import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
@@ -9,6 +9,7 @@ import type {
   Brand,
   CatalogField,
   Category,
+  CategoryType,
   ColorGroup,
   Execution,
   Facet,
@@ -145,7 +146,8 @@ export async function getShowroom(): Promise<ImageAsset[]> {
 
 // --- Каталог (бэк: apps.catalog). Товары пока в коде и ссылаются на категории и бренды по slug ---
 
-type ApiCategory = Omit<Category, "seriesCount"> & { series_count: number };
+type ApiCategoryType = Omit<CategoryType, "seriesCount"> & { series_count?: number; seriesCount?: number };
+type ApiCategory = Omit<Category, "seriesCount" | "types"> & { series_count: number; types?: ApiCategoryType[] };
 type ApiBrand = Omit<Brand, "warrantyYears" | "logo" | "seriesCount"> & {
   logo: Brand["logo"] | null;
   warranty_years: number | null;
@@ -156,7 +158,11 @@ type ApiLeadTime = LeadTime & { updated_at: string };
 export async function getCategories(): Promise<Category[]> {
   const data = await load<ApiCategory[]>("categories/", "catalog");
   if (!data) return categories.map((c) => ({ ...c, seriesCount: demoSeries.filter((s) => s.category === c.slug).length }));
-  return data.map(({ series_count, ...category }) => ({ ...category, seriesCount: series_count }));
+  return data.map(({ series_count, types, ...category }) => ({
+    ...category,
+    seriesCount: series_count,
+    types: (types ?? []).map(({ series_count: n, seriesCount, ...t }) => ({ ...t, seriesCount: seriesCount ?? n ?? 0 })),
+  }));
 }
 
 export async function getBrands(): Promise<Brand[]> {
@@ -190,8 +196,10 @@ type ApiField = Pick<CatalogField, "key" | "label" | "kind" | "unit">;
 type ApiGroup = Omit<ColorGroup, "isBase" | "anyRal"> & { is_base: boolean; any_ral: boolean };
 type ApiSeries = Omit<
   SeriesDetail,
-  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions" | "priceFrom" | "priceFromByGroup"
+  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions" | "priceFrom" | "priceFromByGroup" | "similar" | "projects"
 > & {
+  similar?: ApiCard[];
+  projects?: (Omit<Project, "series"> & { series_slugs?: string[]; series?: string[] })[];
   price_from: number | null;
   price_from_by_group: Record<string, number | null>;
   pressure_bar: number | null;
@@ -224,7 +232,7 @@ export async function getSeries(slug: string): Promise<SeriesDetail | null> {
   const data = await load<ApiSeries>(`series/${encodeURIComponent(slug)}/`, "catalog");
   if (data === undefined) return demoSeriesBySlug(slug) ?? null;
   if (data === null) return null;
-  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, price_from, price_from_by_group, ...rest } = data;
+  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, price_from, price_from_by_group, similar, projects: seriesProjects, ...rest } = data;
   return {
     ...rest,
     priceFrom: price_from,
@@ -238,6 +246,8 @@ export async function getSeries(slug: string): Promise<SeriesDetail | null> {
     defaultExecution: default_execution,
     columns: columns.map((c) => ({ ...c, column: true, filter: false })),
     filters: filters.map((c) => ({ ...c, column: false, filter: true })),
+    similar: similar ? mapShowcase({ count: similar.length, results: similar, facets: [], model_range: [] }).results : [],
+    projects: (seriesProjects ?? []).map(({ series_slugs, series, ...project }) => ({ ...project, series: series_slugs ?? series ?? [] })),
   };
 }
 
@@ -250,4 +260,25 @@ export async function getVariants(
   const data = await load<ApiVariants>(`series/${encodeURIComponent(slug)}/variants/?${params}`, "catalog");
   if (!data) return demoVariants(slug, query);
   return mapVariants(data);
+}
+
+// Поиск по сайту: до 20 карточек витрины. Без бэка — по названию и бренду демо-серий
+export async function getSearch(q: string): Promise<ShowcaseCard[]> {
+  const query = q.trim();
+  if (query.length < 2) return [];
+  const data = await load<ApiCard[]>(`search/?q=${encodeURIComponent(query)}`, "catalog");
+  if (!data) {
+    const needle = query.toLowerCase();
+    return categories
+      .flatMap((c) => demoCards(c.slug).map((card) => ({ ...card, category: c.slug })))
+      .filter((card) => `${card.name} ${card.brand}`.toLowerCase().includes(needle))
+      .slice(0, 20);
+  }
+  return data.map(mapCard);
+}
+
+// Категория серии по слагу: у проектов есть только слаги серий, а адрес серии — /catalog/<категория>/<серия>
+export async function getSeriesCategories(slugs: string[]): Promise<Record<string, { category: string; name: string }>> {
+  const found = await Promise.all([...new Set(slugs)].map(async (slug) => [slug, await getSeries(slug).catch(() => null)] as const));
+  return Object.fromEntries(found.flatMap(([slug, s]) => (s ? [[slug, { category: s.category, name: s.name }]] : [])));
 }

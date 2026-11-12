@@ -179,6 +179,14 @@ export function demoShowcases(
   const pool = itemsOf(category);
   const kept = pool.filter((item) => matches(item, query, fields));
   const cards = demoCards(category, (slug) => kept.filter((i) => i.series === slug).map((i) => i.row));
+  // sort=price / -price: по цене «от»; без цены — в конец; без параметра — порядок админки
+  if (query.sort) {
+    const dir = query.sort === "price" ? 1 : -1;
+    cards.sort((a, b) => {
+      if (a.priceFrom == null || b.priceFrom == null) return (a.priceFrom == null ? 1 : 0) - (b.priceFrom == null ? 1 : 0);
+      return (a.priceFrom - b.priceFrom) * dir;
+    });
+  }
   const brands = csv(query.brand ?? "");
   const modelRange = brands.length
     ? demoSeries

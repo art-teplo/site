@@ -24,7 +24,7 @@ export function Picture({ image, mobile, sizes, eager, className, fit = "cover" 
     : undefined;
 
   return (
-    <picture className={cx(styles.picture, className)}>
+    <picture className={cx(styles.picture, fit === "contain" && styles.bare, className)}>
       {mobileSrcSet && <source media="(max-width: 767px)" srcSet={mobileSrcSet} sizes={sizes} />}
       <img {...props} alt={image.alt} className={cx(styles.img, fit === "contain" && styles.contain)} />
     </picture>
