@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 from django.urls import reverse
 
-from apps.catalog.models import Brand, Category, LeadTime
+from apps.catalog.models import Brand, Category, LeadTime, Series
 from apps.content.models import Tag
 from apps.content.tasks import revalidate_frontend
 from tests.test_content import media, with_image  # noqa: F401
@@ -114,3 +114,25 @@ def test_change_asks_frontend_to_revalidate_catalog(
 )
 def test_admin_pages_open(admin_client, url, brands):  # noqa: ARG001
     assert admin_client.get(reverse(url)).status_code == 200
+
+
+@pytest.mark.django_db
+def test_categories_count_published_series(client, brands):
+    kzto, _ = brands
+    category = with_image(
+        Category(slug='radiatory', name='Радиаторы', short='—', image_alt='р'),
+    )
+    for slug, published in [('a', True), ('b', True), ('c', False)]:
+        Series.objects.create(
+            brand=kzto,
+            category=category,
+            slug=slug,
+            name=slug,
+            is_published=published,
+        )
+
+    categories = client.get(reverse('category-list')).json()
+    found = client.get(reverse('brand-list')).json()
+
+    assert categories[0]['series_count'] == 2
+    assert [b['series_count'] for b in found] == [2]

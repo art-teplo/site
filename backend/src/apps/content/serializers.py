@@ -7,6 +7,7 @@ from .models import (
     OpeningHours,
     Post,
     Project,
+    Promo,
     ShowroomPhoto,
     SiteSettings,
 )
@@ -113,6 +114,7 @@ class FaqSerializer(serializers.ModelSerializer):
 class ProjectSerializer(ImageAssetMixin, serializers.ModelSerializer):
     kind = serializers.CharField(source='get_kind_display')
     photos = serializers.SerializerMethodField()
+    series_slugs = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -123,11 +125,15 @@ class ProjectSerializer(ImageAssetMixin, serializers.ModelSerializer):
             'place',
             'image',
             'photos',
-            'product_slugs',
+            'series_slugs',
         ]
 
     def get_photos(self, obj):
         return [image_asset(photo) for photo in obj.photos.all()]
+
+    def get_series_slugs(self, obj):
+        # Скрытые серии не отдаём; фильтр в Python — по prefetch, без запроса на проект
+        return [s.slug for s in obj.series.all() if s.is_published]
 
 
 class PostListSerializer(ImageAssetMixin, serializers.ModelSerializer):
@@ -148,6 +154,17 @@ class PostSerializer(PostListSerializer):
         fields = [
             *PostListSerializer.Meta.fields,
             'body',
+        ]
+
+
+class PromoSerializer(ImageAssetMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Promo
+        fields = [
+            'title',
+            'image',
+            'body',
+            'ends_at',
         ]
 
 

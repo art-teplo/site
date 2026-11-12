@@ -1,0 +1,16 @@
+.drawing {
+  display: grid;
+  gap: var(--spacing-8);
+  color: var(--text);
+}
+
+.drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.drawing figcaption {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}

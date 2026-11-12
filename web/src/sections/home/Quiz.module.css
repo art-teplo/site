@@ -15,7 +15,7 @@
   display: grid;
   gap: var(--spacing-24);
   padding: var(--card-padding);
-  border: 1px solid var(--line);
+  border: 1px solid var(--outline-color);
   border-radius: var(--radius-cards);
   background: var(--surface);
 }

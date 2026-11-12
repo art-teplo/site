@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { products } from "@/data/catalog";
 import { CatalogPage } from "@/sections/catalog/CatalogPage";
 
 export const metadata: Metadata = {
@@ -8,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function CatalogIndexPage() {
-  return <CatalogPage products={products} />;
+  return <CatalogPage />;
 }

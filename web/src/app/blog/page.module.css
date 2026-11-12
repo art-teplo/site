@@ -1,3 +1,74 @@
+/* Акции: фото слева, текст справа, тонкая рамка отделяет их от статей */
+.promos {
+  display: grid;
+  gap: var(--grid-gap);
+  margin-bottom: var(--spacing-72);
+}
+
+.promo {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--grid-gap);
+  align-items: center;
+  padding: var(--spacing-16);
+  border: 1px solid var(--outline-color);
+  border-radius: var(--radius-cards);
+}
+
+.promoText {
+  display: grid;
+  gap: var(--spacing-16);
+  max-width: var(--measure);
+  padding: var(--spacing-16);
+}
+
+.promoTitle {
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+}
+
+/* Текст акции — HTML из редактора админки, обычно пара абзацев */
+.promoBody {
+  display: grid;
+  gap: var(--spacing-12);
+  font-size: var(--text-subheading);
+  line-height: var(--leading-body);
+}
+
+.promoBody ul,
+.promoBody ol {
+  display: grid;
+  gap: var(--spacing-8);
+  padding-left: var(--spacing-24);
+}
+
+.promoBody ul {
+  list-style: disc;
+}
+
+.promoBody ol {
+  list-style: decimal;
+}
+
+.promoBody li::marker {
+  color: var(--color-accent);
+}
+
+.promoBody a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+
+.promoBody a:hover {
+  opacity: 0.7;
+}
+
+.promoBody a:active {
+  opacity: 0.5;
+}
+
 .featured {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -74,6 +145,13 @@
 @media (max-width: 1023px) {
   .featured {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .promo {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
   }
 }
 

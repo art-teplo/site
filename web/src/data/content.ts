@@ -1,5 +1,5 @@
 // Тексты главной. ЧЕРНОВИК: факты и сроки сверить с заказчиком. Правки заказчика от 29.10 внесены.
-import type { Faq, ImageAsset, Post, Project, Service } from "./types";
+import type { Faq, ImageAsset, Post, Project, Promo, Service } from "./types";
 import { FOUNDED_YEAR } from "./site";
 
 export const paths = [
@@ -73,7 +73,7 @@ export const projects: Project[] = [
       { src: "/images/products/guardo-pilon/interior.jpg", width: 1200, height: 1500, alt: "Guardo Pilon в интерьере" },
       { src: "/images/products/guardo-polotentsesushitel/interior.jpg", width: 1200, height: 1500, alt: "Guardo полотенцесушитель в интерьере" },
     ],
-    products: ["guardo-retta-6p", "guardo-pilon", "guardo-polotentsesushitel"],
+    series: ["guardo-retta-3p"],
   },
   {
     slug: "dom-zhdanovichi",
@@ -86,7 +86,7 @@ export const projects: Project[] = [
       { src: "/images/products/guardo-torre-4d/interior.jpg", width: 1200, height: 1500, alt: "Guardo Torre 4D в интерьере" },
       { src: "/images/products/guardo-retta-6p/interior.jpg", width: 1200, height: 1500, alt: "Guardo Retta 6P в интерьере" },
     ],
-    products: ["kzto-quadrum", "guardo-torre-4d", "guardo-retta-6p"],
+    series: ["guardo-retta-3p"],
   },
   {
     slug: "zhk-minsk-mir",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
     place: "Минск Мир",
     image: { src: "/images/projects/zhk-minsk-mir.jpg", width: 1600, height: 1200, alt: "Панорамное остекление с внутрипольными конвекторами" },
     photos: [],
-    products: ["kzto-vnutripolnyy", "kzto-vertikalnyy", "guardo-torre-4d"],
+    series: [],
   },
   {
     slug: "kvartira-nemiga",
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     place: "Минск, Немига",
     image: { src: "/images/projects/kvartira-nemiga.jpg", width: 1600, height: 2000, alt: "Чугунный ретро-радиатор под высоким окном" },
     photos: [],
-    products: ["radimax-style-retro", "kzto-quadrum", "carisa-polotentsesushitel"],
+    series: [],
   },
 ];
 
@@ -147,6 +147,16 @@ export const posts: Post[] = [
     image: { src: "/images/blog/konvektor-u-panoramnogo-okna.jpg", width: 1200, height: 800, alt: "Внутрипольный конвектор вдоль панорамного окна" },
     lead: "У панорамного стекла холодный воздух стекает вниз, а окно запотевает. Конвектор вдоль окна отсекает этот поток тёплым. Главный вопрос — встроить его в пол или поставить на пол.",
     body: "<h2>Внутрипольный</h2><p>Решётка лежит вровень с полом и ничего не закрывает. Но его нужно закладывать до стяжки: под него делают канал нужной глубины и заранее подводят трубы.</p><h2>Напольный</h2><p>Ставится на готовый пол, поэтому его можно добавить и после ремонта. Корпус низкий и почти не перекрывает вид, а обслуживать его проще.</p><h2>С вентилятором или без</h2><ul><li>Естественная конвекция — тихо и без электричества, но для той же мощности нужен конвектор длиннее или глубже.</li><li>С вентилятором — больше тепла при тех же размерах. Нужно питание и стоит учесть шум, особенно в спальне.</li></ul><h2>Что решить до стяжки</h2><ul><li>Длину и ширину окна — конвектор обычно делают почти во всю длину остекления.</li><li>Высоту стяжки — от неё зависит, какая глубина канала поместится.</li><li>Где пройдут трубы и нужен ли вентилятор с питанием.</li></ul><p>Если стяжка ещё не залита, пришлите план — подберём модель и глубину канала.</p>",
+  },
+];
+
+// Акции — на /blog над статьями. Условия «приведи друга» — со слов заказчика, детали расскажет менеджер
+export const promos: Promo[] = [
+  {
+    title: "Приведите друга — скидка 5%",
+    image: { src: "/images/showroom/hall-1.jpg", width: 1600, height: 1200, alt: "Внутрипольный конвектор у панорамного окна" },
+    body: "<p>После покупки в шоуруме мы выдаём карту АртТепло. Посоветуйте нас друзьям и знакомым, которые тоже выбирают радиаторы, — и получите скидку 5%.</p><p>Как воспользоваться картой, расскажет менеджер в шоуруме или по телефону.</p>",
+    endsAt: null,
   },
 ];
 

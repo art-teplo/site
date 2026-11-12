@@ -15,10 +15,20 @@ MANAGER_PERMISSIONS = {
     'content.project': ALL,
     'content.projectphoto': ALL,
     'content.post': ALL,
+    'content.promo': ALL,
     'content.showroomphoto': ALL,
     'catalog.category': ALL,
+    'catalog.subcategory': ALL,
     'catalog.brand': ALL,
     'catalog.leadtime': ALL,
+    'catalog.color': ALL,
+    'catalog.series': ALL,
+    'catalog.colorgroup': ALL,
+    'catalog.variant': ALL,
+    'catalog.seriesimage': ALL,
+    'catalog.seriesfile': ALL,
+    'catalog.showcase': ALL,
+    'catalog.currencyrate': ('view',),
 }
 
 

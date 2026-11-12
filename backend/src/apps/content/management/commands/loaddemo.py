@@ -5,12 +5,26 @@ from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from apps.catalog.models import Brand, Category, LeadTime
+from apps.catalog import pricing
+from apps.catalog.models import (
+    Brand,
+    Category,
+    Color,
+    ColorGroup,
+    LeadTime,
+    Series,
+    SeriesImage,
+    Showcase,
+    Subcategory,
+    Variant,
+)
+from apps.catalog.subcategories import seed as seed_types
 from apps.content.models import (
     Faq,
     Post,
     Project,
     ProjectPhoto,
+    Promo,
     ShowroomPhoto,
     SiteSettings,
 )
@@ -20,6 +34,42 @@ DEMO = APPS / 'content' / 'demo' / 'demo.json'
 CATALOG_DEMO = APPS / 'catalog' / 'demo' / 'demo.json'
 # web/public/images, смонтированная в dev-compose только для чтения
 IMAGES = Path('/demo-images')
+
+# Тип → демо-фото из web/public/images/products (фото нет — плитка без него)
+TYPE_IMAGES = {
+    'trubchatye': (
+        '/images/products/guardo-pilon/main.jpg',
+        'Трубчатый радиатор',
+    ),
+    'dizajn': (
+        '/images/products/kzto-vertikalnyy/main.jpg',
+        'Вертикальный дизайн-радиатор',
+    ),
+    'chugunnye': (
+        '/images/products/radimax-style-retro/main.jpg',
+        'Чугунный радиатор в стиле ретро',
+    ),
+    'alyuminievye': (
+        '/images/products/royal-thermo-sekcionnyy/main.jpg',
+        'Секционный радиатор',
+    ),
+    'vnutripolnye': (
+        '/images/products/kzto-vnutripolnyy/main.jpg',
+        'Внутрипольный конвектор',
+    ),
+    'napolnye': (
+        '/images/products/kzto-napolnyy/main.jpg',
+        'Напольный конвектор',
+    ),
+    'ventili': (
+        '/images/products/sr-ventil-uglovoy/main.jpg',
+        'Угловой вентиль',
+    ),
+    'avtomatika': (
+        '/images/products/radimax-armatura-retro/main.jpg',
+        'Арматура для радиатора',
+    ),
+}
 
 
 class Command(BaseCommand):
@@ -47,12 +97,16 @@ class Command(BaseCommand):
         with transaction.atomic():
             self.load_site(demo['site'])
             self.load_faq(demo['faq'])
-            self.load_projects(demo['projects'])
             self.load_posts(demo['posts'])
+            self.load_promos(demo['promos'])
             self.load_showroom(demo['showroom'])
             self.load_categories(catalog['categories'])
             self.load_brands(catalog['brands'])
             self.load_lead_times(catalog['lead_times'])
+            self.load_series(catalog['series'])
+            seed_types(Subcategory, Series, Category)
+            self.load_type_images()
+            self.load_projects(demo['projects'])
         self.stdout.write(self.style.SUCCESS('Демо-контент загружен'))
 
     def attach(self, obj, image):
@@ -88,6 +142,7 @@ class Command(BaseCommand):
         for position, item in enumerate(items):
             image = item.pop('image')
             photos = item.pop('photos')
+            series_slugs = item.pop('series_slugs', [])
             project = Project.objects.filter(slug=item['slug']).first()
             project = project or Project(slug=item['slug'])
             for field, value in item.items():
@@ -95,6 +150,10 @@ class Command(BaseCommand):
             project.position = position
             self.attach(project, image)
             project.save()
+            if not project.series.exists():  # связи из админки не сбрасываем
+                project.series.set(
+                    Series.objects.filter(slug__in=series_slugs)
+                )
             for photo_position, photo_image in enumerate(photos):
                 photo = project.photos.filter(
                     image_alt=photo_image['alt'],
@@ -114,6 +173,17 @@ class Command(BaseCommand):
             self.attach(post, image)
             post.save()
 
+    def load_promos(self, items):
+        for position, item in enumerate(items):
+            image = item.pop('image')
+            promo = Promo.objects.filter(title=item['title']).first()
+            promo = promo or Promo()
+            for field, value in item.items():
+                setattr(promo, field, value)
+            promo.position = position
+            self.attach(promo, image)
+            promo.save()
+
     def load_showroom(self, items):
         for position, image in enumerate(items):
             photo = ShowroomPhoto.objects.filter(
@@ -123,6 +193,15 @@ class Command(BaseCommand):
             photo.position = position
             self.attach(photo, image)
             photo.save()
+
+    def load_type_images(self):
+        """Фото типов — демо-снимки товаров: в админке их заменят своими."""
+        for slug, (src, alt) in TYPE_IMAGES.items():
+            subcategory = Subcategory.objects.filter(slug=slug).first()
+            if subcategory is None:
+                continue
+            self.attach(subcategory, {'src': src, 'alt': alt})
+            subcategory.save()
 
     def load_categories(self, items):
         for position, item in enumerate(items):
@@ -158,3 +237,91 @@ class Command(BaseCommand):
                     'position': position,
                 },
             )
+
+    def load_series(self, items):
+        """Демо-серии: по slug, варианты — по (бренд, артикул), фото — по
+        описанию. На базе с полным импортом прайса серии и варианты с теми
+        же slug и артикулами обновляются, дублей нет."""
+        variants = []
+        for position, item in enumerate(items):
+            series = Series.objects.filter(slug=item['slug']).first()
+            series = series or Series(slug=item['slug'])
+            series.brand = Brand.objects.get(slug=item['brand'])
+            series.category = Category.objects.get(slug=item['category'])
+            for field in (
+                'name',
+                'description',
+                'material',
+                'heating',
+                'pressure_bar',
+            ):
+                # Тексты, поправленные в админке, повторный запуск не трогает
+                if field == 'name' or not getattr(series, field, None):
+                    setattr(series, field, item[field])
+            series.position = position
+            series.is_published = True
+            series.save()
+            self.load_color_groups(series, item['color_groups'])
+            variants += self.load_variants(series, item['variants'])
+            self.load_series_images(series, item['images'])
+            self.load_showcases(series, item['showcases'])
+        pricing.recalculate(Variant.objects.filter(pk__in=variants))
+
+    def load_color_groups(self, series, groups):
+        for position, group in enumerate(groups):
+            colors = [
+                Color.objects.update_or_create(
+                    code=color['code'],
+                    defaults=color,
+                )[0]
+                for color in group['colors']
+            ]
+            obj, _ = ColorGroup.objects.update_or_create(
+                series=series,
+                name=group['name'],
+                defaults={
+                    'percent': group['percent'],
+                    'is_base': group['is_base'],
+                    'any_ral': group['any_ral'],
+                    'position': position,
+                },
+            )
+            obj.colors.set(colors)
+
+    def load_variants(self, series, rows):
+        ids = []
+        for row in rows:
+            variant, _ = Variant.objects.update_or_create(
+                brand=series.brand,
+                article=row['article'],
+                connection=row.get('connection', ''),
+                defaults={**row, 'series': series},
+            )
+            ids.append(variant.pk)
+        return ids
+
+    def load_series_images(self, series, images):
+        for position, image in enumerate(images):
+            obj = series.images.filter(image_alt=image['alt']).first()
+            obj = obj or SeriesImage(series=series)
+            obj.position = position
+            self.attach(obj, image)
+            obj.save()
+
+    def showcase_variant(self, series, item):
+        # Артикул может быть и у «стоя», и у повёрнутого: берём указанное
+        # подключение, без него — боковое, иначе первый по размерам
+        found = series.variants.filter(article=item['variant'])
+        if 'connection' in item:
+            return found.get(connection=item['connection'])
+        found = found.order_by('height_mm', 'width_mm')
+        return found.filter(connection='side').first() or found.first()
+
+    def load_showcases(self, series, items):
+        for position, item in enumerate(items):
+            showcase = series.showcases.filter(label=item['label']).first()
+            showcase = showcase or Showcase(series=series)
+            showcase.label = item['label']
+            showcase.variant = self.showcase_variant(series, item)
+            showcase.position = position
+            showcase.save()

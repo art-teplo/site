@@ -14,7 +14,7 @@ const FILTERS: { id: "all" | Project["kind"]; label: string }[] = [
 ];
 
 // Проекты с фильтром по типу объекта (как «квартиры и дома / ЖК» на kztoradiator.by).
-export function ProjectsBrowser({ projects }: { projects: Project[] }) {
+export function ProjectsBrowser({ projects, seriesLinks = {} }: { projects: Project[]; seriesLinks?: Record<string, { name: string; href: string }> }) {
   const [kind, setKind] = useState<(typeof FILTERS)[number]["id"]>("all");
   const shown = kind === "all" ? projects : projects.filter((p) => p.kind === kind);
 
@@ -40,7 +40,12 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
       <ul className={styles.grid} aria-live="polite">
         {shown.map((p) => (
           <li key={p.slug} className={styles.item}>
-            <ProjectCard project={p} ratio="4 / 3" sizes="(max-width: 767px) 100vw, 50vw" />
+            <ProjectCard
+              project={p}
+              ratio="4 / 3"
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              stands={p.series.flatMap((slug) => (seriesLinks[slug] ? [seriesLinks[slug]] : []))}
+            />
           </li>
         ))}
       </ul>

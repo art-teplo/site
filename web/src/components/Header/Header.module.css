@@ -107,6 +107,53 @@
   padding-block: var(--spacing-12);
 }
 
+.searchToggle {
+  display: grid;
+  place-items: center;
+  width: var(--control-height);
+  height: var(--control-height);
+  border-radius: var(--radius-buttons);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.searchToggle:hover {
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.searchToggle:active {
+  transform: scale(var(--press-scale));
+}
+
+.searchIcon {
+  width: var(--spacing-24);
+  height: var(--spacing-24);
+}
+
+/* Строка поиска раскрывается под шапкой */
+.search {
+  border-top: 1px solid var(--line);
+  animation: searchIn var(--dur-base) var(--ease-out) both;
+}
+
+.search[hidden] {
+  display: none;
+}
+
+.searchInner {
+  max-width: calc(var(--page-max-width) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: var(--spacing-12) var(--gutter) var(--spacing-16);
+}
+
+@keyframes searchIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, calc(-1 * var(--spacing-8)), 0);
+  }
+}
+
 .toggle {
   display: inline-flex;
   align-items: center;

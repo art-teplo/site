@@ -1,0 +1,109 @@
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-height: var(--spacing-40);
+  padding: var(--spacing-4) var(--spacing-12) var(--spacing-4) var(--spacing-16);
+  border: var(--outline-width) solid var(--outline-color);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.trigger:hover,
+.trigger[aria-expanded="true"] {
+  border-color: var(--text);
+}
+
+.trigger:active {
+  transform: scale(var(--press-scale));
+}
+
+.chevron {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Список — на фоне страницы, с тем же контуром, что и кнопка; выбранный пункт — красный */
+.list {
+  position: absolute;
+  top: calc(100% + var(--spacing-8));
+  right: 0;
+  z-index: var(--z-overlay);
+  min-width: 100%;
+  padding: var(--spacing-8);
+  border: var(--outline-width) solid var(--outline-color);
+  border-radius: var(--radius-cards);
+  background: var(--bg);
+  box-shadow: var(--shadow-xl);
+  animation: drop var(--dur-fast) var(--ease-out) both;
+}
+
+.list:focus-visible {
+  outline: none;
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing-4) * -1));
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-height: var(--spacing-40);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-inputs);
+  font-size: var(--text-caption);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Подсветка под курсором и под стрелками клавиатуры */
+.optionActive {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+.option[aria-selected="true"] {
+  color: var(--color-accent);
+  font-weight: var(--weight-medium);
+}
+
+.option[aria-selected="true"]::before {
+  content: "";
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.option:not([aria-selected="true"])::before {
+  content: "";
+  width: var(--spacing-8);
+}
+
+.list:focus-visible .optionActive {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+}

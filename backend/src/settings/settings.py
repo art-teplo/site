@@ -319,7 +319,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 24,
     'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
+        'apps.core.throttling.ProxiedAnonRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '120/min',
@@ -382,6 +382,11 @@ UNFOLD = {
                         'link': reverse_lazy('admin:content_post_changelist'),
                     },
                     {
+                        'title': 'Акции',
+                        'icon': 'sell',
+                        'link': reverse_lazy('admin:content_promo_changelist'),
+                    },
+                    {
                         'title': 'Шоурум',
                         'icon': 'storefront',
                         'link': reverse_lazy(
@@ -401,6 +406,13 @@ UNFOLD = {
                         ),
                     },
                     {
+                        'title': 'Типы',
+                        'icon': 'label',
+                        'link': reverse_lazy(
+                            'admin:catalog_subcategory_changelist',
+                        ),
+                    },
+                    {
                         'title': 'Бренды',
                         'icon': 'factory',
                         'link': reverse_lazy('admin:catalog_brand_changelist'),
@@ -410,6 +422,32 @@ UNFOLD = {
                         'icon': 'schedule',
                         'link': reverse_lazy(
                             'admin:catalog_leadtime_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Серии',
+                        'icon': 'view_list',
+                        'link': reverse_lazy(
+                            'admin:catalog_series_changelist'
+                        ),
+                    },
+                    {
+                        'title': 'Варианты',
+                        'icon': 'table_rows',
+                        'link': reverse_lazy(
+                            'admin:catalog_variant_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Цвета',
+                        'icon': 'palette',
+                        'link': reverse_lazy('admin:catalog_color_changelist'),
+                    },
+                    {
+                        'title': 'Курсы валют',
+                        'icon': 'currency_exchange',
+                        'link': reverse_lazy(
+                            'admin:catalog_currencyrate_changelist',
                         ),
                     },
                 ],
@@ -445,6 +483,10 @@ CELERY_BEAT_SCHEDULE = {
     'purge-old-leads': {
         'task': 'apps.leads.tasks.purge_old_leads',
         'schedule': crontab(hour=3, minute=30),
+    },
+    'update-currency-rates': {
+        'task': 'apps.catalog.tasks.update_rates',
+        'schedule': crontab(hour=1, minute=10),
     },
 }
 

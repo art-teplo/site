@@ -64,7 +64,7 @@ export function LeadForm({ source, context, withFile = true, submitLabel = "От
 
     form.set("contact_method", METHOD_CODES[method] ?? "call");
     form.delete("method");
-    form.set("page", window.location.pathname);
+    form.set("page", (window.location.pathname + window.location.search).slice(0, 300)); // бэк режет по 300
     form.set("consent_version", CONSENT_VERSION);
     // Пустое поле файла браузер всё равно шлёт — сервер счёл бы его пустым файлом
     if (file instanceof File && !file.size) form.delete("file");

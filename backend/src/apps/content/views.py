@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 
 from . import serializers
-from .models import Faq, Post, Project, ShowroomPhoto, SiteSettings
+from .models import Faq, Post, Project, Promo, ShowroomPhoto, SiteSettings
 
 
 class PublicReadMixin:
@@ -28,6 +28,7 @@ class FaqListView(PublicReadMixin, generics.ListAPIView):
 class ProjectListView(PublicReadMixin, generics.ListAPIView):
     queryset = Project.objects.filter(is_published=True).prefetch_related(
         'photos',
+        'series',
     )
     serializer_class = serializers.ProjectSerializer
 
@@ -41,6 +42,13 @@ class PostDetailView(PublicReadMixin, generics.RetrieveAPIView):
     queryset = Post.objects.filter(is_published=True)
     serializer_class = serializers.PostSerializer
     lookup_field = 'slug'
+
+
+class PromoListView(PublicReadMixin, generics.ListAPIView):
+    serializer_class = serializers.PromoSerializer
+
+    def get_queryset(self):
+        return Promo.objects.active()
 
 
 class ShowroomView(PublicReadMixin, generics.ListAPIView):

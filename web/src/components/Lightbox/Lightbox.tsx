@@ -13,7 +13,8 @@ const SWIPE = 48; // px: короче — это был тап, а не свай
 type Props = {
   images: ImageAsset[];
   title: string; // подпись окна: чьи это фото
-  children: ReactNode; // превью, по которому открывается галерея
+  // превью, по которому открывается галерея; функция — свои кнопки-превью, каждая открывает окно на своём фото (без бейджа)
+  children: ReactNode | ((open: (index: number) => void) => ReactNode);
   className?: string;
 };
 
@@ -56,23 +57,31 @@ export function Lightbox({ images, title, children, className }: Props) {
     if (Math.abs(dx) > SWIPE) go(dx < 0 ? 1 : -1);
   };
 
+  const openAt = (i: number) => {
+    setIndex(i);
+    setOpen(true);
+  };
+
   return (
     <>
-      <button
-        type="button"
-        className={cx(styles.trigger, className)}
-        aria-haspopup="dialog"
-        aria-label={`${title}: смотреть фото (${images.length})`}
-        onClick={() => {
-          setIndex(0);
-          setOpen(true);
-        }}
-      >
-        {children}
-        <span className={styles.badge} aria-hidden="true">
-          {images.length} фото
-        </span>
-      </button>
+      {typeof children === "function" ? (
+        children(openAt)
+      ) : (
+        <button
+          type="button"
+          className={cx(styles.trigger, className)}
+          aria-haspopup="dialog"
+          aria-label={`${title}: смотреть фото (${images.length})`}
+          onClick={() => openAt(0)}
+        >
+          {children}
+          {many && (
+            <span className={styles.badge} aria-hidden="true">
+              {images.length} фото
+            </span>
+          )}
+        </button>
+      )}
       <dialog
         ref={ref}
         className={styles.dialog}

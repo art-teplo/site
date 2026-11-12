@@ -7,6 +7,7 @@ import { SmoothScroll } from "@/components/SmoothScroll/SmoothScroll";
 import { getSite } from "@/data/api";
 import "@/styles/tokens.css";
 import "@/styles/base.css";
+import { CATALOG_QUERY_SCRIPT } from "@/lib/catalog-query";
 
 const onest = Onest({ subsets: ["cyrillic", "latin"], variable: "--font-onest", display: "swap" });
 
@@ -30,8 +31,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ru" className={onest.variable} suppressHydrationWarning>
       <head>
-        {/* Reveal прячет элементы только при работающем JS */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Reveal прячет элементы только при работающем JS; ссылка на каталог с фильтрами — см. CATALOG_QUERY_SCRIPT */}
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add('js');${CATALOG_QUERY_SCRIPT}` }} />
       </head>
       <body>
         <a href="#main" className="skip-link">

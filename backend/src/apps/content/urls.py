@@ -12,5 +12,6 @@ urlpatterns = [
         views.PostDetailView.as_view(),
         name='post-detail',
     ),
+    path('promos/', views.PromoListView.as_view(), name='promo-list'),
     path('showroom/', views.ShowroomView.as_view(), name='showroom'),
 ]

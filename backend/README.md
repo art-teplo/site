@@ -38,19 +38,31 @@ src/
   apps/core/utils.py  AutoUploadTo, валидаторы файлов, client_ip
   apps/leads/     заявки: POST /api/leads/, админка, Celery (Telegram, чистка); команда runbot
   apps/leads/telegram/  aiogram: texts.py (все тексты), service.py (сообщение, отправка), handlers.py (кнопки, команды)
-  apps/content/   настройки сайта (django-solo), вопрос-ответ, проекты, блог, шоурум: API только на чтение,
+  apps/content/   настройки сайта (django-solo), вопрос-ответ, проекты, блог, акции, шоурум: API только на чтение,
                   html.py (чистка текста статей), сигнал фронту обновить страницы; команда loaddemo
                   (заливает и каталог)
-  apps/catalog/   категории, бренды (логотип SVG/PNG/WebP, «гарантия до»), сроки изготовления по сериям;
-                  товары пока в коде фронта и ссылаются на них по slug. Тег кэша фронта — catalog
+  apps/catalog/   категории, бренды (логотип, «гарантия до», наценка markup_percent), сроки изготовления,
+                  серии (Series), варианты (Variant), группы цветов и цвета (ColorGroup, Color), витрина (Showcase),
+                  фото и файлы серии (SeriesImage, SeriesFile), курсы валют (CurrencyRate).
+                  Импорт прайса: команда import_price; курсы: rates.py, tasks.py. Тег кэша фронта — catalog
   tests/          pytest
 ```
 
 Новое приложение — `src/apps/<name>/` с `apps.py` (`name = 'apps.<name>'`), в `INSTALLED_APPS`, URL — внутри `api/` в `settings/urls.py`.
 
+## Каталог: импорт прайса и курсы
+
+```bash
+uv run python src/manage.py import_price <путь к xlsx> [--sheet <лист>] [--dry-run]
+```
+
+Первый импорт создаёт серии неопубликованными, а группы цветов — по цветам, которые есть не меньше чем у 5 % артикулов серии. Повторный импорт группы и описания не трогает, а новые цвета выводит списком. Повёрнутые Retta и Torre — отдельные варианты: вариант определяют бренд, артикул и подключение. API без префикса серии: `/api/series/`, `/api/series/<slug>/`, `/api/series/<slug>/variants/`, `/api/variants/<article>/?series=&connection=`.
+
+Курсы валют берёт Celery beat, задача `update-currency-rates` в 01:10, из `api.nbrb.by` (серверу нужен исходящий HTTPS к этому адресу, ключ не нужен). Вручную — действие в админке «Обновить курсы сейчас».
+
 ## Контент локально
 
-Настройки сайта (с видео шоурума), вопрос-ответ, проекты, блог и шоурум — в админке, раздел «Сайт»; категории, бренды и сроки — раздел «Каталог». Наполнить демо-записями с фронта (вместе с фото из `web/public/images`):
+Настройки сайта (с видео шоурума), вопрос-ответ, проекты, блог, акции и шоурум — в админке, раздел «Сайт»; категории, бренды и сроки — раздел «Каталог». Наполнить демо-записями с фронта (вместе с фото из `web/public/images`):
 
 ```bash
 docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backend loaddemo   # из root/

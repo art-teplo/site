@@ -4,7 +4,6 @@ import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { getBrands } from "@/data/api";
-import { products } from "@/data/catalog";
 import styles from "./Brands.module.css";
 
 // Бренды: логотип сверху, под ним страна и что берём у завода (как у российских конкурентов).
@@ -17,7 +16,7 @@ export async function Brands({ withHead = true }: { withHead?: boolean }) {
         {withHead && <SectionHead titleId="brands-title" title="Заводы, за которые ручаемся" />}
         <ul className={styles.grid}>
           {brands.map((b, i) => {
-            const count = products.filter((p) => p.brand === b.slug).length;
+            const count = b.seriesCount;
             return (
               <Reveal as="li" key={b.slug} index={i % 4}>
                 <Link href={`/catalog?brand=${b.slug}`} className={styles.brand}>
