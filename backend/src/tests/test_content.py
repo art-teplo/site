@@ -416,7 +416,7 @@ def test_loaddemo_is_repeatable(media):
     assert ProjectPhoto.objects.count() == 6
     # проекты, их доп. фото, статьи, акции, шоурум, категории, логотипы,
     # фото демо-серий
-    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5 + 9
+    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5 + 9 + 8  # + фото типов
 
 
 @pytest.mark.django_db

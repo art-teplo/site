@@ -6,6 +6,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.content.models import Project
+from apps.content.serializers import ProjectSerializer
 from apps.content.views import PublicReadMixin
 
 from . import filters, schema, serializers
@@ -18,6 +20,7 @@ from .models import (
     LeadTime,
     Series,
     SeriesImage,
+    Subcategory,
     Variant,
 )
 from .pricing import (
@@ -29,6 +32,11 @@ from .pricing import (
 )
 
 PAGE_SIZE = 24
+# Сортировка списка: по цене «от» карточки; без параметра — порядок из админки
+SORTS = {'price', '-price'}
+SIMILAR_MAX = 4
+SEARCH_MAX = 20
+SEARCH_MIN_LENGTH = 2
 VARIANTS_PAGE_SIZE = 20
 ALL_ROWS_MAX = 500  # потолок для page=all
 
@@ -38,6 +46,19 @@ class CategoryListView(PublicReadMixin, generics.ListAPIView):
         Category.objects.filter(is_published=True)
         .annotate(
             series_count=Count('series', filter=Q(series__is_published=True)),
+        )
+        .prefetch_related(
+            Prefetch(
+                'types',
+                queryset=Subcategory.objects.filter(is_published=True)
+                .annotate(
+                    series_count=Count(
+                        'series',
+                        filter=Q(series__is_published=True),
+                    ),
+                )
+                .order_by('position', 'pk'),
+            ),
         )
         .order_by('position', 'pk')
     )
@@ -64,7 +85,10 @@ class LeadTimeListView(PublicReadMixin, generics.ListAPIView):
     serializer_class = serializers.LeadTimeSerializer
 
 
-def visible_variants(category: str | None = None):
+def visible_variants(
+    category: str | None = None,
+    subcategory: str | None = None,
+):
     """Активные варианты опубликованных серий и брендов."""
     qs = Variant.objects.filter(
         is_active=True,
@@ -74,6 +98,8 @@ def visible_variants(category: str | None = None):
     )
     if category:
         qs = qs.filter(series__category__slug=category)
+    if subcategory:
+        qs = qs.filter(series__subcategory__slug=subcategory)
     return qs
 
 
@@ -95,6 +121,27 @@ def _series_colors(series_ids) -> dict[int, list[dict]]:
         if item not in colors:
             colors.append(item)
     return result
+
+
+def _render_cards(cards: list[tuple]) -> list[dict]:
+    """JSON карточек из (серия, витрина, цена): фото и цвета — пачкой."""
+    series_ids = {c[0].pk for c in cards}
+    by_id = {
+        s.pk: s
+        for s in Series.objects.filter(pk__in=series_ids)
+        .select_related('brand', 'category', 'subcategory')
+        .prefetch_related('images')
+    }
+    colors = _series_colors(series_ids)
+    return [
+        serializers.card(
+            by_id[series.pk],
+            showcase,
+            price,
+            colors.get(series.pk, []),
+        )
+        for series, showcase, price in cards
+    ]
 
 
 def _cards(filtered) -> list[tuple]:
@@ -138,7 +185,7 @@ def _cards(filtered) -> list[tuple]:
     }
     series_list = (
         Series.objects.filter(pk__in=prices)
-        .select_related('brand')
+        .select_related('brand', 'category', 'subcategory')
         .prefetch_related('showcases__variant')
     )
     cards = []
@@ -178,9 +225,10 @@ def _cards(filtered) -> list[tuple]:
 class SeriesListView(PublicReadMixin, APIView):
     def get(self, request):
         category = request.query_params.get('category') or None
+        subcategory = request.query_params.get('type') or None
         fields = schema.for_category(category)
         parsed = filters.parse(request.query_params, fields)
-        base = visible_variants(category)
+        base = visible_variants(category, subcategory)
         filtered = filters.apply(base, parsed)
         brands = [
             slug
@@ -188,25 +236,15 @@ class SeriesListView(PublicReadMixin, APIView):
             if (slug := part.strip())
         ]
 
-        paginator = Paginator(_cards(filtered), PAGE_SIZE)
+        cards = _cards(filtered)
+        sort = request.query_params.get('sort')
+        if sort in SORTS:
+            # «По запросу» — всегда в конце; при равной цене — порядок админки
+            sign = -1 if sort.startswith('-') else 1
+            cards.sort(key=lambda c: (c[2] is None, sign * (c[2] or 0)))
+        paginator = Paginator(cards, PAGE_SIZE)
         page = paginator.get_page(request.query_params.get('page'))
-        page_series = {c[0].pk for c in page.object_list}
-        images = (
-            Series.objects.filter(pk__in=page_series)
-            .select_related('brand')
-            .prefetch_related('images')
-        )
-        by_id = {s.pk: s for s in images}
-        colors = _series_colors(page_series)
-        results = [
-            serializers.card(
-                by_id[series.pk],
-                showcase,
-                price,
-                colors.get(series.pk, []),
-            )
-            for series, showcase, price in page.object_list
-        ]
+        results = _render_cards(page.object_list)
         return Response(
             {
                 'count': paginator.count,
@@ -309,6 +347,60 @@ def _executions(variants) -> list[dict]:
     return result
 
 
+def _similar(series: Series) -> list[dict]:
+    """До 8 карточек: та же категория, сначала тот же тип."""
+    candidates = list(
+        Series.objects.filter(
+            is_published=True,
+            brand__is_published=True,
+            category=series.category_id,
+        )
+        .exclude(pk=series.pk)
+        .order_by('position', 'pk')
+        .values_list('pk', 'subcategory_id')
+    )
+    same = series.subcategory_id is not None
+    # С запасом: у части серий нет вариантов в продаже и карточки не будет
+    candidates.sort(key=lambda c: not (same and c[1] == series.subcategory_id))
+    ids = [pk for pk, _ in candidates[: SIMILAR_MAX * 2]]
+    rank = {pk: i for i, pk in enumerate(ids)}
+    cards = _cards(visible_variants().filter(series_id__in=ids))
+    first: dict[int, tuple] = {}
+    for card in cards:
+        first.setdefault(card[0].pk, card)
+    chosen = sorted(
+        first.values(),
+        key=lambda c: (c[2] is None, rank[c[0].pk]),
+    )
+    return _render_cards(chosen[:SIMILAR_MAX])
+
+
+def _projects(series: Series) -> list[dict]:
+    projects = Project.objects.filter(
+        is_published=True,
+        series=series,
+    ).prefetch_related('photos', 'series')
+    return ProjectSerializer(projects, many=True).data
+
+
+class SearchView(PublicReadMixin, APIView):
+    def get(self, request):
+        query = request.query_params.get('q', '').strip()
+        if len(query) < SEARCH_MIN_LENGTH:
+            return Response([])
+        found = Series.objects.filter(
+            Q(name__icontains=query)
+            | Q(brand__name__icontains=query)
+            | Q(subcategory__name__icontains=query)
+            | Q(category__name__icontains=query)
+            | Q(variants__article__iexact=query)
+        )
+        cards = _cards(
+            visible_variants().filter(series__in=found.values('pk'))
+        )
+        return Response(_render_cards(cards[:SEARCH_MAX]))
+
+
 class SeriesDetailView(PublicReadMixin, APIView):
     def get(self, request, slug):  # noqa: ARG002
         series = _published_series(slug)
@@ -344,6 +436,8 @@ class SeriesDetailView(PublicReadMixin, APIView):
                     f for f in fields if f.column and f.kind != schema.COLORS
                 ],
                 filters=[f for f in fields if f.filter],
+                similar=_similar(series),
+                projects=_projects(series),
             )
         )
 

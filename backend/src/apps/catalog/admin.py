@@ -23,6 +23,7 @@ from .models import (
     SeriesFile,
     SeriesImage,
     Showcase,
+    Subcategory,
     Variant,
 )
 from .tasks import update_rates
@@ -61,6 +62,25 @@ class CategoryAdmin(ModelAdmin):
     hide_ordering_field = True
     prepopulated_fields = {'slug': ['name']}
     fields = ['name', 'slug', 'short', 'image', 'image_alt', 'is_published']
+
+
+@admin.register(Subcategory)
+class SubcategoryAdmin(ModelAdmin):
+    list_display = [preview, 'name', 'category', 'is_published']
+    list_display_links = ['name']
+    list_filter = ['category', 'is_published']
+    search_fields = ['name']
+    ordering_field = 'position'
+    hide_ordering_field = True
+    prepopulated_fields = {'slug': ['name']}
+    fields = [
+        'category',
+        'name',
+        'slug',
+        'image',
+        'image_alt',
+        'is_published',
+    ]
 
 
 @admin.register(Brand)
@@ -143,7 +163,14 @@ class SeriesImageInline(TabularInline):
     extra = 0
     ordering_field = 'position'
     hide_ordering_field = True
-    fields = [preview, 'image', 'image_alt', 'color', 'orientation']
+    fields = [
+        preview,
+        'image',
+        'image_alt',
+        'kind',
+        'color',
+        'orientation',
+    ]
     readonly_fields = [preview]
     autocomplete_fields = ['color']
 
@@ -182,15 +209,29 @@ class SeriesAdmin(ModelAdmin):
         SeriesFileInline,
         ShowcaseInline,
     ]
-    list_display = ['name', 'brand', 'category', 'heating', 'is_published']
+    list_display = [
+        'name',
+        'brand',
+        'category',
+        'subcategory',
+        'heating',
+        'is_published',
+    ]
     list_display_links = ['name']
-    list_filter = ['brand', 'category', 'heating', 'is_published']
+    list_filter = [
+        'brand',
+        'category',
+        'subcategory',
+        'heating',
+        'is_published',
+    ]
     search_fields = ['name']
     ordering_field = 'position'
     hide_ordering_field = True
     fields = [
         'brand',
         'category',
+        'subcategory',
         'name',
         'description',
         'material',

@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from decimal import ROUND_HALF_UP, Decimal
+from decimal import ROUND_CEILING, ROUND_HALF_UP, Decimal
 
 from django.db.models import QuerySet
 
@@ -27,11 +27,17 @@ def to_byn(
     return price.quantize(KOPECK, rounding=ROUND_HALF_UP)
 
 
+def effective_percent(group) -> int:
+    """Процент группы цветов: только целый и не меньше нуля (решение
+    владельца), дробный округляется вверх."""
+    return max(0, int(group.percent.to_integral_value(ROUND_CEILING)))
+
+
 def in_color(price_byn: Decimal | None, group) -> int | None:
     """Цена в группе цветов, целые BYN; None — «по запросу»."""
     if price_byn is None or group.any_ral:
         return None
-    value = price_byn * (1 + group.percent / 100)
+    value = price_byn * (100 + effective_percent(group)) / 100
     return int(value.quantize(Decimal(1), rounding=ROUND_HALF_UP))
 
 
@@ -60,7 +66,7 @@ def base_price(price_byn: Decimal | None, available: list) -> int | None:
     if group is None:
         group = min(
             (g for g in available if not g.any_ral),
-            key=lambda g: g.percent,
+            key=effective_percent,
             default=None,
         )
     return None if group is None else in_color(price_byn, group)

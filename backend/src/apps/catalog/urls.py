@@ -8,6 +8,7 @@ urlpatterns = [
         views.CategoryListView.as_view(),
         name='category-list',
     ),
+    path('search/', views.SearchView.as_view(), name='search'),
     path(
         'series/',
         views.SeriesListView.as_view(),

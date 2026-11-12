@@ -18,6 +18,7 @@ MANAGER_PERMISSIONS = {
     'content.promo': ALL,
     'content.showroomphoto': ALL,
     'catalog.category': ALL,
+    'catalog.subcategory': ALL,
     'catalog.brand': ALL,
     'catalog.leadtime': ALL,
     'catalog.color': ALL,

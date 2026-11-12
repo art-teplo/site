@@ -209,10 +209,13 @@ def test_series_list_one_card_per_showcase(client, catalog):  # noqa: ARG001
         'series': 'garmoniya-a40',
         'name': 'Гармония А40',
         'brand': 'kzto',
+        'category': 'radiatory',
         'label': '334 мм',
         'height_mm': 334,
         'price_from': 101,
         'image': None,
+        'hover_image': None,
+        'type': None,
         'colors': [
             {'code': 'RAL 9016', 'name': 'Белый', 'hex': '#f6f6f6'},
             {'code': 'RAL 9005', 'name': 'Чёрный', 'hex': '#0a0a0a'},
@@ -506,7 +509,8 @@ def test_konvektory_attrs_filters(client, catalog):
 def test_unknown_category_uses_radiators_schema(client, catalog):  # noqa: ARG001
     data = client.get(URL, {'category': 'nope'}).json()
     assert data['count'] == 0
-    assert 'height' in {f['key'] for f in data['facets']}
+    # Пустая выдача — пустые фасеты не отдаём
+    assert data['facets'] == []
 
 
 def test_query_count_does_not_grow_with_cards(
@@ -524,7 +528,7 @@ def test_query_count_does_not_grow_with_cards(
         make_variant(series, f'Q{i}-1', height_mm=100, price_byn=Decimal(5))
         Showcase.objects.create(series=series, label='x')
         SeriesImage.objects.create(series=series, image=png(), image_alt='q')
-    with django_assert_max_num_queries(18):
+    with django_assert_max_num_queries(19):
         data = fetch(client)
     assert data['count'] == 13
 
@@ -798,7 +802,7 @@ def test_variants_query_count_does_not_grow(
         )
         if i % 2:
             variant.color_groups.add(catalog.black)
-    with django_assert_max_num_queries(16):
+    with django_assert_max_num_queries(17):
         data = rows_of(client, page='all', color='RAL 9005')
     assert data['count'] == 34
 

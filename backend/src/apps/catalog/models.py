@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.contrib.postgres.indexes import GinIndex
+from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 from django.db.models import Q
@@ -39,6 +40,44 @@ class Category(Published, WithImage, Sortable):
     class Meta(Sortable.Meta):
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
+
+    def __str__(self):
+        return self.name
+
+
+class Subcategory(Published, WithImage, Sortable):
+    """Тип товара внутри категории: «Трубчатые», «Внутрипольные»."""
+
+    cache_tag = Tag.CATALOG
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='types',
+        verbose_name='категория',
+    )
+    name = models.CharField(
+        'название',
+        max_length=100,
+    )
+    image = models.ImageField(
+        'фото',
+        upload_to=AutoUploadTo('image'),
+        width_field='image_width',
+        height_field='image_height',
+        blank=True,
+        validators=WithImage._meta.get_field('image').validators,  # noqa: SLF001
+        help_text='Необязательно: плитка типа в разделе',
+    )
+    image_alt = models.CharField(
+        'описание фото',
+        max_length=200,
+        blank=True,
+    )
+
+    class Meta(Sortable.Meta):
+        verbose_name = 'тип'
+        verbose_name_plural = 'типы'
 
     def __str__(self):
         return self.name
@@ -187,6 +226,14 @@ class Series(Published, Sortable):
         related_name='series',
         verbose_name='категория',
     )
+    subcategory = models.ForeignKey(
+        Subcategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='series',
+        verbose_name='тип',
+    )
     name = models.CharField(
         'название',
         max_length=150,
@@ -234,6 +281,14 @@ class Series(Published, Sortable):
         if self.warranty_years is not None:
             return self.warranty_years
         return self.brand.warranty_years
+
+    def clean(self):
+        super().clean()
+        sub = self.subcategory
+        if sub is not None and sub.category_id != self.category_id:
+            raise ValidationError(
+                {'subcategory': 'Тип относится к другой категории'},
+            )
 
     def save(self, *args, **kwargs):
         self.description = clean_html(self.description)
@@ -422,6 +477,10 @@ class Variant(models.Model):
 class SeriesImage(WithImage, Sortable):
     cache_tag = Tag.CATALOG
 
+    class Kind(models.TextChoices):
+        PRODUCT = 'product', 'товар'
+        INTERIOR = 'interior', 'в интерьере'
+
     series = models.ForeignKey(
         Series,
         on_delete=models.CASCADE,
@@ -440,6 +499,12 @@ class SeriesImage(WithImage, Sortable):
         max_length=1,
         choices=Orientation,
         blank=True,
+    )
+    kind = models.CharField(
+        'вид фото',
+        max_length=10,
+        choices=Kind,
+        default=Kind.PRODUCT,
     )
 
     class Meta(Sortable.Meta):

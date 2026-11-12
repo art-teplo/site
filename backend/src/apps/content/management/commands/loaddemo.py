@@ -15,8 +15,10 @@ from apps.catalog.models import (
     Series,
     SeriesImage,
     Showcase,
+    Subcategory,
     Variant,
 )
+from apps.catalog.subcategories import seed as seed_types
 from apps.content.models import (
     Faq,
     Post,
@@ -32,6 +34,42 @@ DEMO = APPS / 'content' / 'demo' / 'demo.json'
 CATALOG_DEMO = APPS / 'catalog' / 'demo' / 'demo.json'
 # web/public/images, смонтированная в dev-compose только для чтения
 IMAGES = Path('/demo-images')
+
+# Тип → демо-фото из web/public/images/products (фото нет — плитка без него)
+TYPE_IMAGES = {
+    'trubchatye': (
+        '/images/products/guardo-pilon/main.jpg',
+        'Трубчатый радиатор',
+    ),
+    'dizajn': (
+        '/images/products/kzto-vertikalnyy/main.jpg',
+        'Вертикальный дизайн-радиатор',
+    ),
+    'chugunnye': (
+        '/images/products/radimax-style-retro/main.jpg',
+        'Чугунный радиатор в стиле ретро',
+    ),
+    'alyuminievye': (
+        '/images/products/royal-thermo-sekcionnyy/main.jpg',
+        'Секционный радиатор',
+    ),
+    'vnutripolnye': (
+        '/images/products/kzto-vnutripolnyy/main.jpg',
+        'Внутрипольный конвектор',
+    ),
+    'napolnye': (
+        '/images/products/kzto-napolnyy/main.jpg',
+        'Напольный конвектор',
+    ),
+    'ventili': (
+        '/images/products/sr-ventil-uglovoy/main.jpg',
+        'Угловой вентиль',
+    ),
+    'avtomatika': (
+        '/images/products/radimax-armatura-retro/main.jpg',
+        'Арматура для радиатора',
+    ),
+}
 
 
 class Command(BaseCommand):
@@ -66,6 +104,8 @@ class Command(BaseCommand):
             self.load_brands(catalog['brands'])
             self.load_lead_times(catalog['lead_times'])
             self.load_series(catalog['series'])
+            seed_types(Subcategory, Series, Category)
+            self.load_type_images()
             self.load_projects(demo['projects'])
         self.stdout.write(self.style.SUCCESS('Демо-контент загружен'))
 
@@ -110,7 +150,10 @@ class Command(BaseCommand):
             project.position = position
             self.attach(project, image)
             project.save()
-            project.series.set(Series.objects.filter(slug__in=series_slugs))
+            if not project.series.exists():  # связи из админки не сбрасываем
+                project.series.set(
+                    Series.objects.filter(slug__in=series_slugs)
+                )
             for photo_position, photo_image in enumerate(photos):
                 photo = project.photos.filter(
                     image_alt=photo_image['alt'],
@@ -150,6 +193,15 @@ class Command(BaseCommand):
             photo.position = position
             self.attach(photo, image)
             photo.save()
+
+    def load_type_images(self):
+        """Фото типов — демо-снимки товаров: в админке их заменят своими."""
+        for slug, (src, alt) in TYPE_IMAGES.items():
+            subcategory = Subcategory.objects.filter(slug=slug).first()
+            if subcategory is None:
+                continue
+            self.attach(subcategory, {'src': src, 'alt': alt})
+            subcategory.save()
 
     def load_categories(self, items):
         for position, item in enumerate(items):
@@ -203,7 +255,9 @@ class Command(BaseCommand):
                 'heating',
                 'pressure_bar',
             ):
-                setattr(series, field, item[field])
+                # Тексты, поправленные в админке, повторный запуск не трогает
+                if field == 'name' or not getattr(series, field, None):
+                    setattr(series, field, item[field])
             series.position = position
             series.is_published = True
             series.save()

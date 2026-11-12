@@ -11,6 +11,7 @@ from django.db.models import Count, F, IntegerField, Max, Min, Q, QuerySet
 from django.db.models.fields.json import KeyTextTransform
 from django.http import QueryDict
 
+from .choices import Heating
 from .models import Brand, Color, Variant
 from .schema import COLORS, LIST, RANGE, Field
 
@@ -18,6 +19,10 @@ COLOR_KEY = 'color'
 EXECUTION_KEY = 'execution'
 MAX_NUMBER = Decimal(10**9)
 YES, NO = 'да', 'нет'
+# Подписи значений из attrs варианта, которые хранятся кодами
+ATTR_LABELS: dict[str, dict[str, str]] = {
+    'heating': {str(k): str(v) for k, v in Heating.choices},
+}
 
 
 def _number(raw: str | None) -> Decimal | None:
@@ -222,8 +227,11 @@ def range_facets(qs: QuerySet, fields: list[Field]) -> dict[str, dict]:
 def _value_labels(field: Field, values: list[str]) -> dict[str, str]:
     source = field.source
     if source.startswith('attrs__'):
+        coded = ATTR_LABELS.get(source.removeprefix('attrs__'), {})
         return {
-            value: {'true': YES, 'false': NO}.get(value, value)
+            value: coded.get(
+                value, {'true': YES, 'false': NO}.get(value, value)
+            )
             for value in values
         }
     if source == 'series__brand__slug':
@@ -282,19 +290,29 @@ def _list_facet(qs: QuerySet, field: Field, parsed: dict) -> dict:
 def _color_facet(qs: QuerySet, field: Field, parsed: dict) -> dict:
     base = apply(qs, parsed, skip=field.key).order_by()
     counts: dict[str, int] = {}
-    explicit = base.filter(color_groups__colors__isnull=False)
-    inherited = base.filter(color_groups__isnull=True)
-    for rows, path in (
-        (explicit, 'color_groups__colors__code'),
-        (inherited, 'series__color_groups__colors__code'),
-    ):
-        grouped = (
-            rows.exclude(**{f'{path}__isnull': True})
-            .values(path)
-            .annotate(n=Count('pk', distinct=True))
-        )
-        for row in grouped:
-            counts[row[path]] = counts.get(row[path], 0) + row['n']
+    path = 'color_groups__colors__code'
+    explicit = (
+        base.filter(**{f'{path}__isnull': False})
+        .values(path)
+        .annotate(n=Count('pk', distinct=True))
+    )
+    for row in explicit:
+        counts[row[path]] = counts.get(row[path], 0) + row['n']
+    # Без своих групп вариант берёт все цвета серии. Соединять варианты с
+    # цветами серии дорого (десятки тысяч строк на цвет), поэтому: варианты —
+    # по сериям, цвета серий — из маленькой таблицы групп, сумма — здесь
+    per_series = dict(
+        base.filter(color_groups__isnull=True)
+        .values_list('series_id')
+        .annotate(n=Count('pk'))
+    )
+    series_colors = (
+        Color.objects.filter(color_groups__series_id__in=per_series)
+        .values_list('color_groups__series_id', 'code')
+        .distinct()
+    )
+    for series_id, code in series_colors:
+        counts[code] = counts.get(code, 0) + per_series[series_id]
     colors = Color.objects.filter(code__in=counts)
     return {
         'key': field.key,
@@ -325,9 +343,17 @@ def facets(
         if not field.filter:
             continue
         if field.kind == RANGE:
-            result.append(ranges[field.key])
+            facet = ranges[field.key]
+            # Диапазон без значений или из одной точки фильтровать нечем
+            if facet['min'] is None or facet['min'] == facet['max']:
+                continue
         elif field.kind == LIST:
-            result.append(_list_facet(qs, field, parsed))
+            facet = _list_facet(qs, field, parsed)
         elif field.kind == COLORS:
-            result.append(_color_facet(qs, field, parsed))
+            facet = _color_facet(qs, field, parsed)
+        else:
+            continue
+        if field.kind != RANGE and not facet['values']:
+            continue
+        result.append(facet)
     return result

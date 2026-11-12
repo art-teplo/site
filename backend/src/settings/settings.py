@@ -406,6 +406,13 @@ UNFOLD = {
                         ),
                     },
                     {
+                        'title': 'Типы',
+                        'icon': 'label',
+                        'link': reverse_lazy(
+                            'admin:catalog_subcategory_changelist',
+                        ),
+                    },
+                    {
                         'title': 'Бренды',
                         'icon': 'factory',
                         'link': reverse_lazy('admin:catalog_brand_changelist'),
