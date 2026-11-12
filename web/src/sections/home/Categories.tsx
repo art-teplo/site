@@ -35,7 +35,7 @@ export async function Categories() {
                   <span className={styles.name}>{c.name}</span>
                   <span className={styles.short}>
                     <span className={styles.desc}>{c.short} · </span>
-                    {plural(c.seriesCount, "модель", "модели", "моделей")}
+                    {c.seriesCount > 0 ? plural(c.seriesCount, "модель", "модели", "моделей") : "скоро в каталоге"}
                   </span>
                 </span>
                 <Arrow className={styles.arrow} />

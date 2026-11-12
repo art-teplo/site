@@ -11,7 +11,7 @@
   gap: var(--grid-gap);
   align-items: center;
   padding: var(--spacing-16);
-  border: 1px solid var(--line);
+  border: 1px solid var(--outline-color);
   border-radius: var(--radius-cards);
 }
 

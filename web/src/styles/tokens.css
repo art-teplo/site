@@ -23,6 +23,7 @@
   --color-ember: #ff6a1f; /* только горячая точка внутри свечения */
   --color-umber: #3a1c0f; /* тёплый коричневый тёмных блоков (референс «arounda») */
   --color-umber-deep: #1f0f09;
+  --color-leather: color-mix(in srgb, var(--color-umber) 75%, var(--color-stone)); /* тёмная кожа: umber, приглушённый серым */
   /* Акцент на светлом фоне: плашка в заголовке, подчёркивания, плитки иконок */
   --color-highlight: #c8401f; /* «rust»: между ember и красным логотипа */
   --color-highlight-ink: var(--color-pure-white); /* текст на плашке */
@@ -35,6 +36,10 @@
   --text-muted: var(--color-iron); /* 6.6:1 на креме */
   --line: var(--color-fog);
   --line-strong: var(--color-slate);
+  /* Контур плиток, карточек брендов, полей и пилюль каталога (вариант B — без белой заливки).
+     Эксперимент «выразительнее»: 1.5px и цвет --line-strong; прежде — 1px, плитки --line */
+  --outline-width: 1.5px;
+  --outline-color: var(--line-strong);
   --button-bg: var(--color-pressed-graphite);
   --button-fg: var(--color-pure-white);
   --focus-ring: var(--color-accent);
@@ -123,6 +128,12 @@
     radial-gradient(ellipse max(46vw, 340px) max(34vw, 300px) at 0% 50%, color-mix(in srgb, var(--color-ember) 42%, transparent), transparent 75%),
     radial-gradient(ellipse max(34vw, 240px) max(24vw, 200px) at 100% 70%, color-mix(in srgb, var(--color-ember) 18%, transparent), transparent 75%),
     linear-gradient(160deg, var(--color-umber) 0%, var(--color-umber-deep) 55%, var(--color-coal) 100%);
+  /* Плитки категорий (главная и /catalog): как тёмные блоки, но основа — тёмная кожа (umber со stone), а не красно-коричневая;
+     свечение слева под названием и у товара в правом нижнем углу */
+  --category-tile-bg:
+    radial-gradient(ellipse 90% 70% at 0% 55%, color-mix(in srgb, var(--color-ember) 30%, transparent), transparent 75%),
+    radial-gradient(circle at 90% 90%, color-mix(in srgb, var(--color-ember) 22%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--color-leather) 0%, var(--color-umber-deep) 55%, var(--color-coal) 100%);
   --dark-surface-fade: linear-gradient(to bottom, transparent, var(--color-coal) min(25%, 160px), var(--color-coal) max(75%, calc(100% - 160px)), transparent);
   --scrim: linear-gradient(180deg, rgb(14 12 11 / 0.15) 0%, rgb(14 12 11 / 0.75) 100%);
 
@@ -152,6 +163,7 @@
   --text-muted: var(--color-fog); /* светлее Stone: на оранжевом свечении Stone проседает по контрасту */
   --line: rgb(255 255 255 / 0.14);
   --line-strong: rgb(255 255 255 / 0.32);
+  --outline-color: var(--line-strong);
   --button-bg: var(--color-cream-paper);
   --button-fg: var(--color-pressed-graphite);
 }

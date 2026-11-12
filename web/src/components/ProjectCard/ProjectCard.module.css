@@ -19,3 +19,41 @@
   font-size: var(--text-heading-sm);
   line-height: var(--leading-heading);
 }
+
+.stands {
+  display: grid;
+  gap: var(--spacing-8);
+}
+
+.standsLabel {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.standsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+}
+
+.stand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-12);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.stand:hover {
+  border-color: var(--text);
+}
+
+.stand:active {
+  transform: scale(var(--press-scale));
+}
