@@ -3,8 +3,16 @@
 Общие для админки и сообщения в Telegram.
 """
 
-PRODUCT_PREFIX = 'product/'
+# Страница серии: series/<slug>. product/<slug> — так писали до каталога
+# по сериям, остаётся для старых заявок
+PRODUCT_PREFIXES = ('series/', 'product/')
 PRODUCT_LABEL = 'Карточка товара'
+
+# Источники с хвостом-слагом: catalog/<категория>, blog:<статья>
+PREFIX_LABELS = {
+    'catalog/': 'Каталог',
+    'blog:': 'Статья блога',
+}
 
 LABELS = {
     'quiz': 'Квиз',
@@ -19,15 +27,19 @@ LABELS = {
     'kontakty': 'Контакты',
     'brendy': 'Бренды',
     'blog': 'Блог',
+    'catalog': 'Каталог',
 }
 
 
 def is_product(source: str) -> bool:
-    return source.startswith(PRODUCT_PREFIX)
+    return source.startswith(PRODUCT_PREFIXES)
 
 
 def source_label(source: str) -> str:
     # Неизвестный источник (новая форма на фронте) показываем как есть
     if is_product(source):
         return PRODUCT_LABEL
+    for prefix, label in PREFIX_LABELS.items():
+        if source.startswith(prefix):
+            return label
     return LABELS.get(source, source)

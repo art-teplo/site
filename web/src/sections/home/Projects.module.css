@@ -74,30 +74,17 @@
   transform: translateX(var(--hover-shift));
 }
 
+.phone {
+  display: none;
+}
+
+/* Телефон: вместо ленты — один проект со стрелками (ProjectsSlider) */
 @media (max-width: 767px) {
-  /* Число проектов — крупно над вводным текстом: подтверждает то, что на фото */
-.count {
-  display: block;
-  margin-bottom: var(--spacing-12);
-  font-family: var(--font-display);
-  font-size: var(--text-heading-lg);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-display);
-  line-height: 1;
-  color: var(--text);
-}
-
-.countLabel {
-  font-size: var(--text-subheading);
-  letter-spacing: normal;
-  color: var(--text-muted);
-}
-
-.slide {
-    width: 78vw;
+  .wide {
+    display: none;
   }
 
-  .all {
-    width: 60vw;
+  .phone {
+    display: block;
   }
 }

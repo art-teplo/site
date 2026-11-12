@@ -93,7 +93,7 @@ class Lead(models.Model):
         blank=True,
     )
 
-    # Откуда пришла: quiz, home:paths, product/<slug> …; контекст — ответы
+    # Откуда пришла: quiz, home:paths, series/<slug>, catalog/<slug> …; контекст — ответы
     # квиза или товар с вариантом
     source = models.CharField(
         'источник',

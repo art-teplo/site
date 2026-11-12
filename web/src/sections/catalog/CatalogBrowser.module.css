@@ -15,6 +15,11 @@
   border-bottom: var(--border-hairline);
 }
 
+/* Сортировка — справа в строке «N вариантов» */
+.sortMenu {
+  flex: none;
+}
+
 .found {
   margin-right: auto;
   font-size: var(--text-caption);
@@ -25,29 +30,12 @@
   display: none;
 }
 
-.sort select {
-  min-height: var(--control-height);
-  padding: var(--spacing-8) var(--spacing-40) var(--spacing-8) var(--spacing-16);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-inputs);
-  background: var(--surface)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='m1 1.5 5 5 5-5' stroke='%23050505' stroke-width='1.5'/%3E%3C/svg%3E")
-    no-repeat right var(--spacing-16) center;
-  appearance: none;
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-
-.sort select:hover {
-  border-color: var(--text);
-}
-
 .filters {
   grid-column: 1 / span 3;
   position: sticky;
   top: calc(var(--header-height) + var(--spacing-24));
   display: grid;
-  gap: var(--spacing-32);
+  gap: var(--spacing-24);
   max-height: calc(100dvh - var(--header-height) - var(--spacing-40));
   overflow-y: auto;
   padding-right: var(--spacing-8);
@@ -60,11 +48,89 @@
   min-width: 0;
 }
 
-.legend {
-  padding: 0;
-  margin-bottom: var(--spacing-12);
-  font-size: var(--text-caption);
+.groupHead {
+  font-size: var(--text-body);
   font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.groupButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  width: 100%;
+  padding: var(--spacing-4) 0;
+  text-align: left;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.groupButton:hover {
+  opacity: 0.7;
+}
+
+.groupButton:active {
+  opacity: 0.5;
+}
+
+.groupTitle {
+  margin-right: auto;
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--spacing-18);
+  height: var(--spacing-18);
+  padding-inline: var(--spacing-4);
+  border-radius: var(--radius-pill);
+  background: var(--button-bg);
+  color: var(--button-fg);
+  font-size: var(--text-label);
+}
+
+.chevron {
+  flex: none;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.groupButton[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+.groupBody {
+  padding-top: var(--spacing-12);
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+}
+
+.swatch {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  border: var(--border-hairline);
+  border-radius: 50%;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.swatch:hover {
+  transform: scale(1.15);
+}
+
+.swatch:active {
+  transform: scale(var(--press-scale));
+}
+
+.swatch[aria-pressed="true"] {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
 }
 
 .options {
@@ -89,8 +155,8 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-8);
-  min-height: var(--spacing-40);
-  padding: var(--spacing-8) var(--spacing-12);
+  min-height: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-12);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
   font-size: var(--text-caption);
@@ -151,6 +217,297 @@
   color: var(--text);
 }
 
+.types {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-12);
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  /* место под рамку выбранной плитки и её сжатие при нажатии */
+  padding-block: var(--spacing-4);
+}
+
+/* Все плитки одной ширины и высоты: фото 4:5, ниже название и число моделей */
+/* Ширина плитки — пятая часть ряда: типов меньше — ряд не на всю ширину, картинки не раздуваются;
+   больше пяти или телефон — лента с прокруткой */
+.typeTile {
+  flex: 0 0 calc((100% - 4 * var(--spacing-12)) / 5);
+  min-width: 10rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-content: start;
+  gap: var(--spacing-4);
+  padding: var(--spacing-8);
+  border: 2px solid transparent;
+  border-radius: var(--radius-cards);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--outline-color); /* вариант B: контур вместо белой плитки, у плиток — тонкий */
+  text-align: left;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.typeTile:hover {
+  border-color: var(--line-strong);
+}
+
+.typeTile:active {
+  transform: scale(var(--press-scale));
+}
+
+.typeTileOn,
+.typeTileOn:hover {
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+
+.typeTileOn .typeName {
+  color: var(--color-accent);
+}
+
+.typeMedia {
+  display: block;
+  aspect-ratio: 4 / 3;
+  margin-bottom: var(--spacing-4);
+  border-radius: var(--radius-inputs);
+  overflow: hidden;
+  background: var(--color-pressed-graphite);
+}
+
+/* «Все …»: PNG категории без фона на фирменном градиенте */
+.typeMediaAll {
+  background:
+    radial-gradient(circle at 85% 85%, color-mix(in srgb, var(--color-ember) 32%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--color-umber) 0%, var(--color-umber-deep) 60%, var(--color-coal) 100%);
+}
+
+.typeMedia .typeImg {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* Товар без фона «стоит» на нижнем крае и уходит за правый, как на плитках главной — не висит в воздухе */
+.typeMediaAll .typeImg img {
+  object-position: right bottom;
+  transform: translate(8%, 6%) scale(1.1);
+  transform-origin: right bottom;
+}
+
+.typeName {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  overflow-wrap: anywhere;
+}
+
+.typeCount {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.brandBar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8) var(--spacing-24);
+}
+
+.brandBarFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4) var(--spacing-16);
+  font-size: var(--text-body);
+  color: var(--text-muted);
+}
+
+/* Название бренда — первым и тёмным: строка читается «Guardo · Россия · гарантия…» */
+.brandBarFacts > :first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.brands {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--spacing-12);
+}
+
+.brands .option {
+  display: block;
+}
+
+.brandCard {
+  display: grid;
+  place-items: center;
+  height: 4.5rem;
+  padding: var(--spacing-12) var(--spacing-16);
+  border: 2px solid transparent;
+  border-radius: var(--radius-cards);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--outline-color);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.brands .option:hover .brandCard {
+  border-color: var(--line-strong);
+}
+
+.brands .option:active .brandCard {
+  transform: scale(var(--press-scale));
+}
+
+.brands .optionInput:checked + .brandCard {
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+
+.brands .optionInput:focus-visible + .brandCard {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.logo {
+  height: var(--spacing-32);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.brandName {
+  font-weight: var(--weight-medium);
+  text-align: center;
+}
+
+.range {
+  display: grid;
+  gap: var(--spacing-12);
+}
+
+/* «от — до» в одной рамке */
+.rangeFields {
+  display: flex;
+  align-items: center;
+  border: var(--outline-width) solid var(--outline-color);
+  border-radius: var(--radius-inputs);
+  background: transparent;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.rangeFields:hover,
+.rangeFields:focus-within {
+  border-color: var(--text);
+}
+
+.rangeField {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-12);
+  font-size: var(--text-caption);
+}
+
+.rangePrefix {
+  color: var(--text-muted);
+}
+
+.rangeInput {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: var(--weight-medium);
+}
+
+.rangeInput:focus-visible {
+  outline: none;
+}
+
+.rangeDivider {
+  align-self: stretch;
+  width: 1px;
+  margin-block: var(--spacing-8);
+  background: var(--line);
+}
+
+.results {
+  position: relative;
+}
+
+/* Загрузка: тонкая полоса над списком, старый список приглушён */
+.progress {
+  position: absolute;
+  top: calc(-1 * var(--spacing-12));
+  left: 0;
+  right: 0;
+  height: var(--spacing-4);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+  animation: progress-in var(--dur-fast) var(--ease-out) var(--dur-fast) backwards;
+}
+
+.progressBar {
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-accent);
+  animation: progress-run calc(var(--dur-slow) * 1.5) var(--ease-in-out) infinite;
+}
+
+@keyframes progress-run {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+@keyframes progress-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.pending .grid,
+.pending .more {
+  opacity: 0.5;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressBar {
+    width: 100%;
+    animation: none;
+  }
+}
+
+.error {
+  margin-bottom: var(--spacing-16);
+  color: var(--text-muted);
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-40);
+}
+
 @media (max-width: 1023px) {
   .filterToggle {
     display: inline-flex;
@@ -164,7 +521,7 @@
     padding: var(--card-padding);
     border: var(--border-hairline);
     border-radius: var(--radius-cards);
-    background: var(--surface);
+    background: transparent;
   }
 
   .filters:not(.filtersOpen) {
@@ -186,11 +543,31 @@
     gap: var(--spacing-32) var(--spacing-12);
   }
 
+  /* Телефон: «N вариантов» строкой выше, «Фильтры» и сортировка — в одну строку по краям */
   .toolbar {
     flex-wrap: wrap;
+    row-gap: var(--spacing-12);
   }
 
   .found {
     width: 100%;
+  }
+
+  .filterToggle {
+    order: 1;
+  }
+
+  .sortMenu {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .typeTile {
+    flex: none;
+    width: 9rem;
+  }
+
+  .typeName {
+    font-size: var(--text-caption);
   }
 }

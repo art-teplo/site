@@ -11,11 +11,15 @@ export type ImageAsset = {
 export type CategorySlug = "radiatory" | "konvektory" | "polotentsesushiteli" | "armatura";
 
 // Категории и бренды — из админки (apps.catalog); товары пока в коде и ссылаются на них по slug
+export type CategoryType = { slug: string; name: string; image: ImageAsset | null; seriesCount: number };
+
 export type Category = {
   slug: string;
   name: string;
   short: string;
   image: ImageAsset; // товар без фона, PNG с прозрачностью
+  seriesCount: number; // опубликованные серии
+  types?: CategoryType[]; // подтипы («Стальные», «Биметаллические»…); нет — плитки типов не показываем
 };
 
 export type Brand = {
@@ -25,6 +29,7 @@ export type Brand = {
   note: string;
   logo?: string; // с официальных сайтов производителей
   warrantyYears: number | null; // «гарантия до»; пусто — бренда нет в таблице гарантий
+  seriesCount: number; // опубликованные серии
 };
 
 // Ориентир срока изготовления по серии — таблица на «Клиентам»
@@ -34,47 +39,6 @@ export type LeadTime = {
   days: number | null; // пусто — «уточнит менеджер»
 };
 
-export type Availability = "stock" | "order" | "request";
-
-export type Variant = {
-  id: string;
-  heightMm: number;
-  widthMm: number;
-  sections?: number;
-  powerW: number;
-  priceByn: number;
-};
-
-export type ColorOption = {
-  id: string;
-  name: string;
-  hex: string;
-};
-
-export type Product = {
-  slug: string;
-  name: string;
-  brand: string; // Brand.slug
-  category: CategorySlug;
-  type: string;
-  position?: "вертикальный" | "горизонтальный" | "напольный";
-  material: string;
-  heating: "водяной" | "электрический";
-  connections: string[];
-  colors: ColorOption[];
-  variants: Variant[];
-  depthMm: number;
-  axisMm?: number;
-  pressureBar: number;
-  warrantyYears: number;
-  availability: Availability;
-  leadDays?: number;
-  summary: string;
-  images: ImageAsset[];
-  videoUrl?: string;
-  projects: string[]; // Project.slug
-};
-
 export type Project = {
   slug: string;
   title: string;
@@ -82,7 +46,7 @@ export type Project = {
   place: string;
   image: ImageAsset;
   photos: ImageAsset[]; // ещё фото — листаются в галерее вместе с главным
-  products: string[]; // Product.slug — связь необязательная
+  series: string[]; // Series.slug — связь необязательная
 };
 
 export type Faq = { q: string; a: string; onHome: boolean };
@@ -127,4 +91,112 @@ export type Service = {
   slug: string;
   title: string;
   text: string;
+};
+
+// --- Новый каталог: серии и варианты (бэк: apps.catalog, ответы /api/series/…) ---
+
+export type Connection =
+  | "side"
+  | "diagonal"
+  | "bottom_left"
+  | "bottom_right"
+  | "bottom_universal"
+  | "bottom_ends"
+  | "bottom_center"
+  | "electric_left"
+  | "electric_right";
+
+export type ColorSwatch = { code: string; name: string; hex: string; finish?: string };
+
+export type ColorGroup = {
+  id: number;
+  name: string;
+  percent: number;
+  isBase: boolean;
+  anyRal: boolean;
+  colors: ColorSwatch[];
+};
+
+export type CatalogField = {
+  key: string;
+  label: string;
+  kind: "range" | "list" | "colors";
+  unit: string;
+  column: boolean;
+  filter: boolean;
+};
+
+export type FacetValue = { value: string; label: string; count: number; hex?: string };
+export type Facet =
+  | { key: string; label: string; kind: "range"; unit: string; min: number | null; max: number | null }
+  | { key: string; label: string; kind: "list" | "colors"; unit?: string; values: FacetValue[] };
+
+export type ShowcaseCard = {
+  series: string;
+  name: string;
+  brand: string;
+  category?: string; // Category.slug — приходит в поиске и «Похожих»
+  label: string;
+  heightMm: number | null;
+  priceFrom: number | null;
+  image: ImageAsset | null;
+  hoverImage?: ImageAsset | null; // второе фото: показывается при наведении
+  type?: string | null; // CategoryType.slug
+  colors: ColorSwatch[];
+};
+
+export type ModelTile = { series: string; name: string; image: ImageAsset | null };
+
+// key = "<трубы>-<подключение>", трубы 0 = без труб; подключения нет — "0-"
+export type Execution = { key: string; tubes: number; connection: Connection | null; label: string; count: number };
+
+export type VariantRow = {
+  article: string;
+  heightMm: number | null;
+  widthMm: number | null;
+  depthMm: number | null;
+  lengthMm: number | null;
+  axisMm: number | null;
+  sections: number | null;
+  powerW: number | null;
+  areaM2: number | null; // 1 знак
+  tubes: number | null;
+  connection: Connection | null;
+  thermovalve: boolean;
+  orientation: "h" | "v" | "";
+  mount: "wall" | "floor" | "";
+  attrs: Record<string, string | number | boolean>;
+  price: number | null; // целые BYN, с учётом выбранного цвета; null — по запросу
+  // цена без цвета и id групп варианта (пусто — все группы серии): по ним цена пересчитывается
+  // при смене цвета сразу, до ответа бэка. Нет — пересчёт ждёт запроса
+  priceByn?: number | null;
+  colorGroups?: number[];
+};
+
+// kind: product — фото изделия (галерея первого экрана), interior — в интерьере (раздел «В интерьере»); нет поля — product
+export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | ""; kind?: "product" | "interior" };
+
+export type SeriesDetail = {
+  slug: string;
+  name: string;
+  category: string;
+  brand: { slug: string; name: string; country: string };
+  description: string; // html
+  material: string;
+  heating: "water" | "electric" | "combined";
+  pressureBar: number | null;
+  warrantyYears: number | null;
+  videoUrl: string;
+  images: SeriesImage[];
+  files: { title: string; url: string }[];
+  colorGroups: ColorGroup[];
+  ranges: Record<string, [number | null, number | null]>; // только для полей фильтра, не для цены «от»
+  priceFrom: number | null; // «от» без выбранного цвета
+  priceFromByGroup: Record<number, number | null>; // «от» при выбранном цвете, по id группы; null — по запросу
+  executions: Execution[];
+  defaultExecution: string | null;
+  columns: CatalogField[];
+  filters: CatalogField[];
+  similar?: ShowcaseCard[]; // похожие серии; нет — без раздела
+  projects?: Project[]; // проекты, где стоит серия (нет — страница берёт из общего списка)
 };

@@ -13,7 +13,15 @@ from django.urls import reverse
 from django.utils import timezone
 from PIL import Image
 
-from apps.catalog.models import Brand, Category, LeadTime
+from apps.catalog.models import (
+    Brand,
+    Category,
+    LeadTime,
+    Series,
+    SeriesImage,
+    Showcase,
+    Variant,
+)
 from apps.content.html import clean_html, read_minutes
 from apps.content.models import (
     Faq,
@@ -237,6 +245,34 @@ def test_projects_published_with_image(client, make_project):
 
 
 @pytest.mark.django_db
+def test_project_series_slugs(client, make_project):
+    brand = Brand.objects.create(slug='kzto', name='КЗТО', note='—')
+    category = Category.objects.create(
+        slug='radiatory',
+        name='Радиаторы',
+        short='—',
+    )
+
+    def make_series(slug, **fields):
+        return Series.objects.create(
+            brand=brand,
+            category=category,
+            slug=slug,
+            name=slug,
+            **fields,
+        )
+
+    project = make_project()
+    project.series.set(
+        [make_series('a'), make_series('hidden', is_published=False)],
+    )
+
+    data = client.get(reverse('project-list')).json()
+
+    assert data[0]['series_slugs'] == ['a']
+
+
+@pytest.mark.django_db
 def test_project_photos_in_order(client, make_project):
     project = make_project()
     with_image(ProjectPhoto(project=project, image_alt='Спальня', position=2))
@@ -378,8 +414,26 @@ def test_loaddemo_is_repeatable(media):
     assert LeadTime.objects.count() == 14
     files = [path for path in media.rglob('*') if path.is_file()]
     assert ProjectPhoto.objects.count() == 6
-    # проекты, их доп. фото, статьи, акции, шоурум, категории, логотипы
-    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5
+    # проекты, их доп. фото, статьи, акции, шоурум, категории, логотипы,
+    # фото демо-серий
+    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5 + 9 + 8  # + фото типов
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('media')
+def test_loaddemo_loads_series():
+    call_command('loaddemo', images=WEB_IMAGES)
+    call_command('loaddemo', images=WEB_IMAGES)
+
+    series = Series.objects.filter(is_published=True)
+    assert series.count() == 3
+    for item in series:
+        assert item.color_groups.filter(is_base=True).count() == 1
+        assert item.showcases.count() >= 2
+        assert all(show.variant_id for show in item.showcases.all())
+    assert Variant.objects.count() == 16
+    assert SeriesImage.objects.count() == 9
+    assert Showcase.objects.count() == 6
 
 
 # --- админка ---

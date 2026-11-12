@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Icon } from "@/components/Icon/Icon";
+import { SearchForm } from "@/components/SearchForm/SearchForm";
 import { Logo } from "@/components/Logo/Logo";
 import { Button } from "@/components/Button/Button";
 import { getLenis } from "@/components/SmoothScroll/SmoothScroll";
@@ -21,12 +23,16 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchBtnRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   // Закрываем меню при смене страницы
   const [prevPath, setPrevPath] = useState(pathname);
   if (pathname !== prevPath) {
     setPrevPath(pathname);
     setOpen(false);
+    setSearchOpen(false);
   }
 
   useEffect(() => {
@@ -56,12 +62,26 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const dark = (overHero && !scrolled) || open;
+  // Escape закрывает поиск и возвращает фокус на лупу
+  useEffect(() => {
+    if (!searchOpen) return;
+    searchRef.current?.querySelector("input")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSearchOpen(false);
+        searchBtnRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [searchOpen]);
+
+  const dark = (overHero && !scrolled) || open || searchOpen;
   const close = () => setOpen(false);
 
   return (
     <header
-      className={cx(styles.header, dark ? styles.onDark : styles.solid, (scrolled || open) && styles.compact, open && styles.open)}
+      className={cx(styles.header, dark ? styles.onDark : styles.solid, (scrolled || open) && styles.compact, (open || searchOpen) && styles.open)}
       data-tone={dark ? "dark" : "light"}
     >
       <div className={styles.bar}>
@@ -90,6 +110,20 @@ export function Header() {
           <a href={site.phoneHref} className={styles.phone}>
             {site.phone}
           </a>
+          <button
+            ref={searchBtnRef}
+            type="button"
+            className={styles.searchToggle}
+            aria-expanded={searchOpen}
+            aria-controls="site-search"
+            aria-label={searchOpen ? "Закрыть поиск" : "Поиск по сайту"}
+            onClick={() => {
+              setOpen(false);
+              setSearchOpen((v) => !v);
+            }}
+          >
+            <Icon name={searchOpen ? "close" : "search"} className={styles.searchIcon} />
+          </button>
           <Button href="/#lead" dot className={styles.cta} onClick={close}>
             Заявка
           </Button>
@@ -99,11 +133,20 @@ export function Header() {
             className={styles.toggle}
             aria-expanded={open}
             aria-controls="site-menu"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => {
+              setSearchOpen(false);
+              setOpen((v) => !v);
+            }}
           >
             <span className={styles.toggleLabel}>{open ? "Закрыть" : "Меню"}</span>
             <span className={styles.toggleIcon} aria-hidden="true" />
           </button>
+        </div>
+      </div>
+
+      <div id="site-search" ref={searchRef} className={styles.search} hidden={!searchOpen}>
+        <div className={styles.searchInner}>
+          <SearchForm onSubmitted={() => setSearchOpen(false)} />
         </div>
       </div>
 

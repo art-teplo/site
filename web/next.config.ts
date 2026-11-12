@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   // Для Docker-образа (web/Dockerfile); Vercel эту настройку не мешает
   output: "standalone",
   cacheComponents: true,
+  // npm run dev: открыть сайт с телефона в той же Wi-Fi по адресу компьютера (http://192.168.x.x:3000).
+  // Только частные адреса домашней сети; на сборку и прод не влияет
+  allowedDevOrigins: ["192.168.*.*", "10.*.*.*"],
   partialPrefetching: true,
   // Вшивается в клиентский код при сборке: форма заявки без бэка только имитирует отправку
   env: { NEXT_PUBLIC_DEMO: API_URL ? "" : "1" },

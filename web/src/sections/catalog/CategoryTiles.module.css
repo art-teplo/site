@@ -1,0 +1,257 @@
+/* Бенто на 12 колонках: большая плитка (2 ряда) слева, справа широкая и две малые. Привязано к позиции в списке. */
+.list {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: clamp(12rem, 19vw, 18rem);
+  gap: var(--grid-gap);
+}
+
+.item {
+  min-width: 0;
+}
+
+.big {
+  grid-column: span 6;
+  grid-row: span 2;
+}
+
+.wide {
+  grid-column: span 6;
+}
+
+.small {
+  grid-column: span 3;
+}
+
+/* Тёмная плитка: название, число моделей и типы слева, товар без фона стоит на краю на тёплом свечении.
+   Плитка целиком — ссылка на категорию (растянутая ссылка у названия), типы лежат поверх. */
+.tile {
+  position: relative;
+  height: 100%;
+  padding: var(--spacing-24);
+  border-radius: var(--radius-cards);
+  overflow: hidden;
+  background: var(--category-tile-bg);
+  color: var(--color-cream-paper);
+  isolation: isolate;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+/* Тонкий контур поверх — как у фото в каталоге (::after занят растянутой ссылкой) */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--outline-color);
+  pointer-events: none;
+}
+
+.tile:active {
+  transform: scale(var(--press-scale));
+}
+
+.body {
+  display: grid;
+  gap: var(--spacing-4);
+  justify-items: start;
+  max-width: 55%;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading);
+  color: var(--color-cream-paper);
+  hyphens: auto;
+}
+
+.big .name {
+  font-size: var(--text-heading-lg);
+}
+
+/* Малая плитка: текст во всю ширину — кнопка внизу, «Полотенцесушители» влезают одной строкой */
+.small .body {
+  max-width: none;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.count {
+  font-size: var(--text-caption);
+  color: color-mix(in srgb, var(--color-cream-paper) 80%, transparent);
+}
+
+.types {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-12);
+}
+
+.type {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-12);
+  border: 1px solid color-mix(in srgb, var(--color-cream-paper) 40%, transparent);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  color: var(--color-cream-paper);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.type:hover {
+  background: var(--color-cream-paper);
+  color: var(--color-pressed-graphite);
+}
+
+.type:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.type:active {
+  transform: scale(var(--press-scale));
+}
+
+/* .tile .img — чтобы перебить тёмный фон Picture независимо от порядка стилей */
+.tile .img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 58%;
+  height: 62%;
+  background: transparent;
+  transform-origin: right bottom;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.tile .img img {
+  object-position: right bottom;
+}
+
+.big .img {
+  width: 76%;
+  height: 68%;
+}
+
+/* Широкая: плоский товар лежит вдоль нижнего края и тянется на всю ширину */
+.wide .img {
+  width: 62%;
+  height: 72%;
+}
+
+.small .img {
+  width: 82%;
+  height: 58%;
+}
+
+.tile:hover .img {
+  transform: scale(1.04);
+}
+
+.arrow {
+  position: absolute;
+  bottom: var(--spacing-24);
+  left: var(--spacing-24);
+  width: var(--control-height);
+  height: var(--control-height);
+  padding: var(--spacing-12);
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--color-cream-paper) 40%, transparent);
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.tile:hover .arrow {
+  background: var(--color-cream-paper);
+  color: var(--color-pressed-graphite);
+  transform: translateX(var(--hover-shift));
+}
+
+/* Планшет: плитки по две в ряд — малые рядом, большая и широкая на всю ширину */
+@media (max-width: 1023px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: clamp(15rem, 34vw, 19rem);
+  }
+
+  .big,
+  .wide {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .small {
+    grid-column: span 1;
+  }
+
+  .tile {
+    padding: var(--spacing-16);
+  }
+
+  .arrow {
+    bottom: var(--spacing-16);
+    left: var(--spacing-16);
+    width: var(--spacing-40);
+    height: var(--spacing-40);
+    padding: var(--spacing-8);
+  }
+
+  .big .img {
+    width: 68%;
+    height: 82%;
+  }
+
+  .wide .img {
+    width: 70%;
+  }
+}
+
+/* Телефон: одна колонка; плитка растёт вместе с типами, под товар оставлено место снизу */
+@media (max-width: 767px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+  }
+
+  .big,
+  .wide,
+  .small {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .tile {
+    min-height: 16rem;
+    padding-bottom: 9.5rem;
+  }
+
+  .body,
+  .big .body {
+    max-width: none;
+  }
+
+  .tile .img,
+  .big .img,
+  .wide .img,
+  .small .img {
+    width: 72%;
+    height: 9rem;
+  }
+}

@@ -42,7 +42,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--spacing-58) var(--grid-gap);
 }
 
@@ -54,6 +54,12 @@
   from {
     opacity: 0;
     transform: translate3d(0, var(--reveal-distance), 0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

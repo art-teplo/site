@@ -28,6 +28,7 @@ class FaqListView(PublicReadMixin, generics.ListAPIView):
 class ProjectListView(PublicReadMixin, generics.ListAPIView):
     queryset = Project.objects.filter(is_published=True).prefetch_related(
         'photos',
+        'series',
     )
     serializer_class = serializers.ProjectSerializer
 
