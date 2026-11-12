@@ -9,7 +9,7 @@ import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
 import { SortMenu } from "@/components/SortMenu/SortMenu";
 import { mapShowcase, type ApiShowcase, type Showcase } from "@/data/catalog-map";
 import type { Brand, CatalogField, Category, Facet } from "@/data/types";
-import { csv, parseCatalogQuery, serializeCatalogQuery, type CatalogQuery, type Sort, PAGE_SIZE_CARDS, SORT_LABEL } from "@/lib/catalog-query";
+import { catalogKey, csv, parseCatalogQuery, serializeCatalogQuery, type CatalogQuery, type Sort, PAGE_SIZE_CARDS, SORT_LABEL } from "@/lib/catalog-query";
 import { facetValueLabel } from "@/lib/facet-labels";
 import { cx, plural } from "@/lib/format";
 import { colorLabel } from "@/lib/series-color";
@@ -52,11 +52,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   const moreController = useRef<AbortController | null>(null);
 
   // «Показать ещё» живёт в состоянии, в адрес page не попадает
-  const key = useMemo(() => {
-    const p = new URLSearchParams(params.toString());
-    p.delete("page");
-    return p.toString();
-  }, [params]);
+  const key = useMemo(() => catalogKey(params), [params]);
   const query = useMemo(() => parseCatalogQuery(new URLSearchParams(key), fieldsOf(loaded.facets)), [key, loaded.facets]);
   const brandNames = useMemo(() => Object.fromEntries(brands.map((b) => [b.slug, b.name])), [brands]);
 
@@ -140,6 +136,8 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
     return f.values.length > 0;
   });
   const pending = key !== loaded.key;
+  // Открыли ссылку с фильтрами: на руках ещё первый экран без них — его не показываем, ждём свой список
+  const awaiting = pending && loaded.key === "" && !failed;
   const singleBrand = selectedBrands.length === 1 ? brands.find((b) => b.slug === selectedBrands[0]) : undefined;
   // Группы фильтров: первые VISIBLE_GROUPS видны, остальные под кнопкой; группа с выбранным значением видна всегда
   const selectedIn = (f: Facet): number => {
@@ -206,7 +204,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
 
       <div className={styles.toolbar}>
         <p className={styles.found} aria-live="polite">
-          {plural(loaded.count, "вариант", "варианта", "вариантов")}
+          {awaiting ? "Подбираем…" : plural(loaded.count, "вариант", "варианта", "вариантов")}
         </p>
         <SortMenu
           label="Сортировка"
@@ -283,10 +281,10 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
         )}
       </aside>
 
-      <div className={cx(styles.results, pending && styles.pending)} aria-busy={pending}>
+      <div className={cx(styles.results, pending && styles.pending, awaiting && styles.awaiting)} aria-busy={pending}>
         {pending && <div className={styles.progress} role="progressbar" aria-label="Загружаем список"><span className={styles.progressBar} /></div>}
         {failed && <p className={styles.error}>Не удалось обновить список. Попробуйте ещё раз или откройте страницу заново.</p>}
-        {loaded.results.length ? (
+        {awaiting ? null : loaded.results.length ? (
           <>
             {/* key по запросу: новый список монтируется заново и появляется с анимацией блоков */}
             <ul key={loaded.key} className={styles.grid}>
@@ -320,15 +318,20 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
 }
 
 // Без JS и во время гидрации — тот же первый экран без фильтров (его видят поисковики).
+// Ссылку с фильтрами этот экран не знает: скрипт в <head> (CATALOG_QUERY_SCRIPT) ставит <html data-catalog-query>,
+// и CSS вместо чужого списка показывает полосу загрузки
 export function CatalogFallback({ category, initial, brands }: { category: Category; initial: Showcase; brands: Brand[] }) {
   const names = Object.fromEntries(brands.map((b) => [b.slug, b.name]));
   return (
-    <div className={styles.layout}>
+    <div className={cx(styles.layout, styles.fallback)}>
       <div className={styles.toolbar}>
         <p className={styles.found}>{plural(initial.count, "вариант", "варианта", "вариантов")}</p>
       </div>
       <div className={styles.filters} aria-hidden="true" />
       <div className={styles.results}>
+        <div className={cx(styles.progress, styles.fallbackProgress)} aria-hidden="true">
+          <span className={styles.progressBar} />
+        </div>
         <ul className={styles.grid}>
           {initial.results.map((card, i) => (
             <li key={`${card.series}-${card.heightMm}-${i}`}>

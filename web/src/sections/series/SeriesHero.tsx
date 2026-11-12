@@ -11,7 +11,7 @@ import { CONNECTION_LABEL } from "@/lib/connections";
 import { cx, formatPrice, plural } from "@/lib/format";
 import { colorNote } from "@/lib/price";
 import { pickColor } from "@/lib/series-color";
-import { scrollToSection } from "./scroll";
+import { focusSeriesFilter, scrollToSection } from "./scroll";
 import styles from "./SeriesHero.module.css";
 
 type Props = {
@@ -67,8 +67,9 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
         .join(", ")
     : `${series.name}, вариант не выбран`;
 
-  // Характеристики: где у серии разброс — чип «от — до», он ведёт к таблице вариантов; выбран вариант — его значение
-  const specs: { label: string; value: string; chip: boolean; to?: string }[] = (
+  // Характеристики: где у серии разброс — чип «от — до», он ведёт к фильтру этого размера в таблице вариантов;
+  // выбран вариант — его значение
+  const specs: { label: string; value: string; chip: boolean; to?: string; filter?: string }[] = (
     [
       ["Высота, мм", "height", row?.heightMm],
       ["Ширина, мм", "width", row?.widthMm],
@@ -78,7 +79,7 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
     const [min, max] = series.ranges[key] ?? [null, null];
     if (own != null) return [{ label, value: String(own), chip: false }];
     if (min == null || max == null) return [];
-    return [min === max ? { label, value: String(min), chip: false } : { label, value: `от ${min} — до ${max}`, chip: true }];
+    return [min === max ? { label, value: String(min), chip: false } : { label, value: `от ${min} — до ${max}`, chip: true, filter: key }];
   });
   const connections = [...new Set(series.executions.map((e) => e.connection).filter((c): c is NonNullable<typeof c> => c != null))];
   if (row?.connection) specs.push({ label: "Подключение", value: CONNECTION_LABEL[row.connection], chip: false });
@@ -134,7 +135,7 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
                 <dt>{sp.label}</dt>
                 <dd>
                   {sp.chip ? (
-                    <button type="button" className={styles.chip} onClick={() => scrollToSection(sp.to ?? "variants")}>
+                    <button type="button" className={styles.chip} onClick={() => (sp.filter ? focusSeriesFilter(sp.filter) : scrollToSection(sp.to ?? "variants"))}>
                       {sp.value}
                       <span aria-hidden="true">›</span>
                     </button>

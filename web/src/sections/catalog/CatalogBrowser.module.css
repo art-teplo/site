@@ -484,6 +484,24 @@
   }
 }
 
+/* Ссылка с фильтрами: пока не пришёл её список, первый экран без фильтров не показываем — только полосу */
+.fallbackProgress {
+  display: none;
+}
+
+:global(html[data-catalog-query]) .fallback .fallbackProgress {
+  display: block;
+}
+
+:global(html[data-catalog-query]) .fallback .grid,
+:global(html[data-catalog-query]) .fallback .found {
+  visibility: hidden;
+}
+
+.awaiting {
+  min-height: calc(var(--spacing-122) * 3);
+}
+
 .pending .grid,
 .pending .more {
   opacity: 0.5;
