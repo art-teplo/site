@@ -35,6 +35,8 @@ const nextConfig: NextConfig = {
     qualities: [70, 75],
     // Свои картинки — только с текущей версией (см. lib/asset.ts); фото из админки отдаёт бэк
     localPatterns: [{ pathname: "/images/**", search: `?v=${IMAGES_VERSION}` }, { pathname: "/media/**" }],
+    // С S3 (BACKEND__S3__ENABLED=1) бэк отдаёт полные адреса публичного бакета ActiveStorage
+    remotePatterns: [{ protocol: "https", hostname: "io.activecloud.com", pathname: "/art-teplo-media/**" }],
   },
 };
 
