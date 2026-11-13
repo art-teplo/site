@@ -13,6 +13,9 @@ from django.db.models import Q
 from .models import Variant
 
 MIN_WORD = 2
+# Больше слов в запросе по каталогу не нужно, а каждое — до 9 форм с
+# подзапросом: без потолка длинный запрос из коротких слов грузил базу
+MAX_WORDS = 5
 
 _EN = "qwertyuiop[]asdfghjkl;'zxcvbnm,.`"
 _RU = 'йцукенгшщзхъфывапролджэячсмитьбюё'
@@ -116,22 +119,30 @@ def forms(word: str) -> list[str]:
 
 
 def words(query: str) -> list[str]:
-    """Слова запроса; короче двух букв отбрасываются (кроме цифр артикула)."""
+    """Слова запроса без повторов, не больше MAX_WORDS; короче двух букв
+    отбрасываются (кроме цифр артикула)."""
     text = query.lower().replace('ё', 'е')
-    return [w for w in text.split() if len(w) >= MIN_WORD or w.isdigit()]
+    found = [w for w in text.split() if len(w) >= MIN_WORD or w.isdigit()]
+    return list(dict.fromkeys(found))[:MAX_WORDS]
 
 
-def _word(word: str) -> Q:
-    # Артикул — подзапросом, не соединением: join с вариантами (десятки
-    # тысяч строк) размножал серии, и план Postgres уходил в минуты
-    articles = Variant.objects.filter(article__iexact=word).values('series_id')
+def _text(word: str) -> Q:
     return (
         Q(name__icontains=word)
         | Q(brand__name__icontains=word)
         | Q(subcategory__name__icontains=word)
         | Q(category__name__icontains=word)
-        | Q(pk__in=articles)
     )
+
+
+def _articles(candidates: list[str]) -> Q:
+    # Артикул — подзапросом, не соединением: join с вариантами (десятки
+    # тысяч строк) размножал серии, и план Postgres уходил в минуты.
+    # Один подзапрос на слово, все его формы — внутри
+    match = Q()
+    for candidate in candidates:
+        match |= Q(article__iexact=candidate)
+    return Q(pk__in=Variant.objects.filter(match).values('series_id'))
 
 
 def series_filter(query: str) -> Q | None:
@@ -143,8 +154,9 @@ def series_filter(query: str) -> Q | None:
         return None
     every = Q()
     for word in found:
-        any_form = Q()
-        for form in forms(word):
-            any_form |= _word(form)
+        candidates = forms(word)
+        any_form = _articles(candidates)
+        for form in candidates:
+            any_form |= _text(form)
         every &= any_form
     return every
