@@ -12,6 +12,8 @@ const paths = {
   search: "M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15z M16 16l4.5 4.5",
   // Закрыть — крест
   close: "M6 6l12 12 M18 6L6 18",
+  // История поиска — часы
+  clock: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7.5V12l3 2",
 } as const;
 
 export type IconName = keyof typeof paths;

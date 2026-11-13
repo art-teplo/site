@@ -2,7 +2,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { brands, categories, demoCards, demoSeries, demoSeriesBySlug } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
 import { mapCard, mapVariants, mapShowcase, type ApiCard, type ApiShowcase, type ApiVariants } from "./catalog-map";
-import { serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
+import { serializeCatalogQuery, type CatalogQuery, type Sort } from "@/lib/catalog-query";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
 import type {
@@ -263,16 +263,21 @@ export async function getVariants(
 }
 
 // Поиск по сайту: до 20 карточек витрины. Без бэка — по названию и бренду демо-серий
-export async function getSearch(q: string): Promise<ShowcaseCard[]> {
+// Поиск: слова, раскладка и синонимы разбирает бэк (apps/catalog/search.py). sort — как в каталоге
+export async function getSearch(q: string, sort?: Sort): Promise<ShowcaseCard[]> {
   const query = q.trim();
   if (query.length < 2) return [];
-  const data = await load<ApiCard[]>(`search/?q=${encodeURIComponent(query)}`, "catalog");
+  const params = new URLSearchParams({ q: query });
+  if (sort) params.set("sort", sort);
+  const data = await load<ApiCard[]>(`search/?${params}`, "catalog");
   if (!data) {
     const needle = query.toLowerCase();
-    return categories
+    const found = categories
       .flatMap((c) => demoCards(c.slug).map((card) => ({ ...card, category: c.slug })))
       .filter((card) => `${card.name} ${card.brand}`.toLowerCase().includes(needle))
       .slice(0, 20);
+    const sign = sort === "-price" ? -1 : 1;
+    return sort ? found.sort((a, b) => sign * ((a.priceFrom ?? Infinity) - (b.priceFrom ?? Infinity))) : found;
   }
   return data.map(mapCard);
 }

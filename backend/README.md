@@ -39,12 +39,13 @@ src/
   apps/leads/     заявки: POST /api/leads/, админка, Celery (Telegram, чистка); команда runbot
   apps/leads/telegram/  aiogram: texts.py (все тексты), service.py (сообщение, отправка), handlers.py (кнопки, команды)
   apps/content/   настройки сайта (django-solo), вопрос-ответ, проекты, блог, акции, шоурум: API только на чтение,
-                  html.py (чистка текста статей), сигнал фронту обновить страницы; команда loaddemo
+                  html.py (чистка текста статей), widgets.py (точка фокуса фото и подсказки о размере в админке),
+                  сигнал фронту обновить страницы; команда loaddemo
                   (заливает и каталог)
   apps/catalog/   категории, бренды (логотип, «гарантия до», наценка markup_percent), сроки изготовления,
                   серии (Series), варианты (Variant), группы цветов и цвета (ColorGroup, Color), витрина (Showcase),
                   фото и файлы серии (SeriesImage, SeriesFile), курсы валют (CurrencyRate).
-                  Импорт прайса: команда import_price; курсы: rates.py, tasks.py. Тег кэша фронта — catalog
+                  Импорт прайса: команда import_price; курсы: rates.py, tasks.py; поиск (слова, раскладка, синонимы) — search.py. Тег кэша фронта — catalog
   tests/          pytest
 ```
 

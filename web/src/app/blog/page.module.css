@@ -15,6 +15,22 @@
   border-radius: var(--radius-cards);
 }
 
+/* Рамка картинки — по её форме (--promo-ratio из размеров фото), без обрезки */
+.promoMedia {
+  min-width: 0;
+}
+
+/* Вертикальная карточка поставщика: колонка по ширине картинки, высота — до потолка
+   и не больше исходника, чтобы маленькая картинка не расплывалась */
+.promoPortrait {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.promoPortrait .promoMedia {
+  height: min(var(--media-portrait-max), var(--promo-h));
+  aspect-ratio: var(--promo-ratio);
+}
+
 .promoText {
   display: grid;
   gap: var(--spacing-16);
@@ -149,9 +165,16 @@
 }
 
 @media (max-width: 767px) {
-  .promo {
+  .promo,
+  .promoPortrait {
     grid-template-columns: 1fr;
     gap: var(--spacing-8);
+  }
+
+  /* Вертикальная — по центру над текстом */
+  .promoPortrait .promoMedia {
+    justify-self: center;
+    max-width: 100%;
   }
 }
 

@@ -3,6 +3,7 @@ import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { SplitText } from "@/components/SplitText/SplitText";
+import { cx } from "@/lib/format";
 import styles from "./PageIntro.module.css";
 
 type Props = {
@@ -10,12 +11,13 @@ type Props = {
   intro?: ReactNode;
   crumbs?: { href?: string; label: string }[];
   children?: ReactNode; // якорное меню страницы или действия
+  className?: string;
 };
 
 // Верх внутренней страницы: крошки, крупный заголовок, вводный текст и навигация по разделам страницы.
-export function PageIntro({ title, intro, crumbs = [], children }: Props) {
+export function PageIntro({ title, intro, crumbs = [], children, className }: Props) {
   return (
-    <Section className={styles.intro} labelledBy="page-title">
+    <Section className={cx(styles.intro, className)} labelledBy="page-title">
       <Container>
         <Breadcrumbs items={[{ href: "/", label: "Главная" }, ...crumbs, { label: title }]} />
         <div className={styles.head}>
