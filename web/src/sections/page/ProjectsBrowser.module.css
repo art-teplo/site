@@ -68,3 +68,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Нет ни одного проекта (как .note в блоге) */
+.note {
+  padding-top: var(--spacing-24);
+  border-top: var(--border-hairline);
+  color: var(--text-muted);
+}

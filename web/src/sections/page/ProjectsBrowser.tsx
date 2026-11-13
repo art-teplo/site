@@ -17,6 +17,8 @@ const FILTERS: { id: "all" | Project["kind"]; label: string }[] = [
 export function ProjectsBrowser({ projects, seriesLinks = {} }: { projects: Project[]; seriesLinks?: Record<string, { name: string; href: string }> }) {
   const [kind, setKind] = useState<(typeof FILTERS)[number]["id"]>("all");
   const shown = kind === "all" ? projects : projects.filter((p) => p.kind === kind);
+  // В админке может не быть ни одного проекта — тогда без фильтров и пустой сетки, как в блоге
+  if (projects.length === 0) return <p className={styles.note}>Проектов пока нет.</p>;
 
   return (
     <>
