@@ -63,3 +63,152 @@
   width: var(--spacing-24);
   height: var(--spacing-24);
 }
+
+/* Подсказки под полем: как выпадающий список сортировки — фон страницы, контур, тень */
+.panel {
+  position: absolute;
+  top: calc(100% + var(--spacing-8));
+  left: 0;
+  right: 0;
+  z-index: var(--z-overlay);
+  max-height: min(70vh, 32rem);
+  overflow-y: auto;
+  padding: var(--spacing-8);
+  border: var(--outline-width) solid var(--outline-color);
+  border-radius: var(--radius-cards);
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: var(--shadow-xl);
+  text-align: left;
+}
+
+.groupHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--spacing-8) var(--spacing-12) var(--spacing-4);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
+.groupLabel {
+  display: block;
+  margin: var(--spacing-8) 0 var(--spacing-4);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.clear {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.clear:hover {
+  color: var(--text);
+}
+
+.clear:active {
+  opacity: 0.7;
+}
+
+.list {
+  display: grid;
+}
+
+.option {
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-inputs);
+  font-size: var(--text-caption);
+  cursor: pointer;
+}
+
+/* «Часто ищут» — заголовок внутри первого пункта группы: подсветка только под самим пунктом */
+.option:has(.groupLabel) {
+  padding-top: 0;
+}
+
+.optionActive .query,
+.optionActive .card,
+.optionActive > span:only-child {
+  color: var(--color-accent);
+}
+
+.optionActive {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+.optionAll {
+  margin-top: var(--spacing-4);
+  border-top: var(--border-hairline);
+  border-radius: 0 0 var(--radius-inputs) var(--radius-inputs);
+  font-weight: var(--weight-medium);
+}
+
+.query {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.queryIcon {
+  flex: none;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  color: var(--text-muted);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: var(--spacing-58) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.thumb {
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: var(--radius-buttons);
+  background: var(--surface);
+}
+
+.cardText {
+  display: grid;
+  min-width: 0;
+}
+
+.cardName {
+  overflow: hidden;
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardMeta {
+  overflow: hidden;
+  color: var(--text-muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardPrice {
+  white-space: nowrap;
+}
+
+.loading {
+  padding: var(--spacing-8) var(--spacing-12);
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+}
+
+@media (max-width: 767px) {
+  .card {
+    grid-template-columns: var(--spacing-40) minmax(0, 1fr);
+  }
+
+  .cardPrice {
+    grid-column: 2;
+    color: var(--text-muted);
+  }
+}

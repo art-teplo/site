@@ -10,6 +10,11 @@ from unfold.decorators import action
 from apps.content.admin import PREVIEW_HEIGHT, preview
 from apps.content.models import Tag
 from apps.content.tasks import revalidate_frontend
+from apps.content.widgets import (
+    ImageAdminMixin,
+    ImageModelForm,
+    InlineImagesAdminMixin,
+)
 
 from . import pricing
 from .models import (
@@ -65,7 +70,7 @@ class CategoryAdmin(ModelAdmin):
 
 
 @admin.register(Subcategory)
-class SubcategoryAdmin(ModelAdmin):
+class SubcategoryAdmin(ImageAdminMixin, ModelAdmin):
     list_display = [preview, 'name', 'category', 'is_published']
     list_display_links = ['name']
     list_filter = ['category', 'is_published']
@@ -79,6 +84,7 @@ class SubcategoryAdmin(ModelAdmin):
         'slug',
         'image',
         'image_alt',
+        'image_focus',
         'is_published',
     ]
 
@@ -160,6 +166,7 @@ class ColorGroupInline(TabularInline):
 
 class SeriesImageInline(TabularInline):
     model = SeriesImage
+    form = ImageModelForm
     extra = 0
     ordering_field = 'position'
     hide_ordering_field = True
@@ -167,6 +174,7 @@ class SeriesImageInline(TabularInline):
         preview,
         'image',
         'image_alt',
+        'image_focus',
         'kind',
         'color',
         'orientation',
@@ -185,10 +193,11 @@ class SeriesFileInline(TabularInline):
 
 class ShowcaseInline(StackedInline):
     model = Showcase
+    form = ImageModelForm
     extra = 0
     ordering_field = 'position'
     hide_ordering_field = True
-    fields = ['label', 'variant', 'image', 'image_alt']
+    fields = ['label', 'variant', 'image', 'image_alt', 'image_focus']
     autocomplete_fields = ['variant']
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -202,7 +211,7 @@ class ShowcaseInline(StackedInline):
 
 
 @admin.register(Series)
-class SeriesAdmin(ModelAdmin):
+class SeriesAdmin(InlineImagesAdminMixin, ModelAdmin):
     inlines = [
         ColorGroupInline,
         SeriesImageInline,

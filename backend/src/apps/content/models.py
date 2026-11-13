@@ -12,6 +12,8 @@ MAX_IMAGE_MB = 15
 IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp']
 MAX_VIDEO_MB = 100
 VIDEO_EXTENSIONS = ['mp4', 'webm']
+FOCUS_CENTER = '50 50'
+FOCUS_PATTERN = r'^(100|[1-9]?\d) (100|[1-9]?\d)$'
 
 
 class Tag:
@@ -55,6 +57,27 @@ class WithImage(models.Model):
         max_length=200,
         help_text='Что на фото — для незрячих и поисковиков',
     )
+    # Рамки на сайте фиксированной формы (4:5, 4:3, 16:9), фото заполняет
+    # рамку и обрезается: фокус — что остаётся в кадре (object-position)
+    image_focus = models.CharField(
+        'точка фокуса',
+        max_length=7,
+        default=FOCUS_CENTER,
+        validators=[
+            RegexValidator(
+                FOCUS_PATTERN,
+                message='Два числа от 0 до 100 через пробел: «50 50»',
+            ),
+        ],
+        help_text=(
+            'Нажмите на фото там, где главное (обычно радиатор): '
+            'при обрезке под рамку оно останется в кадре'
+        ),
+    )
+
+    # Подсказка к полю «фото» в админке и ширина, меньше которой фото
+    # на сайте будет мыльным: (текст, px). У каждой модели — своя рамка
+    IMAGE_HINT: tuple[str, int] = ('', 0)
 
     class Meta:
         abstract = True
@@ -255,6 +278,10 @@ class Published(models.Model):
 
 class Project(Published, WithImage, Sortable):
     cache_tag = Tag.PROJECTS
+    IMAGE_HINT = (
+        'Рамки 4:5, 4:3 и 3:2 — с запасом по краям, от 1600 px по ширине',
+        1600,
+    )
 
     class Kind(models.TextChoices):
         FLAT = 'flat', 'квартира'
@@ -293,6 +320,7 @@ class ProjectPhoto(WithImage, Sortable):
     """Дополнительные фото проекта: на сайте листаются в галерее поверх списка."""
 
     cache_tag = Tag.PROJECTS
+    IMAGE_HINT = ('Горизонтальное 3:2, от 1600 px по ширине', 1600)
 
     project = models.ForeignKey(
         Project,
@@ -334,6 +362,8 @@ class Article(WithImage):
 
 
 class Post(Published, Article):
+    IMAGE_HINT = ('Горизонтальное 16:9, от 1600 px по ширине', 1600)
+
     published_at = models.DateField(
         'дата',
         default=timezone.localdate,
@@ -366,6 +396,10 @@ class PromoQuerySet(models.QuerySet):
 class Promo(Article, Sortable):
     """Акция: своей страницы нет, весь текст — в карточке на «Блог и акции»."""
 
+    # Карточки акций — готовые картинки поставщиков, часто вертикальные:
+    # на сайте рамка по их форме (решение 150), поэтому без порога ширины
+    IMAGE_HINT = ('Любая форма, на сайте — целиком, без обрезки', 0)
+
     ends_at = models.DateField(
         'действует до',
         null=True,
@@ -387,6 +421,7 @@ class Promo(Article, Sortable):
 
 class ShowroomPhoto(WithImage, Sortable):
     cache_tag = Tag.SHOWROOM
+    IMAGE_HINT = ('Горизонтальное 3:2, от 1600 px по ширине', 1600)
 
     class Meta(Sortable.Meta):
         verbose_name = 'фото шоурума'

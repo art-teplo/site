@@ -1,3 +1,5 @@
+import math
+
 from rest_framework import serializers
 
 from apps.content.serializers import ImageAssetMixin, image_asset
@@ -84,7 +86,24 @@ def _card_photo(showcase, series):
         same.sort(key=lambda i: i.kind != SeriesImage.Kind.PRODUCT)
         if same:
             return same[0]
+    # Формфактор не задан: карточка вертикальная (4:5) — товарное фото,
+    # которое ближе к ней по форме, иначе главное. Горизонтальное фото в
+    # вертикальной рамке теряло ~40 % кадра и выглядело «зазумленным»
+    product = [i for i in images if i.kind == SeriesImage.Kind.PRODUCT]
+    if product:
+        return min(product, key=_card_misfit)
     return _main_image(series)
+
+
+CARD_RATIO = 4 / 5
+
+
+def _card_misfit(image):
+    """Насколько фото не совпадает по форме с карточкой: 0 — точно.
+    Без размеров — в конец, порядок из админки сохраняется (min стабилен)."""
+    if not image.image_width or not image.image_height:
+        return math.inf
+    return abs(math.log(image.image_width / image.image_height / CARD_RATIO))
 
 
 def card_image(showcase, series):

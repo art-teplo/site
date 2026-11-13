@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/Container/Container";
@@ -16,6 +17,9 @@ export const metadata: Metadata = {
   description: "Как выбрать радиатор, цвет и подключение: статьи и акции шоурума АртТепло.",
 };
 
+// Вертикальная карточка акции — узкая колонка по высоте, горизонтальная — как раньше, широкая
+const isPortrait = (image: { width: number; height: number }) => image.height > image.width;
+
 export default async function BlogPage() {
   const [posts, promos] = await Promise.all([getPosts(), getPromos()]);
   const [first, ...rest] = posts;
@@ -29,10 +33,17 @@ export default async function BlogPage() {
             <ul className={styles.promos} aria-label="Акции">
               {promos.map((promo, i) => (
                 <Reveal as="li" key={promo.title} index={i}>
-                  <article className={styles.promo}>
-                    <Frame ratio="4 / 3">
-                      <Picture image={promo.image} sizes="(max-width: 767px) 100vw, 40vw" />
-                    </Frame>
+                  <article className={cx(styles.promo, isPortrait(promo.image) && styles.promoPortrait)}>
+                    {/* Рамка — по форме самого фото: заказчица присылает готовые карточки акций (часто вертикальные),
+                        их нельзя обрезать. Не крупнее исходника — маленькая картинка не растягивается в мыло */}
+                    <div
+                      className={styles.promoMedia}
+                      style={{ "--promo-ratio": `${promo.image.width} / ${promo.image.height}`, "--promo-h": `${promo.image.height}px`, "--promo-w": `${promo.image.width}px` } as CSSProperties}
+                    >
+                      <Frame ratio={`${promo.image.width} / ${promo.image.height}`}>
+                        <Picture image={promo.image} sizes="(max-width: 767px) 100vw, 40vw" />
+                      </Frame>
+                    </div>
                     <div className={styles.promoText}>
                       <p className={styles.meta}>
                         Акция ·{" "}

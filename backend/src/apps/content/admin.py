@@ -14,6 +14,7 @@ from .models import (
     ShowroomPhoto,
     SiteSettings,
 )
+from .widgets import ImageAdminMixin, ImageModelForm
 
 PREVIEW_HEIGHT = 64
 
@@ -85,15 +86,16 @@ class FaqAdmin(ModelAdmin):
 
 class ProjectPhotoInline(TabularInline):
     model = ProjectPhoto
+    form = ImageModelForm
     extra = 0
     ordering_field = 'position'
     hide_ordering_field = True
-    fields = [preview, 'image', 'image_alt', 'position']
+    fields = [preview, 'image', 'image_alt', 'image_focus', 'position']
     readonly_fields = [preview]
 
 
 @admin.register(Project)
-class ProjectAdmin(ModelAdmin):
+class ProjectAdmin(ImageAdminMixin, ModelAdmin):
     inlines = [ProjectPhotoInline]
     list_display = [preview, 'title', 'kind', 'place', 'is_published']
     list_display_links = ['title']
@@ -110,12 +112,13 @@ class ProjectAdmin(ModelAdmin):
         'place',
         'image',
         'image_alt',
+        'image_focus',
         'series',
         'is_published',
     ]
 
 
-class ArticleAdmin(ModelAdmin):
+class ArticleAdmin(ImageAdminMixin, ModelAdmin):
     """Статья и акция: текст — в визуальном редакторе."""
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
@@ -138,6 +141,7 @@ class PostAdmin(ArticleAdmin):
         'published_at',
         'image',
         'image_alt',
+        'image_focus',
         'lead',
         'body',
         'is_published',
@@ -156,6 +160,7 @@ class PromoAdmin(ArticleAdmin):
         'title',
         'image',
         'image_alt',
+        'image_focus',
         'body',
         'ends_at',
         'is_published',
@@ -163,9 +168,9 @@ class PromoAdmin(ArticleAdmin):
 
 
 @admin.register(ShowroomPhoto)
-class ShowroomPhotoAdmin(ModelAdmin):
+class ShowroomPhotoAdmin(ImageAdminMixin, ModelAdmin):
     list_display = [preview, 'image_alt']
     list_display_links = ['image_alt']
     ordering_field = 'position'
     hide_ordering_field = True
-    fields = ['image', 'image_alt']
+    fields = ['image', 'image_alt', 'image_focus']

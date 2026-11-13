@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 from rest_framework import serializers
 
 from .models import (
+    FOCUS_CENTER,
     Faq,
     OpeningHours,
     Post,
@@ -21,12 +22,19 @@ def image_asset(obj):
     Домен из запроса не подставляем: Next ходит сюда по http://backend:8000,
     браузеру этот адрес не виден. Так же отдаются видео шоурума и логотипы брендов.
     """
-    return {
+    asset = {
         'src': obj.image.url,
         'width': obj.image_width,
         'height': obj.image_height,
         'alt': obj.image_alt,
     }
+    # Точка фокуса «x y» в процентах: фронт ставит её в object-position.
+    # Центр не отдаём — это и так поведение по умолчанию
+    focus = getattr(obj, 'image_focus', FOCUS_CENTER)
+    if focus and focus != FOCUS_CENTER:
+        x, y = focus.split()
+        asset['focus'] = {'x': int(x), 'y': int(y)}
+    return asset
 
 
 class ImageAssetMixin(serializers.Serializer):

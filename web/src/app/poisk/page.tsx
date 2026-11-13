@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SearchResults } from "@/sections/search/SearchResults";
+import type { Sort } from "@/lib/catalog-query";
 
 // Страница собирается под адрес (?q=): шапка читает usePathname() вне <Suspense>
 export const instant = false;
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function PoiskPage({ searchParams }: PageProps<"/poisk">) {
-  const { q } = await searchParams;
+  const { q, sort } = await searchParams;
   const query = (Array.isArray(q) ? q[0] : q)?.trim().slice(0, 100) ?? "";
-  return <SearchResults query={query} />;
+  const order: "" | Sort = sort === "price" || sort === "-price" ? sort : "";
+  return <SearchResults query={query} sort={order} />;
 }
