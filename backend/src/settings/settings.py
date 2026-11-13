@@ -84,19 +84,42 @@ FRONTEND__REVALIDATE_SECRET = env.str(
     'FRONTEND__REVALIDATE_SECRET', default=''
 )
 
+# Два бакета: публичный на чтение (фото из админки, политика GetObject
+# для всех) и закрытый (файлы заявок, отдаются только через админку и бота)
 S3__ENABLED = env.bool('S3__ENABLED', default=False)
-s3_options = (
+s3_connection = (
     {
         'region_name': env.str('S3__REGION_NAME', default=None),  # pyright: ignore[reportArgumentType]
         'endpoint_url': env.str('S3__ENDPOINT_URL'),
         'access_key': env.str('S3__ACCESS_KEY_ID'),
         'secret_key': env.str('S3__SECRET_ACCESS_KEY'),
-        'bucket_name': env.str('S3__BUCKET_NAME'),
-        'custom_domain': env.str('S3__CUSTOM_DOMAIN', default=None),  # pyright: ignore[reportArgumentType]
         'location': env.str('S3__LOCATION', default=''),
         'default_acl': None,
-        'querystring_auth': False,
         'file_overwrite': False,
+    }
+    if S3__ENABLED
+    else {}
+)
+s3_options = (
+    {
+        **s3_connection,
+        'bucket_name': env.str('S3__BUCKET_NAME'),
+        'custom_domain': env.str('S3__CUSTOM_DOMAIN', default=None),  # pyright: ignore[reportArgumentType]
+        'querystring_auth': False,
+        # Имена файлов не повторяются (file_overwrite=False): кэш на год
+        'object_parameters': {
+            'CacheControl': 'public, max-age=31536000, immutable',
+        },
+    }
+    if S3__ENABLED
+    else {}
+)
+s3_private_options = (
+    {
+        **s3_connection,
+        'bucket_name': env.str('S3__PRIVATE_BUCKET_NAME'),
+        'querystring_auth': True,
+        'querystring_expire': 300,
     }
     if S3__ENABLED
     else {}
@@ -212,8 +235,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_ROOT.mkdir(exist_ok=True)
 
-# Файлы заявок (планы, спецификации): вне MEDIA_ROOT, который ASGI отдаёт
-# открыто, пока S3 выключен. Скачать — только из админки
+# Файлы заявок (планы, спецификации) без S3: вне MEDIA_ROOT, который ASGI
+# отдаёт открыто. С S3 — закрытый бакет. Скачать — только из админки
 PRIVATE_MEDIA_ROOT = BASE_DIR / 'private'
 PRIVATE_MEDIA_ROOT.mkdir(exist_ok=True)
 
@@ -236,10 +259,17 @@ STORAGES = {
             'BACKEND': 'django.core.files.storage.FileSystemStorage',
         }
     ),
-    'private': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
-        'OPTIONS': {'location': PRIVATE_MEDIA_ROOT},
-    },
+    'private': (
+        {
+            'BACKEND': 'storages.backends.s3.S3Storage',
+            'OPTIONS': s3_private_options,
+        }
+        if S3__ENABLED
+        else {
+            'BACKEND': 'django.core.files.storage.FileSystemStorage',
+            'OPTIONS': {'location': PRIVATE_MEDIA_ROOT},
+        }
+    ),
     'staticfiles': {
         'BACKEND': (
             'django.contrib.staticfiles.storage.StaticFilesStorage'
