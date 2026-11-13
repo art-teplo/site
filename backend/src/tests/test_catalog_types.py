@@ -18,6 +18,7 @@ from apps.catalog.models import (
     Variant,
 )
 from apps.catalog.pricing import effective_percent, price_from
+from apps.catalog.search import MAX_WORDS, words
 from apps.content.models import Project
 
 
@@ -315,6 +316,16 @@ def test_search_every_word_in_any_field(client, shop):  # noqa: ARG001
     # Бренд и название — в разных полях: целиком строки нет нигде
     assert slugs(search(client, 'guardo retta')) == ['retta']
     assert search(client, 'guardo черновик') == []
+
+
+def test_search_words_deduplicated_and_capped():
+    # Длинный запрос из коротких слов не размножает подзапросы к базе
+    assert words('ab ab cd') == ['ab', 'cd']
+    assert len(words(' '.join(f'w{i}' for i in range(30)))) == MAX_WORDS
+
+
+def test_search_long_query_still_finds(client, shop):  # noqa: ARG001
+    assert slugs(search(client, 'guardo retta ' * 10)) == ['retta']
 
 
 def test_search_keyboard_layout_synonyms_translit(client, shop):  # noqa: ARG001
