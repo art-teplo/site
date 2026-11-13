@@ -18,6 +18,7 @@ from apps.catalog.models import (
     Variant,
 )
 from apps.catalog.pricing import effective_percent, price_from
+from apps.catalog.search import MAX_WORDS, words
 from apps.content.models import Project
 
 
@@ -309,6 +310,83 @@ def test_search_limited_to_twenty(client, shop):
     for i in range(25):
         add_series(shop.brand, shop.category, f'm{i}', f'Many {i}', '10')
     assert len(search(client, 'many')) == 20
+
+
+def test_search_every_word_in_any_field(client, shop):  # noqa: ARG001
+    # Бренд и название — в разных полях: целиком строки нет нигде
+    assert slugs(search(client, 'guardo retta')) == ['retta']
+    assert search(client, 'guardo черновик') == []
+
+
+def test_search_words_deduplicated_and_capped():
+    # Длинный запрос из коротких слов не размножает подзапросы к базе
+    assert words('ab ab cd') == ['ab', 'cd']
+    assert len(words(' '.join(f'w{i}' for i in range(30)))) == MAX_WORDS
+
+
+def test_search_long_query_still_finds(client, shop):  # noqa: ARG001
+    assert slugs(search(client, 'guardo retta ' * 10)) == ['retta']
+
+
+def test_search_keyboard_layout_synonyms_translit(client, shop):  # noqa: ARG001
+    everything = ['retta', 'torre', 'allumo']
+    assert slugs(search(client, 'udfhlj')) == everything  # «гуардо» в EN
+    assert slugs(search(client, 'гуардо')) == everything
+    assert slugs(search(client, 'куееф')) == ['retta']  # «retta» в RU
+    assert slugs(search(client, 'гуардо ретта')) == ['retta']
+    assert slugs(search(client, 'батареи')) == everything
+
+
+def test_search_sort_and_limit(client, shop):  # noqa: ARG001
+    url = reverse('search')
+
+    def found(**params):
+        response = client.get(url, {'q': 'guardo', **params})
+        return slugs(response.json())
+
+    assert found(sort='price') == ['allumo', 'retta', 'torre']
+    assert found(sort='-price') == ['torre', 'retta', 'allumo']
+    assert found(sort='bogus') == ['retta', 'torre', 'allumo']
+    assert found(limit='1') == ['retta']
+    assert len(found(limit='nope')) == 3
+    assert len(found(limit='0')) == 1
+
+
+def test_card_prefers_photo_shaped_like_card(client, shop):
+    """Без витрины карточка вертикальная (4:5): горизонтальное товарное фото,
+    даже первое в админке, уступает вертикальному."""
+    wide = SeriesImage.objects.create(
+        series=shop.retta,
+        image=png('wide.png'),
+        image_alt='w',
+        kind=SeriesImage.Kind.PRODUCT,
+        position=1,
+    )
+    tall = SeriesImage.objects.create(
+        series=shop.retta,
+        image=png('tall.png'),
+        image_alt='t',
+        kind=SeriesImage.Kind.PRODUCT,
+        position=2,
+    )
+    SeriesImage.objects.filter(pk=wide.pk).update(
+        image_width=1600,
+        image_height=1000,
+    )
+    SeriesImage.objects.filter(pk=tall.pk).update(
+        image_width=1000,
+        image_height=1300,
+    )
+    card = search(client, 'retta')[0]
+    assert card['image']['alt'] == 't'
+
+
+def test_image_focus_in_api_only_when_moved(client, shop):  # noqa: ARG001
+    alu = Subcategory.objects.get(slug='alyuminievye-t')
+    alu.image_focus = '30 70'
+    alu.save()
+    types = client.get(reverse('category-list')).json()[0]['types']
+    assert types[0]['image']['focus'] == {'x': 30, 'y': 70}
 
 
 def test_water_heating_facet_label_is_russian(client, shop):

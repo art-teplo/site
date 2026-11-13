@@ -25,6 +25,8 @@ const intro = (
 // со стрелками и списком радиаторов из него. Якорь #projects — на обёртке, чтобы он был один.
 export async function Projects() {
   const projects = (await getProjects()).slice(0, HOME_COUNT);
+  // Нет проектов в админке — нет и блока: иначе остаётся пустая лента с одной карточкой «Все проекты»
+  if (projects.length === 0) return null;
   const found = await getSeriesCategories(projects.flatMap((p) => p.series));
   const seriesLinks = Object.fromEntries(
     Object.entries(found).map(([slug, s]) => [slug, { name: s.name, href: `/catalog/${s.category}/${slug}` }]),

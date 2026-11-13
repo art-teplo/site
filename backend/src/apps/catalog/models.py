@@ -49,6 +49,7 @@ class Subcategory(Published, WithImage, Sortable):
     """Тип товара внутри категории: «Трубчатые», «Внутрипольные»."""
 
     cache_tag = Tag.CATALOG
+    IMAGE_HINT = ('Горизонтальное 4:3, от 1000 px по ширине', 1000)
 
     category = models.ForeignKey(
         Category,
@@ -476,6 +477,10 @@ class Variant(models.Model):
 
 class SeriesImage(WithImage, Sortable):
     cache_tag = Tag.CATALOG
+    IMAGE_HINT = (
+        'Товарное — вертикальное 4:5, в интерьере — 16:9, от 1200 px',
+        1200,
+    )
 
     class Kind(models.TextChoices):
         PRODUCT = 'product', 'товар'
@@ -552,6 +557,7 @@ class Showcase(WithImage, Sortable):
     """Витрина серии: подпись и вариант, который она показывает."""
 
     cache_tag = Tag.CATALOG
+    IMAGE_HINT = ('Вертикальное 4:5, от 1000 px по ширине', 1000)
 
     series = models.ForeignKey(
         Series,

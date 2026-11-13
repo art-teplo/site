@@ -10,7 +10,7 @@ from apps.content.models import Project
 from apps.content.serializers import ProjectSerializer
 from apps.content.views import PublicReadMixin
 
-from . import filters, schema, serializers
+from . import filters, schema, search, serializers
 from .choices import Connection
 from .models import (
     Brand,
@@ -37,6 +37,7 @@ SORTS = {'price', '-price'}
 SIMILAR_MAX = 4
 SEARCH_MAX = 20
 SEARCH_MIN_LENGTH = 2
+SEARCH_MAX_QUERY = 100
 VARIANTS_PAGE_SIZE = 20
 ALL_ROWS_MAX = 500  # потолок для page=all
 
@@ -222,6 +223,15 @@ def _cards(filtered) -> list[tuple]:
     return cards
 
 
+def _sorted(cards: list[tuple], sort: str | None) -> list[tuple]:
+    """?sort=price / -price — по цене «от»; «по запросу» всегда в конце, при
+    равной цене — порядок админки. Без параметра — порядок админки."""
+    if sort in SORTS:
+        sign = -1 if sort.startswith('-') else 1
+        cards.sort(key=lambda c: (c[2] is None, sign * (c[2] or 0)))
+    return cards
+
+
 class SeriesListView(PublicReadMixin, APIView):
     def get(self, request):
         category = request.query_params.get('category') or None
@@ -236,12 +246,7 @@ class SeriesListView(PublicReadMixin, APIView):
             if (slug := part.strip())
         ]
 
-        cards = _cards(filtered)
-        sort = request.query_params.get('sort')
-        if sort in SORTS:
-            # «По запросу» — всегда в конце; при равной цене — порядок админки
-            sign = -1 if sort.startswith('-') else 1
-            cards.sort(key=lambda c: (c[2] is None, sign * (c[2] or 0)))
+        cards = _sorted(_cards(filtered), request.query_params.get('sort'))
         paginator = Paginator(cards, PAGE_SIZE)
         page = paginator.get_page(request.query_params.get('page'))
         results = _render_cards(page.object_list)
@@ -384,21 +389,28 @@ def _projects(series: Series) -> list[dict]:
 
 
 class SearchView(PublicReadMixin, APIView):
+    """Поиск: слова запроса в названии, бренде, типе, категории или артикул;
+    другая раскладка и синонимы (search.py). ?sort= — как у списка,
+    ?limit= — для подсказок под полем (не больше SEARCH_MAX)."""
+
     def get(self, request):
-        query = request.query_params.get('q', '').strip()
-        if len(query) < SEARCH_MIN_LENGTH:
+        query = request.query_params.get('q', '').strip()[:SEARCH_MAX_QUERY]
+        where = search.series_filter(query)
+        if len(query) < SEARCH_MIN_LENGTH or where is None:
             return Response([])
-        found = Series.objects.filter(
-            Q(name__icontains=query)
-            | Q(brand__name__icontains=query)
-            | Q(subcategory__name__icontains=query)
-            | Q(category__name__icontains=query)
-            | Q(variants__article__iexact=query)
+        # Готовый список id: подзапрос внутри выборки вариантов Postgres
+        # планировал плохо. Серий — десятки, список короткий
+        found = list(Series.objects.filter(where).values_list('pk', flat=True))
+        cards = _sorted(
+            _cards(visible_variants().filter(series__in=found)),
+            request.query_params.get('sort'),
         )
-        cards = _cards(
-            visible_variants().filter(series__in=found.values('pk'))
-        )
-        return Response(_render_cards(cards[:SEARCH_MAX]))
+        try:
+            limit = int(request.query_params.get('limit', SEARCH_MAX))
+        except ValueError:
+            limit = SEARCH_MAX
+        limit = max(1, min(limit, SEARCH_MAX))
+        return Response(_render_cards(cards[:limit]))
 
 
 class SeriesDetailView(PublicReadMixin, APIView):

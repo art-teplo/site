@@ -6,6 +6,8 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 
 import pytest
+from django.contrib.messages import get_messages
+from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.management import call_command
@@ -34,6 +36,11 @@ from apps.content.models import (
     Tag,
 )
 from apps.content.tasks import revalidate_frontend
+from apps.content.widgets import (
+    FocusWidget,
+    ImageModelForm,
+    warn_small_image,
+)
 
 WEB_IMAGES = Path(__file__).resolve().parents[3] / 'web' / 'public' / 'images'
 
@@ -466,3 +473,56 @@ def test_post_admin_uses_editor_only_for_body(admin_client):
 
     assert html.count('<trix-editor') == 1
     assert 'input="wysiwyg-body"' in html
+
+
+# --- точка фокуса и размер фото ---
+
+
+@pytest.mark.parametrize('value', ['0 0', '50 50', '100 7', '9 100'])
+def test_image_focus_accepts_percent_pairs(make_promo, value):
+    promo = make_promo(image_focus=value)
+    promo.full_clean()
+
+
+@pytest.mark.parametrize('value', ['101 5', '50', '50,50', '-1 2', 'a b'])
+def test_image_focus_rejects_garbage(make_promo, value):
+    promo = make_promo()
+    promo.image_focus = value
+    with pytest.raises(ValidationError):
+        promo.full_clean()
+
+
+def test_image_form_has_focus_widget_and_frame_hint(make_promo):
+    class Form(ImageModelForm):
+        class Meta:
+            model = Promo
+            fields = ['image', 'image_alt', 'image_focus']
+
+    promo = make_promo()
+    form = Form(instance=promo)
+    assert form.fields['image'].help_text == Promo.IMAGE_HINT[0]
+    widget = form.fields['image_focus'].widget
+    assert isinstance(widget, FocusWidget)
+    assert widget.attrs['data-src'] == promo.image.url
+    assert 'focus-picker' in str(form['image_focus'])
+
+
+def test_small_image_gives_warning_not_error(db, rf):  # noqa: ARG001
+    request = rf.post('/')
+    request.session = {}
+    request._messages = FallbackStorage(request)  # noqa: SLF001
+
+    def post(slug, **size):
+        return with_image(Post(title='А', slug=slug, image_alt='ф'), **size)
+
+    def promo(**size):
+        return with_image(Promo(title='А', body='т', image_alt='ф'), **size)
+
+    warn_small_image(request, post('a', width=376, height=212))
+    warn_small_image(request, post('b', width=1600, height=900))
+    # Карточка акции поставщика — любой формы и размера, без предупреждения
+    warn_small_image(request, promo(width=376, height=685))
+    texts = [str(m) for m in get_messages(request)]
+    assert len(texts) == 1
+    assert '376 px' in texts[0]
+    assert '1600 px' in texts[0]

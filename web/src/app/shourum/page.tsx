@@ -25,17 +25,20 @@ export default async function ShourumPage() {
         <AnchorNav
           items={[
             { href: "#showroom", label: "Адрес и часы" },
-            { href: "#zal", label: "Зал" },
+            ...(showroomHall.length > 0 ? [{ href: "#zal", label: "Зал" }] : []),
             { href: "#lead", label: "Договориться о визите" },
           ]}
         />
       </PageIntro>
       <Showroom />
-      <Gallery
-        id="zal"
-        title="Как выглядит зал"
-        images={showroomHall}
-      />
+      {/* Нет фото зала в админке — нет блока и пункта «Зал» в навигации */}
+      {showroomHall.length > 0 && (
+        <Gallery
+          id="zal"
+          title="Как выглядит зал"
+          images={showroomHall}
+        />
+      )}
       <Facts withMore={false} />
       <Brands />
       <Reviews />

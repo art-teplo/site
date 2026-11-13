@@ -6,6 +6,8 @@ export type ImageAsset = {
   width: number;
   height: number;
   alt: string;
+  // Точка фокуса из админки, проценты: что оставить в кадре, когда рамка обрезает фото. Нет — центр
+  focus?: { x: number; y: number };
 };
 
 export type CategorySlug = "radiatory" | "konvektory" | "polotentsesushiteli" | "armatura";

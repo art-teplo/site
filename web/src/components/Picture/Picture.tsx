@@ -23,10 +23,13 @@ export function Picture({ image, mobile, sizes, eager, className, fit = "cover" 
     ? getImageProps({ ...common, src: versioned(mobile.src), width: mobile.width, height: mobile.height }).props.srcSet
     : undefined;
 
+  // Фото заполняет рамку и обрезается — точка фокуса держит главное в кадре (у кропа для телефона — своя)
+  const focus = fit === "cover" && !mobile && image.focus ? { objectPosition: `${image.focus.x}% ${image.focus.y}%` } : undefined;
+
   return (
     <picture className={cx(styles.picture, fit === "contain" && styles.bare, className)}>
       {mobileSrcSet && <source media="(max-width: 767px)" srcSet={mobileSrcSet} sizes={sizes} />}
-      <img {...props} alt={image.alt} className={cx(styles.img, fit === "contain" && styles.contain)} />
+      <img {...props} alt={image.alt} className={cx(styles.img, fit === "contain" && styles.contain)} style={focus ? { ...props.style, ...focus } : props.style} />
     </picture>
   );
 }

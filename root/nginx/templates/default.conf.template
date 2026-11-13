@@ -1,7 +1,12 @@
 # Шаблон: образ nginx подставляет ${ADMIN_PATH} из окружения при старте.
 
+# resolve: адрес backend перечитывается через resolver из nginx.conf (10 с).
+# Без него nginx запоминает IP при старте, а при деплое контейнер backend
+# пересоздаётся с новым IP — и /api/ отдаёт 502 до перезапуска nginx.
+# Для resolve нужна zone (общая память воркеров)
 upstream backend {
-    server backend:8000;
+    zone backend 64k;
+    server backend:8000 resolve;
     keepalive 16;
 }
 
