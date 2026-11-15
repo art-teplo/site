@@ -4,8 +4,9 @@
 # незакрытой беде напоминает. Нагрузка — df, curl и docker ps раз в 5 минут.
 # На сервере — cron пользователя deploy (crontab -e), рядом с бэкапом:
 #   */5 * * * * /opt/art-teplo/monitor.sh >> /opt/art-teplo/monitor.log 2>&1
-# Куда слать: MONITOR__TELEGRAM_CHAT_ID в .env (личный чат с ботом или группа
-# админов), пусто — группа заявок BACKEND__TELEGRAM__CHAT_ID. Бот — тот же.
+# Свой бот, не бот заявок: в .env MONITOR__TELEGRAM_BOT_TOKEN (из @BotFather)
+# и MONITOR__TELEGRAM_CHAT_ID — ваш личный чат с этим ботом. Узнать id: написать
+# боту /start, затем ./monitor.sh chatid. Без обоих значений алерты только в лог.
 # Проверить доставку: ./monitor.sh test
 set -uo pipefail
 
@@ -19,27 +20,31 @@ BACKUP_MAX_AGE=26    # часов с последнего удачного бэ�
 SITE_FAILS=2         # столько проверок подряд без ответа — алерт (деплой перезапускает контейнеры)
 REMIND_EVERY=86400   # секунд между напоминаниями о незакрытой беде
 
-token=$(env_get BACKEND__TELEGRAM__BOT_TOKEN)
+token=$(env_get MONITOR__TELEGRAM_BOT_TOKEN)
 chat=$(env_get MONITOR__TELEGRAM_CHAT_ID)
-chat=${chat:-$(env_get BACKEND__TELEGRAM__CHAT_ID)}
 port=$(env_get NGINX_PORT)
 base="http://127.0.0.1:${port:-80}"
 state=.monitor
 mkdir -p "$state"
 
+# Токен — через конфиг curl на stdin, не аргументом: аргументы видно в ps
+tg() { printf 'url = "https://api.telegram.org/bot%s/%s"\n' "$token" "$1" | curl -sSf -K - -m 15 "${@:2}"; }
+
 send() {
   [[ -n "$token" && -n "$chat" ]] || { echo "$(date -Is) нет токена или chat id: $1"; return; }
-  # Токен — через конфиг curl на stdin, не аргументом: аргументы видно в ps
-  printf 'url = "https://api.telegram.org/bot%s/sendMessage"\n' "$token" |
-    curl -sS -K - -m 15 -o /dev/null --data-urlencode "chat_id=$chat" \
-      --data-urlencode "text=🖥 art-teplo: $1" ||
+  tg sendMessage -o /dev/null --data-urlencode "chat_id=$chat" --data-urlencode "text=🖥 art-teplo: $1" ||
     echo "$(date -Is) не отправилось: $1"
 }
 
-if [[ "${1:-}" == test ]]; then
-  send "проверка алертов, всё работает"
-  exit
-fi
+case "${1:-}" in
+  test) send "проверка алертов, всё работает"; exit ;;
+  # Кто писал боту: id и имя — id вписать в MONITOR__TELEGRAM_CHAT_ID
+  chatid)
+    [[ -n "$token" ]] || { echo "MONITOR__TELEGRAM_BOT_TOKEN не задан" >&2; exit 1; }
+    tg getUpdates | grep -oE '"chat":\{"id":-?[0-9]+,"(first_name|title)":"[^"]*"' |
+      sed -E 's/.*"id":(-?[0-9]+),"[a-z_]+":"(.*)"/\1 \2/' | sort -u
+    exit ;;
+esac
 
 declare -A LABEL=([disk]="место на диске" [backup]="ночной бэкап" [site]="сайт" [api]="API" [containers]="контейнеры")
 
