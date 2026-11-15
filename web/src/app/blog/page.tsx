@@ -67,7 +67,7 @@ export default async function BlogPage() {
           {first ? (
             <Reveal className={cx(styles.featured, styles.post)}>
               <Frame ratio="16 / 9">
-                <Picture image={first.image} sizes="(max-width: 1023px) 100vw, 60vw" />
+                <Picture image={first.image} sizes="(max-width: 1023px) 100vw, 60vw" fit="smart" frame={16 / 9} />
               </Frame>
               <div className={styles.featuredText}>
                 <p className={styles.meta}>
@@ -88,7 +88,7 @@ export default async function BlogPage() {
               <Reveal as="li" key={post.slug} index={i}>
                 <article className={styles.post}>
                   <Frame ratio="3 / 2">
-                    <Picture image={post.image} sizes="(max-width: 767px) 100vw, 50vw" />
+                    <Picture image={post.image} sizes="(max-width: 767px) 100vw, 50vw" fit="smart" frame={3 / 2} />
                   </Frame>
                   <p className={styles.meta}>
                     <time dateTime={post.date}>{formatDate(post.date)}</time> · {post.readMinutes} мин
