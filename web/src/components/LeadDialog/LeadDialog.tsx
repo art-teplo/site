@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { LeadForm } from "@/components/LeadForm/LeadForm";
 import { getLenis } from "@/components/SmoothScroll/SmoothScroll";
+import { useCloseOnHide } from "@/lib/use-close-on-hide";
 import styles from "./LeadDialog.module.css";
 
 type Props = {
@@ -21,6 +22,7 @@ export function LeadDialog({ title, text, source, context, withFile = true, clas
   const ref = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
   const titleId = useId();
+  useCloseOnHide(ref);
 
   useEffect(() => {
     const dialog = ref.current;

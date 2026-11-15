@@ -73,7 +73,7 @@ type ApiSite = {
   showroom_video: Site["showroomVideo"];
 };
 type ApiFaq = { question: string; answer: string; on_home: boolean };
-type ApiProject = Omit<Project, "series"> & { series_slugs: string[] };
+type ApiProject = Omit<Project, "series" | "videoUrl"> & { series_slugs: string[]; video_url?: string };
 type ApiPostCard = Omit<PostCard, "date" | "readMinutes"> & { published_at: string; read_minutes: number };
 type ApiPost = ApiPostCard & { body: string };
 
@@ -110,7 +110,7 @@ export async function getFaq(): Promise<Faq[]> {
 export async function getProjects(): Promise<Project[]> {
   const data = await load<ApiProject[]>("projects/", "projects");
   if (!data) return projects;
-  return data.map(({ series_slugs, ...project }) => ({ ...project, series: series_slugs }));
+  return data.map(({ series_slugs, video_url, ...project }) => ({ ...project, videoUrl: video_url, series: series_slugs }));
 }
 
 const toCard = ({ published_at, read_minutes, ...post }: ApiPostCard): PostCard => ({
@@ -199,7 +199,7 @@ type ApiSeries = Omit<
   "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions" | "priceFrom" | "priceFromByGroup" | "similar" | "projects"
 > & {
   similar?: ApiCard[];
-  projects?: (Omit<Project, "series"> & { series_slugs?: string[]; series?: string[] })[];
+  projects?: (Omit<Project, "series" | "videoUrl"> & { series_slugs?: string[]; series?: string[]; video_url?: string })[];
   price_from: number | null;
   price_from_by_group: Record<string, number | null>;
   pressure_bar: number | null;
@@ -247,7 +247,7 @@ export async function getSeries(slug: string): Promise<SeriesDetail | null> {
     columns: columns.map((c) => ({ ...c, column: true, filter: false })),
     filters: filters.map((c) => ({ ...c, column: false, filter: true })),
     similar: similar ? mapShowcase({ count: similar.length, results: similar, facets: [], model_range: [] }).results : [],
-    projects: (seriesProjects ?? []).map(({ series_slugs, series, ...project }) => ({ ...project, series: series_slugs ?? series ?? [] })),
+    projects: (seriesProjects ?? []).map(({ series_slugs, series, video_url, ...project }) => ({ ...project, videoUrl: video_url, series: series_slugs ?? series ?? [] })),
   };
 }
 

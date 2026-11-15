@@ -2,6 +2,17 @@
   position: relative;
 }
 
+/* Вертикальное видео: не шире, чем позволяет высота экрана; когда колонка на всю ширину — по центру */
+.root[data-shape="tall"] {
+  width: min(100%, calc(var(--video-tall-max) * var(--video-ratio)));
+}
+
+@media (max-width: 1023px) {
+  .root[data-shape="tall"] {
+    margin-inline: auto;
+  }
+}
+
 .video {
   display: block;
   width: 100%;

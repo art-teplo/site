@@ -10,8 +10,6 @@ import type { Project } from "@/data/types";
 import { cx } from "@/lib/format";
 import styles from "./ProjectsSlider.module.css";
 
-const KIND: Record<Project["kind"], string> = { квартира: "Квартира", дом: "Дом", ЖК: "Жилой комплекс" };
-
 // Проекты по одному со стрелками: кадр, описание и стрелки. Главная на телефоне вместо ленты (sections/home/Projects)
 type Props = { projects: Project[]; seriesLinks: Record<string, { name: string; href: string }> };
 
@@ -26,16 +24,16 @@ export function ProjectsSlider({ projects, seriesLinks }: Props) {
     setIndex((i) => (i + step + projects.length) % projects.length);
   };
   const frame = (
-    <Frame ratio="3 / 2">
-      <Picture image={p.image} sizes="(max-width: 767px) 100vw, 60vw" />
+    <Frame ratio="4 / 5">
+      <Picture image={p.image} sizes="(max-width: 767px) 100vw, 60vw" fit="smart" frame={4 / 5} />
     </Frame>
   );
 
   const shift = dir === 1 ? styles.fromRight : styles.fromLeft;
   const photo = (
     <div className={styles.photo}>
-      {p.photos.length > 0 ? (
-        <Lightbox images={[p.image, ...p.photos]} title={p.title}>
+      {p.photos.length > 0 || p.videoUrl ? (
+        <Lightbox images={[p.image, ...p.photos]} title={p.title} video={p.videoUrl || undefined}>
           {frame}
         </Lightbox>
       ) : (
@@ -45,9 +43,7 @@ export function ProjectsSlider({ projects, seriesLinks }: Props) {
   );
   const info = (
     <div className={styles.info}>
-      <span className={styles.meta}>
-        {KIND[p.kind]} · {p.place}
-      </span>
+      {p.place && <span className={styles.meta}>{p.place}</span>}
       <h3 className={styles.title}>{p.title}</h3>
       {stands.length > 0 && (
         <div className={styles.stands}>

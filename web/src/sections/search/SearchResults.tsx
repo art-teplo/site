@@ -43,11 +43,9 @@ export async function SearchResults({ query, sort }: { query: string; sort: "" |
               </div>
               <ul className={styles.grid}>
                 {shown.map((card, i) => (
-                  <li key={`${card.series}-${card.heightMm ?? i}`}>
-                    <Reveal index={i % 4}>
-                      <ShowcaseCard card={card} category={card.category!} brand={brandNames[card.brand]} />
-                    </Reveal>
-                  </li>
+                  <Reveal as="li" key={`${card.series}-${card.heightMm ?? i}`} index={i % 4}>
+                    <ShowcaseCard card={card} category={card.category!} brand={brandNames[card.brand]} />
+                  </Reveal>
                 ))}
               </ul>
             </>

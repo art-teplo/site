@@ -36,8 +36,11 @@ server {
 
     location /${ADMIN_PATH}/ {
         proxy_pass http://backend;
-        # Видео шоурума — до 100 МБ (MAX_VIDEO_MB в apps/content/models.py)
-        client_max_body_size 110m;
+        # Видео шоурума и серий — до 250 МБ (MAX_VIDEO_MB в apps/content/models.py).
+        # Ответ приходит после записи файла в S3 — на большом видео дольше минуты
+        client_max_body_size 260m;
+        proxy_read_timeout 300s;
+        proxy_send_timeout 300s;
     }
 
     # Имена файлов с хэшем (ManifestStaticFilesStorage) — кэш на год.

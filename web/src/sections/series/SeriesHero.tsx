@@ -1,16 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Button } from "@/components/Button/Button";
 import { ColorSwatches } from "@/components/ColorSwatches/ColorSwatches";
 import { LeadForm } from "@/components/LeadForm/LeadForm";
+import { Lightbox } from "@/components/Lightbox/Lightbox";
 import { Picture } from "@/components/Picture/Picture";
+import { VideoPlayer } from "@/components/VideoPlayer/VideoPlayer";
 import { useSite } from "@/components/SiteProvider/SiteProvider";
 import type { SeriesDetail, VariantRow } from "@/data/types";
 import { CONNECTION_LABEL } from "@/lib/connections";
 import { cx, formatPrice, plural } from "@/lib/format";
+import { orientationRank, type Orientation } from "@/lib/orientation";
 import { colorNote } from "@/lib/price";
-import { pickColor } from "@/lib/series-color";
+import { baseColor, pickColor } from "@/lib/series-color";
+import { firstFrame, useVideoShape } from "@/lib/use-video-shape";
 import { focusSeriesFilter, scrollToSection } from "./scroll";
 import styles from "./SeriesHero.module.css";
 
@@ -20,8 +24,17 @@ type Props = {
   row: VariantRow | null; // выбранный вариант; null — не выбран
   color: string | undefined;
   stale: "pending" | "failed" | null; // строки загружены с другим цветом: цена из них неверна
+  orientation?: Orientation; // пришли с карточки витрины: её ориентация, пока не выбран вариант
   onColor: (code: string) => void;
 };
+
+// Рамка главного фото — по форме кадра, как у акций, но не уже 4:5 и не шире 16:9: дальше — фото целиком на размытом фоне
+const FRAME_MIN = 4 / 5;
+const FRAME_MAX = 16 / 9;
+const frameRatio = (im: { width: number; height: number }) => Math.min(FRAME_MAX, Math.max(FRAME_MIN, im.width / im.height));
+
+// Видеообзор в галерее — вторым после главного фото; выбран — играет на месте фото
+const VIDEO = "video" as const;
 
 // Размеры как на бирке: ширина × высота; у конвектора высоты нет — длина × ширина
 const sizeOf = (row: VariantRow) => {
@@ -31,21 +44,48 @@ const sizeOf = (row: VariantRow) => {
 };
 
 // Верх страницы серии: галерея, название, цена и цвет; «Уточнить наличие» уносит выбранный вариант в заявку.
-export function SeriesHero({ series, images: gallery, row, color, stale, onColor }: Props) {
+export function SeriesHero({ series, images: gallery, row, color, stale, orientation, onColor }: Props) {
   const site = useSite();
-  const [active, setActive] = useState(0);
+  // Выбранное фото помним по адресу: список перестраивается под цвет и вариант, а номер в нём меняется
+  const [pick, setPick] = useState<{ src: string; lead: string } | null>(null);
   const [asking, setAsking] = useState(false);
   const picked = pickColor(series.colorGroups, color);
 
-  // Фото под цвет и положение: нет подходящих — общие, нет и их — все
+  // Сначала фото в выбранном цвете (точно, затем тот же цвет в другом покрытии) и положении, за ними общие,
+  // в конце — остальные: ни одно фото не пропадает, а на первом месте — то, что показывает выбранное.
+  // Положение — выбранного варианта, без него — витрины, с которой пришли
   const images = (() => {
-    const fit = (i: SeriesDetail["images"][number]) =>
-      (!i.color || i.color === picked?.code) && (!i.orientation || !row?.orientation || i.orientation === row.orientation);
-    const exact = picked ? gallery.filter((i) => i.color === picked.code && fit(i)) : [];
-    const list = exact.length ? exact : gallery.filter(fit);
-    return list.length ? list : gallery;
+    const target = row?.orientation || orientation;
+    // Ключ сортировки: другая ориентация — в конец; выбранный цвет (точно, затем в другом покрытии);
+    // своя ориентация раньше фото без неё; фото без цвета раньше чужих цветов; порядок из админки
+    const key = (im: SeriesDetail["images"][number], i: number) => {
+      const o = orientationRank(im.orientation, target);
+      const exact = picked != null && im.color === picked.code;
+      const base = picked != null && !!im.color && baseColor(im.color) === baseColor(picked.code);
+      return [o === 2 ? 1 : 0, exact ? 0 : base ? 1 : 2, o, im.color ? 1 : 0, i];
+    };
+    const unique = gallery.filter((im, i) => gallery.findIndex((x) => x.src === im.src) === i);
+    const keyed = unique.map((im, i) => ({ im, k: key(im, i) }));
+    keyed.sort((a, b) => {
+      for (let j = 0; j < a.k.length; j++) if (a.k[j] !== b.k[j]) return a.k[j] - b.k[j];
+      return 0;
+    });
+    return keyed.map((x) => x.im);
   })();
-  const image = images[Math.min(active, images.length - 1)];
+  const lead = images[0]?.src ?? "";
+  // Сменился цвет или вариант — показываем первое (подходящее) фото; иначе — выбранное
+  const current = pick && pick.lead === lead ? Math.max(0, images.findIndex((im) => im.src === pick.src)) : 0;
+  const setActive = (i: number) => setPick({ src: images[i].src, lead });
+  const image = images[current];
+  const video = series.videoUrl || "";
+  const videoShape = useVideoShape(video || undefined);
+  // Видео выбрано, пока не сменились цвет или вариант: тогда снова первое подходящее фото
+  const playing = Boolean(video) && pick?.src === VIDEO && pick.lead === lead;
+  // Рамка видео — его форма в тех же пределах, что у фото; вертикальное — 4:5 с полями по бокам
+  const videoRatio = Math.min(FRAME_MAX, Math.max(FRAME_MIN, videoShape?.ratio ?? 16 / 9));
+  // Лента превью: индексы фото, видео — вторым (или единственным, если фото нет)
+  const thumbs: (number | typeof VIDEO)[] = images.map((_, i) => i);
+  if (video) thumbs.splice(Math.min(1, thumbs.length), 0, VIDEO);
 
   // «От» считает бэк (и демо) по правилам цены: без цвета и по группе выбранного цвета
   const from = picked ? (picked.anyRal ? null : (series.priceFromByGroup[picked.group.id] ?? null)) : series.priceFrom;
@@ -74,6 +114,10 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
       ["Высота, мм", "height", row?.heightMm],
       ["Ширина, мм", "width", row?.widthMm],
       ["Длина, мм", "length", row?.lengthMm],
+      ["Глубина, мм", "depth", row?.depthMm],
+      ["Межосевое, мм", "axis", row?.axisMm],
+      ["Мощность, Вт", "power", row?.powerW],
+      ["Площадь обогрева, м²", "area", row?.areaM2],
     ] as const
   ).flatMap(([label, key, own]) => {
     const [min, max] = series.ranges[key] ?? [null, null];
@@ -85,6 +129,10 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
   if (row?.connection) specs.push({ label: "Подключение", value: CONNECTION_LABEL[row.connection], chip: false });
   else if (connections.length === 1) specs.push({ label: "Подключение", value: CONNECTION_LABEL[connections[0]], chip: false });
   else if (connections.length > 1) specs.push({ label: "Подключение", value: plural(connections.length, "вариант", "варианта", "вариантов"), chip: true, to: "series-pipes" });
+  // Общее для всей серии — без чипа
+  if (series.material) specs.push({ label: "Материал", value: series.material, chip: false });
+  if (series.pressureBar) specs.push({ label: "Рабочее давление", value: `${series.pressureBar} бар`, chip: false });
+  if (series.warrantyYears) specs.push({ label: "Гарантия", value: `до ${plural(series.warrantyYears, "года", "лет", "лет")}`, chip: false });
   const note = row
     ? [sizeOf(row), row.powerW ? `${row.powerW} Вт` : "", row.connection ? CONNECTION_LABEL[row.connection] : "", `арт. ${row.article}`].filter(Boolean).join(" · ")
     : "Цена зависит от размера — выберите вариант в таблице ниже";
@@ -92,26 +140,72 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
   return (
     <div className={styles.hero}>
       <div className={styles.gallery}>
-        {images.length > 1 && (
-          <ul className={styles.thumbs} aria-label="Фото серии">
-            {images.map((im, i) => (
-              <li key={`${im.src}-${i}`}>
-                <button
-                  type="button"
-                  className={cx(styles.thumb, im === image && styles.thumbActive)}
-                  aria-label={`Показать фото ${i + 1}: ${im.alt}`}
-                  aria-pressed={im === image}
-                  onClick={() => setActive(i)}
-                >
-                  <Picture image={im} sizes="72px" />
-                </button>
-              </li>
-            ))}
+        {images.length + (video ? 1 : 0) > 1 && (
+          <ul className={styles.thumbs} aria-label="Фото и видео серии">
+            {thumbs.map((t) =>
+              t === VIDEO ? (
+                <li key={VIDEO}>
+                  <button
+                    type="button"
+                    className={cx(styles.thumb, styles.thumbVideo, playing && styles.thumbActive)}
+                    aria-label={`Смотреть видеообзор: ${series.name}`}
+                    aria-pressed={playing}
+                    onClick={() => setPick({ src: VIDEO, lead })}
+                  >
+                    <video src={firstFrame(video)} preload="metadata" muted playsInline aria-hidden="true" tabIndex={-1} />
+                  </button>
+                </li>
+              ) : (
+                <li key={images[t].src}>
+                  <button
+                    type="button"
+                    className={cx(styles.thumb, !playing && t === current && styles.thumbActive)}
+                    aria-label={`Показать фото ${t + 1}: ${images[t].alt}`}
+                    aria-pressed={!playing && t === current}
+                    onClick={() => setActive(t)}
+                  >
+                    <Picture image={images[t]} sizes="72px" fit="smart" frame={4 / 3} />
+                  </button>
+                </li>
+              ),
+            )}
           </ul>
         )}
-        <div className={cx(styles.main, images.length < 2 && styles.single)}>
-          {image && <Picture key={image.src} image={image} sizes="(max-width: 1023px) 100vw, 50vw" eager />}
-        </div>
+        {playing ? (
+          // Файл грузится только сейчас — по нажатию на превью; звук и кнопки обычные
+          <div className={cx(styles.main, styles.videoMain)} style={{ aspectRatio: videoRatio, "--video-ratio": videoRatio } as CSSProperties}>
+            <VideoPlayer className={styles.videoPlayer} src={video} label={`Видеообзор: ${series.name}`} />
+          </div>
+        ) : image ? (
+          // Клик по фото — галерея на весь экран с того же кадра: стрелки, свайп, ← →, Esc
+          <Lightbox images={images} title={series.name}>
+            {(open) => (
+              <button
+                type="button"
+                className={cx(styles.main, styles.zoomable, images.length < 2 && styles.single)}
+                style={{ aspectRatio: frameRatio(image) }}
+                aria-haspopup="dialog"
+                aria-label={`${series.name}: открыть фото ${current + 1} из ${images.length} на весь экран`}
+                onClick={() => open(current)}
+              >
+                {/* Все фото лежат стопкой и грузятся сразу после первого: смена кадра — плавная, без чёрного экрана */}
+                {images.map((im, i) => (
+                  <Picture
+                    key={im.src}
+                    image={im}
+                    sizes="(max-width: 1023px) 100vw, 60vw"
+                    eager={i === current}
+                    fit="smart"
+                    frame={frameRatio(im)}
+                    className={cx(styles.layer, i === current && styles.layerShown)}
+                  />
+                ))}
+              </button>
+            )}
+          </Lightbox>
+        ) : (
+          <div className={cx(styles.main, images.length < 2 && styles.single)} />
+        )}
       </div>
 
       <div className={styles.info}>
@@ -182,3 +276,4 @@ export function SeriesHero({ series, images: gallery, row, color, stale, onColor
     </div>
   );
 }
+

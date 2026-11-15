@@ -7,7 +7,7 @@ from unfold.admin import ModelAdmin, StackedInline, TabularInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.decorators import action
 
-from apps.content.admin import PREVIEW_HEIGHT, preview
+from apps.content.admin import PREVIEW_HEIGHT, SortableInlineMixin, preview
 from apps.content.models import Tag
 from apps.content.tasks import revalidate_frontend
 from apps.content.widgets import (
@@ -155,21 +155,17 @@ class ColorAdmin(ModelAdmin):
     fields = ['code', 'name', 'hex', 'finish']
 
 
-class ColorGroupInline(TabularInline):
+class ColorGroupInline(SortableInlineMixin, TabularInline):
     model = ColorGroup
     extra = 0
-    ordering_field = 'position'
-    hide_ordering_field = True
-    fields = ['name', 'percent', 'is_base', 'any_ral', 'colors']
+    fields = ['name', 'percent', 'is_base', 'any_ral', 'colors', 'position']
     autocomplete_fields = ['colors']
 
 
-class SeriesImageInline(TabularInline):
+class SeriesImageInline(SortableInlineMixin, TabularInline):
     model = SeriesImage
     form = ImageModelForm
     extra = 0
-    ordering_field = 'position'
-    hide_ordering_field = True
     fields = [
         preview,
         'image',
@@ -178,26 +174,30 @@ class SeriesImageInline(TabularInline):
         'kind',
         'color',
         'orientation',
+        'position',
     ]
     readonly_fields = [preview]
     autocomplete_fields = ['color']
 
 
-class SeriesFileInline(TabularInline):
+class SeriesFileInline(SortableInlineMixin, TabularInline):
     model = SeriesFile
     extra = 0
-    ordering_field = 'position'
-    hide_ordering_field = True
-    fields = ['title', 'file']
+    fields = ['title', 'file', 'position']
 
 
-class ShowcaseInline(StackedInline):
+class ShowcaseInline(SortableInlineMixin, StackedInline):
     model = Showcase
     form = ImageModelForm
     extra = 0
-    ordering_field = 'position'
-    hide_ordering_field = True
-    fields = ['label', 'variant', 'image', 'image_alt', 'image_focus']
+    fields = [
+        'label',
+        'variant',
+        'image',
+        'image_alt',
+        'image_focus',
+        'position',
+    ]
     autocomplete_fields = ['variant']
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -247,7 +247,7 @@ class SeriesAdmin(InlineImagesAdminMixin, ModelAdmin):
         'heating',
         'pressure_bar',
         'warranty_years',
-        'video_url',
+        'video',
         'is_published',
     ]
 

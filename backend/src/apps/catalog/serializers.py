@@ -75,27 +75,46 @@ def _orientation(variant) -> str:
     return ''
 
 
+def _photos(series) -> list:
+    """Фото серии без схем: схема подключений — не фото товара."""
+    return [
+        i for i in series.images.all() if i.kind != SeriesImage.Kind.SCHEME
+    ]
+
+
+def _fits(image, orientation: str) -> bool:
+    """Фото подходит формфактору: без ориентации — к любому."""
+    return not orientation or image.orientation in {'', orientation}
+
+
 def _card_photo(showcase, series):
     """Фото серии для карточки витрины без своего фото: той же ориентации,
     что вариант витрины (низкий и высокий формфактор одной серии не
-    выглядят одинаково), «товарное» раньше «в интерьере»; иначе главное."""
-    images = list(series.images.all())
+    выглядят одинаково), «товарное» раньше «в интерьере»; иначе главное.
+    Фото другой ориентации у витрины не берём, пока есть другие."""
     orientation = _orientation(showcase.variant if showcase else None)
+    images = [i for i in _photos(series) if _fits(i, orientation)]
     if orientation:
         same = [i for i in images if i.orientation == orientation]
         same.sort(key=lambda i: i.kind != SeriesImage.Kind.PRODUCT)
         if same:
             return same[0]
-    # Формфактор не задан: карточка вертикальная (4:5) — товарное фото,
-    # которое ближе к ней по форме, иначе главное. Горизонтальное фото в
-    # вертикальной рамке теряло ~40 % кадра и выглядело «зазумленным»
+    # Формфактор не задан: первое по порядку админки товарное фото, которое
+    # ложится в рамку карточки (4:3) без размытого фона; таких нет — самое
+    # близкое по форме. Вертикальное фото в горизонтальной рамке уходит на
+    # размытый фон и выглядит мелким
     product = [i for i in images if i.kind == SeriesImage.Kind.PRODUCT]
+    fitting = [i for i in product if _card_misfit(i) <= CARD_FIT]
+    if fitting:
+        return fitting[0]
     if product:
         return min(product, key=_card_misfit)
-    return _main_image(series)
+    return images[0] if images else _main_image(series)
 
 
-CARD_RATIO = 4 / 5
+CARD_RATIO = 4 / 3  # рамка фото в карточке, как RATIO в ShowcaseCard.tsx
+# Обрезка до 30 % — фото заполняет рамку (MAX_CROP в Picture.tsx): |ln(1-0.3)|
+CARD_FIT = -math.log(1 - 0.3)
 
 
 def _card_misfit(image):
@@ -116,7 +135,7 @@ def card_image(showcase, series):
 
 def _main_image(series):
     """Главное фото серии: первое «товарное», иначе первое любое."""
-    images = list(series.images.all())
+    images = _photos(series)
     product = [i for i in images if i.kind == SeriesImage.Kind.PRODUCT]
     return (product or images or [None])[0]
 
@@ -128,7 +147,8 @@ def series_image(series):
 
 def hover_image(series, showcase=None):
     """Фото при наведении: первое «в интерьере», иначе второе «товарное»;
-    не то же, что уже стоит в карточке."""
+    не то же, что уже стоит в карточке. У витрины — только фото её
+    ориентации или без ориентации, своей ориентации — раньше."""
     shown = (
         None
         if showcase and showcase.image
@@ -137,7 +157,12 @@ def hover_image(series, showcase=None):
             series,
         )
     )
-    images = [i for i in series.images.all() if i != shown]
+    orientation = _orientation(showcase.variant if showcase else None)
+    images = [
+        i for i in _photos(series) if i != shown and _fits(i, orientation)
+    ]
+    # sort стабилен: внутри — порядок из админки
+    images.sort(key=lambda i: bool(orientation) and i.orientation == '')
     interior = [i for i in images if i.kind == SeriesImage.Kind.INTERIOR]
     product = [i for i in images if i.kind == SeriesImage.Kind.PRODUCT]
     if interior:
@@ -147,16 +172,19 @@ def hover_image(series, showcase=None):
     return image_asset(product[0]) if product and shown else None
 
 
-def card(series, showcase, price, colors):
-    """Карточка списка: серия в одном формфакторе."""
+def card(series, showcase, price, colors, label=''):
+    """Карточка списка: серия в одном формфакторе. Подпись — витрины, без
+    витрины — собранная из вариантов (label)."""
     variant = showcase.variant if showcase is not None else None
     return {
         'series': series.slug,
         'name': series.name,
         'brand': series.brand.slug,
         'category': series.category.slug,
-        'label': showcase.label if showcase is not None else '',
+        'label': showcase.label if showcase is not None else label,
         'height_mm': variant.height_mm if variant is not None else None,
+        # h / v витрины: страница серии ставит фото этой ориентации первыми
+        'orientation': _orientation(variant),
         'price_from': price,
         'image': card_image(showcase, series),
         'hover_image': hover_image(series, showcase),
@@ -237,7 +265,8 @@ def series_detail(
         'heating': series.heating,
         'pressure_bar': series.pressure_bar,
         'warranty_years': series.warranty,
-        'video_url': series.video_url,
+        # Файл в S3; ключ прежний — фронт ждёт адрес, пусто — видео нет
+        'video_url': series.video.url if series.video else '',
         'images': [series_image_full(i) for i in series.images.all()],
         'files': [
             {'title': f.title, 'url': f.file.url} for f in series.files.all()

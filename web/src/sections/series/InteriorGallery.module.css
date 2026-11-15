@@ -1,3 +1,4 @@
+/* Пропорции мозаики подобраны так, чтобы каждая плитка была 4:3 (раскладки 1 и 4 — 16:9), см. TILE в разметке */
 .mosaic {
   display: grid;
   gap: var(--spacing-8);
@@ -5,43 +6,37 @@
   aspect-ratio: 16 / 9;
 }
 
-/* 1 — одно широкое */
-.mosaic[data-layout="1"] {
-  grid-template-columns: 1fr;
-}
-
-/* 2 — две равные половины */
+/* 2 — две половины 4:3 */
 .mosaic[data-layout="2"] {
   grid-template-columns: 1fr 1fr;
+  aspect-ratio: 8 / 3;
 }
 
 /* 3 — большое слева, два друг над другом справа */
 .mosaic[data-layout="3"] {
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
+  aspect-ratio: 2 / 1;
 }
 
 .mosaic[data-layout="3"] .main {
   grid-row: 1 / span 2;
 }
 
-/* 4 и больше — большое и сетка; из четырёх фото справа три плитки столбиком, из пяти и больше — сетка 2×2 */
+/* 4 — сетка 2×2 из плиток 16:9 */
 .mosaic[data-layout="4"] {
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
-}
-
-.mosaic[data-layout="4"] .main {
-  grid-row: 1 / span 3;
-}
-
-.mosaic[data-layout="4"][data-tiles="5"] {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
 
-.mosaic[data-layout="4"][data-tiles="5"] .main {
-  grid-column: 1 / span 2;
+/* 5 и больше — большое слева, справа сетка 2×2 */
+.mosaic[data-layout="5"] {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  aspect-ratio: 8 / 3;
+}
+
+.mosaic[data-layout="5"] .main {
   grid-row: 1 / span 2;
 }
 
@@ -100,8 +95,21 @@
   font-size: var(--text-heading);
 }
 
+/* Телефон: большое фото на всю ширину, остальные по два в ряд; последнее без пары — тоже на всю ширину. Все плитки 4:3 */
 @media (max-width: 767px) {
-  .mosaic {
+  .mosaic[data-layout] {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+    aspect-ratio: auto;
+  }
+
+  .mosaic[data-layout] .tile {
     aspect-ratio: 4 / 3;
+  }
+
+  .mosaic[data-layout] .main,
+  .mosaic[data-layout] .tile:last-child:nth-child(even) {
+    grid-column: 1 / -1;
+    grid-row: auto;
   }
 }

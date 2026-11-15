@@ -1,60 +1,7 @@
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-8);
-  margin-bottom: var(--spacing-40);
-}
-
-.filter {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-8);
-  min-height: var(--spacing-40);
-  padding: var(--spacing-8) var(--spacing-18);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  font-size: var(--text-caption);
-  font-weight: var(--weight-medium);
-  transition:
-    background-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
-}
-
-.filter:hover {
-  border-color: var(--text);
-}
-
-.filter:active {
-  transform: scale(var(--press-scale));
-}
-
-.active {
-  background: var(--button-bg);
-  border-color: var(--button-bg);
-  color: var(--button-fg);
-}
-
-.count {
-  opacity: 0.6;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--spacing-58) var(--grid-gap);
-}
-
-.item {
-  animation: enter var(--dur-base) var(--ease-out) both;
-}
-
-@keyframes enter {
-  from {
-    opacity: 0;
-    transform: translate3d(0, var(--reveal-distance), 0);
-  }
 }
 
 @media (max-width: 1023px) {
