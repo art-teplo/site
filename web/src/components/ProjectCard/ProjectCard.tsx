@@ -1,13 +1,12 @@
 import { Frame } from "@/components/Frame/Frame";
 import { Lightbox } from "@/components/Lightbox/Lightbox";
 import { Picture } from "@/components/Picture/Picture";
+import { ratioValue } from "@/lib/ratio";
 import Link from "next/link";
 import type { Project } from "@/data/types";
 import styles from "./ProjectCard.module.css";
 
-const KIND: Record<Project["kind"], string> = { квартира: "Квартира", дом: "Дом", ЖК: "Жилой комплекс" };
-
-// Проект: кадр интерьера, подпись и .
+// Проект: вертикальный кадр интерьера (заказчица снимает под вертикальные ролики), место, название и серии из него.
 type Props = {
   project: Project;
   ratio?: string;
@@ -18,23 +17,21 @@ type Props = {
 export function ProjectCard({ project, ratio = "4 / 5", sizes = "(max-width: 767px) 80vw, 30vw", stands = [] }: Props) {
   const frame = (
     <Frame ratio={ratio}>
-      <Picture image={project.image} sizes={sizes} />
+      <Picture image={project.image} sizes={sizes} fit="smart" frame={ratioValue(ratio)} />
     </Frame>
   );
   return (
     <figure className={styles.card}>
-      {/* Одно фото — просто кадр; несколько — по клику галерея на весь экран */}
-      {project.photos.length > 0 ? (
-        <Lightbox images={[project.image, ...project.photos]} title={project.title}>
+      {/* Одно фото — просто кадр; несколько или есть видео — по клику галерея на весь экран, видео в ней вторым */}
+      {project.photos.length > 0 || project.videoUrl ? (
+        <Lightbox images={[project.image, ...project.photos]} title={project.title} video={project.videoUrl || undefined}>
           {frame}
         </Lightbox>
       ) : (
         frame
       )}
       <figcaption className={styles.caption}>
-        <span className={styles.meta}>
-          {KIND[project.kind]} · {project.place}
-        </span>
+        {project.place && <span className={styles.meta}>{project.place}</span>}
         <span className={styles.title}>{project.title}</span>
         {stands.length > 0 && (
           <span className={styles.stands}>

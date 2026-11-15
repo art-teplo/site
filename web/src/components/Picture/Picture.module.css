@@ -19,3 +19,22 @@
 .contain {
   object-fit: contain;
 }
+
+/* smart + blur: поля рамки заливает то же фото, размытое и чуть притушенное — без белых полос */
+.picture.ambient {
+  isolation: isolate;
+}
+
+/* Без веса селектора: в карточке фото позиционировано абсолютно — там своё правило должно победить */
+:where(.ambient) {
+  position: relative;
+}
+
+.picture.ambient::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--ambient-blur) * -2);
+  z-index: -1;
+  background: var(--ambient) center / cover no-repeat;
+  filter: blur(var(--ambient-blur)) saturate(1.1) brightness(0.9);
+}

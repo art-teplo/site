@@ -22,3 +22,8 @@ export function pickColor(groups: ColorGroup[], code: string | undefined): Picke
 
 // На бэк «любой RAL» не уходит: цены в этом случае «по запросу» на самой странице
 export const colorForApi = (code: string | undefined) => (code && !code.startsWith("any-") ? code : undefined);
+
+// Глянец — отдельный цвет с тем же кодом и суффиксом (импорт прайса, GLOSS_SUFFIX в importers/parse.py):
+// фото матового RAL 1015 показывает и глянцевый RAL 1015
+const GLOSS_SUFFIX = " глянец";
+export const baseColor = (code: string) => (code.endsWith(GLOSS_SUFFIX) ? code.slice(0, -GLOSS_SUFFIX.length) : code);

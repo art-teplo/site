@@ -37,7 +37,7 @@ export async function Projects() {
         <Section labelledBy="projects-title" flush className={styles.section}>
           <Container>
             <HorizontalRail
-              head={<SectionHead titleId="projects-title" title="Реальные дома после установки" intro={intro} />}
+              head={<SectionHead titleId="projects-title" title="Реальные объекты после установки" intro={intro} />}
             >
               {projects.map((p) => (
                 <div key={p.slug} className={styles.slide}>
@@ -46,7 +46,7 @@ export async function Projects() {
               ))}
               <Link href="/proekty" className={styles.all}>
                 <span className={styles.allTitle}>Все проекты</span>
-                <span className={styles.allText}>Квартиры, дома и жилые комплексы — с фильтром по типу объекта</span>
+                <span className={styles.allText}>Квартиры, дома, клиники и отели — фото и видео с объектов</span>
                 <Arrow className={styles.allArrow} />
               </Link>
             </HorizontalRail>
@@ -56,7 +56,7 @@ export async function Projects() {
       <div className={styles.phone}>
         <Section labelledBy="projects-phone-title">
           <Container>
-            <SectionHead titleId="projects-phone-title" title="Реальные дома после установки" intro={intro} />
+            <SectionHead titleId="projects-phone-title" title="Реальные объекты после установки" intro={intro} />
             <ProjectsSlider projects={projects} seriesLinks={seriesLinks} />
           </Container>
         </Section>

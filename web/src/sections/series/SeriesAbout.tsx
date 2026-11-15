@@ -1,18 +1,22 @@
 import { Container } from "@/components/Container/Container";
+import { Icon } from "@/components/Icon/Icon";
 import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Section } from "@/components/Section/Section";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
 import type { Project, SeriesDetail, SeriesImage, ShowcaseCard as Card } from "@/data/types";
+import { documentKind, fileType } from "@/lib/documents";
 import { cx, plural } from "@/lib/format";
 import { InteriorGallery } from "./InteriorGallery";
+import { SchemeGallery } from "./SchemeGallery";
 import styles from "./SeriesAbout.module.css";
 import { SeriesVideo } from "./SeriesVideo";
 import type { SeriesTab } from "./SeriesTabs";
+import type { Orientation } from "@/lib/orientation";
 
-type Content = { series: SeriesDetail; interior: SeriesImage[]; projects: Project[]; similar: Card[] };
-type Props = Content & { category: string; brandNames: Record<string, string> };
+type Content = { series: SeriesDetail; interior: SeriesImage[]; schemes: SeriesImage[]; projects: Project[]; similar: Card[] };
+type Props = Content & { category: string; brandNames: Record<string, string>; orientation?: Orientation };
 
 const facts = (s: SeriesDetail): [string, string][] => {
   const heating = { water: "водяной", electric: "электрический", combined: "комбинированный" }[s.heating];
@@ -26,10 +30,11 @@ const facts = (s: SeriesDetail): [string, string][] => {
 };
 
 // Разделы под таблицей — только те, где есть содержимое. Тот же список кормит полосу вкладок.
-export function seriesTabs({ series, interior, projects, similar }: Content): SeriesTab[] {
+export function seriesTabs({ series, interior, schemes, projects, similar }: Content): SeriesTab[] {
   return [
     { id: "variants", label: "Варианты исполнения" },
     { id: "about", label: "О серии" },
+    ...(schemes.length ? [{ id: "schemes", label: "Подключения" }] : []),
     ...(interior.length ? [{ id: "interior", label: "В интерьере" }] : []),
     ...(series.videoUrl ? [{ id: "video", label: "Видеообзор" }] : []),
     ...(series.files.length ? [{ id: "files", label: "Файлы", count: series.files.length }] : []),
@@ -39,7 +44,7 @@ export function seriesTabs({ series, interior, projects, similar }: Content): Se
 }
 
 // О серии, фото в интерьере, видеообзор, файлы, проекты, похожие серии. Тон секций чередуется, начиная после таблицы.
-export function SeriesAbout({ series, interior, projects, similar, category, brandNames }: Props) {
+export function SeriesAbout({ series, interior, schemes, projects, similar, category, brandNames, orientation }: Props) {
   let n = 0;
   const tone = () => (n++ % 2 === 0 ? "light" : "white");
   const hasText = Boolean(series.description);
@@ -82,12 +87,23 @@ export function SeriesAbout({ series, interior, projects, similar, category, bra
         </Container>
       </Section>
 
+      {schemes.length > 0 && (
+        <Section tone={tone()} id="schemes" labelledBy="schemes-title">
+          <Container>
+            <SectionHead titleId="schemes-title" title="Подключения" />
+            <Reveal>
+              <SchemeGallery images={schemes} title={`${series.name}: схемы`} />
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
       {interior.length > 0 && (
         <Section tone={tone()} id="interior" labelledBy="interior-title">
           <Container>
             <SectionHead titleId="interior-title" title="В интерьере" />
             <Reveal>
-              <InteriorGallery images={interior} title={`${series.name} в интерьере`} />
+              <InteriorGallery images={interior} title={`${series.name} в интерьере`} orientation={orientation} />
             </Reveal>
           </Container>
         </Section>
@@ -98,7 +114,7 @@ export function SeriesAbout({ series, interior, projects, similar, category, bra
           <Container>
             <SectionHead titleId="video-title" title="Видеообзор" />
             <Reveal>
-              <SeriesVideo url={series.videoUrl} poster={series.images.find((i) => i.kind !== "interior") ?? series.images[0] ?? null} title={series.name} />
+              <SeriesVideo url={series.videoUrl} poster={series.images.find((i) => !i.kind || i.kind === "product") ?? series.images[0] ?? null} title={series.name} />
             </Reveal>
           </Container>
         </Section>
@@ -109,13 +125,26 @@ export function SeriesAbout({ series, interior, projects, similar, category, bra
           <Container>
             <SectionHead titleId="files-title" title="Файлы" />
             <ul className={styles.files}>
-              {series.files.map((f) => (
-                <li key={f.url}>
-                  <a href={f.url} target="_blank" rel="noopener noreferrer" className={styles.file}>
-                    {f.title}
-                  </a>
-                </li>
-              ))}
+              {series.files.map((f, i) => {
+                const kind = documentKind(f.title);
+                return (
+                  <Reveal as="li" key={f.url} index={i}>
+                    <a href={f.url} target="_blank" rel="noopener noreferrer" className={styles.file}>
+                      <span className={styles.fileIcon}>
+                        <Icon name={kind.icon} />
+                      </span>
+                      <span className={styles.fileText}>
+                        <span className={styles.fileKind}>{kind.label}</span>
+                        <span className={styles.fileTitle}>{f.title}</span>
+                      </span>
+                      <span className={styles.fileMeta}>
+                        {fileType(f.url)}
+                        <Icon name="download" className={styles.fileDownload} />
+                      </span>
+                    </a>
+                  </Reveal>
+                );
+              })}
             </ul>
           </Container>
         </Section>
@@ -128,7 +157,7 @@ export function SeriesAbout({ series, interior, projects, similar, category, bra
             <ul className={styles.projects}>
               {projects.map((p, i) => (
                 <Reveal as="li" key={p.slug} index={i}>
-                  <ProjectCard project={p} ratio="4 / 3" sizes="(max-width: 767px) 100vw, 33vw" />
+                  <ProjectCard project={p} sizes="(max-width: 767px) 100vw, 33vw" />
                 </Reveal>
               ))}
             </ul>

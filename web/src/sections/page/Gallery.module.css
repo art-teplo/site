@@ -1,20 +1,86 @@
-/* Первая плитка — 7 колонок на два ряда, две рядом справа, остальные — нижним рядом поровну */
+/* Первая плитка — 8 колонок на два ряда, две справа, остальные — по три в ряд. Все плитки ≈ 4:3 (рамка frame в разметке):
+   фото заполняют их с небольшой обрезкой, а не лежат на размытом фоне */
 .grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-rows: var(--gallery-row);
   gap: var(--grid-gap);
 }
 
-.tile {
+.tile,
+.tallTile {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-media);
-  grid-column: span 6;
+}
+
+.tile {
+  grid-column: span 4;
+  aspect-ratio: 4 / 3;
+}
+
+/* Вертикальные фото (зал снят под вертикальный контент): кадры 3:4, колонок — --cols из разметки (не больше 3) */
+.tallGrid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+.tallTile {
+  aspect-ratio: 3 / 4;
+}
+
+/* Сдвиг колонок: средняя ниже на 15% кадра (на телефоне правая — на треть). Свойство translate, а не transform:
+   transform занят появлением (Reveal), они складываются. Отступ снизу — под сдвинутую колонку (% — от ширины) */
+@media (min-width: 768px) {
+  .stagger {
+    padding-bottom: 7%;
+  }
+
+  .stagger > .tallTile:nth-child(3n + 2) {
+    translate: 0 15%;
+  }
+
+  /* Параллакс: крайние колонки плывут медленно, средняя — быстрее. Общая шкала — прокрутка всей сетки,
+     поэтому колонка движется целиком, а зазоры между кадрами не меняются */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .stagger {
+        view-timeline: --hall block;
+      }
+
+      .stagger > .tallTile {
+        animation: hall-side linear both;
+        animation-timeline: --hall;
+      }
+
+      .stagger > .tallTile:nth-child(3n + 2) {
+        animation-name: hall-middle;
+      }
+    }
+  }
+}
+
+@keyframes hall-side {
+  from {
+    translate: 0 var(--spacing-24);
+  }
+  to {
+    translate: 0 calc(var(--spacing-24) * -1);
+  }
+}
+
+@keyframes hall-middle {
+  from {
+    translate: 0 calc(15% + var(--spacing-72));
+  }
+  to {
+    translate: 0 calc(15% - var(--spacing-72));
+  }
 }
 
 /* Тонкий контур поверх — как у фото в каталоге; поверх содержимого, раскладку не двигает */
-.tile::after {
+.tile::after,
+.tallTile::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -24,41 +90,64 @@
   pointer-events: none;
 }
 
+/* Высота первой — две плитки справа и зазор между ними: те же ≈ 4:3 */
 .tile:nth-child(1) {
-  grid-column: span 7;
+  grid-column: span 8;
   grid-row: span 2;
+  aspect-ratio: auto;
 }
 
-.tile:nth-child(2),
-.tile:nth-child(3) {
-  grid-column: span 5;
+/* Одно-два фото: справа нет пары плиток, по которой считается высота первой — делим ряд поровну */
+@media (min-width: 768px) {
+  .tile:first-child:nth-last-child(-n + 2),
+  .tile:first-child:nth-last-child(-n + 2) ~ .tile {
+    grid-column: span 6;
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .tile:only-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
 }
 
-.tile picture {
+.tile picture,
+.tallTile picture {
   height: 100%;
 }
 
-.tile img {
+.tile img,
+.tallTile img {
   transition: transform var(--dur-slow) var(--ease-out);
 }
 
-.tile:hover img {
+.tile:hover img,
+.tallTile:hover img {
   transform: scale(1.04);
 }
 
 @media (max-width: 767px) {
-  .grid {
+  .grid,
+  .tallGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .tile,
-  .tile:nth-child(2),
-  .tile:nth-child(3) {
+  .tile {
     grid-column: span 1;
+  }
+
+  .stagger {
+    padding-bottom: 22%;
+  }
+
+  .stagger > .tallTile:nth-child(2n) {
+    translate: 0 33%;
   }
 
   .tile:nth-child(1) {
     grid-column: span 2;
     grid-row: span 1;
+    aspect-ratio: 4 / 3;
   }
 }

@@ -44,10 +44,10 @@ export type LeadTime = {
 export type Project = {
   slug: string;
   title: string;
-  kind: "квартира" | "дом" | "ЖК";
-  place: string;
+  place: string; // необязательное: пусто — подписи нет, только название
   image: ImageAsset;
   photos: ImageAsset[]; // ещё фото — листаются в галерее вместе с главным
+  videoUrl?: string; // ролик проекта — вторым кадром галереи; пусто — нет
   series: string[]; // Series.slug — связь необязательная
 };
 
@@ -140,6 +140,7 @@ export type ShowcaseCard = {
   category?: string; // Category.slug — приходит в поиске и «Похожих»
   label: string;
   heightMm: number | null;
+  orientation?: "h" | "v" | ""; // ориентация витрины: на странице серии фото этой ориентации — первыми
   priceFrom: number | null;
   image: ImageAsset | null;
   hoverImage?: ImageAsset | null; // второе фото: показывается при наведении
@@ -175,8 +176,9 @@ export type VariantRow = {
   colorGroups?: number[];
 };
 
-// kind: product — фото изделия (галерея первого экрана), interior — в интерьере (раздел «В интерьере»); нет поля — product
-export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | ""; kind?: "product" | "interior" };
+// kind: product — фото изделия (галерея первого экрана), interior — в интерьере (раздел «В интерьере»),
+// scheme — схема подключений и размеров (раздел «Подключения»); нет поля — product
+export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | ""; kind?: "product" | "interior" | "scheme" };
 
 export type SeriesDetail = {
   slug: string;

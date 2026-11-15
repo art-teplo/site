@@ -7,6 +7,7 @@ import { Section } from "@/components/Section/Section";
 import { mapRow, mapVariants, type ApiRow, type ApiVariants, type Variants } from "@/data/catalog-map";
 import type { SeriesDetail, VariantRow } from "@/data/types";
 import { executionConnection, serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
+import { parseOrientation } from "@/lib/orientation";
 import { rowPrice } from "@/lib/price";
 import { colorForApi } from "@/lib/series-color";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
@@ -65,6 +66,8 @@ const withoutColorKey = (k: string) => {
 function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Props) {
   const pathname = usePathname();
   const params = useSearchParams();
+  // ?o= с карточки витрины: адрес перепишут фильтры, а порядок фото держим, пока открыта страница
+  const [orientation] = useState(() => parseOrientation(params.get("o")));
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(false);
   // всё, что влияет на строки (кроме v и page): цвет меняет цену, остальное — выборку
@@ -188,7 +191,7 @@ function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Prop
       <Section className={topClassName} labelledBy="series-title">
         <Container>
           {breadcrumbs}
-          <SeriesHero series={series} images={images.product} row={selected} color={query.color} stale={stale} onColor={(color) => replace({ ...query, color })} />
+          <SeriesHero series={series} images={images.product} row={selected} color={query.color} stale={stale} orientation={orientation} onColor={(color) => replace({ ...query, color })} />
         </Container>
       </Section>
       {tabs}

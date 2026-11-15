@@ -8,7 +8,7 @@ import { LeadSection } from "@/sections/home/LeadSection";
 
 export const metadata: Metadata = {
   title: "Проекты",
-  description: "Квартиры, дома и жилые комплексы с нашими радиаторами — реальные фото после установки.",
+  description: "Квартиры, дома, клиники и отели с нашими радиаторами — реальные фото и видео после установки.",
 };
 
 export default async function ProektyPage() {

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { getBrands, getCategories, getProjects, getSeries, getShowcases, getVariants } from "@/data/api";
 import { formatPrice } from "@/lib/format";
+import { byOrientation, parseOrientation } from "@/lib/orientation";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { LeadSection } from "@/sections/home/LeadSection";
 import { SeriesAbout, seriesTabs } from "@/sections/series/SeriesAbout";
@@ -13,6 +14,9 @@ import styles from "./page.module.css";
 // Страница собирается под адрес, без общей заготовки: в шапке и плавном скролле usePathname() вне
 // <Suspense>, и после правки в админке Next не смог бы пересобрать заготовку — отдавал 500
 export const instant = false;
+
+// Меньше стольких товарных фото — первый экран добирает интерьерными
+const HERO_MIN = 3;
 
 const toParams = (raw: Record<string, string | string[] | undefined>) => {
   const params = new URLSearchParams();
@@ -46,7 +50,8 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
   if (!category) notFound();
 
   // Первая страница по адресу; пустой результат по ?h — повод открыть таблицу без высоты
-  const { query, fromH } = seriesQuery(toParams(await searchParams), series);
+  const urlParams = toParams(await searchParams);
+  const { query, fromH } = seriesQuery(urlParams, series);
   let initial = await getVariants(slug, { ...query, page: 1 });
   let dropped = false;
   if (fromH && initial.count === 0) {
@@ -55,9 +60,15 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
   }
 
   // Фото: изделие — в галерее первого экрана, интерьер — в своём разделе. Нет разметки kind — всё как изделие
-  const interior = series.images.filter((i) => i.kind === "interior");
-  const product = series.images.filter((i) => i.kind !== "interior");
-  const gallery = product.length ? product : series.images;
+  // Пришли с карточки витрины (?o=) — интерьер её ориентации первым
+  const interior = byOrientation(
+    series.images.filter((i) => i.kind === "interior"),
+    parseOrientation(urlParams.get("o")),
+  );
+  // Товарных меньше HERO_MIN — добираем интерьером (той же ориентации первым), чтобы первый экран не был пустым
+  const product = series.images.filter((i) => !i.kind || i.kind === "product");
+  const schemes = series.images.filter((i) => i.kind === "scheme");
+  const gallery = product.length ? [...product, ...interior.slice(0, Math.max(0, HERO_MIN - product.length))] : series.images.filter((i) => i.kind !== "scheme");
 
   // Проекты и похожие отдаёт бэк; нет их в ответе (демо, старый бэк) — собираем сами
   const projects = series.projects?.length ? series.projects : allProjects.filter((p) => p.series.includes(series.slug));
@@ -67,7 +78,7 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
     const related = showcase.results.filter((c) => c.series !== series.slug);
     similar = related.filter((c, i) => related.findIndex((x) => x.series === c.series) === i).slice(0, 8);
   }
-  const content = { series, interior, projects, similar };
+  const content = { series, interior, schemes, projects, similar };
 
   return (
     <>
@@ -88,7 +99,7 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
         images={{ product: gallery, interior }}
         tabs={<SeriesTabs tabs={seriesTabs(content)} />}
       />
-      <SeriesAbout {...content} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
+      <SeriesAbout {...content} orientation={parseOrientation(urlParams.get("o"))} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
       <LeadSection source={`series/${series.slug}`} />
     </>
   );
