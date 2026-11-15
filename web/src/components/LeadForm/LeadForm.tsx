@@ -14,7 +14,7 @@ const FILE_TYPES = ".pdf,.jpg,.jpeg,.png,.xls,.xlsx";
 const MAX_FILE_MB = 50; // лимит Bot API на отправку файла в Telegram
 const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024; // как FileSizeValidator на бэке
 // Версия текста согласия — сохраняется с заявкой (Закон РБ № 99-З). Поменяли текст у галочки — поднимите
-const CONSENT_VERSION = "2026-11-04";
+const CONSENT_VERSION = "2026-11-15";
 // Бэка нет (демо на Vercel, сборка без API_URL) — отправка имитируется. Флаг вшивает next.config.ts
 const DEMO = process.env.NEXT_PUBLIC_DEMO === "1";
 
@@ -148,8 +148,8 @@ export function LeadForm({ source, context, withFile = true, submitLabel = "От
       )}
 
       <Checkbox name="consent" error={errors.consent}>
-        Согласен на обработку персональных данных, в том числе на передачу менеджерам через Telegram, по{" "}
-        <Link href="/privacy">политике</Link>
+        Даю согласие на обработку моих персональных данных для ответа на заявку, в том числе на их трансграничную
+        передачу менеджерам через Telegram. С <Link href="/privacy">политикой</Link> и рисками такой передачи ознакомлен(а)
       </Checkbox>
 
       {errors.form && (
