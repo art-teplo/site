@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { Frame } from "@/components/Frame/Frame";
+import { VideoPlayer } from "@/components/VideoPlayer/VideoPlayer";
+import { firstFrame, useVideoShape } from "@/lib/use-video-shape";
 import styles from "./VideoPoster.module.css";
 
 type Props = {
@@ -11,15 +13,25 @@ type Props = {
 };
 
 // Постер 16:9, нажимается целиком; по нажатию на его месте играет видео со звуком и обычными кнопками.
-// Файл грузится только после нажатия — главная не тянет мегабайты зря. Появится озвучка — добавить <track> с субтитрами.
+// Файл грузится только после нажатия — главная не тянет мегабайты зря (до этого — только заголовок, ради пропорций).
+// Вертикальный ролик (снят под Telegram) — рамка его формы высотой в экран, постер — первый кадр; секция видит это
+// по data-shape="tall". Появится озвучка — добавить <track> с субтитрами.
 export function VideoPoster({ src, label, children }: Props) {
   const [playing, setPlaying] = useState(false);
+  const shape = useVideoShape(src);
+  const tall = Boolean(src && shape?.tall);
 
   return (
-    <div className={styles.root}>
-      <Frame ratio="16 / 9" parallax={!playing}>
-        {playing ? (
-          <video className={styles.video} src={src} controls autoPlay playsInline preload="auto" />
+    <div
+      className={styles.root}
+      data-shape={tall ? "tall" : undefined}
+      style={tall ? ({ "--video-ratio": shape?.ratio } as CSSProperties) : undefined}
+    >
+      <Frame ratio={tall ? String(shape?.ratio) : "16 / 9"} parallax={!playing && !tall}>
+        {playing && src ? (
+          <VideoPlayer className={styles.video} src={src} label={label} />
+        ) : tall && src ? (
+          <video className={styles.video} src={firstFrame(src)} preload="metadata" muted playsInline aria-hidden="true" tabIndex={-1} />
         ) : (
           children
         )}
