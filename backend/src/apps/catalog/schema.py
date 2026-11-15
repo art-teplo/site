@@ -78,6 +78,7 @@ CATEGORIES: dict[str, list[Field]] = {
     'konvektory': [
         LENGTH,
         WIDTH,
+        HEIGHT,
         DEPTH,
         POWER,
         _list('fan', 'Вентилятор', 'attrs__fan'),
