@@ -9,8 +9,8 @@ from apps.core.utils import AutoUploadTo, FileSizeValidator, SizeUnit
 from .html import clean_html, read_minutes
 
 MAX_IMAGE_MB = 15
-IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp']
-MAX_VIDEO_MB = 100
+IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'jfif', 'jpe', 'png', 'webp']
+MAX_VIDEO_MB = 250
 VIDEO_EXTENSIONS = ['mp4', 'webm']
 FOCUS_CENTER = '50 50'
 FOCUS_PATTERN = r'^(100|[1-9]?\d) (100|[1-9]?\d)$'
@@ -52,10 +52,14 @@ class WithImage(models.Model):
         editable=False,
         null=True,
     )
+    # Необязательное: пусто — сайт подписывает фото default_alt() (название записи).
+    # Описание помогает поиску по картинкам и незрячим, но без него фото не пропадает
     image_alt = models.CharField(
         'описание фото',
         max_length=200,
-        help_text='Что на фото — для незрячих и поисковиков',
+        blank=True,
+        help_text='Что на фото — для поиска по картинкам и незрячих. '
+        'Пусто — подпишется названием',
     )
     # Рамки на сайте фиксированной формы (4:5, 4:3, 16:9), фото заполняет
     # рамку и обрезается: фокус — что остаётся в кадре (object-position)
@@ -81,6 +85,14 @@ class WithImage(models.Model):
 
     class Meta:
         abstract = True
+
+    def default_alt(self) -> str:
+        """Подпись фото, если «описание фото» не заполнили: название записи."""
+        return getattr(self, 'title', '') or getattr(self, 'name', '') or ''
+
+    @property
+    def alt(self) -> str:
+        return self.image_alt or self.default_alt()
 
 
 class Sortable(models.Model):
@@ -174,7 +186,7 @@ class SiteSettings(SingletonModel):
             FileSizeValidator(MAX_VIDEO_MB, SizeUnit.MiB),
         ],
         help_text=(
-            f'MP4 (H.264), до {MAX_VIDEO_MB} МБ: 1–2 минуты в 1080p. '
+            f'MP4 (H.264), до {MAX_VIDEO_MB} МБ: до 3–4 минут в 1080p. '
             'Пусто — на сайте фото шоурума с подписью «скоро»'
         ),
     )
@@ -279,33 +291,45 @@ class Published(models.Model):
 class Project(Published, WithImage, Sortable):
     cache_tag = Tag.PROJECTS
     IMAGE_HINT = (
-        'Рамки 4:5, 4:3 и 3:2 — с запасом по краям, от 1600 px по ширине',
-        1600,
+        (
+            'Вертикальное: рамка 4:5 везде — главная, «Проекты», товар; '
+            'от 1080 px по ширине'
+        ),
+        1080,
     )
-
-    class Kind(models.TextChoices):
-        FLAT = 'flat', 'квартира'
-        HOUSE = 'house', 'дом'
-        COMPLEX = 'complex', 'ЖК'
 
     title = models.CharField(
         'название',
         max_length=150,
     )
-    kind = models.CharField(
-        'тип',
-        max_length=16,
-        choices=Kind,
-    )
     place = models.CharField(
         'место',
         max_length=150,
+        blank=True,
+        help_text='Адрес или объект: «Минск, ул. Нововиленская, 57». '
+        'Пусто — на сайте только название',
     )
     series = models.ManyToManyField(
         'catalog.Series',
         verbose_name='серии',
         related_name='projects',
         blank=True,
+    )
+    video = models.FileField(
+        'видео',
+        upload_to=AutoUploadTo('video'),
+        blank=True,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=VIDEO_EXTENSIONS,
+                message='Подойдут MP4 или WebM',
+            ),
+            FileSizeValidator(MAX_VIDEO_MB, SizeUnit.MiB),
+        ],
+        help_text=(
+            f'MP4 (H.264), до {MAX_VIDEO_MB} МБ: до 3–4 минут в 1080p. '
+            'На сайте — вторым кадром в галерее проекта, после главного фото'
+        ),
     )
 
     class Meta(Sortable.Meta):
@@ -320,7 +344,10 @@ class ProjectPhoto(WithImage, Sortable):
     """Дополнительные фото проекта: на сайте листаются в галерее поверх списка."""
 
     cache_tag = Tag.PROJECTS
-    IMAGE_HINT = ('Горизонтальное 3:2, от 1600 px по ширине', 1600)
+    IMAGE_HINT = (
+        'Любой формы — в галерее показывается целиком; от 1080 px',
+        1080,
+    )
 
     project = models.ForeignKey(
         Project,
@@ -332,8 +359,11 @@ class ProjectPhoto(WithImage, Sortable):
         verbose_name = 'фото проекта'
         verbose_name_plural = 'ещё фото'
 
+    def default_alt(self) -> str:
+        return self.project.title
+
     def __str__(self):
-        return self.image_alt
+        return self.alt
 
 
 class Article(WithImage):
@@ -427,5 +457,8 @@ class ShowroomPhoto(WithImage, Sortable):
         verbose_name = 'фото шоурума'
         verbose_name_plural = 'шоурум'
 
+    def default_alt(self) -> str:
+        return 'Зал шоурума АртТепло'
+
     def __str__(self):
-        return self.image_alt
+        return self.alt

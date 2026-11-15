@@ -8,6 +8,10 @@ from django.db import models
 from django.utils.deconstruct import deconstructible
 from rest_framework.throttling import BaseThrottle
 
+# Другие имена JPEG (так сохраняют Windows и браузеры) — в .jpg: по
+# расширению хранилище ставит тип файла, а сайт выбирает обработку
+SAME_EXTENSIONS = {'.jpeg': '.jpg', '.jfif': '.jpg', '.jpe': '.jpg'}
+
 
 @deconstructible
 class AutoUploadTo:
@@ -23,6 +27,7 @@ class AutoUploadTo:
     def __call__(self, instance: models.Model, filename: str) -> str:
         db_table = instance._meta.db_table  # noqa: SLF001
         ext = Path(filename).suffix.lower()
+        ext = SAME_EXTENSIONS.get(ext, ext)
         unique_name = f'{uuid.uuid4()}{ext}'
         path = Path(db_table) / self.field_folder / unique_name
         return str(path)

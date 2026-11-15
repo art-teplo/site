@@ -19,6 +19,22 @@ from .widgets import ImageAdminMixin, ImageModelForm
 PREVIEW_HEIGHT = 64
 
 
+class SortableInlineMixin:
+    """Порядок строк перетаскиванием: Unfold пишет его в скрытое поле
+    position, поэтому поле должно быть в fields. Поле необязательное: форма,
+    открытая до правки или без JS, сохраняется с прежним порядком, а не с
+    «исправьте ошибки ниже» при невидимой ошибке в скрытой колонке."""
+
+    ordering_field = 'position'
+    hide_ordering_field = True
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        field = super().formfield_for_dbfield(db_field, request, **kwargs)
+        if field is not None and db_field.name == self.ordering_field:
+            field.required = False  # нет в запросе — остаётся прежнее значение
+        return field
+
+
 @admin.display(description='фото')
 def preview(obj):
     if not obj.image:
@@ -30,11 +46,9 @@ def preview(obj):
     )
 
 
-class OpeningHoursInline(TabularInline):
+class OpeningHoursInline(SortableInlineMixin, TabularInline):
     model = OpeningHours
     extra = 0
-    ordering_field = 'position'
-    hide_ordering_field = True
     fields = ['days', 'time', 'position']
 
 
@@ -84,12 +98,10 @@ class FaqAdmin(ModelAdmin):
     fields = ['question', 'answer', 'on_home']
 
 
-class ProjectPhotoInline(TabularInline):
+class ProjectPhotoInline(SortableInlineMixin, TabularInline):
     model = ProjectPhoto
     form = ImageModelForm
     extra = 0
-    ordering_field = 'position'
-    hide_ordering_field = True
     fields = [preview, 'image', 'image_alt', 'image_focus', 'position']
     readonly_fields = [preview]
 
@@ -97,9 +109,9 @@ class ProjectPhotoInline(TabularInline):
 @admin.register(Project)
 class ProjectAdmin(ImageAdminMixin, ModelAdmin):
     inlines = [ProjectPhotoInline]
-    list_display = [preview, 'title', 'kind', 'place', 'is_published']
+    list_display = [preview, 'title', 'place', 'is_published']
     list_display_links = ['title']
-    list_filter = ['kind', 'is_published']
+    list_filter = ['is_published']
     search_fields = ['title', 'place']
     ordering_field = 'position'
     hide_ordering_field = True
@@ -108,11 +120,11 @@ class ProjectAdmin(ImageAdminMixin, ModelAdmin):
     fields = [
         'title',
         'slug',
-        'kind',
         'place',
         'image',
         'image_alt',
         'image_focus',
+        'video',
         'series',
         'is_published',
     ]
@@ -169,8 +181,8 @@ class PromoAdmin(ArticleAdmin):
 
 @admin.register(ShowroomPhoto)
 class ShowroomPhotoAdmin(ImageAdminMixin, ModelAdmin):
-    list_display = [preview, 'image_alt']
-    list_display_links = ['image_alt']
+    list_display = [preview, '__str__']
+    list_display_links = ['__str__']
     ordering_field = 'position'
     hide_ordering_field = True
     fields = ['image', 'image_alt', 'image_focus']
