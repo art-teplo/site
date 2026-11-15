@@ -177,15 +177,7 @@ docker compose up -d
 
 **Алерты.** `root/monitor.sh` раз в 5 минут (cron пользователя `deploy`) проверяет: диск `/` занят меньше 80 %; последний `ok` в `backup.log` моложе 26 часов; `/` и `/api/health/` через nginx отвечают 200 (две проверки подряд — деплой перезапускает контейнеры); нет упавших и `unhealthy` контейнеров проекта (`migrate` с кодом 0 не считается). Пишет в Telegram только при смене состояния («🔴 …» и «✅ снова в порядке»), о незакрытой беде напоминает раз в сутки; состояние — в `/opt/art-teplo/.monitor/`. Нагрузка — `df`, два `curl` и `docker ps`, без своих сервисов и контейнеров. Бот — свой, не бот заявок (`MONITOR__TELEGRAM_BOT_TOKEN`), чат — личный чат админа с ним (`MONITOR__TELEGRAM_CHAT_ID`): менеджеры алертов не видят, а сообщения не зависят от бота заявок. id чата: написать боту `/start`, затем `./monitor.sh chatid`. Не поймает, что лёг весь сервер или сеть: для этого нужна внешняя проверка (UptimeRobot и т. п.) — после домена.
 
-Установка (файлы в `/opt/art-teplo` принадлежат `deploy`):
-
-```bash
-scp root/monitor.sh art-teplo:~
-sudo install -o deploy -g deploy -m 755 ~/monitor.sh /opt/art-teplo/monitor.sh
-sudo -u deploy nano /opt/art-teplo/.env      # MONITOR__TELEGRAM_BOT_TOKEN и MONITOR__TELEGRAM_CHAT_ID
-sudo -u deploy /opt/art-teplo/monitor.sh test   # сообщение «проверка алертов» в чат
-sudo -u deploy crontab -e   # строка: */5 * * * * /opt/art-teplo/monitor.sh >> /opt/art-teplo/monitor.log 2>&1
-```
+Включить: на сервере вписать в `.env` `MONITOR__TELEGRAM_BOT_TOKEN` (свой бот из @BotFather) и `MONITOR__TELEGRAM_CHAT_ID` (написать боту `/start`, затем `sudo -u deploy /opt/art-teplo/monitor.sh chatid`), проверить — `sudo -u deploy /opt/art-teplo/monitor.sh test`. Скрипт и cron приезжают с деплоем (раздел 7, «Деплой»).
 
 ## 6. Решения
 
@@ -203,7 +195,7 @@ sudo -u deploy crontab -e   # строка: */5 * * * * /opt/art-teplo/monitor.s
 - Сайт открывается по `http://178.159.47.100`, только порт 80: TLS нет. Домен `art-teplo.by` пока указывает на старый WordPress (178.159.242.136).
 - Суперпользователь создан. Каталог и контент пустые (0 серий, категорий, брендов): локальная база ещё не перенесена.
 - S3 включён: фото — `art-teplo-media`, файлы заявок — `art-teplo-private`. nginx находит backend после пересоздания контейнера сам (`resolve`), reload не нужен.
-- Бэкап: cron пользователя `deploy` в 3:30 (`backup.sh` → `art-teplo-backup`, лог `/opt/art-teplo/backup.log`), ручной запуск 2026-11-13 прошёл.
+- Бэкап: cron пользователя `deploy` в 3:30 (с ближайшего деплоя его ставит `deploy.sh`) (`backup.sh` → `art-teplo-backup`, лог `/opt/art-teplo/backup.log`), ручной запуск 2026-11-13 прошёл.
 - Telegram на сервере не настроен: токена и `CHAT_ID` нет, бот спит — заявки сохраняются, но никуда не уходят.
 
 ```
@@ -233,7 +225,9 @@ art-teplo/
 - образы backend и web собираются на каждом PR (проверка Dockerfile). Из `main` публикуются `ghcr.io/art-teplo/site-backend` и `site-web` с тегами `main` и `sha-<7>` — каждый, только если менялась его часть; задача `cleanup` оставляет по 5 последних версий.
 - лимиты бесплатного плана для приватного репозитория: Actions — $12 в месяц (около 2000 минут Linux, прогон CI около 11 минут); GHCR — 500 МБ хранения (вместе с артефактами Actions) и 1 ГБ скачиваний в месяц; сжатый образ бэка около 75 МБ, фронта — 357 МБ в распакованном виде (сжатый меньше), сервер при деплое качает только изменённые слои.
 
-**Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Запуск только из `main` (проверка в workflow). В GitHub — секреты и переменные **репозитория** (секреты окружений в приватном репозитории на бесплатном плане недоступны): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; variables `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), сброс кэша страниц фронта (`POST /api/revalidate` со всеми тегами изнутри контейнера web), чистка старых образов. Откат — тот же запуск с тегом `sha-…`: тег один на оба образа, а `sha-` есть только у образа, который в этом коммите менялся, и только у 5 последних — откатывать коммитом, где менялись оба, иначе `main`.
+**Деплой** (`deploy.yml`, вручную). Секреты — только в `.env` на сервере. Запуск только из `main` (проверка в workflow). В GitHub — секреты и переменные **репозитория** (секреты окружений в приватном репозитории на бесплатном плане недоступны): secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`; variables `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`. Workflow копирует `root/` (кроме `.env`), запускает `deploy.sh`: вход в GHCR временным `GITHUB_TOKEN`, `compose pull`, `up -d --wait` (ждёт healthcheck), сброс кэша страниц фронта (`POST /api/revalidate` со всеми тегами изнутри контейнера web), чистка старых образов, расписание в crontab пользователя `deploy` — бэкап в 3:30 и алерты раз в 5 минут (блок между метками `# art-teplo: begin/end` переписывается каждый раз, свои строки вне блока не трогаются).
+
+**Что на сервере руками — только `.env`.** Скрипты, compose, nginx и cron приезжают с деплоем: на сервере их не правят и не копируют, меняют в репозитории. Руками — один файл `/opt/art-teplo/.env` (секретов в git нет): `sudo -u deploy nano /opt/art-teplo/.env`, новые переменные — по `root/.env.example`; после правки переменных бэка — `sudo -u deploy docker compose up -d` в `/opt/art-teplo`, скрипты (`backup.sh`, `monitor.sh`) читают `.env` сами при каждом запуске. Откат — тот же запуск с тегом `sha-…`: тег один на оба образа, а `sha-` есть только у образа, который в этом коммите менялся, и только у 5 последних — откатывать коммитом, где менялись оба, иначе `main`.
 
 **Подготовить сервер (один раз):** пользователь `deploy` в группе `docker`, вход только по ключу; Docker с compose; лимит логов в `/etc/docker/daemon.json` до первого `up` (действует только на новые контейнеры): `{"log-driver": "json-file", "log-opts": {"max-size": "20m", "max-file": "5", "compress": "true"}}`, затем `systemctl restart docker` (тот же лимит прописан в compose через `x-logging`, `daemon.json` — страховка для `docker run` и сервисов без блока); swap 2 ГБ; каталог `DEPLOY_PATH` с `.env` по `root/.env.example` (новые пароли, `chmod 600`); `ssh-keyscan` хоста — в `DEPLOY_KNOWN_HOSTS`; первый суперпользователь — `docker compose run --rm backend createsuperuser`.
 
@@ -253,6 +247,7 @@ art-teplo/
 
 **`.env` на сервере** (по `root/.env.example`)
 - [ ] `BACKEND__TELEGRAM__BOT_TOKEN` — токен боевого бота; `BACKEND__TELEGRAM__CHAT_ID` — id группы.
+- [ ] `MONITOR__TELEGRAM_BOT_TOKEN`, `MONITOR__TELEGRAM_CHAT_ID` — бот алертов и ваш личный чат с ним (раздел 5, «Алерты»).
 - [ ] `BACKEND__PUBLIC_URL=https://art-teplo.by` — ссылка «Открыть в админке» (адрес nginx, где живёт админка).
 - [ ] `BACKEND__SITE_URL` — ссылка «Открыть товар на сайте». Фронт на том же домене за nginx — оставить пустым (возьмётся `PUBLIC_URL`); фронт отдельно — его адрес.
 - [x] `BACKEND__CORS_ALLOWED_ORIGINS` — пусто: фронт и API на одном домене, браузер шлёт форму на `/api/leads/` того же сайта.
@@ -273,7 +268,7 @@ art-teplo/
 - [ ] TLS; `limit_req` на `/api/leads/` поверх троттлинга DRF.
 - [ ] `BACKEND__ADMIN_PATH` — свой путь вместо `admin`.
 - [ ] Менеджеры: «Пользователи» → добавить, пароль от 12 символов, «Статус персонала» и группа «Менеджер». Суперпользователь — только у владельца.
-- [ ] Алерты (`root/monitor.sh`, раздел 5): поставить на сервер и в cron `deploy`, вписать `MONITOR__TELEGRAM_BOT_TOKEN` и `MONITOR__TELEGRAM_CHAT_ID`.
+- [ ] Алерты (`root/monitor.sh`, раздел 5): приедут с деплоем вместе с cron; на сервере в `.env` вписать `MONITOR__TELEGRAM_BOT_TOKEN` и `MONITOR__TELEGRAM_CHAT_ID`.
 - [x] Бэкап (cron стоит с 2026-11-13; 14 ноября проверить `backup.log` и новый дамп в бакете): cron пользователя `deploy` для `root/backup.sh` (раздел 5, «Бэкап базы»), через сутки проверить `backup.log` и бакет. Файлы заявок с S3 — в `art-teplo-private` с версиями, том `private_media` остаётся только под временные файлы загрузки. Без S3 том в бэкап не попадает.
 - [ ] После первого запуска: в админке «Periodic tasks» есть `purge-old-leads` (раз в сутки, 3:30).
 - [ ] Проверка: заявка с сайта → сообщение в группе → «Беру» → в админке ответственный; файл приходит ответом.

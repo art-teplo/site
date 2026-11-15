@@ -2,8 +2,7 @@
 # Алерты о сервере в Telegram: диск, ночной бэкап, сайт и API, контейнеры.
 # Пишет только при смене состояния («сломалось» / «починилось»), раз в сутки при
 # незакрытой беде напоминает. Нагрузка — df, curl и docker ps раз в 5 минут.
-# На сервере — cron пользователя deploy (crontab -e), рядом с бэкапом:
-#   */5 * * * * /opt/art-teplo/monitor.sh >> /opt/art-teplo/monitor.log 2>&1
+# На сервере — cron пользователя deploy раз в 5 минут, ставит deploy.sh.
 # Свой бот, не бот заявок: в .env MONITOR__TELEGRAM_BOT_TOKEN (из @BotFather)
 # и MONITOR__TELEGRAM_CHAT_ID — ваш личный чат с этим ботом. Узнать id: написать
 # боту /start, затем ./monitor.sh chatid. Без обоих значений алерты только в лог.
@@ -25,7 +24,6 @@ chat=$(env_get MONITOR__TELEGRAM_CHAT_ID)
 port=$(env_get NGINX_PORT)
 base="http://127.0.0.1:${port:-80}"
 state=.monitor
-mkdir -p "$state"
 
 # Токен — через конфиг curl на stdin, не аргументом: аргументы видно в ps
 tg() { printf 'url = "https://api.telegram.org/bot%s/%s"\n' "$token" "$1" | curl -sSf -K - -m 15 "${@:2}"; }
@@ -46,6 +44,7 @@ case "${1:-}" in
     exit ;;
 esac
 
+mkdir -p "$state"
 declare -A LABEL=([disk]="место на диске" [backup]="ночной бэкап" [site]="сайт" [api]="API" [containers]="контейнеры")
 
 # check <имя> <ok|fail> <текст беды> [<сколько fail подряд нужно>]
