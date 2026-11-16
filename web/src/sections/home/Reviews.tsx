@@ -6,10 +6,11 @@ import { SplitText } from "@/components/SplitText/SplitText";
 import { getSite } from "@/data/api";
 import { cx } from "@/lib/format";
 import styles from "./Reviews.module.css";
+import { ReviewsWidget } from "./ReviewsWidget";
 
 // 10 · Отзывы. Своих отзывов не пишем (brief.md) — виджет Яндекс.Карт как есть.
 // Карточка — «id организации» в настройках сайта. Пусто — без виджета, только ссылка на карту.
-// loading="lazy": iframe грузится, только когда до него докрутили, и не тормозит первый экран (решение 16)
+// Виджет грузится, только когда до него докрутили; Яндекс недоступен — заглушка (ReviewsWidget)
 export async function Reviews() {
   const site = await getSite();
   const orgId = site.yandexOrgId;
@@ -32,12 +33,7 @@ export async function Reviews() {
         </div>
         {orgId ? (
           <Reveal className={styles.widget} index={3}>
-            <iframe
-              className={styles.frame}
-              src={`https://yandex.ru/maps-reviews-widget/${orgId}?comments`}
-              title="Отзывы о шоуруме на Яндекс.Картах"
-              loading="lazy"
-            />
+            <ReviewsWidget orgId={orgId} reviewsUrl={reviewsUrl} />
           </Reveal>
         ) : null}
       </Container>

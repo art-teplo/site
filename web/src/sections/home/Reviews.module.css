@@ -49,6 +49,37 @@
   background: var(--color-cream-paper);
 }
 
+.widgetInner {
+  height: 100%;
+}
+
+/* Высокая рамка нужна только самому виджету — заглушке хватает своей высоты */
+.widget:has(.fallback) {
+  height: auto;
+}
+
+/* Яндекс не ответил — на той же подложке короткое объяснение и ссылка на отзывы */
+.fallback {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--spacing-16);
+  padding: var(--spacing-58) var(--spacing-40);
+}
+
+.fallbackTitle {
+  font-size: var(--text-heading-sm);
+  font-weight: 500;
+  line-height: var(--leading-snug);
+}
+
+.fallbackText {
+  max-width: var(--measure);
+  margin-bottom: var(--spacing-8);
+  color: var(--text-muted);
+  line-height: var(--leading-snug);
+}
+
 .frame {
   display: block;
   width: 100%;
@@ -68,5 +99,11 @@
 
   .widget {
     height: calc(var(--spacing-122) * 5);
+  }
+}
+
+@media (max-width: 767px) {
+  .fallback {
+    padding: var(--spacing-24);
   }
 }
