@@ -1,4 +1,5 @@
 .hero {
+  margin-top: var(--spacing-32); /* крошки не липнут к галерее */
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   column-gap: var(--grid-gap);
@@ -13,7 +14,7 @@
   top: calc(var(--header-height) + var(--spacing-24));
   display: grid;
   grid-template-columns: var(--thumb-size) minmax(0, 1fr);
-  gap: var(--spacing-16);
+  gap: var(--spacing-24);
 }
 
 .thumbs {
@@ -25,7 +26,7 @@
 .thumb {
   display: block;
   width: var(--thumb-size);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3; /* как у фото: превью без размытых полей */
   border-radius: var(--radius-icons);
   overflow: hidden;
   opacity: 0.55;
@@ -47,6 +48,39 @@
   transform: scale(var(--press-scale));
 }
 
+/* Превью видеообзора: первый кадр на тёмном, по центру — кружок ▶ как у раздела «Видеообзор» */
+.thumbVideo {
+  position: relative;
+  background: var(--color-pressed-graphite);
+}
+
+.thumbVideo video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbVideo::before {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: var(--spacing-24);
+  height: var(--spacing-24);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  transform: translate(-50%, -50%);
+}
+
+.thumbVideo::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  border-style: solid;
+  border-width: var(--spacing-4) 0 var(--spacing-4) var(--spacing-8);
+  border-color: transparent transparent transparent var(--color-pure-white);
+  transform: translate(-35%, -50%);
+}
+
 .thumbActive {
   opacity: 1;
   box-shadow: 0 0 0 1px var(--text);
@@ -57,7 +91,84 @@
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-cards);
   overflow: hidden;
-  background: var(--color-pressed-graphite);
+  background: color-mix(in srgb, var(--color-umber) var(--media-mat-tint), var(--bg));
+}
+
+/* Пока кадр грузится — по подложке бежит светлый блик (под фото; пришедшее фото его закрывает) */
+.main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--color-cream-paper) 45%, transparent) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: shimmer var(--dur-shimmer) var(--ease-out) infinite;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.layerShown {
+  opacity: 1;
+}
+
+/* Главное фото — кнопка: открывает галерею на весь экран. Подсказка — как у проектов: фото чуть приближается */
+/* Видеообзор на месте фото: рамка его формы в пределах фото, ролик целиком на тёмном */
+.videoMain {
+  width: min(100%, calc(var(--video-tall-max) * var(--video-ratio)));
+  margin-inline: auto;
+  background: var(--color-coal);
+}
+
+.videoMain::before {
+  content: none;
+}
+
+.videoPlayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.zoomable {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.zoomable picture {
+  height: 100%;
+  z-index: 1;
+}
+
+.zoomable img {
+  transition: transform var(--dur-slow) var(--ease-out);
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.zoomable:hover img {
+  transform: scale(1.04);
+}
+
+.zoomable:active {
+  transform: scale(var(--press-scale));
 }
 
 /* Тонкий контур поверх — как у фото в каталоге; поверх содержимого, раскладку не двигает */
@@ -73,7 +184,8 @@
 
 /* Информация */
 .info {
-  grid-column: 9 / -1;
+  grid-column: 8 / -1;
+  padding-left: var(--spacing-24); /* шире колонка — характеристики не теснятся, но отступ от фото остаётся */
   display: grid;
   gap: var(--spacing-24);
 }
@@ -177,15 +289,23 @@
     grid-column: 1 / -1;
   }
 
+  .info {
+    padding-left: 0;
+  }
+
   .gallery {
     position: static;
-    grid-template-columns: 1fr;
+    /* minmax(0, …): лента превью не растягивает колонку шире экрана */
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .thumbs {
     grid-row: 2;
     grid-auto-flow: column;
     justify-content: start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
   }
 }
 

@@ -25,9 +25,15 @@
   color: var(--text-muted);
 }
 
-.draft {
-  padding: var(--spacing-16) var(--spacing-24);
-  border: 1px solid var(--line);
-  background: var(--surface);
-  border-radius: var(--radius-icons);
+.edition {
+  font-size: var(--text-caption);
+}
+
+.body ul {
+  display: grid;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding-left: var(--spacing-24);
+  color: var(--text-muted);
+  list-style: disc;
 }

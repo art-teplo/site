@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Бэкап базы в S3 (бакет BACKUP__S3_BUCKET, ключи — BACKEND__S3__* из .env).
 # Сколько копий хранить, решает правило бакета (удаление через 14 дней), не скрипт.
-# На сервере — cron пользователя deploy (crontab -e):
-#   30 3 * * * /opt/art-teplo/backup.sh >> /opt/art-teplo/backup.log 2>&1
+# На сервере — cron пользователя deploy в 3:30, ставит deploy.sh.
 # Локально, с dev-compose:
 #   COMPOSE="docker compose -f docker-compose.yaml -f docker-compose.dev.yaml" ./backup.sh
 # Восстановление — docs/stack.md, «Бэкап базы».

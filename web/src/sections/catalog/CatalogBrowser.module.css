@@ -589,3 +589,8 @@
     font-size: var(--text-caption);
   }
 }
+
+/* Логотип в JPG — на белом фоне: multiply растворяет белое в фоне плитки, без белого прямоугольника */
+.logo[src*=".jp"] {
+  mix-blend-mode: multiply;
+}

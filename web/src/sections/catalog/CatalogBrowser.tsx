@@ -9,6 +9,7 @@ import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
 import { SortMenu } from "@/components/SortMenu/SortMenu";
 import { mapShowcase, type ApiShowcase, type Showcase } from "@/data/catalog-map";
 import type { Brand, CatalogField, Category, Facet } from "@/data/types";
+import { cameBack, savedPages, savePages } from "@/lib/back-navigation";
 import { catalogKey, csv, parseCatalogQuery, serializeCatalogQuery, type CatalogQuery, type Sort, PAGE_SIZE_CARDS, SORT_LABEL } from "@/lib/catalog-query";
 import { facetValueLabel } from "@/lib/facet-labels";
 import { cx, plural } from "@/lib/format";
@@ -50,6 +51,8 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   const [busy, setBusy] = useState(false);
   const [moreFailed, setMoreFailed] = useState(false);
   const moreController = useRef<AbortController | null>(null);
+  // Вернулись «Назад» — открываем столько страниц, сколько было, чтобы прокрутка встала на место
+  const restorePages = useRef(cameBack() ? savedPages(`${window.location.pathname}?${catalogKey(new URLSearchParams(window.location.search))}`) : 1);
 
   // «Показать ещё» живёт в состоянии, в адрес page не попадает
   const key = useMemo(() => catalogKey(params), [params]);
@@ -61,14 +64,22 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
     if (key === loaded.key) return;
     moreController.current?.abort(); // «Показать ещё» от прежнего запроса не должен дописаться к новому списку
     const controller = new AbortController();
-    fetchShowcase(category.slug, { ...query, page: 1 }, controller.signal)
-      .then((data) => {
-        if (controller.signal.aborted) return;
-        setFailed(false);
-        setMoreFailed(false);
-        setLoaded({ ...data, key, page: 1 });
-      })
-      .catch((e) => !controller.signal.aborted && (console.error(e), setFailed(true)));
+    const pages = restorePages.current;
+    (async () => {
+      const data = await fetchShowcase(category.slug, { ...query, page: 1 }, controller.signal);
+      let { results } = data;
+      let page = 1;
+      while (page < pages && results.length < data.count) {
+        const next = await fetchShowcase(category.slug, { ...query, page: page + 1 }, controller.signal);
+        results = [...results, ...next.results];
+        page += 1;
+      }
+      if (controller.signal.aborted) return;
+      restorePages.current = 1;
+      setFailed(false);
+      setMoreFailed(false);
+      setLoaded({ ...data, results, key, page });
+    })().catch((e) => !controller.signal.aborted && (console.error(e), setFailed(true)));
     return () => controller.abort();
   }, [key, loaded.key, category.slug, query]);
 
@@ -111,6 +122,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
       const data = await fetchShowcase(category.slug, { ...query, page: loaded.page + 1 }, controller.signal);
       if (controller.signal.aborted) return;
       setLoaded((prev) => (prev.key === key ? { ...prev, results: [...prev.results, ...data.results], count: data.count, page: prev.page + 1 } : prev));
+      savePages(`${pathname}?${key}`, loaded.page + 1);
     } catch (e) {
       if (controller.signal.aborted) return;
       console.error(e);

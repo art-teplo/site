@@ -69,7 +69,9 @@ def warn_small_image(request, obj):
     «зазумленным». Не ошибка, а предупреждение: менеджер решает сам."""
     hint, min_width = getattr(obj, 'IMAGE_HINT', ('', 0))
     width = getattr(obj, 'image_width', None)
-    if obj.image and width and min_width and width < min_width:
+    # в инлайнах серии есть строки без фото (группы цветов, файлы)
+    image = getattr(obj, 'image', None)
+    if image and width and min_width and width < min_width:
         messages.warning(
             request,
             f'«{obj}»: фото {width} px в ширину, для этой рамки нужно от '

@@ -3,6 +3,7 @@ from decimal import Decimal
 from types import SimpleNamespace
 
 import pytest
+from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from PIL import Image
@@ -212,6 +213,7 @@ def test_series_list_one_card_per_showcase(client, catalog):  # noqa: ARG001
         'category': 'radiatory',
         'label': '334 мм',
         'height_mm': 334,
+        'orientation': 'h',
         'price_from': 101,
         'image': None,
         'hover_image': None,
@@ -230,10 +232,22 @@ def test_series_without_showcase_and_photo_still_listed(client, catalog):  # noq
     data = fetch(client, brand='guardo')
     assert data['count'] == 1
     card = data['results'][0]
-    assert card['label'] == ''
+    # Без витрины подпись собирается из вариантов
+    assert card['label'] == 'Высота 500 мм'
     assert card['image'] is None
     assert card['price_from'] == 190
     assert card['colors'] == []
+
+
+def test_card_label_without_showcase_names_single_position(client, catalog):
+    Variant.objects.filter(series=catalog.retta).update(orientation='v')
+    make_variant(catalog.retta, 'R-300', height_mm=300, orientation='v')
+    card = fetch(client, brand='guardo')['results'][0]
+    assert card['label'] == 'Вертикальный, 300–500 мм'
+    # Оба положения — только высота, иначе подпись не влезает в карточку
+    make_variant(catalog.retta, 'R-H', height_mm=300, orientation='h')
+    card = fetch(client, brand='guardo')['results'][0]
+    assert card['label'] == 'Высота 300–500 мм'
 
 
 def test_card_image_falls_back_to_first_series_photo(client, catalog):
@@ -528,7 +542,8 @@ def test_query_count_does_not_grow_with_cards(
         make_variant(series, f'Q{i}-1', height_mm=100, price_byn=Decimal(5))
         Showcase.objects.create(series=series, label='x')
         SeriesImage.objects.create(series=series, image=png(), image_alt='q')
-    with django_assert_max_num_queries(19):
+    # +1 запрос — подписи карточек без витрины, одним запросом на страницу
+    with django_assert_max_num_queries(20):
         data = fetch(client)
     assert data['count'] == 13
 
@@ -954,3 +969,24 @@ def test_execution_with_non_ascii_digits_is_ignored(client, catalog):  # noqa: A
 
     assert response.status_code == 200
     assert response.json()['count'] == 0
+
+
+def test_series_video_is_uploaded_file(client, catalog):
+    url = reverse('series-detail', args=['garmoniya-a40'])
+    assert client.get(url).json()['video_url'] == ''
+    catalog.garmoniya.video = SimpleUploadedFile(
+        'obzor.mp4',
+        b'\x00\x00\x00\x18ftypmp42',
+    )
+    catalog.garmoniya.full_clean()
+    catalog.garmoniya.save()
+    video = client.get(url).json()['video_url']
+    assert video.startswith('/media/')
+    assert video.endswith('.mp4')
+
+
+def test_series_video_rejects_other_formats(catalog):
+    catalog.garmoniya.video = SimpleUploadedFile('obzor.mov', b'0')
+    with pytest.raises(ValidationError) as error:
+        catalog.garmoniya.full_clean()
+    assert 'video' in error.value.message_dict

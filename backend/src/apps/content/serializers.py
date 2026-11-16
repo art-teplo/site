@@ -26,7 +26,8 @@ def image_asset(obj):
         'src': obj.image.url,
         'width': obj.image_width,
         'height': obj.image_height,
-        'alt': obj.image_alt,
+        # Пусто в админке — название записи (default_alt у модели)
+        'alt': obj.alt,
     }
     # Точка фокуса «x y» в процентах: фронт ставит её в object-position.
     # Центр не отдаём — это и так поведение по умолчанию
@@ -120,24 +121,27 @@ class FaqSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(ImageAssetMixin, serializers.ModelSerializer):
-    kind = serializers.CharField(source='get_kind_display')
     photos = serializers.SerializerMethodField()
     series_slugs = serializers.SerializerMethodField()
+    video_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
         fields = [
             'slug',
             'title',
-            'kind',
             'place',
             'image',
             'photos',
+            'video_url',
             'series_slugs',
         ]
 
     def get_photos(self, obj):
         return [image_asset(photo) for photo in obj.photos.all()]
+
+    def get_video_url(self, obj):
+        return obj.video.url if obj.video else ''
 
     def get_series_slugs(self, obj):
         # Скрытые серии не отдаём; фильтр в Python — по prefetch, без запроса на проект

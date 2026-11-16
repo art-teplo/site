@@ -88,10 +88,56 @@
   user-select: none;
 }
 
+.frame {
+  position: relative;
+  display: grid;
+  min-height: 0;
+}
+
+/* Индикатор загрузки по центру: готовый кадр закрывает его собой */
+.frame::before {
+  content: "";
+  place-self: center;
+  grid-area: 1 / 1;
+  width: var(--spacing-32);
+  height: var(--spacing-32);
+  border: 2px solid color-mix(in srgb, var(--text) 20%, transparent);
+  border-top-color: var(--text);
+  border-radius: var(--radius-pill);
+  animation: spin var(--dur-spin) linear infinite;
+}
+
+/* Кадр — слоем выше индикатора: у того animation с transform, такой элемент рисуется поверх обычных,
+   и без z-index кружок просвечивал поверх загруженного фото (заметно на тёмных и однотонных кадрах) */
 .picture {
+  position: relative;
+  z-index: 1;
+  grid-area: 1 / 1;
   height: 100%;
+  min-height: 0;
   background: transparent;
-  animation: fade var(--dur-base) var(--ease-out);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+/* Ролик — по своей ширине в высоту окна: кнопки плеера не растягиваются за края вертикального */
+.video {
+  justify-self: center;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.shown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .caption {

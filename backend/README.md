@@ -45,7 +45,7 @@ src/
   apps/catalog/   категории, бренды (логотип, «гарантия до», наценка markup_percent), сроки изготовления,
                   серии (Series), варианты (Variant), группы цветов и цвета (ColorGroup, Color), витрина (Showcase),
                   фото и файлы серии (SeriesImage, SeriesFile), курсы валют (CurrencyRate).
-                  Импорт прайса: команда import_price; курсы: rates.py, tasks.py; поиск (слова, раскладка, синонимы) — search.py. Тег кэша фронта — catalog
+                  Импорт прайса Guardo и Nova: команда import_price; КЗТО — import_kzto (importers/kzto.py, kzto_page.py); Velar — import_velar (importers/velar.py); фото и PDF заводов — import_photos, import_files; курсы: rates.py, tasks.py; поиск (слова, раскладка, синонимы) — search.py. Тег кэша фронта — catalog
   tests/          pytest
 ```
 
@@ -59,6 +59,31 @@ uv run python src/manage.py import_price <путь к xlsx> [--sheet <лист>]
 
 Первый импорт создаёт серии неопубликованными, а группы цветов — по цветам, которые есть не меньше чем у 5 % артикулов серии. Повторный импорт группы и описания не трогает, а новые цвета выводит списком. Повёрнутые Retta и Torre — отдельные варианты: вариант определяют бренд, артикул и подключение. API без префикса серии: `/api/series/`, `/api/series/<slug>/`, `/api/series/<slug>/variants/`, `/api/variants/<article>/?series=&connection=`.
 
+КЗТО — с сайта завода kztoradiator.ru (решение № 151), сеть нужна, файл не нужен:
+
+```bash
+uv run python src/manage.py import_kzto [--publish] [--no-pages] [--no-media] [--dry-run] [--feed <адрес или путь>]
+```
+
+Варианты, размеры, мощность и цены в RUB — из YML-фида `kztoradiator.ru/yml-feed.xml`; описание, «Параметры товара», примечания и PDF (паспорта, монтажные схемы, сертификаты) — со страницы серии `index.php?id=<id категории фида>`; фото — из фида. Какая категория фида в какую серию идёт — `TARGETS` в `importers/kzto.py`, H- и V-исполнения — одна серия с полем «Положение». Новая категория в фиде не импортируется, а выводится предупреждением; Зеркало, Завалинка, комплектующие — в `SKIPPED`. Повторный импорт обновляет варианты и цены и скрывает пропавшие; у серии заполняет только пустые поля, фото и PDF — если их нет. Подключение радиатора — базовое со страницы серии (боковое или нижнее по краям), без данных — по положению. В фиде бывает один артикул у двух размеров — второй вариант записывается с названием вместо артикула. Полный прогон — несколько минут: 48 страниц, фото и PDF.
+
+Белые поля, вшитые в фото завода (вертикальный кадр, дополненный белым до горизонтального), импорт срезает сам (`photos.py`, решение № 157).
+
+Витринные фото заводов — первыми в галерею серий (решения № 164, 166): рендеры guardo.ru по высотам (по две на положение) и плитки kztoradiator.ru (Ellipse, Quadrum 30/50, Neo 50); у Guardo ещё цветные рендеры по RAL и схемы подключений — в конец галереи (страницы высот, около минуты); у Velar — превью и интерьерные рендеры velarwh.ru (`importers/velar_photos.py`, отобраны вручную). Повторный запуск не дублирует; какие серии и картинки — `GUARDO_PAGES` и `KZTO_TILES` в `importers/factory_photos.py`:
+
+```bash
+uv run python src/manage.py import_photos [--brand guardo|kzto|velar|all] [--dry-run]
+uv run python src/manage.py import_files [--brand guardo|all] [--dry-run]   # каталоги и паспорта PDF Guardo
+```
+
+Velar — прайс завода (xlsx, профильные радиаторы; решение № 166). Новые серии неопубликованные; повторный импорт обновляет варианты и цены, пропавшие скрывает (только у серий этого прайса), у серии заполняет пустые поля, описание собирает из прайса (`importers/velar_text.py`):
+
+```bash
+uv run python src/manage.py import_velar <путь к xlsx> [--publish] [--dry-run]
+```
+
+В Docker файл прайса сначала копируется в контейнер: `docker cp <xlsx> $(docker compose … ps -q backend):/tmp/velar.xlsx`.
+
 Курсы валют берёт Celery beat, задача `update-currency-rates` в 01:10, из `api.nbrb.by` (серверу нужен исходящий HTTPS к этому адресу, ключ не нужен). Вручную — действие в админке «Обновить курсы сейчас».
 
 ## Контент локально
@@ -69,7 +94,7 @@ uv run python src/manage.py import_price <путь к xlsx> [--sheet <лист>]
 docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backend loaddemo   # из root/
 ```
 
-Повторный запуск обновляет записи и не дублирует фото. Чтобы правки сразу появлялись на `localhost:3000`, задайте одинаковый секрет в `root/.env` (`BACKEND__FRONTEND__REVALIDATE_URL=http://host.docker.internal:3000/api/revalidate`, `BACKEND__FRONTEND__REVALIDATE_SECRET`) и в `web/.env.local` (`REVALIDATE_SECRET`), см. `web/.env.example`. Без этого фронт обновит страницы сам — в течение часа.
+Повторный запуск обновляет записи и не дублирует фото. Чтобы правки сразу появлялись на `localhost:3000`, задайте одинаковый секрет в `root/.env` (`BACKEND__FRONTEND__REVALIDATE_URL=http://host.docker.internal:3000/api/revalidate`, `BACKEND__FRONTEND__REVALIDATE_SECRET`) и в `web/.env.local` (`REVALIDATE_SECRET`), см. `web/.env.example`. Без этого фронт обновит страницы сам — в течение часа, а сбросить кэш сразу можно из `web/`: `npm run revalidate` (`-- 3010` — фронт на другом порту). Сигнал из админки уходит только на один адрес — фронт, запущенный на другом порту, его не получит.
 
 ## Доступ к админке
 

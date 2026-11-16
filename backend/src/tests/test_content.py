@@ -69,7 +69,6 @@ def make_project(db):  # noqa: ARG001
         data = {
             'slug': 'kvartira',
             'title': 'Квартира 96 м²',
-            'kind': Project.Kind.FLAT,
             'place': 'Минск',
             'image_alt': 'Гостиная',
             **fields,
@@ -240,7 +239,6 @@ def test_projects_published_with_image(client, make_project):
     data = client.get(reverse('project-list')).json()
 
     assert len(data) == 1
-    assert data[0]['kind'] == 'квартира'
     image = data[0]['image']
     assert image['src'].startswith('/media/content_project/')
     assert (image['width'], image['height'], image['alt']) == (
@@ -249,6 +247,41 @@ def test_projects_published_with_image(client, make_project):
         'Гостиная',
     )
     assert data[0]['photos'] == []
+    assert data[0]['video_url'] == ''
+
+
+@pytest.mark.django_db
+def test_project_without_place_and_alt(client, make_project):
+    project = make_project(place='', image_alt='')
+    project.full_clean()
+    photo = with_image(ProjectPhoto(project=project, position=1))
+    photo.full_clean()
+
+    data = client.get(reverse('project-list')).json()
+
+    assert data[0]['place'] == ''
+    assert data[0]['image']['alt'] == 'Квартира 96 м²'
+    assert data[0]['photos'][0]['alt'] == 'Квартира 96 м²'
+
+
+@pytest.mark.django_db
+def test_empty_alt_falls_back_to_title(client, make_post):
+    make_post(image_alt='')
+
+    data = client.get(reverse('post-list')).json()
+
+    assert data[0]['image']['alt'] == 'Статья'
+
+
+@pytest.mark.django_db
+def test_project_video_url(client, make_project):
+    project = make_project()
+    project.video.save('obzor.mp4', ContentFile(b'video'), save=True)
+
+    data = client.get(reverse('project-list')).json()
+
+    assert data[0]['video_url'].startswith('/media/content_project/video/')
+    assert data[0]['video_url'].endswith('.mp4')
 
 
 @pytest.mark.django_db

@@ -9,7 +9,9 @@ import { getSite } from "@/data/api";
 import styles from "./Showroom.module.css";
 
 // 09 · Шоурум. Видео из «Настроек сайта» — постер с кнопкой, играет по нажатию; нет файла — фото «скоро».
+// Вертикальное видео (data-shape="tall") — узкой колонкой, а вводный текст переезжает из шапки к контактам.
 // карта Яндекса — ссылкой, чтобы не грузить тяжёлый iframe на главной.
+const INTRO = "Радиатор на картинке и на стене — разные вещи. В шоуруме видно фактуру покраски, размер и как он греет.";
 const POSTER = { src: "/images/showroom/showroom-poster.jpg", width: 1920, height: 1080, alt: "Шоурум АртТепло на Леонида Беды, 39" };
 
 export async function Showroom() {
@@ -17,19 +19,17 @@ export async function Showroom() {
   const video = site.showroomVideo;
   return (
     <Section id="showroom" tone="dark" labelledBy="showroom-title">
-      <Container>
-        <SectionHead
-          titleId="showroom-title"
-          title="Приезжайте потрогать"
-          intro="Радиатор на картинке и на стене — разные вещи. В шоуруме видно фактуру покраски, размер и как он греет."
-        />
+      <Container className={styles.wrap}>
+        {/* Шапка — внутри сетки: при вертикальном видео на десктопе она встаёт в правую колонку, вровень с верхом ролика */}
         <div className={styles.layout}>
+          <SectionHead titleId="showroom-title" title="Приезжайте потрогать" intro={INTRO} className={styles.head} sideClassName={styles.headIntro} />
           <Reveal className={styles.media}>
             <VideoPoster src={video?.src} label={video ? "Смотреть обзор шоурума" : "Видео шоурума скоро"}>
               <Picture image={video?.poster ?? POSTER} sizes="(max-width: 1023px) 100vw, 66vw" />
             </VideoPoster>
           </Reveal>
           <Reveal className={styles.info} index={1}>
+            <p className={styles.tallIntro}>{INTRO}</p>
             <dl className={styles.list}>
               <div>
                 <dt>Адрес</dt>

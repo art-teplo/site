@@ -7,25 +7,31 @@ import { cx, formatPrice } from "@/lib/format";
 import styles from "./ShowcaseCard.module.css";
 
 const MAX_DOTS = 5;
+const RATIO = "4 / 3"; // под форму фото: у большинства 4:3…16:9, обрезка небольшая
 
 // Карточка формфактора серии: фото, «Гармония А40 · 1800 мм, вертикальный», бренд, «от N BYN», цвета.
-// Вся карточка — одна ссылка на серию с выбранной высотой.
+// Вся карточка — одна ссылка на серию с выбранной высотой и ориентацией.
 type Props = { card: Card; category: string; brand?: string; sizes?: string; priority?: boolean };
 
 export function ShowcaseCard({ card, category, brand, sizes = "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw", priority }: Props) {
-  const href = `/catalog/${category}/${card.series}${card.heightMm ? `?h=${card.heightMm}` : ""}`;
+  // Высота — фильтр таблицы, ориентация — какие фото показать первыми
+  const params = new URLSearchParams();
+  if (card.heightMm) params.set("h", String(card.heightMm));
+  if (card.orientation) params.set("o", card.orientation);
+  const href = `/catalog/${category}/${card.series}${params.size ? `?${params}` : ""}`;
   const extra = card.colors.length - MAX_DOTS;
+  const photo = { fit: "smart" as const, frame: 4 / 3 };
   return (
     <article className={styles.card}>
       <div className={cx(styles.media, card.image && card.hoverImage && styles.swap)}>
         {card.image ? (
           <>
-            <Picture image={card.image} sizes={sizes} eager={priority} />
+            <Picture image={card.image} sizes={sizes} eager={priority} {...photo} />
             {/* второе фото проявляется поверх первого при наведении */}
-            {card.hoverImage && <Picture image={card.hoverImage} sizes={sizes} className={styles.hoverImage} />}
+            {card.hoverImage && <Picture image={card.hoverImage} sizes={sizes} {...photo} className={styles.hoverImage} />}
           </>
         ) : (
-          <Frame ratio="4 / 5" rounded={false}>
+          <Frame ratio={RATIO} rounded={false}>
             <span className={styles.placeholder}>{card.name}</span>
           </Frame>
         )}

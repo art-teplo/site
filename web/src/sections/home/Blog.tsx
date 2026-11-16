@@ -32,7 +32,7 @@ export async function Blog() {
             <Reveal as="li" key={post.slug} index={i}>
               <article className={styles.post}>
                 <Frame ratio="3 / 2">
-                  <Picture image={post.image} sizes="(max-width: 767px) 100vw, 33vw" />
+                  <Picture image={post.image} sizes="(max-width: 767px) 100vw, 33vw" fit="smart" frame={3 / 2} />
                 </Frame>
                 <p className={styles.meta}>
                   <time dateTime={post.date}>{formatDate(post.date)}</time> · {post.readMinutes} мин

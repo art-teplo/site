@@ -14,6 +14,7 @@ from apps.catalog.models import (
     ColorGroup,
     Series,
     SeriesImage,
+    Showcase,
     Subcategory,
     Variant,
 )
@@ -192,6 +193,33 @@ def test_hover_image_falls_back_to_second_product(client, shop):
     assert cards['retta']['hover_image'] is None
 
 
+def test_showcase_photos_follow_its_orientation(client, shop):
+    """Вертикальная витрина: фото и наведение — только вертикальные или без
+    ориентации, хотя горизонтальные стоят в админке раньше."""
+    variant = Variant.objects.filter(series=shop.retta).first()
+    Variant.objects.filter(pk=variant.pk).update(orientation='v')
+    Showcase.objects.create(series=shop.retta, label='в', variant=variant)
+    for kind, orientation, name in [
+        ('product', 'h', 'ph'),
+        ('product', 'v', 'pv'),
+        ('interior', 'h', 'ih'),
+        ('interior', '', 'i0'),
+        ('interior', 'v', 'iv'),
+    ]:
+        SeriesImage.objects.create(
+            series=shop.retta,
+            image=png(f'{name}.png'),
+            image_alt=name,
+            kind=kind,
+            orientation=orientation,
+        )
+    card = search(client, 'retta')[0]
+    assert card['orientation'] == 'v'
+    assert card['image']['alt'] == 'pv'
+    # своя ориентация раньше фото без ориентации, горизонтальное — никогда
+    assert card['hover_image']['alt'] == 'iv'
+
+
 def test_detail_images_have_kind(client, shop):
     SeriesImage.objects.create(
         series=shop.retta,
@@ -242,7 +270,6 @@ def test_detail_projects(client, shop):
     shown = Project.objects.create(
         slug='flat-1',
         title='Квартира',
-        kind='flat',
         place='Минск',
         image=png(),
         image_alt='p',
@@ -251,7 +278,6 @@ def test_detail_projects(client, shop):
     hidden = Project.objects.create(
         slug='flat-2',
         title='Скрытый',
-        kind='house',
         place='Минск',
         image=png('h.png'),
         image_alt='h',
@@ -261,7 +287,6 @@ def test_detail_projects(client, shop):
     other = Project.objects.create(
         slug='flat-3',
         title='Чужой',
-        kind='house',
         place='Минск',
         image=png('o.png'),
         image_alt='o',
@@ -271,8 +296,8 @@ def test_detail_projects(client, shop):
     assert len(data['projects']) == 1
     project = data['projects'][0]
     assert project['slug'] == 'flat-1'
-    assert project['kind'] == 'квартира'
-    assert {'title', 'place', 'image', 'photos'} <= set(project)
+    assert 'kind' not in project
+    assert {'title', 'place', 'image', 'photos', 'video_url'} <= set(project)
     assert (
         client.get(
             reverse('series-detail', args=['allumo']),
@@ -353,14 +378,14 @@ def test_search_sort_and_limit(client, shop):  # noqa: ARG001
 
 
 def test_card_prefers_photo_shaped_like_card(client, shop):
-    """Без витрины карточка вертикальная (4:5): горизонтальное товарное фото,
-    даже первое в админке, уступает вертикальному."""
+    """Рамка карточки 4:3: вертикальное товарное фото, даже первое в
+    админке, уступает горизонтальному."""
     wide = SeriesImage.objects.create(
         series=shop.retta,
         image=png('wide.png'),
         image_alt='w',
         kind=SeriesImage.Kind.PRODUCT,
-        position=1,
+        position=3,
     )
     tall = SeriesImage.objects.create(
         series=shop.retta,
@@ -378,7 +403,49 @@ def test_card_prefers_photo_shaped_like_card(client, shop):
         image_height=1300,
     )
     card = search(client, 'retta')[0]
-    assert card['image']['alt'] == 't'
+    assert card['image']['alt'] == 'w'
+
+
+def test_card_takes_first_fitting_photo_in_admin_order(client, shop):
+    """Из фото, которые ложатся в рамку 4:3 без размытого фона, — первое по
+    порядку админки: менеджер выбирает фото карточки перетаскиванием."""
+    for position, (name, width, height) in enumerate(
+        [('tall', 1000, 1300), ('first', 1600, 1000), ('exact', 1600, 1200)],
+    ):
+        image = SeriesImage.objects.create(
+            series=shop.retta,
+            image=png(f'{name}.png'),
+            image_alt=name,
+            kind=SeriesImage.Kind.PRODUCT,
+            position=position,
+        )
+        SeriesImage.objects.filter(pk=image.pk).update(
+            image_width=width,
+            image_height=height,
+        )
+    assert search(client, 'retta')[0]['image']['alt'] == 'first'
+
+
+def test_scheme_never_becomes_card_or_hover_photo(client, shop):
+    """Схема подключений — не фото товара: даже первой в админке она не
+    идёт ни в карточку, ни на наведение — без товарных фото карточка берёт
+    интерьерное."""
+    for position, (name, kind) in enumerate(
+        [
+            ('scheme', SeriesImage.Kind.SCHEME),
+            ('interior', SeriesImage.Kind.INTERIOR),
+        ],
+    ):
+        SeriesImage.objects.create(
+            series=shop.retta,
+            image=png(f'{name}.png'),
+            image_alt=name,
+            kind=kind,
+            position=position,
+        )
+    found = search(client, 'retta')[0]
+    assert found['image']['alt'] == 'interior'
+    assert found['hover_image'] is None
 
 
 def test_image_focus_in_api_only_when_moved(client, shop):  # noqa: ARG001

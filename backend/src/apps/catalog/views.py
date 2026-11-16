@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.db.models import Case, Count, Min, Prefetch, Q, When
+from django.db.models import Case, Count, Max, Min, Prefetch, Q, When
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
@@ -11,7 +11,7 @@ from apps.content.serializers import ProjectSerializer
 from apps.content.views import PublicReadMixin
 
 from . import filters, schema, search, serializers
-from .choices import Connection
+from .choices import Connection, Orientation
 from .models import (
     Brand,
     Category,
@@ -124,9 +124,44 @@ def _series_colors(series_ids) -> dict[int, list[dict]]:
     return result
 
 
+def _auto_labels(series_ids) -> dict[int, str]:
+    """Подпись карточки без витрины, коротко, как у витрин: «Вертикальный,
+    200–2500 мм»; оба положения или ни одного — «Высота 334–2034 мм»."""
+    rows = (
+        Variant.objects.filter(series_id__in=series_ids, is_active=True)
+        .order_by()
+        .values('series_id')
+        .annotate(
+            low=Min('height_mm'),
+            high=Max('height_mm'),
+            h=Count('pk', filter=Q(orientation=Orientation.HORIZONTAL)),
+            v=Count('pk', filter=Q(orientation=Orientation.VERTICAL)),
+        )
+    )
+    labels = {}
+    for row in rows:
+        positions = [o.label for o in Orientation if row[o.value]]
+        height = None
+        if row['low'] is not None:
+            same = row['low'] == row['high']
+            height = (
+                f'{row["low"]} мм'
+                if same
+                else f'{row["low"]}–{row["high"]} мм'
+            )
+        if len(positions) == 1:
+            text = ', '.join(filter(None, [positions[0].capitalize(), height]))
+        else:
+            text = f'Высота {height}' if height else ''
+        labels[row['series_id']] = text
+    return labels
+
+
 def _render_cards(cards: list[tuple]) -> list[dict]:
-    """JSON карточек из (серия, витрина, цена): фото и цвета — пачкой."""
+    """JSON карточек из (серия, витрина, цена): фото, цвета и подписи —
+    пачкой."""
     series_ids = {c[0].pk for c in cards}
+    labels = _auto_labels({c[0].pk for c in cards if c[1] is None})
     by_id = {
         s.pk: s
         for s in Series.objects.filter(pk__in=series_ids)
@@ -140,6 +175,7 @@ def _render_cards(cards: list[tuple]) -> list[dict]:
             showcase,
             price,
             colors.get(series.pk, []),
+            labels.get(series.pk, ''),
         )
         for series, showcase, price in cards
     ]

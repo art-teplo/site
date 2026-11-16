@@ -65,7 +65,6 @@
     {
       "slug": "kvartira-zelenyy-lug",
       "title": "Квартира 96 м²",
-      "kind": "flat",
       "place": "Минск, Зелёный Луг",
       "image": {
         "src": "/images/projects/kvartira-zelenyy-lug.jpg",
@@ -92,7 +91,6 @@
     {
       "slug": "dom-zhdanovichi",
       "title": "Дом 240 м²",
-      "kind": "house",
       "place": "Ждановичи",
       "image": {
         "src": "/images/projects/dom-zhdanovichi.jpg",
@@ -119,7 +117,6 @@
     {
       "slug": "zhk-minsk-mir",
       "title": "Апартаменты 140 м²",
-      "kind": "complex",
       "place": "Минск Мир",
       "image": {
         "src": "/images/projects/zhk-minsk-mir.jpg",
@@ -131,7 +128,6 @@
     {
       "slug": "kvartira-nemiga",
       "title": "Квартира в старом фонде",
-      "kind": "flat",
       "place": "Минск, Немига",
       "image": {
         "src": "/images/projects/kvartira-nemiga.jpg",

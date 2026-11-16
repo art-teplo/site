@@ -47,7 +47,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             </header>
 
             <Frame ratio="16 / 9" className={styles.cover}>
-              <Picture image={post.image} sizes="(max-width: 1023px) 100vw, 1200px" eager />
+              <Picture image={post.image} sizes="(max-width: 1023px) 100vw, 1200px" eager fit="smart" frame={16 / 9} />
             </Frame>
 
             {/* HTML из редактора админки; бэк оставляет только безопасные теги (apps/content/html.py) */}
@@ -65,7 +65,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             {others.map((p) => (
               <li key={p.slug} className={styles.card}>
                 <Frame ratio="3 / 2">
-                  <Picture image={p.image} sizes="(max-width: 767px) 100vw, 50vw" />
+                  <Picture image={p.image} sizes="(max-width: 767px) 100vw, 50vw" fit="smart" frame={3 / 2} />
                 </Frame>
                 <p className={styles.meta}>
                   <time dateTime={p.date}>{formatDate(p.date)}</time> · {p.readMinutes} мин

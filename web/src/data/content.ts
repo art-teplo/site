@@ -65,7 +65,6 @@ export const projects: Project[] = [
   {
     slug: "kvartira-zelenyy-lug",
     title: "Квартира 96 м²",
-    kind: "квартира",
     place: "Минск, Зелёный Луг",
     image: { src: "/images/projects/kvartira-zelenyy-lug.jpg", width: 1600, height: 2000, alt: "Гостиная с чёрным вертикальным радиатором у окна" },
     photos: [
@@ -78,7 +77,6 @@ export const projects: Project[] = [
   {
     slug: "dom-zhdanovichi",
     title: "Дом 240 м²",
-    kind: "дом",
     place: "Ждановичи",
     image: { src: "/images/projects/dom-zhdanovichi.jpg", width: 1600, height: 1200, alt: "Каминный зал с дизайн-радиатором" },
     photos: [
@@ -91,7 +89,6 @@ export const projects: Project[] = [
   {
     slug: "zhk-minsk-mir",
     title: "Апартаменты 140 м²",
-    kind: "ЖК",
     place: "Минск Мир",
     image: { src: "/images/projects/zhk-minsk-mir.jpg", width: 1600, height: 1200, alt: "Панорамное остекление с внутрипольными конвекторами" },
     photos: [],
@@ -100,7 +97,6 @@ export const projects: Project[] = [
   {
     slug: "kvartira-nemiga",
     title: "Квартира в старом фонде",
-    kind: "квартира",
     place: "Минск, Немига",
     image: { src: "/images/projects/kvartira-nemiga.jpg", width: 1600, height: 2000, alt: "Чугунный ретро-радиатор под высоким окном" },
     photos: [],

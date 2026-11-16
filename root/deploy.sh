@@ -29,3 +29,12 @@ docker compose exec -T web node -e '
   }).then((r) => { console.log("revalidate:", r.status); process.exit(r.ok ? 0 : 1); }, (e) => { console.error(e); process.exit(1); });
 '
 docker image prune -f
+
+# Расписание — из репозитория: блок между метками переписывается при каждом деплое,
+# остальные строки crontab пользователя deploy не трогаем
+dir=$(pwd)
+jobs="# art-teplo: begin (ставит deploy.sh, правьте в репозитории)
+30 3 * * * $dir/backup.sh >> $dir/backup.log 2>&1
+*/5 * * * * $dir/monitor.sh >> $dir/monitor.log 2>&1
+# art-teplo: end"
+{ { crontab -l 2>/dev/null || true; } | sed '/^# art-teplo: begin/,/^# art-teplo: end/d' | { grep -vF "$dir/backup.sh" || true; }; echo "$jobs"; } | crontab -

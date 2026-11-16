@@ -9,6 +9,8 @@ from django.db.models import Q
 from apps.content.html import clean_html
 from apps.content.models import (
     MAX_IMAGE_MB,
+    MAX_VIDEO_MB,
+    VIDEO_EXTENSIONS,
     Published,
     Sortable,
     Tag,
@@ -18,7 +20,7 @@ from apps.core.utils import AutoUploadTo, FileSizeValidator, SizeUnit
 
 from .choices import Connection, Currency, Finish, Heating, Mount, Orientation
 
-LOGO_EXTENSIONS = ['svg', 'png', 'webp']
+LOGO_EXTENSIONS = ['svg', 'png', 'webp', 'jpg', 'jpeg', 'jfif', 'jpe']
 MAX_PDF_MB = 20
 
 
@@ -111,11 +113,11 @@ class Brand(Published, Sortable):
         validators=[
             FileExtensionValidator(
                 allowed_extensions=LOGO_EXTENSIONS,
-                message='Подойдут SVG, PNG или WebP',
+                message='Подойдут SVG, PNG, WebP или JPG',
             ),
             FileSizeValidator(MAX_IMAGE_MB, SizeUnit.MiB),
         ],
-        help_text='Лучше SVG или PNG без фона. Пусто — на сайте название текстом',
+        help_text='Лучше SVG или PNG без фона; JPG — на белом фоне, на сайте белый растворится в фоне плитки. Пусто — на сайте название текстом',
     )
     warranty_years = models.PositiveSmallIntegerField(
         'гарантия до, лет',
@@ -265,9 +267,21 @@ class Series(Published, Sortable):
         blank=True,
         help_text='Пусто — как у бренда',
     )
-    video_url = models.URLField(
-        'видео',
+    video = models.FileField(
+        'видеообзор',
+        upload_to=AutoUploadTo('video'),
         blank=True,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=VIDEO_EXTENSIONS,
+                message='Подойдут MP4 или WebM',
+            ),
+            FileSizeValidator(MAX_VIDEO_MB, SizeUnit.MiB),
+        ],
+        help_text=(
+            f'MP4 (H.264), до {MAX_VIDEO_MB} МБ: до 3–4 минут в 1080p. '
+            'Постер — первое товарное фото серии. Пусто — раздела нет'
+        ),
     )
 
     class Meta(Sortable.Meta):
@@ -478,13 +492,14 @@ class Variant(models.Model):
 class SeriesImage(WithImage, Sortable):
     cache_tag = Tag.CATALOG
     IMAGE_HINT = (
-        'Товарное — вертикальное 4:5, в интерьере — 16:9, от 1200 px',
+        'Товарное — 4:3, в интерьере — 16:9, от 1200 px',
         1200,
     )
 
     class Kind(models.TextChoices):
         PRODUCT = 'product', 'товар'
         INTERIOR = 'interior', 'в интерьере'
+        SCHEME = 'scheme', 'схема'
 
     series = models.ForeignKey(
         Series,
@@ -510,14 +525,22 @@ class SeriesImage(WithImage, Sortable):
         max_length=10,
         choices=Kind,
         default=Kind.PRODUCT,
+        help_text=(
+            'Товар — первый экран и карточка; в интерьере — раздел «В '
+            'интерьере»; схема подключений — раздел «Подключения», в карточку '
+            'и первый экран не попадает'
+        ),
     )
 
     class Meta(Sortable.Meta):
         verbose_name = 'фото серии'
         verbose_name_plural = 'фото серии'
 
+    def default_alt(self) -> str:
+        return self.series.name
+
     def __str__(self):
-        return self.image_alt
+        return self.alt
 
 
 class SeriesFile(Sortable):
@@ -557,7 +580,7 @@ class Showcase(WithImage, Sortable):
     """Витрина серии: подпись и вариант, который она показывает."""
 
     cache_tag = Tag.CATALOG
-    IMAGE_HINT = ('Вертикальное 4:5, от 1000 px по ширине', 1000)
+    IMAGE_HINT = ('Горизонтальное 4:3, от 1000 px по ширине', 1000)
 
     series = models.ForeignKey(
         Series,
@@ -583,13 +606,17 @@ class Showcase(WithImage, Sortable):
         height_field='image_height',
         blank=True,
         validators=WithImage._meta.get_field('image').validators,  # noqa: SLF001
-        help_text='Пусто — первое фото серии',
+        help_text='Пусто — фото серии того же положения, что вариант, иначе '
+        'товарное, ближайшее по форме к карточке 4:3',
     )
     image_alt = models.CharField(
         'описание фото',
         max_length=200,
         blank=True,
     )
+
+    def default_alt(self) -> str:
+        return self.label or self.series.name
 
     class Meta(Sortable.Meta):
         verbose_name = 'витрина'

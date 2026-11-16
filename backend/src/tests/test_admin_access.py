@@ -1,17 +1,22 @@
+import io
 from decimal import Decimal
+from html.parser import HTMLParser
 from unittest.mock import patch
 
 import pytest
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
+from PIL import Image
 
 from apps.catalog.models import (
     Brand,
     Category,
     ColorGroup,
     Series,
+    SeriesImage,
     Variant,
 )
 from apps.content.models import Tag
@@ -340,3 +345,88 @@ def test_manager_can_trigger_rates_update(manager_client):
     assert response.status_code == 302
     assert response.url == url
     delay.assert_called_once_with()
+
+
+def test_sortable_inlines_submit_their_order():
+    """Перетаскивание в Unfold пишет порядок в поле формы: без поля в fields
+    строки двигаются на экране, а после «Сохранить» порядок прежний."""
+    from django.contrib import admin  # noqa: PLC0415
+
+    missing = [
+        f'{model_admin.__class__.__name__}.{inline.__name__}'
+        for model_admin in admin.site._registry.values()  # noqa: SLF001
+        for inline in model_admin.inlines
+        # чужие инлайны (django-celery-beat) — не из Unfold, порядка у них нет
+        if getattr(inline, 'ordering_field', None)
+        and inline.ordering_field not in (inline.fields or [])
+    ]
+    assert missing == []
+
+
+class _FormFields(HTMLParser):
+    """Поля формы со страницы админки: то, что браузер отправит."""
+
+    def __init__(self):
+        super().__init__()
+        self.data, self._select, self._textarea = {}, None, None
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        name = a.get('name')
+        if tag == 'input' and name and a.get('type') not in {'submit', 'file'}:
+            if a.get('type') in {'checkbox', 'radio'} and 'checked' not in a:
+                return
+            self.data[name] = a.get('value') or ''
+        elif tag == 'select' and name:
+            self._select = name
+            if 'multiple' not in a:  # пустой множественный выбор не шлётся
+                self.data.setdefault(name, '')
+        elif tag == 'option' and self._select and 'selected' in a:
+            self.data[self._select] = a.get('value') or ''
+        elif tag == 'textarea' and name:
+            self._textarea = name
+            self.data[name] = ''
+
+    def handle_endtag(self, tag):
+        if tag == 'select':
+            self._select = None
+        elif tag == 'textarea':
+            self._textarea = None
+
+    def handle_data(self, data):
+        if self._textarea:
+            self.data[self._textarea] += data
+
+
+@pytest.mark.django_db
+def test_series_saves_from_stale_form_without_order(admin_client):
+    """Форма, открытая до появления поля порядка (или без JS), сохраняется,
+    порядок фото прежний; группа цветов без фото не роняет сохранение."""
+    brand = Brand.objects.create(name='Б', slug='b')
+    category = Category.objects.create(name='К', slug='k')
+    series = Series.objects.create(brand=brand, category=category, name='С')
+    ColorGroup.objects.create(series=series, name='Стандарт', position=0)
+    for position, alt in enumerate(['первое', 'второе']):
+        buffer = io.BytesIO()
+        Image.new('RGB', (4, 3)).save(buffer, 'PNG')
+        SeriesImage.objects.create(
+            series=series,
+            image=SimpleUploadedFile('c.png', buffer.getvalue()),
+            image_alt=alt,
+            position=position,
+        )
+    url = reverse('admin:catalog_series_change', args=[series.pk])
+    parser = _FormFields()
+    parser.feed(admin_client.get(url).content.decode())
+    data = {
+        k: v
+        for k, v in parser.data.items()
+        if '__prefix__' not in k and not k.endswith('-position')
+    }
+    data['color_groups-0-name'] = 'Стандартные'  # строка изменилась
+
+    response = admin_client.post(url, data)
+
+    assert response.status_code == 302
+    assert [i.image_alt for i in series.images.all()] == ['первое', 'второе']
+    assert series.color_groups.get().name == 'Стандартные'
