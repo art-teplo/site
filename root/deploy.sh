@@ -19,6 +19,16 @@ docker compose pull --quiet
 # --wait: ждёт healthcheck; упавшие миграции или backend — красный деплой
 docker compose up -d --remove-orphans --wait --wait-timeout 180
 
+# Конфиг nginx — смонтированный шаблон: compose не видит его правок, а шаблон
+# превращается в конфиг только при старте контейнера. Поменялся — пересоздаём
+# nginx (сайт пропадает на пару секунд); отпечаток прошлого конфига — в .nginx.sha
+nginx_sha=$(find nginx -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d' ' -f1)
+if [[ "$(cat .nginx.sha 2>/dev/null)" != "$nginx_sha" ]]; then
+  docker compose up -d --force-recreate --no-deps --wait --wait-timeout 60 nginx
+  echo "$nginx_sha" > .nginx.sha
+  echo "nginx: новый конфиг"
+fi
+
 # Новый образ фронта собран без бэка, на демо-данных (web/src/data/api.ts). Сбрасываем
 # все теги кэша: первый же заход соберёт страницы из админки. Теги — как в /api/revalidate
 docker compose exec -T web node -e '
