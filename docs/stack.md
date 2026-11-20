@@ -287,17 +287,17 @@ art-teplo/
 
 Релиз образов и перенос данных — отдельные операции. Сначала сделайте резервную копию серверной БД, разверните релиз и проверьте, что `migrate` завершился, а API отвечает. Перенос ниже рассчитан на каталог, где на сервере нет рабочих записей, кроме справочников из миграций.
 
-1. **Локально выгрузите каталог** из уже наполненной базы. Команда ниже запускается из `root/` и пишет JSON на хост:
+1. **Локально выгрузите каталог** из уже наполненной базы. Команда ниже запускается из `root/` при работающей локальной БД. Одноразовый контейнер пишет потоковый JSONL на хост:
    ```bash
-   docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec -T backend \
-     python3 manage.py dumpdata catalog --natural-foreign --natural-primary > /tmp/catalog.json
+   docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm -T --no-deps backend \
+     dumpdata catalog --format=jsonl --natural-foreign --natural-primary > /tmp/catalog.jsonl
    ```
    Для переноса связанных проектов добавьте `content.Project content.ProjectPhoto` после `catalog`, только если сверили проекты на обеих сторонах. Заявки, пользователи и настройки сайта в эту выгрузку не входят. Держите выгрузку вне Git.
 2. **Сверьте файлы.** Дамп содержит ключи файлов, а сами файлы хранятся отдельно. Если обе среды используют один и тот же публичный бакет ActiveStorage, достаточно проверить наличие объектов по ключам, в том числе фото категорий и типов, логотипов, галерей, схем и документов. Если бакеты различаются, перенесите недостающие объекты с сохранением ключей. Для файлового хранилища нужен отдельный перенос файлов и настроенный постоянный том.
 3. **Проверьте идентификаторы и загрузите.** У совпадающих справочников сравните slug и PK, у проектов — также записи и связи. `loaddata` сопоставляет записи без естественных ключей по PK и может перезаписать существующую запись. При расхождении сначала проверьте загрузку на копии БД и подготовьте сопоставление ключей. После сверки передайте файл на сервер вне репозитория. Из каталога Compose:
    ```bash
-   docker compose run --rm -v "$PWD/catalog.json:/tmp/catalog.json:ro" backend shell -c \
-     $'from django.core.management import call_command\nfrom apps.content.signals import muted_revalidation\nwith muted_revalidation():\n    call_command("loaddata", "/tmp/catalog.json")'
+   docker compose run --rm -v "$PWD/catalog.jsonl:/tmp/catalog.jsonl:ro" backend shell -c \
+     $'from django.core.management import call_command\nfrom apps.content.signals import muted_revalidation\nwith muted_revalidation():\n    call_command("loaddata", "/tmp/catalog.jsonl")'
    ```
 4. **Обновите кэш фронта.** Команда выше временно подавляет сигналы обновления кэша, чтобы не ставить задачу в очередь на каждую запись. После успешной загрузки обновите теги один раз из каталога Compose:
    ```bash
