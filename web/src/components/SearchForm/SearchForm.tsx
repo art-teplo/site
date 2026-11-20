@@ -44,7 +44,7 @@ const writeHistory = (items: string[]) => {
 
 type Option = { kind: "query"; text: string } | { kind: "card"; card: ShowcaseCard } | { kind: "all"; text: string };
 
-const cardHref = (card: ShowcaseCard) => `/catalog/${card.category}/${card.series}${card.heightMm ? `?h=${card.heightMm}` : ""}`;
+const cardHref = (card: ShowcaseCard) => `/catalog/${card.category}/${card.series}`;
 
 // Строка поиска по сайту. Под полем — история и «Часто ищут», с двух букв — подходящие модели
 // (GET /api/search/?limit=5 после паузы в наборе). Enter или лупа ведут на /poisk?q=…
@@ -212,7 +212,7 @@ export function SearchForm({ defaultValue = "", onSubmitted, className }: Props)
           <ul id={listId} role="listbox" aria-label="Подсказки" className={styles.list}>
             {options.map((option, i) => (
               <li
-                key={option.kind === "card" ? `c-${option.card.series}-${option.card.heightMm}` : `${option.kind}-${option.text}`}
+                key={option.kind === "card" ? `c-${option.card.series}-${i}` : `${option.kind}-${option.text}`}
                 id={optionId(i)}
                 role="option"
                 aria-selected={i === active}

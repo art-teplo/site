@@ -1,3 +1,19 @@
 .top {
   padding-top: calc(var(--header-height) + var(--spacing-40));
 }
+
+.legacyTitle {
+  margin-bottom: var(--spacing-32);
+}
+
+.legacyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-24);
+}
+
+@media (max-width: 767px) {
+  .legacyGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

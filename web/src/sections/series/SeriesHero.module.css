@@ -86,6 +86,23 @@
   box-shadow: 0 0 0 1px var(--text);
 }
 
+.thumbMore {
+  position: relative;
+  color: var(--color-pure-white);
+  opacity: 1;
+}
+
+.thumbMoreCount {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--scrim);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
 .main {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -345,7 +362,10 @@
 
 .spec dd {
   order: 2;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 65%;
+  overflow-wrap: anywhere;
   text-align: right;
 }
 
@@ -376,4 +396,21 @@
   margin-left: var(--spacing-8);
   font-style: normal;
   color: var(--text-muted);
+}
+
+.resetColor {
+  justify-self: start;
+  min-height: var(--control-height);
+  color: var(--text-muted);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: var(--spacing-4);
+}
+
+.resetColor:hover {
+  color: var(--text);
+}
+
+.resetColor:active {
+  transform: scale(var(--press-scale));
 }

@@ -274,16 +274,6 @@
           "src": "/images/products/nova-tube/detail.jpg",
           "alt": "Nova Siluet: деталь"
         }
-      ],
-      "showcases": [
-        {
-          "label": "300 мм, боковое подключение",
-          "variant": "NS-T2 300 4 S"
-        },
-        {
-          "label": "1800 мм, боковое подключение",
-          "variant": "NS-T2 1800 5 S"
-        }
       ]
     },
     {
@@ -479,16 +469,6 @@
           "src": "/images/products/guardo-retta-6p/detail.jpg",
           "alt": "Guardo Retta 3P: деталь"
         }
-      ],
-      "showcases": [
-        {
-          "label": "Горизонтальный, 380 мм",
-          "variant": "3P-0500-08 BK-GOR"
-        },
-        {
-          "label": "Вертикальный, 1800 мм",
-          "variant": "3P-1800-02 BK-VER"
-        }
       ]
     },
     {
@@ -603,26 +583,16 @@
       ],
       "images": [
         {
-          "src": "/images/products/guardo-polotentsesushitel/main.jpg",
-          "alt": "Guardo Stretto: общий вид"
+          "src": "/images/products/guardo-stretto/guardo-stretto-white-product.png",
+          "alt": "Guardo Stretto, общий вид, водяной, белый матовый",
+          "kind": "product",
+          "color": "RAL 9016"
         },
         {
-          "src": "/images/products/guardo-polotentsesushitel/interior.jpg",
-          "alt": "Guardo Stretto: в интерьере"
-        },
-        {
-          "src": "/images/products/guardo-polotentsesushitel/detail.jpg",
-          "alt": "Guardo Stretto: деталь"
-        }
-      ],
-      "showcases": [
-        {
-          "label": "Водяной, 600 мм",
-          "variant": "STRETTO 0685"
-        },
-        {
-          "label": "Водяной, 1200 мм",
-          "variant": "STRETTO 1285"
+          "src": "/images/products/guardo-stretto/guardo-stretto-black-interior.png",
+          "alt": "Guardo Stretto, в интерьере, водяной, чёрный матовый",
+          "kind": "interior",
+          "color": "RAL 9005"
         }
       ]
     }

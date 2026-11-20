@@ -183,7 +183,7 @@ def test_parse_price(text, expected):
         ('нижнее подключение', ('bottom_universal', False)),
         ('боковое подключение 3/4"', ('side', False)),
         ('диагональное подключение', ('diagonal', False)),
-        ('Полотенцесушитель с 5 перекладинами', ('', False)),
+        ('Полотенцесушитель с 5 перекладинами', ('', None)),
     ],
 )
 def test_parse_connection(name, expected):
@@ -790,3 +790,31 @@ def test_cheaper_color_does_not_set_base_price(tmp_path):
         (g.name, g.percent) for g in variant.series.color_groups.all()
     ] == [('Стандартные', 0), ('Хром −12 %', -12)]
     assert 'группа «Хром −12 %»: −12 %, артикулов 1 ⚠ дешевле базового' in out
+
+
+def test_unknown_connection_does_not_confirm_absent_valve():
+    assert parse.parse_connection('') == ('', None)
+
+
+def test_rotated_guardo_uses_factory_pair_not_aspect_ratio():
+    def item(conn, h, w):
+        return row(
+            Название=f'Радиатор, {conn}',
+            Модель='GUARDO RETTA 3P',
+            Бренд='GUARDO',
+            Артикул='3P-0300-40 BK-GOR R9016(M)',
+            Цвет='Белый',
+            **{
+                'Высота, мм': h,
+                'Ширина, мм': w,
+                'Глубина, мм': 57,
+                'Мощность, Вт': 900,
+            },
+        )
+
+    grouped, _ = xlsx._group_rows(  # noqa: SLF001
+        xlsx.Summary('Guardo'),
+        [item('боковое', 1980, 300), item('нижнее по краям', 300, 1980)],
+    )
+    values = grouped['guardo-retta-3p'][('3P-0300-40 BK-GOR', 'bottom_ends')]
+    assert next(iter(values.values())).orientation == 'v'

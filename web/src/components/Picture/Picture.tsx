@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactEventHandler } from "react";
 import { getImageProps } from "next/image";
 import type { ImageAsset } from "@/data/types";
 import { versioned } from "@/lib/asset";
@@ -16,6 +16,7 @@ type Props = {
   sizes: string;
   eager?: boolean; // только для первого экрана
   className?: string;
+  onLoad?: ReactEventHandler<HTMLImageElement>;
   // cover — заполняет рамку с обрезкой (оформление сайта, кадр известен заранее);
   // contain — товар без фона (PNG), без подложки;
   // smart — фото из админки: обрезка не больше MAX_CROP, иначе целиком, а поля — то же фото, размытое
@@ -30,7 +31,7 @@ export const cropShare = (image: { width: number; height: number }, frame: numbe
 };
 
 // <picture> с оптимизацией Next (AVIF/WebP, srcset), width/height и lazy loading по умолчанию.
-export function Picture({ image, mobile, sizes, eager, className, fit = "cover", frame }: Props) {
+export function Picture({ image, mobile, sizes, eager, className, fit = "cover", frame, onLoad }: Props) {
   const common = { alt: image.alt, sizes, quality: 75 };
   const loading = eager ? { loading: "eager" as const, fetchPriority: "high" as const } : { loading: "lazy" as const };
 
@@ -66,6 +67,7 @@ export function Picture({ image, mobile, sizes, eager, className, fit = "cover",
       <img
         {...props}
         alt={image.alt}
+        onLoad={onLoad}
         className={cx(styles.img, !cover && styles.contain)}
         style={focus ? { ...props.style, ...focus } : props.style}
       />

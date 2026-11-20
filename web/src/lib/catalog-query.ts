@@ -106,6 +106,10 @@ export function serializeCatalogQuery(q: CatalogQuery): string {
 // Подключение из исполнения '<трубы>-<подключение>'; у исполнения без подключения ('0-') его нет
 export function executionConnection(execution: string | undefined): Connection | undefined {
   if (!execution) return undefined;
+  if (execution.startsWith("direct:")) {
+    const connection = execution.split(":")[2];
+    return connection in CONNECTION_LABEL ? connection as Connection : undefined;
+  }
   const connection = execution.slice(execution.indexOf("-") + 1);
   return connection in CONNECTION_LABEL ? (connection as Connection) : undefined;
 }

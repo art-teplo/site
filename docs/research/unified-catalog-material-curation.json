@@ -1,0 +1,875 @@
+{
+  "inventory_count": 407,
+  "legacy_files_hashed": 38,
+  "candidates": [
+    {
+      "pk": 389,
+      "series__slug": "kzto-garmoniya",
+      "title": "Паспорт радиатора Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония Обяз. серт.pdf",
+      "source_sha256": "f49bc6153618c7cd5213e0a327eca53990326508ba2afbf19125ea72c7aa7447",
+      "file": "catalog_seriesfile/file/8fe9dab1-24a6-48c8-8b85-ce8098e367dd.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 391,
+      "series__slug": "kzto-garmoniya",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 393,
+      "series__slug": "kzto-garmoniya",
+      "title": "Монтажные схемы для радиаторов Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония от 02.03.26.pdf",
+      "source_sha256": "2c3462b8d02c3fedd06cd664eda7d508a7fda3f3c2c5b3b446447fea583a5f15",
+      "file": "catalog_seriesfile/file/0c6d0cf6-5161-406b-9521-4f2095b58a0e.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 394,
+      "series__slug": "kzto-garmoniya",
+      "title": "Рекомендации по применению Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf",
+      "source_sha256": "3265f9b40a122b30e8e4d5fc374cc3d3887bfb9c3dc4fc09b74b1ff7fc520bae",
+      "file": "catalog_seriesfile/file/665551c3-4034-4ead-aef2-1135854dc76d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 395,
+      "series__slug": "kzto-garmoniya",
+      "title": "Гармония. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Гармония. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "688442e15ab3f3f27ea482bfa629c25ba5189bfabbc46ab398e21bec0524195e",
+      "file": "catalog_seriesfile/file/4dbcca0e-bbd5-4235-b729-e12e1d43915e.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 397,
+      "series__slug": "kzto-garmoniya",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 413,
+      "series__slug": "kzto-garmoniya-a40",
+      "title": "Паспорт радиатора Гармония А40",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония А40 Обяз. серт_.pdf",
+      "source_sha256": "05ffa02b40eed2365038f55171e451137c5a533107cc1a366d18d68947e6e9fa",
+      "file": "catalog_seriesfile/file/196e2428-e6ff-422a-a1ad-23aafdde9a62.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 415,
+      "series__slug": "kzto-garmoniya-a40",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 417,
+      "series__slug": "kzto-garmoniya-a40",
+      "title": "Монтажные схемы для радиаторов Гармония А40",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония А40 от 02.03.26.pdf",
+      "source_sha256": "3f223dd9c3db1651f2dee88182b77f51640852855779fbc5510f0b1530e4231d",
+      "file": "catalog_seriesfile/file/e37bae98-d936-4add-92fa-173265d38a21.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 418,
+      "series__slug": "kzto-garmoniya-a40",
+      "title": "Рекомендации по применению Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf",
+      "source_sha256": "3265f9b40a122b30e8e4d5fc374cc3d3887bfb9c3dc4fc09b74b1ff7fc520bae",
+      "file": "catalog_seriesfile/file/665551c3-4034-4ead-aef2-1135854dc76d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 419,
+      "series__slug": "kzto-garmoniya-a40",
+      "title": "Гармония А40. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Гармония А40. Динамическая таблица пересчета.xlsx",
+      "source_sha256": "6b3cd96a290976457e41061757f43ad890f0aefcde56bd5620b60c00296430af",
+      "file": "catalog_seriesfile/file/d98ff1aa-5506-4d53-8e9a-81071d810dd3.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 421,
+      "series__slug": "kzto-garmoniya-a40",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 401,
+      "series__slug": "kzto-garmoniya-s40",
+      "title": "Паспорт радиатора Гармония С40",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония С40 Обяз. серт.pdf",
+      "source_sha256": "34565aeefa1f5bf4d1164d26f932874e04fcbf4ce94c62a914337574bece6b65",
+      "file": "catalog_seriesfile/file/36e9c2d9-9fdd-409d-a134-f82680bcc7d1.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 403,
+      "series__slug": "kzto-garmoniya-s40",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 405,
+      "series__slug": "kzto-garmoniya-s40",
+      "title": "Монтажные схемы для радиаторов Гармония С40",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония С40 от 02.03.26.pdf",
+      "source_sha256": "3f46eef749f6f036e7c28638d66baa5333fe58c441bf4b05e7cd16188dd90ef9",
+      "file": "catalog_seriesfile/file/1123998a-d646-457a-9247-dcf255bfe344.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 406,
+      "series__slug": "kzto-garmoniya-s40",
+      "title": "Рекомендации по применению Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf",
+      "source_sha256": "3265f9b40a122b30e8e4d5fc374cc3d3887bfb9c3dc4fc09b74b1ff7fc520bae",
+      "file": "catalog_seriesfile/file/665551c3-4034-4ead-aef2-1135854dc76d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 407,
+      "series__slug": "kzto-garmoniya-s40",
+      "title": "Гармония С40. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Гармония С40. Динамическая таблица пересчета.xlsx",
+      "source_sha256": "a79f9dc372da6735e1866ca28f42a2fb5692f02ffe8529917ca477cd3c8a6ca3",
+      "file": "catalog_seriesfile/file/5a41d5a1-835e-4274-a695-2b04a50ff02f.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 409,
+      "series__slug": "kzto-garmoniya-s40",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 378,
+      "series__slug": "kzto-rs",
+      "title": "Паспорт радиатора РС",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт РС Обяз. серт.pdf",
+      "source_sha256": "148ccecaca7072f89b358dc6ba31a0de1d55481d5f7af12b9f6692e2e029baa7",
+      "file": "catalog_seriesfile/file/684dc1e9-b960-4118-bfc3-6a881d322cba.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 380,
+      "series__slug": "kzto-rs",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 382,
+      "series__slug": "kzto-rs",
+      "title": "Монтажные схемы для радиаторов РС",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для РС от 02.03.26.pdf",
+      "source_sha256": "cd34b8f7a7ad392839641314512c71ac77efd2967ac9dba916713e8b0e327171",
+      "file": "catalog_seriesfile/file/b7a6d6db-6807-4af5-90e5-0e1b2167b5c3.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 383,
+      "series__slug": "kzto-rs",
+      "title": "Рекомендации по применению РС",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_RS.pdf",
+      "source_sha256": "159b2c05b0e94fa0b1e2781e916f4edce0e8240864f15acd2310fc1db10c83b6",
+      "file": "catalog_seriesfile/file/4f2263d3-2a63-4e7c-a0dc-00302da2b31d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 384,
+      "series__slug": "kzto-rs",
+      "title": "РС, РСК. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/РС, РСК. Динамическая таблица  пересчета при других температурах воды.xlsx",
+      "source_sha256": "0953fb82eb0e0c195ef043f9ebbd3814e834679a3a3df225e1871d2480c26f51",
+      "file": "catalog_seriesfile/file/49916eaa-9ecc-4276-8a51-2a8b7ba70f0d.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 385,
+      "series__slug": "kzto-rs",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 367,
+      "series__slug": "kzto-rsk",
+      "title": "Паспорт радиатора РСК",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт РСК Обяз. серт.pdf",
+      "source_sha256": "67dfd5f8440c607e3cfa68dab3ae0f17f10a23af0745affa2077fb3d59591bef",
+      "file": "catalog_seriesfile/file/e0f7e400-e40d-44ad-b089-efe1a81c7e5c.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 369,
+      "series__slug": "kzto-rsk",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 371,
+      "series__slug": "kzto-rsk",
+      "title": "Монтажные схемы для радиаторов РСК",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для РСК от 02.03.26.pdf",
+      "source_sha256": "d95da2b8f8b2c7b00d0bf239046661f347769569a270ccbeae9d217c0d8bcd6b",
+      "file": "catalog_seriesfile/file/a2c50163-b9af-4ea5-ba40-468de3adcfed.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 372,
+      "series__slug": "kzto-rsk",
+      "title": "Рекомендации по применению РС",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_RS.pdf",
+      "source_sha256": "159b2c05b0e94fa0b1e2781e916f4edce0e8240864f15acd2310fc1db10c83b6",
+      "file": "catalog_seriesfile/file/4f2263d3-2a63-4e7c-a0dc-00302da2b31d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 373,
+      "series__slug": "kzto-rsk",
+      "title": "РС, РСК. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/РС, РСК. Динамическая таблица  пересчета при других температурах воды.xlsx",
+      "source_sha256": "0953fb82eb0e0c195ef043f9ebbd3814e834679a3a3df225e1871d2480c26f51",
+      "file": "catalog_seriesfile/file/49916eaa-9ecc-4276-8a51-2a8b7ba70f0d.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 374,
+      "series__slug": "kzto-rsk",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 298,
+      "series__slug": "kzto-garmoniya-s25-n",
+      "title": "Паспорт радиатора Гармония С25 N",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония С25 N Обяз. серт.pdf",
+      "source_sha256": "552b81b04637a87626e32a28056f7eba0a34f02f1e65e564690b88081340cead",
+      "file": "catalog_seriesfile/file/3bb405d8-6cd0-436a-82f0-c41aaae32561.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 300,
+      "series__slug": "kzto-garmoniya-s25-n",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 302,
+      "series__slug": "kzto-garmoniya-s25-n",
+      "title": "Монтажные схемы для радиаторов Гармония С25 N",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония С25 N от 02.03.26.pdf",
+      "source_sha256": "d4674d50f5c80e4b5c3c37ca1e6cf19af8f55d8671e7d92866f5104caacd5a4a",
+      "file": "catalog_seriesfile/file/f54b1718-afde-4d13-b00e-234507292aa3.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 303,
+      "series__slug": "kzto-garmoniya-s25-n",
+      "title": "Рекомендации по применению Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf",
+      "source_sha256": "3265f9b40a122b30e8e4d5fc374cc3d3887bfb9c3dc4fc09b74b1ff7fc520bae",
+      "file": "catalog_seriesfile/file/665551c3-4034-4ead-aef2-1135854dc76d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 304,
+      "series__slug": "kzto-garmoniya-s25-n",
+      "title": "Гармония С25N. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Гармония С25N. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "4b5246456658e1814daf877ff8c9222918c1dc3f598975731edf1556175518cc",
+      "file": "catalog_seriesfile/file/1739d78d-9288-4d4c-bf32-0d412704a882.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 306,
+      "series__slug": "kzto-garmoniya-s25-n",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 286,
+      "series__slug": "kzto-garmoniya-a25-n",
+      "title": "Паспорт радиатора Гармония А25 N",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония А25 N Обяз. серт_.pdf",
+      "source_sha256": "0c4f5fa541fe778aaa9553797a4e890819589a17a03da84828fc65bf1f6a7911",
+      "file": "catalog_seriesfile/file/1ee722e1-f31b-4d9d-a97f-409a9ea31a49.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 288,
+      "series__slug": "kzto-garmoniya-a25-n",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 290,
+      "series__slug": "kzto-garmoniya-a25-n",
+      "title": "Монтажные схемы для радиаторов Гармония А25 N",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония А25 N от 02.03.26.pdf",
+      "source_sha256": "8c6661854a34b557295681cb8f281f1911049bd5631d8ed2c7f2544125a0261f",
+      "file": "catalog_seriesfile/file/199f5ef3-5a47-4d28-bfb3-acb9c0bf2477.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 291,
+      "series__slug": "kzto-garmoniya-a25-n",
+      "title": "Рекомендации по применению Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf",
+      "source_sha256": "3265f9b40a122b30e8e4d5fc374cc3d3887bfb9c3dc4fc09b74b1ff7fc520bae",
+      "file": "catalog_seriesfile/file/665551c3-4034-4ead-aef2-1135854dc76d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 292,
+      "series__slug": "kzto-garmoniya-a25-n",
+      "title": "Гармония А25N. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Гармония А25N. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "0f2c4923cd8b64ce9cf3fbae4ac95c306d0cf6d0c3a713db3aeac7a5f8e5eaf4",
+      "file": "catalog_seriesfile/file/5d3f212a-9302-42d2-bf13-9a32901e964e.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 294,
+      "series__slug": "kzto-garmoniya-a25-n",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 257,
+      "series__slug": "kzto-garmoniya-a20",
+      "title": "Паспорт радиатора Гармония А20",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония А20 Обяз. серт.pdf",
+      "source_sha256": "71353c1bc4be08baa26e2e48cae526f24f51c0288977e214ce64a898ee225eff",
+      "file": "catalog_seriesfile/file/21225688-21f6-4188-a8d2-f5239f38b75b.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 259,
+      "series__slug": "kzto-garmoniya-a20",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 261,
+      "series__slug": "kzto-garmoniya-a20",
+      "title": "Монтажные схемы для радиаторов Гармония А20",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония А20 от 02.03.26.pdf",
+      "source_sha256": "e1b98b5ce4b6fc29d524d97a376c9658800cf885e6dbbc82cebce9c6ddb50d70",
+      "file": "catalog_seriesfile/file/8df8bfd3-a4c4-465a-ab17-9021d093aaeb.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 262,
+      "series__slug": "kzto-garmoniya-a20",
+      "title": "Рекомендации по применению Гармония",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf",
+      "source_sha256": "3265f9b40a122b30e8e4d5fc374cc3d3887bfb9c3dc4fc09b74b1ff7fc520bae",
+      "file": "catalog_seriesfile/file/665551c3-4034-4ead-aef2-1135854dc76d.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 263,
+      "series__slug": "kzto-garmoniya-a20",
+      "title": "Гармония А20. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Гармония А20. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "76decac52c0520a86375206ffae6728af9ed1c6dafa2c9f4975aa5b5739b473b",
+      "file": "catalog_seriesfile/file/9912b25a-ef37-43a2-b6d2-6babdcfe8b0b.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 265,
+      "series__slug": "kzto-garmoniya-a20",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 210,
+      "series__slug": "kzto-bataria",
+      "title": "Паспорт радиатора Bataria (в т.ч. Retro)",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт BATARÌA.pdf",
+      "source_sha256": "5d4ba9e36c19f68a352d16c841a1ab75f7bcd094ed8ab856c1887df651a26b8d",
+      "file": "catalog_seriesfile/file/a3327878-7e8b-4e80-91e3-01678225c679.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 212,
+      "series__slug": "kzto-bataria",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 214,
+      "series__slug": "kzto-bataria",
+      "title": "Монтажные схемы для радиаторов Bataria (в т.ч. Retro)",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажная схема Bataria от 15.10.26.pdf",
+      "source_sha256": "4543e32631eb60b4a8678afdac70ac4f2332a032cfb7af87ea0c08362e348f13",
+      "file": "catalog_seriesfile/file/0dac4614-208c-4d37-8e89-042f94ea766a.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 215,
+      "series__slug": "kzto-bataria",
+      "title": "Bataria 2. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/BATARiA 2. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "c74ceba7d68d6c4a689a7e1892cbd6906d0fb8b0a204d21bf382f986beacdca7",
+      "file": "catalog_seriesfile/file/50b47e62-4820-4b6e-a1e8-01aac740e956.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 216,
+      "series__slug": "kzto-bataria",
+      "title": "Bataria 3. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/BATARiA 3. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "c39bb42c2c48b6e60567a7bc93a997b4f3802673e5f8872bc35ecbc40ae97967",
+      "file": "catalog_seriesfile/file/751115de-f237-42a6-bc17-dca6dcc28f6e.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 217,
+      "series__slug": "kzto-bataria",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 199,
+      "series__slug": "kzto-bataria-retro",
+      "title": "Паспорт радиатора Bataria (в т.ч. Retro)",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/pasrorta/radiatory/2026/Паспорт BATARÌA.pdf",
+      "source_sha256": "5d4ba9e36c19f68a352d16c841a1ab75f7bcd094ed8ab856c1887df651a26b8d",
+      "file": "catalog_seriesfile/file/a3327878-7e8b-4e80-91e3-01678225c679.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 201,
+      "series__slug": "kzto-bataria-retro",
+      "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf",
+      "source_sha256": "f4f3f8811115003490ec88d21cfe87586f1c29e1113763d62e7b90812cf2ae2b",
+      "file": "catalog_seriesfile/file/08e7cca6-3449-40e7-a95d-01bf4fdcf6d2.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 203,
+      "series__slug": "kzto-bataria-retro",
+      "title": "Монтажные схемы для радиаторов Bataria (в т.ч. Retro)",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажная схема Bataria от 15.10.26.pdf",
+      "source_sha256": "4543e32631eb60b4a8678afdac70ac4f2332a032cfb7af87ea0c08362e348f13",
+      "file": "catalog_seriesfile/file/0dac4614-208c-4d37-8e89-042f94ea766a.pdf",
+      "reason": "Точная байтовая копия уже существующего документа; исходная запись сохраняется"
+    },
+    {
+      "pk": 204,
+      "series__slug": "kzto-bataria-retro",
+      "title": "Bataria 2. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/BATARiA 2. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "c74ceba7d68d6c4a689a7e1892cbd6906d0fb8b0a204d21bf382f986beacdca7",
+      "file": "catalog_seriesfile/file/50b47e62-4820-4b6e-a1e8-01aac740e956.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 205,
+      "series__slug": "kzto-bataria-retro",
+      "title": "Bataria 3. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/BATARiA 3. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "c39bb42c2c48b6e60567a7bc93a997b4f3802673e5f8872bc35ecbc40ae97967",
+      "file": "catalog_seriesfile/file/751115de-f237-42a6-bc17-dca6dcc28f6e.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 206,
+      "series__slug": "kzto-bataria-retro",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 169,
+      "series__slug": "kzto-ellipse-p-h",
+      "title": "ELLIPSE P H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/ELLIPSE P H. Динамическая таблица пересчета при других температурах воды v2.xlsx",
+      "source_sha256": "9e064686965c94a9332c623f97521c3f02ca713e7111a24c1a5a1822106e2c0d",
+      "file": "catalog_seriesfile/file/741a1909-8d13-4ea3-89d2-9f7285e54f0f.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 170,
+      "series__slug": "kzto-ellipse-p-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 179,
+      "series__slug": "kzto-ellipse-s-h",
+      "title": "ELLIPSE S H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/ELLIPSE S H. Динамическая таблица пересчета при других температурах воды v2.xlsx",
+      "source_sha256": "31eeb3627877dd7e8e7a158b4d07b9c162666d8910eb9dcc8b1644ae402d3175",
+      "file": "catalog_seriesfile/file/10bb85e4-d70f-41fc-b30f-b1670e6d59ce.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 180,
+      "series__slug": "kzto-ellipse-s-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 187,
+      "series__slug": "kzto-ellipse-p-v",
+      "title": "ELLIPSE P V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/ELLIPSE P V. Динамическая таблица пересчета при других температурах воды v2.xlsx",
+      "source_sha256": "c96642d989dcfa303c5226244ba5c03ac93703c3fa8fffffabd6c3bc91619692",
+      "file": "catalog_seriesfile/file/feceabb5-e8f2-4025-8452-f38bf8db4680.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 188,
+      "series__slug": "kzto-ellipse-p-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 151,
+      "series__slug": "kzto-quadrum-neo-50-h",
+      "title": "QUADRUM NEO 50H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM NEO 50 H. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "5ae962be989e82c4b11099a48e3b76744ed5608bbaa531bfcf0c64545ab6a838",
+      "file": "catalog_seriesfile/file/3c91840b-2219-4fa1-a2e3-910f8434390b.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 152,
+      "series__slug": "kzto-quadrum-neo-50-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 159,
+      "series__slug": "kzto-quadrum-neo-50-v",
+      "title": "QUADRUM NEO 50V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM NEO 50 V. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "92cc2adb421a39e5d8de2b02b35b097dbea688345bb0317646b5c25f7776a44f",
+      "file": "catalog_seriesfile/file/9bd6ae07-0260-4bbe-8afa-0657b4ab1cec.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 160,
+      "series__slug": "kzto-quadrum-neo-50-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 195,
+      "series__slug": "kzto-ellipse-s-v",
+      "title": "ELLIPSE S V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/ELLIPSE S V. Динамическая таблица пересчета при других температурах воды v2.xlsx",
+      "source_sha256": "64fd5fad6be7960690634da776ffb38c401da09cf9c2fa41eb724a1d1865793c",
+      "file": "catalog_seriesfile/file/6425b219-5a1f-48f8-8c09-a12a4a217e26.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 196,
+      "series__slug": "kzto-ellipse-s-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 225,
+      "series__slug": "kzto-quadrum-50-v",
+      "title": "QUADRUM 50 V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 50 V. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "5982ee0402221ba208d992dafc4c784465c2145236c67325e01cb3ebadbb5d76",
+      "file": "catalog_seriesfile/file/dd4b38d2-3f82-46d6-8b18-a97ca0c08cb1.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 226,
+      "series__slug": "kzto-quadrum-50-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 234,
+      "series__slug": "kzto-quadrum-50-h",
+      "title": "QUADRUM 50 H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 50 H. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "03ec6fbd753bfff2ce8e5f4a1172bf0b0bce93a9db09d6e0550d33c6aeca39af",
+      "file": "catalog_seriesfile/file/acf1d031-9b3b-4a58-bca1-ca9040122a38.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 235,
+      "series__slug": "kzto-quadrum-50-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 244,
+      "series__slug": "kzto-quadrum-30-h",
+      "title": "QUADRUM 30H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 30 H. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "3019252b4edef72aadddddc08b44ef97597cd27ebfd584aeb156779f58c74557",
+      "file": "catalog_seriesfile/file/be2116b5-eb18-4471-b915-a7aed5085172.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 245,
+      "series__slug": "kzto-quadrum-30-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 253,
+      "series__slug": "kzto-quadrum-30-v",
+      "title": "QUADRUM 30V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 30 V. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "8d79d7b49a8c98a4b3999b4f42c27649e942ea15eadc58be6a537732133bc8ab",
+      "file": "catalog_seriesfile/file/c438a3ea-a6f3-4bc2-b372-60fb6c0aa82f.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 254,
+      "series__slug": "kzto-quadrum-30-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 273,
+      "series__slug": "kzto-quadrum-60-v",
+      "title": "QUADRUM 60 V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 60 V. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "3483fcacec4c1b353f564dd3fa0779b6c46e5091a8684b28cbd4214ca4569e1c",
+      "file": "catalog_seriesfile/file/de5c5fdc-ea48-40cd-9ff6-3930ea851af5.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 274,
+      "series__slug": "kzto-quadrum-60-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 282,
+      "series__slug": "kzto-quadrum-60-h",
+      "title": "QUADRUM 60 H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 60 H. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "debde227ad1c8ba357ba198691498eb8ff5d853ae8bfb47f7a75706b89945f9d",
+      "file": "catalog_seriesfile/file/12a10662-0ea6-4fbe-9777-752ce47b0a03.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 283,
+      "series__slug": "kzto-quadrum-60-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 315,
+      "series__slug": "kzto-quadrum-40-h",
+      "title": "QUADRUM 40 H. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 40 H. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "7631c66c8f89c6dfb3f102d5d0b7b01c282255e2ebe7bad3eafc13ae5c0e18d7",
+      "file": "catalog_seriesfile/file/fd7b49c1-e67a-4746-a8e3-68cdc2cda99b.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 316,
+      "series__slug": "kzto-quadrum-40-h",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 323,
+      "series__slug": "kzto-quadrum-40-v",
+      "title": "QUADRUM 40 V. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/QUADRUM 40 V. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "75c14409547e462393cf1e82ad1c66da9eb1f1d552600812863e4d5e46420cc3",
+      "file": "catalog_seriesfile/file/1c1022a0-bfe1-4a1b-a59c-1e95afb4d0f4.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 324,
+      "series__slug": "kzto-quadrum-40-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 334,
+      "series__slug": "kzto-paralleli-g",
+      "title": "Параллели Г (40х12мм). Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Параллели Г (40х12мм). Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "d061e5391d90c36c082d5b92a1e77985bb88e6803765db6bb05c7dc944835c6d",
+      "file": "catalog_seriesfile/file/706290a6-b9ad-44bc-b230-37e6e41dcf8a.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 335,
+      "series__slug": "kzto-paralleli-g",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 354,
+      "series__slug": "kzto-solo-g",
+      "title": "Соло Г. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Соло Г. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "b4ae1f1271c019cb7f16413a0b40b7be15cd47df7444c82be2342d72c0b58bfb",
+      "file": "catalog_seriesfile/file/e385f66b-cea7-423f-ad4c-a17d655212fb.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 355,
+      "series__slug": "kzto-solo-g",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 363,
+      "series__slug": "kzto-solo-v",
+      "title": "Соло В. Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Соло В. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "88da108b633d750d8335ff5f129fe1186f1150ad81a20402696d696cf2d9584a",
+      "file": "catalog_seriesfile/file/2b5041b0-206f-49af-99e9-6f84941a1848.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 364,
+      "series__slug": "kzto-solo-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    },
+    {
+      "pk": 344,
+      "series__slug": "kzto-paralleli-v",
+      "title": "Параллели В (40х12мм). Динамическая таблица пересчета при других температурах воды",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/dynamictables/Параллели В. Динамическая таблица пересчета при других температурах воды.xlsx",
+      "source_sha256": "32a2041add465816745cfb17a0cd56ddbeaefe2eed252689b6e2a365a1d1f61b",
+      "file": "catalog_seriesfile/file/18fa26e7-18f1-4890-829f-695afdf030f2.xlsx",
+      "reason": "Служебная таблица пересчёта; не паспорт/схема/сертификат"
+    },
+    {
+      "pk": 345,
+      "series__slug": "kzto-paralleli-v",
+      "title": "Условные обозначения приборов КЗТО",
+      "source_url": "https://kztoradiator.ru/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf",
+      "source_sha256": "69e8499d9b1ec92d7c80191c3ba4fef6d81f799a0c1d2071f63a77c44b09524e",
+      "file": "catalog_seriesfile/file/4118f4c4-5da9-4e78-b1b6-1075689f7e5e.pdf",
+      "reason": "Общие условные обозначения завода, не документ исполнения"
+    }
+  ],
+  "reasons": {
+    "Точная байтовая копия уже существующего документа; исходная запись сохраняется": 38,
+    "Служебная таблица пересчёта; не паспорт/схема/сертификат": 30,
+    "Общие условные обозначения завода, не документ исполнения": 28
+  }
+}

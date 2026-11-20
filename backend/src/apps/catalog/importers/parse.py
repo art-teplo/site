@@ -126,7 +126,7 @@ class ParsedRow:
     orientation: str
     mount: str
     connection: str
-    thermovalve: bool
+    thermovalve: bool | None
     heating: str
     price: Decimal | None
     currency: str
@@ -160,14 +160,14 @@ def parse_price(text) -> tuple[Decimal, str] | None:
         return None
 
 
-def parse_connection(name: str) -> tuple[str, bool]:
+def parse_connection(name: str) -> tuple[str, bool | None]:
     """Подключение и термоклапан — по словам названия: коды в артикуле
     неоднозначны (у Retta «BK-GOR» и боковое, и нижнее по краям)."""
     lowered = (name or '').lower()
     for words, connection, thermovalve in CONNECTION_RULES:
         if words in lowered:
             return str(connection), thermovalve
-    return '', False
+    return '', None
 
 
 def clean_text(value) -> str:

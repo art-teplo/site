@@ -17,7 +17,7 @@ export function CategoryTiles({ categories }: { categories: Category[] }) {
         const types = c.types ?? [];
         return (
           <Reveal as="li" key={c.slug} index={i} className={cx(styles.item, SHAPES[i] ?? styles.small)}>
-            <article className={styles.tile}>
+            <article className={cx(styles.tile, c.slug === "polotentsesushiteli" && styles.towel, c.slug === "armatura" && styles.fittings)}>
               <div className={styles.body}>
                 <h3 className={styles.name}>
                   {/* ссылка растянута на всю плитку; типы поверх неё */}

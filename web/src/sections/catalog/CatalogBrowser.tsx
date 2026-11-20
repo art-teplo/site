@@ -11,9 +11,9 @@ import { mapShowcase, type ApiShowcase, type Showcase } from "@/data/catalog-map
 import type { Brand, CatalogField, Category, Facet } from "@/data/types";
 import { cameBack, savedPages, savePages } from "@/lib/back-navigation";
 import { catalogKey, csv, parseCatalogQuery, serializeCatalogQuery, type CatalogQuery, type Sort, PAGE_SIZE_CARDS, SORT_LABEL } from "@/lib/catalog-query";
-import { facetValueLabel } from "@/lib/facet-labels";
+import { FacetFilter, FacetCharacteristics } from "@/components/FacetFilter/FacetFilter";
+import { splitFacetControls } from "@/lib/facet-controls";
 import { cx, plural } from "@/lib/format";
-import { colorLabel } from "@/lib/series-color";
 import { FilterGroup } from "./FilterGroup";
 import { RangeFilter } from "./RangeFilter";
 import styles from "./CatalogBrowser.module.css";
@@ -24,12 +24,12 @@ const fieldsOf = (facets: Facet[]): CatalogField[] =>
   facets.map((f) => ({ key: f.key, label: f.label, kind: f.kind, unit: f.kind === "range" ? f.unit : (f.unit ?? ""), column: false, filter: true }));
 
 // Запрос витрины: на бэк по /api/series/ (nginx / rewrites), в демо — те же данные из src/data (грузим только там)
-async function fetchShowcase(category: string, query: CatalogQuery, signal: AbortSignal): Promise<Showcase> {
+async function fetchShowcase(category: string, query: CatalogQuery, signal: AbortSignal, cardsOnly = false): Promise<Showcase> {
   if (process.env.NEXT_PUBLIC_DEMO === "1") {
     const { demoShowcases } = await import("@/data/catalog-demo");
     return demoShowcases(category, query);
   }
-  const q = `category=${encodeURIComponent(category)}&${serializeCatalogQuery(query)}`;
+  const q = `category=${encodeURIComponent(category)}&${serializeCatalogQuery(query)}${cardsOnly ? "&cards_only=1" : ""}`;
   const response = await fetch(`/api/series/?${q}`, { signal });
   if (!response.ok) throw new Error(String(response.status));
   return mapShowcase((await response.json()) as ApiShowcase);
@@ -41,13 +41,13 @@ const VISIBLE_GROUPS = 5;
 const sizes = "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw";
 
 // Список с фильтрами. Состояние — в адресе: ссылку с фильтрами можно отправить менеджеру.
-export function CatalogBrowser({ category, initial, brands }: { category: Category; initial: Showcase; brands: Brand[] }) {
+export function CatalogBrowser({ category, initial, brands, initialKey = "" }: { category: Category; initial: Showcase; brands: Brand[]; initialKey?: string }) {
   const pathname = usePathname();
   const params = useSearchParams();
   const [open, setOpen] = useState(false);
   const [allFilters, setAllFilters] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [loaded, setLoaded] = useState<Loaded>({ ...initial, key: "", page: 1 });
+  const [loaded, setLoaded] = useState<Loaded>({ ...initial, key: initialKey, page: 1 });
   const [busy, setBusy] = useState(false);
   const [moreFailed, setMoreFailed] = useState(false);
   const moreController = useRef<AbortController | null>(null);
@@ -70,7 +70,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
       let { results } = data;
       let page = 1;
       while (page < pages && results.length < data.count) {
-        const next = await fetchShowcase(category.slug, { ...query, page: page + 1 }, controller.signal);
+        const next = await fetchShowcase(category.slug, { ...query, page: page + 1 }, controller.signal, true);
         results = [...results, ...next.results];
         page += 1;
       }
@@ -119,7 +119,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
     setBusy(true);
     setMoreFailed(false);
     try {
-      const data = await fetchShowcase(category.slug, { ...query, page: loaded.page + 1 }, controller.signal);
+      const data = await fetchShowcase(category.slug, { ...query, page: loaded.page + 1 }, controller.signal, true);
       if (controller.signal.aborted) return;
       setLoaded((prev) => (prev.key === key ? { ...prev, results: [...prev.results, ...data.results], count: data.count, page: prev.page + 1 } : prev));
       savePages(`${pathname}?${key}`, loaded.page + 1);
@@ -137,18 +137,14 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   const active =
     selectedBrands.length + selectedColors.length + Object.keys(query.ranges).length + (query.type ? 1 : 0) + Object.values(query.lists).reduce((n, v) => n + v.length, 0);
   const brandLabel = (slug: string) => brandNames[slug] ?? slug;
-  // Бренды с сериями в этой категории — по фасету brand первого экрана; нет фасета — все
-  const brandFacet = initial.facets.find((f) => f.key === "brand");
+  // Фасет снимает собственный выбор бренда и обновляется после сброса остальных ограничений.
+  const brandFacet = loaded.facets.find((f) => f.key === "brand");
   const brandsOfCategory = brandFacet && brandFacet.kind !== "range" ? brands.filter((b) => brandFacet.values.some((v) => v.value === b.slug)) : brands;
   const types = category.types ?? [];
-  // Без значений и с min == max выбирать нечего; тип и бренд — отдельными блоками над списком
-  const facets = loaded.facets.filter((f) => {
-    if (f.key === "brand" || f.key === "type") return false;
-    if (f.kind === "range") return f.min != null && f.max != null && f.min !== f.max;
-    return f.values.length > 0;
-  });
+  // Общие правила схемы для новых attrs, постоянных характеристик и активного выбора.
+  const { controls: facets, constants } = splitFacetControls(loaded.facets.filter((f) => f.key !== "brand" && f.key !== "type"), query);
   const pending = key !== loaded.key;
-  // Открыли ссылку с фильтрами: на руках ещё первый экран без них — его не показываем, ждём свой список
+  // Первоначальная выдача уже соответствует адресу; при переходах ждём новую выборку.
   const awaiting = pending && loaded.key === "" && !failed;
   const singleBrand = selectedBrands.length === 1 ? brands.find((b) => b.slug === selectedBrands[0]) : undefined;
   // Группы фильтров: первые VISIBLE_GROUPS видны, остальные под кнопкой; группа с выбранным значением видна всегда
@@ -170,7 +166,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
             return (
               <button key={t.slug} type="button" className={cx(styles.typeTile, on && styles.typeTileOn)} aria-pressed={on} onClick={() => setType(t.slug || undefined)}>
                 <span className={cx(styles.typeMedia, all && styles.typeMediaAll)}>
-                  {t.image && <Picture image={t.image} fit={all ? "contain" : "cover"} sizes="160px" className={styles.typeImg} />}
+                  {t.image && <Picture image={t.image} fit="contain" sizes="(max-width: 767px) 144px, 20vw" className={styles.typeImg} />}
                 </span>
                 <span className={styles.typeName}>{t.name}</span>
                 <span className={styles.typeCount}>{t.seriesCount > 0 ? plural(t.seriesCount, "модель", "модели", "моделей") : "скоро"}</span>
@@ -180,7 +176,7 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
         </nav>
       )}
 
-      {brandsOfCategory.length > 0 && (
+      {(brandsOfCategory.length > 0 || selectedBrands.length > 0) && (
         <div className={styles.brands} role="group" aria-label="Бренды">
           {brandsOfCategory.map((b) => (
             <label key={b.slug} className={styles.option}>
@@ -195,6 +191,16 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
               </span>
             </label>
           ))}
+          {selectedBrands.length > 0 && (
+            <button
+              type="button"
+              className={styles.resetBrands}
+              aria-label="Сбросить всё — выбранные бренды"
+              onClick={() => replace({ ...query, brand: undefined })}
+            >
+              Сбросить всё
+            </button>
+          )}
         </div>
       )}
 
@@ -231,56 +237,15 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
       </div>
 
       <aside id="filters" className={cx(styles.filters, open && styles.filtersOpen)} aria-label="Фильтры">
-        {shown.map((f) => {
-          if (f.kind === "range") {
-            const [min, max] = query.ranges[f.key] ?? [];
-            return (
-              <FilterGroup key={f.key} title={f.unit ? `${f.label}, ${f.unit}` : f.label} defaultOpen selected={min !== undefined || max !== undefined ? 1 : 0}>
-                <RangeFilter label={f.label} unit={f.unit} min={f.min as number} max={f.max as number} value={[min, max]} onApply={(pair) => setRange(f.key, pair)} />
-              </FilterGroup>
-            );
-          }
-          if (f.kind === "colors") {
-            return (
-              <FilterGroup key={f.key} title={f.label} defaultOpen={false} selected={selectedColors.length}>
-                <div className={styles.swatches}>
-                  {f.values.map((v) => (
-                    <button
-                      key={v.value}
-                      type="button"
-                      className={styles.swatch}
-                      style={{ background: v.hex }}
-                      title={colorLabel(v.label, v.value)}
-                      aria-label={colorLabel(v.label, v.value)}
-                      aria-pressed={selectedColors.includes(v.value)}
-                      onClick={() => toggleColor(v.value)}
-                    />
-                  ))}
-                </div>
-              </FilterGroup>
-            );
-          }
-          return (
-            <FilterGroup key={f.key} title={f.label} defaultOpen={false} selected={query.lists[f.key]?.length ?? 0}>
-              <div className={styles.options}>
-                {f.values.map(({ value, label, count }) => (
-                  <label key={value} className={styles.option}>
-                    <input
-                      type="checkbox"
-                      checked={query.lists[f.key]?.includes(value) ?? false}
-                      onChange={() => toggleList(f.key, value)}
-                      className={styles.optionInput}
-                    />
-                    <span className={styles.optionLabel}>
-                      {facetValueLabel(label, value)}
-                      <span className={styles.optionCount}>{count}</span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </FilterGroup>
-          );
-        })}
+        {shown.map((f) => (
+          <FilterGroup key={f.key} title={f.kind === "range" && f.unit ? `${f.label}, ${f.unit}` : f.label}
+            defaultOpen={f.kind === "range"} selected={selectedIn(f)}>
+            <FacetFilter facet={f} query={query} onToggleList={toggleList} onToggleColor={toggleColor}
+              renderRange={(range) => <RangeFilter label={range.label} unit={range.unit} min={range.min} max={range.max}
+                value={query.ranges[range.key] ?? []} onApply={(pair) => setRange(range.key, pair)} />} />
+          </FilterGroup>
+        ))}
+        <FacetCharacteristics facets={constants} />
         {(hiddenCount > 0 || allFilters) && facets.length > VISIBLE_GROUPS && (
           <Button variant="ghost" aria-expanded={allFilters} onClick={() => setAllFilters((v) => !v)}>
             {allFilters ? "Свернуть" : `Ещё фильтры (${hiddenCount})`}
@@ -301,8 +266,8 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
             {/* key по запросу: новый список монтируется заново и появляется с анимацией блоков */}
             <ul key={loaded.key} className={styles.grid}>
               {loaded.results.map((card, i) => (
-                <Reveal as="li" key={`${card.series}-${card.heightMm}-${i}`} index={i % 3}>
-                  <ShowcaseCard card={card} category={category.slug} brand={brandNames[card.brand]} sizes={sizes} priority={i < 2} />
+                <Reveal as="li" key={`${card.series}-${i}`} index={i % 3}>
+                  <ShowcaseCard query={loaded.key} card={card} category={category.slug} brand={brandNames[card.brand]} sizes={sizes} priority={i < 2} />
                 </Reveal>
               ))}
             </ul>
@@ -329,10 +294,8 @@ export function CatalogBrowser({ category, initial, brands }: { category: Catego
   );
 }
 
-// Без JS и во время гидрации — тот же первый экран без фильтров (его видят поисковики).
-// Ссылку с фильтрами этот экран не знает: скрипт в <head> (CATALOG_QUERY_SCRIPT) ставит <html data-catalog-query>,
-// и CSS вместо чужого списка показывает полосу загрузки
-export function CatalogFallback({ category, initial, brands }: { category: Category; initial: Showcase; brands: Brand[] }) {
+// Без JS и во время гидрации — первая страница выдачи по фильтрам из адреса.
+export function CatalogFallback({ category, initial, brands, initialKey }: { category: Category; initial: Showcase; brands: Brand[]; initialKey: string }) {
   const names = Object.fromEntries(brands.map((b) => [b.slug, b.name]));
   return (
     <div className={cx(styles.layout, styles.fallback)}>
@@ -346,8 +309,8 @@ export function CatalogFallback({ category, initial, brands }: { category: Categ
         </div>
         <ul className={styles.grid}>
           {initial.results.map((card, i) => (
-            <li key={`${card.series}-${card.heightMm}-${i}`}>
-              <ShowcaseCard card={card} category={category.slug} brand={names[card.brand]} sizes={sizes} priority={i < 2} />
+            <li key={`${card.series}-${i}`}>
+              <ShowcaseCard query={initialKey} card={card} category={category.slug} brand={names[card.brand]} sizes={sizes} priority={i < 2} />
             </li>
           ))}
         </ul>

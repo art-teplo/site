@@ -126,10 +126,10 @@ def test_article_unique_within_brand(series, category):
         Variant.objects.create(series=series, brand=series.brand, article='A1')
 
 
-def test_recalculate_uses_latest_rate_and_brand_markup(series):
+def test_recalculate_uses_latest_rate_and_series_markup(series):
     brand = series.brand
-    brand.markup_percent = Decimal('10')
-    brand.save()
+    series.markup_percent = Decimal('10')
+    series.save()
     CurrencyRate.objects.create(
         currency='RUB',
         rate=Decimal('0.010000'),
@@ -232,13 +232,12 @@ def test_variant_str_adds_connection(series):
 
 
 def test_series_admin_brand_change_moves_variants(series, brand):
-    other = Brand.objects.create(
-        slug='nova', name='Nova', note='n', markup_percent=Decimal('10')
-    )
+    other = Brand.objects.create(slug='nova', name='Nova', note='n')
     variant = Variant.objects.create(
         series=series, article='A', price=Decimal('100'), currency='BYN'
     )
     series.brand = other
+    series.markup_percent = Decimal('10')
 
     SeriesAdmin(Series, AdminSite()).save_model(
         None, series, SimpleNamespace(changed_data=['brand']), True
@@ -248,3 +247,29 @@ def test_series_admin_brand_change_moves_variants(series, brand):
     assert variant.brand == other
     assert variant.price_byn == Decimal('110.00')
     assert brand.pk != other.pk
+
+
+def test_series_markup_change_does_not_reprice_other_series(series, category):
+    other = Series.objects.create(
+        brand=series.brand,
+        category=category,
+        name='Pilon',
+        slug='pilon',
+    )
+    selected = Variant.objects.create(
+        series=series, article='A', price=Decimal('100')
+    )
+    untouched = Variant.objects.create(
+        series=other, article='B', price=Decimal('100')
+    )
+    other.markup_percent = Decimal('5')
+    other.save()
+    recalculate()
+    series.markup_percent = Decimal('20')
+    SeriesAdmin(Series, AdminSite()).save_model(
+        None, series, SimpleNamespace(changed_data=['markup_percent']), True
+    )
+    selected.refresh_from_db()
+    untouched.refresh_from_db()
+    assert selected.price_byn == Decimal('120.00')
+    assert untouched.price_byn == Decimal('105.00')

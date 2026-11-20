@@ -1,3 +1,4 @@
+import { catalogKey } from "@/lib/catalog-query";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCategories } from "@/data/api";
@@ -19,9 +20,15 @@ export async function generateMetadata({ params }: PageProps<"/catalog/[category
   return c ? { title: `${c.name} — каталог`, description: `${c.name}: ${c.short.toLowerCase()}. Подбор и расчёт в шоуруме в Минске.` } : {};
 }
 
-export default async function CategoryPage({ params }: PageProps<"/catalog/[category]">) {
+export default async function CategoryPage({ params, searchParams }: PageProps<"/catalog/[category]">) {
   const { category } = await params;
   const c = await getCategory(category);
   if (!c) notFound();
-  return <CatalogPage category={c} />;
+  const raw = await searchParams;
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(raw)) {
+    const first = Array.isArray(value) ? value[0] : value;
+    if (first !== undefined) query.set(key, first);
+  }
+  return <CatalogPage category={c} initialKey={catalogKey(query)} />;
 }

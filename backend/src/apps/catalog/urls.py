@@ -4,6 +4,11 @@ from . import views
 
 urlpatterns = [
     path(
+        'series/<slug:slug>/legacy/',
+        views.LegacySeriesView.as_view(),
+        name='legacy-series',
+    ),
+    path(
         'categories/',
         views.CategoryListView.as_view(),
         name='category-list',

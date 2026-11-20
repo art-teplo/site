@@ -20,6 +20,9 @@ const paths = {
   seal: "M5 2.5h11l3 3v9 M5 2.5v19h7 M8.5 7.5h7 M8.5 11h5 M17.5 21.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z M15.8 21l-.8 2.5 2.5-1 2.5 1-.8-2.5",
   // Скачать — стрелка в лоток
   download: "M12 3.5v11 M7.5 10l4.5 4.5 4.5-4.5 M4.5 16.5v3.5h15v-3.5",
+  arrowUp: "M12 20V4 M5.5 10.5L12 4l6.5 6.5",
+  chevronUp: "M6 15l6-6 6 6",
+  chevronDown: "M6 9l6 6 6-6",
 } as const;
 
 export type IconName = keyof typeof paths;

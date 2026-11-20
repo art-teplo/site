@@ -1,0 +1,968 @@
+{
+  "date": "2026-11-18",
+  "status": "implemented and verified locally; fresh review completed, all4Important findings fixed",
+  "scope": "Unified catalog plans A and B; no git commit/push/deploy",
+  "migrations": [
+    "0019_unified_catalog",
+    "0020_productfamily_presentation_photo_and_more",
+    "0021_colorgroup_legacy_origin_seriesfile_source_aliases_and_more"
+  ],
+  "families_split": 16,
+  "new_technical_series": 32,
+  "moved_variants": {
+    "guardo": 18038,
+    "velar": 10965,
+    "total": 29003
+  },
+  "source_variant_counts_and_hashes": {
+    "kzto": {
+      "count": 15479,
+      "sha256": "2a5032ee81faf03aa50cfb2dde3a77d67d7123d586685140566fcca212635aa8"
+    },
+    "guardo": {
+      "count": 35961,
+      "sha256": "4749494ea3e38adb3402b2df2350b23cecbb8536443ce9bc7ece8e7ee4c2e52d"
+    },
+    "nova": {
+      "count": 1380,
+      "sha256": "167ea256df56b718b708464eb38bef5ab44d995f1302e58472655e625b594319"
+    },
+    "velar": {
+      "count": 12608,
+      "sha256": "993b98cd4dd0a7ac0683622b1bdf7cbd385231c2656e2b1ecd29cc4d26fef92d"
+    }
+  },
+  "preserved_presentation": {
+    "showcases": 34,
+    "original_series_photo_refs": 84,
+    "all_image_focus_alt_values": "exact match"
+  },
+  "published_radiator_editions": [
+    {
+      "slug": "guardo-pilon",
+      "brand": "guardo",
+      "family": "pilon",
+      "orientation": "",
+      "variants": 17836,
+      "active": 17836,
+      "images": 7,
+      "schemes": 0,
+      "files": 2
+    },
+    {
+      "slug": "nova-siluet",
+      "brand": "nova",
+      "family": "siluet",
+      "orientation": "",
+      "variants": 1380,
+      "active": 920,
+      "images": 5,
+      "schemes": 0,
+      "files": 0
+    },
+    {
+      "slug": "kzto-garmoniya",
+      "brand": "kzto",
+      "family": "garmoniya",
+      "orientation": "",
+      "variants": 328,
+      "active": 328,
+      "images": 11,
+      "schemes": 0,
+      "files": 10
+    },
+    {
+      "slug": "kzto-garmoniya-a40",
+      "brand": "kzto",
+      "family": "garmoniya-a40",
+      "orientation": "",
+      "variants": 396,
+      "active": 396,
+      "images": 8,
+      "schemes": 0,
+      "files": 10
+    },
+    {
+      "slug": "kzto-garmoniya-s40",
+      "brand": "kzto",
+      "family": "garmoniya-s40",
+      "orientation": "",
+      "variants": 396,
+      "active": 396,
+      "images": 10,
+      "schemes": 0,
+      "files": 10
+    },
+    {
+      "slug": "kzto-rs",
+      "brand": "kzto",
+      "family": "rs",
+      "orientation": "",
+      "variants": 810,
+      "active": 810,
+      "images": 12,
+      "schemes": 0,
+      "files": 9
+    },
+    {
+      "slug": "kzto-rsk",
+      "brand": "kzto",
+      "family": "rsk",
+      "orientation": "",
+      "variants": 810,
+      "active": 810,
+      "images": 12,
+      "schemes": 0,
+      "files": 9
+    },
+    {
+      "slug": "kzto-garmoniya-s25-n",
+      "brand": "kzto",
+      "family": "garmoniya-s25-n",
+      "orientation": "",
+      "variants": 589,
+      "active": 589,
+      "images": 8,
+      "schemes": 0,
+      "files": 10
+    },
+    {
+      "slug": "kzto-garmoniya-a25-n",
+      "brand": "kzto",
+      "family": "garmoniya-a25-n",
+      "orientation": "",
+      "variants": 589,
+      "active": 589,
+      "images": 6,
+      "schemes": 0,
+      "files": 10
+    },
+    {
+      "slug": "kzto-garmoniya-a20",
+      "brand": "kzto",
+      "family": "garmoniya-a20",
+      "orientation": "",
+      "variants": 703,
+      "active": 703,
+      "images": 11,
+      "schemes": 0,
+      "files": 10
+    },
+    {
+      "slug": "kzto-bataria",
+      "brand": "kzto",
+      "family": "bataria",
+      "orientation": "",
+      "variants": 434,
+      "active": 434,
+      "images": 12,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "kzto-bataria-retro",
+      "brand": "kzto",
+      "family": "bataria-retro",
+      "orientation": "",
+      "variants": 391,
+      "active": 391,
+      "images": 11,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "velar-q40",
+      "brand": "velar",
+      "family": "q40",
+      "orientation": "v",
+      "variants": 975,
+      "active": 975,
+      "images": 3,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-rt1",
+      "brand": "velar",
+      "family": "rt1",
+      "orientation": "v",
+      "variants": 120,
+      "active": 120,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-rt2",
+      "brand": "velar",
+      "family": "rt2",
+      "orientation": "v",
+      "variants": 80,
+      "active": 80,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-rt1w",
+      "brand": "velar",
+      "family": "rt1w",
+      "orientation": "v",
+      "variants": 120,
+      "active": 120,
+      "images": 4,
+      "schemes": 0,
+      "files": 2
+    },
+    {
+      "slug": "velar-qt1",
+      "brand": "velar",
+      "family": "qt1",
+      "orientation": "v",
+      "variants": 120,
+      "active": 120,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-qt2",
+      "brand": "velar",
+      "family": "qt2",
+      "orientation": "v",
+      "variants": 80,
+      "active": 80,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-p200",
+      "brand": "velar",
+      "family": "p200",
+      "orientation": "h",
+      "variants": 32,
+      "active": 32,
+      "images": 2,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-p300",
+      "brand": "velar",
+      "family": "p300",
+      "orientation": "h",
+      "variants": 24,
+      "active": 24,
+      "images": 2,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-q500",
+      "brand": "velar",
+      "family": "q500",
+      "orientation": "h",
+      "variants": 12,
+      "active": 12,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "kzto-quadrum-neo-50-v",
+      "brand": "kzto",
+      "family": "quadrum-neo-50",
+      "orientation": "v",
+      "variants": 152,
+      "active": 152,
+      "images": 9,
+      "schemes": 0,
+      "files": 6
+    },
+    {
+      "slug": "kzto-quadrum-neo-50-h",
+      "brand": "kzto",
+      "family": "quadrum-neo-50",
+      "orientation": "h",
+      "variants": 152,
+      "active": 152,
+      "images": 2,
+      "schemes": 0,
+      "files": 7
+    },
+    {
+      "slug": "kzto-solo-v",
+      "brand": "kzto",
+      "family": "solo",
+      "orientation": "v",
+      "variants": 455,
+      "active": 455,
+      "images": 6,
+      "schemes": 0,
+      "files": 7
+    },
+    {
+      "slug": "kzto-solo-g",
+      "brand": "kzto",
+      "family": "solo",
+      "orientation": "h",
+      "variants": 471,
+      "active": 471,
+      "images": 2,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "kzto-paralleli-v",
+      "brand": "kzto",
+      "family": "paralleli",
+      "orientation": "v",
+      "variants": 564,
+      "active": 564,
+      "images": 7,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "kzto-paralleli-g",
+      "brand": "kzto",
+      "family": "paralleli",
+      "orientation": "h",
+      "variants": 627,
+      "active": 627,
+      "images": 4,
+      "schemes": 0,
+      "files": 9
+    },
+    {
+      "slug": "kzto-quadrum-40-v",
+      "brand": "kzto",
+      "family": "quadrum-40",
+      "orientation": "v",
+      "variants": 170,
+      "active": 170,
+      "images": 5,
+      "schemes": 0,
+      "files": 6
+    },
+    {
+      "slug": "kzto-quadrum-40-h",
+      "brand": "kzto",
+      "family": "quadrum-40",
+      "orientation": "h",
+      "variants": 178,
+      "active": 178,
+      "images": 3,
+      "schemes": 0,
+      "files": 7
+    },
+    {
+      "slug": "kzto-quadrum-60-v",
+      "brand": "kzto",
+      "family": "quadrum-60",
+      "orientation": "v",
+      "variants": 156,
+      "active": 156,
+      "images": 3,
+      "schemes": 0,
+      "files": 6
+    },
+    {
+      "slug": "kzto-quadrum-60-h",
+      "brand": "kzto",
+      "family": "quadrum-60",
+      "orientation": "h",
+      "variants": 164,
+      "active": 164,
+      "images": 3,
+      "schemes": 0,
+      "files": 7
+    },
+    {
+      "slug": "kzto-quadrum-30-v",
+      "brand": "kzto",
+      "family": "quadrum-30",
+      "orientation": "v",
+      "variants": 429,
+      "active": 429,
+      "images": 7,
+      "schemes": 0,
+      "files": 7
+    },
+    {
+      "slug": "kzto-quadrum-30-h",
+      "brand": "kzto",
+      "family": "quadrum-30",
+      "orientation": "h",
+      "variants": 429,
+      "active": 429,
+      "images": 6,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "kzto-quadrum-50-v",
+      "brand": "kzto",
+      "family": "quadrum-50",
+      "orientation": "v",
+      "variants": 195,
+      "active": 195,
+      "images": 6,
+      "schemes": 0,
+      "files": 6
+    },
+    {
+      "slug": "kzto-quadrum-50-h",
+      "brand": "kzto",
+      "family": "quadrum-50",
+      "orientation": "h",
+      "variants": 195,
+      "active": 195,
+      "images": 7,
+      "schemes": 0,
+      "files": 7
+    },
+    {
+      "slug": "kzto-ellipse-s-v",
+      "brand": "kzto",
+      "family": "ellipse-s",
+      "orientation": "v",
+      "variants": 286,
+      "active": 286,
+      "images": 9,
+      "schemes": 0,
+      "files": 6
+    },
+    {
+      "slug": "kzto-ellipse-s-h",
+      "brand": "kzto",
+      "family": "ellipse-s",
+      "orientation": "h",
+      "variants": 286,
+      "active": 286,
+      "images": 4,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "kzto-ellipse-p-v",
+      "brand": "kzto",
+      "family": "ellipse-p",
+      "orientation": "v",
+      "variants": 213,
+      "active": 213,
+      "images": 5,
+      "schemes": 0,
+      "files": 6
+    },
+    {
+      "slug": "kzto-ellipse-p-h",
+      "brand": "kzto",
+      "family": "ellipse-p",
+      "orientation": "h",
+      "variants": 213,
+      "active": 213,
+      "images": 4,
+      "schemes": 0,
+      "files": 8
+    },
+    {
+      "slug": "velar-p30-v",
+      "brand": "velar",
+      "family": "p30",
+      "orientation": "v",
+      "variants": 975,
+      "active": 975,
+      "images": 5,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-p30-h",
+      "brand": "velar",
+      "family": "p30",
+      "orientation": "h",
+      "variants": 780,
+      "active": 780,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-r89-v",
+      "brand": "velar",
+      "family": "r89",
+      "orientation": "v",
+      "variants": 244,
+      "active": 244,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-r89-h",
+      "brand": "velar",
+      "family": "r89",
+      "orientation": "h",
+      "variants": 61,
+      "active": 61,
+      "images": 4,
+      "schemes": 0,
+      "files": 2
+    },
+    {
+      "slug": "guardo-retta-6p-v",
+      "brand": "guardo",
+      "family": "retta-6p",
+      "orientation": "v",
+      "variants": 1452,
+      "active": 1420,
+      "images": 12,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-retta-6p-h",
+      "brand": "guardo",
+      "family": "retta-6p",
+      "orientation": "h",
+      "variants": 1214,
+      "active": 1180,
+      "images": 6,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-retta-4p-v",
+      "brand": "guardo",
+      "family": "retta-4p",
+      "orientation": "v",
+      "variants": 1270,
+      "active": 1270,
+      "images": 11,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-retta-4p-h",
+      "brand": "guardo",
+      "family": "retta-4p",
+      "orientation": "h",
+      "variants": 1000,
+      "active": 1000,
+      "images": 6,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-retta-6sp-v",
+      "brand": "guardo",
+      "family": "retta-6sp",
+      "orientation": "v",
+      "variants": 977,
+      "active": 977,
+      "images": 9,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-retta-6sp-h",
+      "brand": "guardo",
+      "family": "retta-6sp",
+      "orientation": "h",
+      "variants": 768,
+      "active": 768,
+      "images": 9,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-torre-6d-v",
+      "brand": "guardo",
+      "family": "torre-6d",
+      "orientation": "v",
+      "variants": 1784,
+      "active": 1784,
+      "images": 11,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-torre-6d-h",
+      "brand": "guardo",
+      "family": "torre-6d",
+      "orientation": "h",
+      "variants": 796,
+      "active": 796,
+      "images": 8,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-torre-4d-v",
+      "brand": "guardo",
+      "family": "torre-4d",
+      "orientation": "v",
+      "variants": 2073,
+      "active": 2073,
+      "images": 11,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-torre-4d-h",
+      "brand": "guardo",
+      "family": "torre-4d",
+      "orientation": "h",
+      "variants": 984,
+      "active": 984,
+      "images": 8,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-torre-3d-v",
+      "brand": "guardo",
+      "family": "torre-3d",
+      "orientation": "v",
+      "variants": 2117,
+      "active": 2117,
+      "images": 12,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-torre-3d-h",
+      "brand": "guardo",
+      "family": "torre-3d",
+      "orientation": "h",
+      "variants": 1160,
+      "active": 1160,
+      "images": 6,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "velar-p60-v",
+      "brand": "velar",
+      "family": "p60",
+      "orientation": "v",
+      "variants": 975,
+      "active": 975,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-p60-h",
+      "brand": "velar",
+      "family": "p60",
+      "orientation": "h",
+      "variants": 780,
+      "active": 780,
+      "images": 3,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-s-v",
+      "brand": "velar",
+      "family": "s",
+      "orientation": "v",
+      "variants": 975,
+      "active": 975,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-s-h",
+      "brand": "velar",
+      "family": "s",
+      "orientation": "h",
+      "variants": 780,
+      "active": 780,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-sp-v",
+      "brand": "velar",
+      "family": "sp",
+      "orientation": "v",
+      "variants": 975,
+      "active": 975,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-sp-h",
+      "brand": "velar",
+      "family": "sp",
+      "orientation": "h",
+      "variants": 780,
+      "active": 780,
+      "images": 3,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-q60-v",
+      "brand": "velar",
+      "family": "q60",
+      "orientation": "v",
+      "variants": 460,
+      "active": 460,
+      "images": 3,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-q60-h",
+      "brand": "velar",
+      "family": "q60",
+      "orientation": "h",
+      "variants": 460,
+      "active": 460,
+      "images": 2,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-q80-v",
+      "brand": "velar",
+      "family": "q80",
+      "orientation": "v",
+      "variants": 320,
+      "active": 320,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-q80-h",
+      "brand": "velar",
+      "family": "q80",
+      "orientation": "h",
+      "variants": 320,
+      "active": 320,
+      "images": 4,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-r32-v",
+      "brand": "velar",
+      "family": "r32",
+      "orientation": "v",
+      "variants": 624,
+      "active": 624,
+      "images": 3,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-r32-h",
+      "brand": "velar",
+      "family": "r32",
+      "orientation": "h",
+      "variants": 156,
+      "active": 156,
+      "images": 3,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-r42-v",
+      "brand": "velar",
+      "family": "r42",
+      "orientation": "v",
+      "variants": 650,
+      "active": 650,
+      "images": 1,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "velar-r42-h",
+      "brand": "velar",
+      "family": "r42",
+      "orientation": "h",
+      "variants": 650,
+      "active": 650,
+      "images": 1,
+      "schemes": 0,
+      "files": 3
+    },
+    {
+      "slug": "guardo-retta-3p-v",
+      "brand": "guardo",
+      "family": "retta-3p",
+      "orientation": "v",
+      "variants": 1355,
+      "active": 1355,
+      "images": 11,
+      "schemes": 1,
+      "files": 1
+    },
+    {
+      "slug": "guardo-retta-3p-h",
+      "brand": "guardo",
+      "family": "retta-3p",
+      "orientation": "h",
+      "variants": 1088,
+      "active": 1088,
+      "images": 8,
+      "schemes": 1,
+      "files": 1
+    }
+  ],
+  "media": {
+    "target_series": 42,
+    "document_links_added": 96,
+    "photo_sources_registered": 95,
+    "new_photo_storage_objects": 39,
+    "new_document_storage_objects": 44,
+    "repeat_sync": {
+      "added_files": 0,
+      "added_images": 0,
+      "existing": 191,
+      "errors": []
+    },
+    "all_published_galleries_max12": true,
+    "objects_deleted_or_overwritten": 0
+  },
+  "curation": {
+    "kzto_document_records_inventoried": 407,
+    "hidden_reversibly": 96,
+    "exact_duplicate_copies": 38,
+    "service_xlsx": 30,
+    "generic_symbols": 28,
+    "report": "unified-catalog-material-curation.json"
+  },
+  "source_exceptions": [
+    "Velar RT1W: отдельной размерной схемы в заводской папке не найдено; паспорт общий RT1W/RT2W",
+    "Velar R89 H: найденный общий сертификат перечисляет R89 только V; к H не прикреплён",
+    "Guardo: страница сертификатов не отдаёт отдельный подтверждённый PDF; используется паспорт и собственная схема серии",
+    "Velar RT2W: папка производителя RT2W V содержит кадры с именами RT1W; без однозначного подтверждения конструкции новые фото не прикреплены. Существующие стилевые фото других моделей сохранены.",
+    "Velar Q40 H: no source sheet/price, no synthetic H variants",
+    "Velar P60-30: source article/geometry conflicts, excluded",
+    "Nova Siluet and Guardo Pilon: no invented H/V split; unchanged prices and paint groups"
+  ],
+  "verification": {
+    "backend": "445 passed",
+    "ruff": "check + format passed",
+    "migrations": "No changes detected",
+    "frontend": "lint + build passed",
+    "node": "14 passed",
+    "browser": {
+      "errors": [],
+      "screens": [
+        "/tmp/unified-final-retta-1440.png",
+        "/tmp/unified-final-retta-768.png",
+        "/tmp/unified-final-retta-375.png"
+      ],
+      "gallery": "Guardo Retta 3P V\n\n6 / 10\n\nGuardo Retta 3P, общий вид, чёрный",
+      "switchUrl": "http://localhost:3000/catalog/radiatory/velar-p30-v",
+      "legacyUrl": "http://localhost:3000/catalog/radiatory/guardo-retta-3p-v?v=3P-0500-03+BK-GOR&connection=bottom_ends&execution=0-bottom_ends",
+      "passed": true
+    },
+    "base_prices_pk_article_geometry": "all4brandhashes exactly unchanged",
+    "production": "not deployed",
+    "review": "fresh review:0Critical/4Important fixed in one RED->GREEN pass/1Minor deferred",
+    "colour_availability": "All29003 moved Variant colour-group mappings verified against original plans; copiedgroup properties unchanged",
+    "legacy_colour_backfill": {
+      "links": 60,
+      "conflicts": 0,
+      "repeat_links": 0
+    },
+    "browser_post_review": {
+      "errors": [],
+      "screens": [
+        "/tmp/unified-catalog-final-1440.png",
+        "/tmp/unified-catalog-final-768.png",
+        "/tmp/unified-catalog-final-375.png"
+      ],
+      "heightLink": "http://localhost:3000/catalog/radiatory/velar-p30-v?h=1200",
+      "passed": true
+    },
+    "browser_console": {
+      "logs": [],
+      "portals": [
+        ""
+      ]
+    },
+    "final_previews": [
+      "/tmp/unified-catalog-preview-1440.png",
+      "/tmp/unified-catalog-preview-375.png"
+    ]
+  },
+  "decisions_and_costs": [
+    {
+      "decision": "Continue existing dirty feature checkout; no commit/push/deploy",
+      "reason": "Required preceding implementation is uncommitted",
+      "cost_if_wrong": "Integration remains a separate reviewed operation"
+    },
+    {
+      "decision": "Preserve presentation photos independently of H/V technical galleries",
+      "reason": "Explicit user requirement",
+      "cost_if_wrong": "Style tile may show a common family view; edition gallery remains specific"
+    },
+    {
+      "decision": "Use exact factory code plus connection and source geometry; never H/W ratio or GOR alone",
+      "reason": "Factory PDFs and source rows distinguish the same article in different connections",
+      "cost_if_wrong": "New unsupported code is rejected pending source update"
+    },
+    {
+      "decision": "Initial import then explicit report/split; repeat import routes to already-created children",
+      "reason": "Avoid unattended migration of combined working catalog",
+      "cost_if_wrong": "New environment needs documented two-stage import"
+    },
+    {
+      "decision": "Manual confirmed family/traits are preserved; explicit source conflict raises",
+      "reason": "Prevent silent loss of manager input",
+      "cost_if_wrong": "Correction needs an explicit audited reassignment"
+    },
+    {
+      "decision": "Unknown values remain unknown; unavailable quote stays on request",
+      "reason": "No fabricated attributes or pricing",
+      "cost_if_wrong": "Some choices need manager clarification"
+    },
+    {
+      "decision": "Old ambiguous Project links remain on archived parent",
+      "reason": "No evidence to attribute an existing project to H or V",
+      "cost_if_wrong": "Child pages need confirmed project links to display them"
+    },
+    {
+      "decision": "Source witness cache is private0700 and keyed by source/registry/adapter version",
+      "reason": "Avoid repeatedly scanning the213krow source",
+      "cost_if_wrong": "Adapter changes require a cache-version bump"
+    },
+    {
+      "decision": "Source exceptions left unassigned; no fabricated Q40H/P6030 prices or RT2W image attribution",
+      "reason": "Source does not prove exact applicability",
+      "cost_if_wrong": "An incomplete source needs later confirmation"
+    },
+    {
+      "decision": "Storage append-only; curated files hidden with reversible flag",
+      "reason": "Shared S3 and user authorization",
+      "cost_if_wrong": "Stored historical objects continue occupying space"
+    },
+    {
+      "decision": "Retain factory rule identifiers to distinguish central5-7/9-7 feed sides",
+      "reason": "No collapse by bottom_center alone",
+      "cost_if_wrong": "Replacing keys requires an explicit compatibility mapping"
+    }
+  ],
+  "deferred_minors": [
+    {
+      "item": "sync_catalog_media --apply exit code remains0 when errors are recorded",
+      "impact": "Automation must inspect errors in JSON report; localapply/repeat had0errors"
+    }
+  ],
+  "verified_on": "2026-11-19",
+  "human_report": "reports/Результат единого каталога.md"
+}

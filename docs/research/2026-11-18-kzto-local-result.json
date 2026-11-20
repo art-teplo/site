@@ -1,0 +1,175 @@
+{
+  "checked": "2026-11-18",
+  "environment": "local development database; shared S3, new objects only",
+  "active_radiator_series": 28,
+  "unchanged_convector_and_grille_series": 11,
+  "preserved_variants": 15479,
+  "preserved_fields": [
+    "pk",
+    "article",
+    "connection",
+    "price",
+    "price_byn"
+  ],
+  "source_gallery_images": 248,
+  "parent_card_previews": 28,
+  "source_document_links": 279,
+  "unique_document_storage_keys": 121,
+  "connection_rules": 254,
+  "price_checks": 887,
+  "price_sample_radiators": 229,
+  "availability_combinations_checked": 2549,
+  "series": [
+    "kzto-bataria",
+    "kzto-bataria-retro",
+    "kzto-ellipse-p-h",
+    "kzto-ellipse-p-v",
+    "kzto-ellipse-s-h",
+    "kzto-ellipse-s-v",
+    "kzto-garmoniya",
+    "kzto-garmoniya-a20",
+    "kzto-garmoniya-a25-n",
+    "kzto-garmoniya-a40",
+    "kzto-garmoniya-s25-n",
+    "kzto-garmoniya-s40",
+    "kzto-paralleli-g",
+    "kzto-paralleli-v",
+    "kzto-quadrum-30-h",
+    "kzto-quadrum-30-v",
+    "kzto-quadrum-40-h",
+    "kzto-quadrum-40-v",
+    "kzto-quadrum-50-h",
+    "kzto-quadrum-50-v",
+    "kzto-quadrum-60-h",
+    "kzto-quadrum-60-v",
+    "kzto-quadrum-neo-50-h",
+    "kzto-quadrum-neo-50-v",
+    "kzto-rs",
+    "kzto-rsk",
+    "kzto-solo-g",
+    "kzto-solo-v"
+  ],
+  "photo_colour_refinement": {
+    "checked": "2026-11-18",
+    "scope": "KZTO radiators only",
+    "active_series": 28,
+    "ral_series": 28,
+    "hidden_kzto_images": 104,
+    "hidden_other_brand_images": 0,
+    "galleries": [
+      {
+        "slug": "kzto-garmoniya",
+        "visible_photos": 11
+      },
+      {
+        "slug": "kzto-garmoniya-a40",
+        "visible_photos": 8
+      },
+      {
+        "slug": "kzto-garmoniya-s40",
+        "visible_photos": 10
+      },
+      {
+        "slug": "kzto-rs",
+        "visible_photos": 12
+      },
+      {
+        "slug": "kzto-rsk",
+        "visible_photos": 12
+      },
+      {
+        "slug": "kzto-garmoniya-s25-n",
+        "visible_photos": 8
+      },
+      {
+        "slug": "kzto-garmoniya-a25-n",
+        "visible_photos": 6
+      },
+      {
+        "slug": "kzto-garmoniya-a20",
+        "visible_photos": 11
+      },
+      {
+        "slug": "kzto-bataria",
+        "visible_photos": 12
+      },
+      {
+        "slug": "kzto-bataria-retro",
+        "visible_photos": 11
+      },
+      {
+        "slug": "kzto-quadrum-neo-50-v",
+        "visible_photos": 9
+      },
+      {
+        "slug": "kzto-quadrum-neo-50-h",
+        "visible_photos": 2
+      },
+      {
+        "slug": "kzto-solo-v",
+        "visible_photos": 6
+      },
+      {
+        "slug": "kzto-solo-g",
+        "visible_photos": 2
+      },
+      {
+        "slug": "kzto-paralleli-v",
+        "visible_photos": 7
+      },
+      {
+        "slug": "kzto-paralleli-g",
+        "visible_photos": 4
+      },
+      {
+        "slug": "kzto-quadrum-40-v",
+        "visible_photos": 5
+      },
+      {
+        "slug": "kzto-quadrum-40-h",
+        "visible_photos": 3
+      },
+      {
+        "slug": "kzto-quadrum-60-v",
+        "visible_photos": 3
+      },
+      {
+        "slug": "kzto-quadrum-60-h",
+        "visible_photos": 3
+      },
+      {
+        "slug": "kzto-quadrum-30-v",
+        "visible_photos": 7
+      },
+      {
+        "slug": "kzto-quadrum-30-h",
+        "visible_photos": 6
+      },
+      {
+        "slug": "kzto-quadrum-50-v",
+        "visible_photos": 6
+      },
+      {
+        "slug": "kzto-quadrum-50-h",
+        "visible_photos": 7
+      },
+      {
+        "slug": "kzto-ellipse-s-v",
+        "visible_photos": 9
+      },
+      {
+        "slug": "kzto-ellipse-s-h",
+        "visible_photos": 4
+      },
+      {
+        "slug": "kzto-ellipse-p-v",
+        "visible_photos": 5
+      },
+      {
+        "slug": "kzto-ellipse-p-h",
+        "visible_photos": 4
+      }
+    ],
+    "other_brand_new_ral_groups": 0
+  }
+}

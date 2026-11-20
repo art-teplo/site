@@ -251,7 +251,11 @@ CACHES = {
 STORAGES = {
     'default': (
         {
-            'BACKEND': 'storages.backends.s3.S3Storage',
+            'BACKEND': (
+                'apps.core.storage.DevelopmentPublicStorage'
+                if DEBUG
+                else 'storages.backends.s3.S3Storage'
+            ),
             'OPTIONS': s3_options,
         }
         if S3__ENABLED
@@ -462,10 +466,24 @@ UNFOLD = {
                         ),
                     },
                     {
-                        'title': 'Варианты',
+                        'title': 'Базовые варианты',
                         'icon': 'table_rows',
                         'link': reverse_lazy(
                             'admin:catalog_variant_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Доступные подключения',
+                        'icon': 'plumbing',
+                        'link': reverse_lazy(
+                            'admin:catalog_connectionoption_changelist',
+                        ),
+                    },
+                    {
+                        'title': 'Линейки',
+                        'icon': 'account_tree',
+                        'link': reverse_lazy(
+                            'admin:catalog_productfamily_changelist'
                         ),
                     },
                     {

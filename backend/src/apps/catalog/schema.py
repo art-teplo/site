@@ -53,9 +53,11 @@ AREA = _range(
     divisor=WATTS_PER_M2,
 )
 SECTIONS = _range('sections', 'Секции', 'sections')
-TUBES = _list('tubes', 'Трубность', 'tubes')
+TUBES = _list('tubes', 'Рядов труб в глубину', 'tubes')
 CONNECTION = _list('connection', 'Подключение', 'connection')
 ORIENTATION = _list('orientation', 'Положение', 'orientation')
+MOUNT = _list('mount', 'Монтаж', 'mount', filter=False)
+THERMOVALVE = _list('thermovalve', 'Встроенный термоклапан', 'thermovalve')
 COLOR = Field('color', 'Цвет', COLORS, COLOR_SOURCE)
 BRAND = _list('brand', 'Бренд', BRAND_SOURCE)
 
@@ -72,6 +74,8 @@ CATEGORIES: dict[str, list[Field]] = {
         TUBES,
         CONNECTION,
         ORIENTATION,
+        MOUNT,
+        THERMOVALVE,
         COLOR,
         BRAND,
     ],

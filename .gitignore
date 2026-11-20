@@ -219,7 +219,12 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-old-version/
+# Локальный архив, промежуточные материалы и настройки рабочей машины
+/old-version/
+/output/
+/.claude/launch.json
+/server-access.txt
+
 # Загрузки бэка в dev-compose (код смонтирован в контейнер)
 /backend/src/media/
 /backend/src/private/
