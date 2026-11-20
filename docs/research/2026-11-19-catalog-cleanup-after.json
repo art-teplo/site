@@ -1,0 +1,6422 @@
+{
+  "parents": [
+    {
+      "id": 36,
+      "slug": "guardo-retta-6p",
+      "targets": [
+        "guardo-retta-6p-v",
+        "guardo-retta-6p-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          200,
+          201
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          51
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 37,
+      "slug": "guardo-retta-4p",
+      "targets": [
+        "guardo-retta-4p-v",
+        "guardo-retta-4p-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          202,
+          203
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          52
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 40,
+      "slug": "guardo-retta-6sp",
+      "targets": [
+        "guardo-retta-6sp-v",
+        "guardo-retta-6sp-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          209,
+          210
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          53
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 41,
+      "slug": "guardo-retta-3p",
+      "targets": [
+        "guardo-retta-3p-v",
+        "guardo-retta-3p-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          211,
+          212
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          98
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 46,
+      "slug": "guardo-torre-6d",
+      "targets": [
+        "guardo-torre-6d-v",
+        "guardo-torre-6d-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          221,
+          222
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          56
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 47,
+      "slug": "guardo-torre-4d",
+      "targets": [
+        "guardo-torre-4d-v",
+        "guardo-torre-4d-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          223,
+          224
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          57
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 48,
+      "slug": "guardo-torre-3d",
+      "targets": [
+        "guardo-torre-3d-v",
+        "guardo-torre-3d-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          225,
+          226
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          58
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 99,
+      "slug": "kzto-quadrum-60",
+      "targets": [
+        "kzto-quadrum-60-v",
+        "kzto-quadrum-60-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "projects"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [],
+        "projects": [
+          7
+        ],
+        "showcases": [],
+        "family_photo_references": []
+      },
+      "media_moves": []
+    },
+    {
+      "id": 105,
+      "slug": "kzto-quadrum-neo-50",
+      "targets": [
+        "kzto-quadrum-neo-50-v",
+        "kzto-quadrum-neo-50-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "projects",
+        "video"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [],
+        "projects": [
+          14
+        ],
+        "showcases": [],
+        "family_photo_references": []
+      },
+      "media_moves": []
+    },
+    {
+      "id": 167,
+      "slug": "velar-p30",
+      "targets": [
+        "velar-p30-v",
+        "velar-p30-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          337,
+          338
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          79
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 168,
+      "slug": "velar-p60",
+      "targets": [
+        "velar-p60-v",
+        "velar-p60-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          339,
+          340
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          80
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 169,
+      "slug": "velar-s",
+      "targets": [
+        "velar-s-v",
+        "velar-s-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          341,
+          342
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          81
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 170,
+      "slug": "velar-sp",
+      "targets": [
+        "velar-sp-v",
+        "velar-sp-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          343,
+          344
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          82
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 172,
+      "slug": "velar-q60",
+      "targets": [
+        "velar-q60-v",
+        "velar-q60-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          347,
+          348
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          84
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 173,
+      "slug": "velar-q80",
+      "targets": [
+        "velar-q80-v",
+        "velar-q80-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          349
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          85
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 174,
+      "slug": "velar-r32",
+      "targets": [
+        "velar-r32-v",
+        "velar-r32-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          350,
+          351
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          86
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 175,
+      "slug": "velar-r42",
+      "targets": [
+        "velar-r42-v",
+        "velar-r42-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          352,
+          353
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          87
+        ]
+      },
+      "media_moves": []
+    },
+    {
+      "id": 176,
+      "slug": "velar-r89",
+      "targets": [
+        "velar-r89-v",
+        "velar-r89-h"
+      ],
+      "status": "retained",
+      "blockers": [
+        "color_groups"
+      ],
+      "dependencies": {
+        "variants": [],
+        "connection_options": [],
+        "color_groups": [
+          354
+        ],
+        "projects": [],
+        "showcases": [],
+        "family_photo_references": [
+          88
+        ]
+      },
+      "media_moves": []
+    }
+  ],
+  "nova": {
+    "status": "unchanged",
+    "keep_id": 1,
+    "remove_ids": [],
+    "updates": {
+      "label": "",
+      "variant_id": null,
+      "image_width": 1580,
+      "image_height": 1160,
+      "image_focus": "50 50",
+      "image": "catalog_seriesimage/image/0cfbade2-0da6-41ca-8ab4-ee3930f0b688.jpg",
+      "image_alt": "Nova Siluet, в интерьере, белый (2)"
+    }
+  },
+  "changes": 0,
+  "backup": [
+    {
+      "model": "catalog.series",
+      "pk": 36,
+      "fields": {
+        "position": 0,
+        "slug": "guardo-retta-6p",
+        "is_published": false,
+        "family": 51,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Retta 6P",
+        "description": "<p>Стальной трубчатый радиатор с прямоугольным профилем 60×30 мм. Глубина прибора — 87 мм, это самая объёмная по глубине модель линейки Retta. Она же и самая востребованная: один радиатор подходящего размера обогревает комнату около 30 м².</p><p>Рабочее давление — 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 37,
+      "fields": {
+        "position": 0,
+        "slug": "guardo-retta-4p",
+        "is_published": false,
+        "family": 52,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Retta 4P",
+        "description": "<p>Стальной трубчатый радиатор с квадратным профилем 40×40 мм. Производитель называет модель сбалансированной по размерам и мощности: прибор помогает подчеркнуть геометрию комнаты или стать яркой деталью интерьера. Глубина — 67 мм, рабочее давление — 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 40,
+      "fields": {
+        "position": 0,
+        "slug": "guardo-retta-6sp",
+        "is_published": false,
+        "family": 53,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Retta 6SP",
+        "description": "<p>Стальной трубчатый радиатор с прямоугольным профилем 30×60 мм при глубине всего 57 мм. Это самые массивные и заметные приборы линейки Retta: они становятся акцентом интерьера.</p><p>Рабочее давление — 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 41,
+      "fields": {
+        "position": 1,
+        "slug": "guardo-retta-3p",
+        "is_published": false,
+        "family": 98,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Retta 3P",
+        "description": "<p>Стальной трубчатый радиатор с квадратным профилем 30×30 мм — самая компактная модель линейки Retta. Глубина прибора всего 57 мм, тепловая мощность небольшая, поэтому он хорошо подходит для небольших помещений и как дополнение к основному отоплению. Рассчитан на рабочее давление 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 46,
+      "fields": {
+        "position": 0,
+        "slug": "guardo-torre-6d",
+        "is_published": false,
+        "family": 56,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Torre 6D",
+        "description": "<p>Стальной трубчатый радиатор с круглой трубой диаметром 60 мм, глубина — 87 мм. Округлая форма универсальна: прибор подходит к современному интерьеру, классике, лофту и минимализму.</p><p>Рабочее давление — 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 47,
+      "fields": {
+        "position": 0,
+        "slug": "guardo-torre-4d",
+        "is_published": false,
+        "family": 57,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Torre 4D",
+        "description": "<p>Стальной трубчатый радиатор с круглой трубой диаметром 42 мм, глубина — 69 мм. Округлая форма универсальна: прибор подходит к современному интерьеру, классике, лофту и минимализму.</p><p>Рабочее давление — 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 48,
+      "fields": {
+        "position": 0,
+        "slug": "guardo-torre-3d",
+        "is_published": false,
+        "family": 58,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 2,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Guardo Torre 3D",
+        "description": "<p>Стальной трубчатый радиатор с круглой трубой диаметром 32 мм, глубина — 59 мм. Округлая форма универсальна: прибор подходит к современному интерьеру, классике, лофту и минимализму.</p><p>Рабочее давление — 16 бар. Подключать можно только к закрытой отопительной системе, к горячему водоснабжению — нельзя.</p><p>Подключение: боковое, нижнее слева или справа, нижнее по краям, у вертикальных — ещё нижнее по центру; есть вариант под электрический ТЭН. У всех подключений — отверстие под воздухоотводчик, встроенного термоклапана нет. Есть исполнение на ножках для напольной установки: радиатор поднимается на 100 мм.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": 16,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 51,
+      "fields": {
+        "position": 0,
+        "slug": "nova-siluet",
+        "is_published": true,
+        "family": 59,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 5,
+        "category": 1,
+        "subcategory": 1,
+        "name": "Nova Siluet",
+        "description": "<p>Трубчатый радиатор Nova на две или три трубы, с боковым или нижним подключением. Фабрика делает приборы под российские сети, цвета — матовый белый и чёрный.Толщина коллектора — 2 мм, трубы — 1,5 мм. Рабочее давление — 10 бар, при испытаниях приборы выдерживали 15 бар. Качество подтверждено сертификатом ГОСТ.</p>",
+        "markup_percent": "0.00",
+        "material": "",
+        "heating": "water",
+        "pressure_bar": 10,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 99,
+      "fields": {
+        "position": 0,
+        "slug": "kzto-quadrum-60",
+        "is_published": false,
+        "family": 66,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 1,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Quadrum 60",
+        "description": "<h3>Характеристики</h3>\n<ul><li>Материал: сталь</li><li>Подключение: боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)</li><li>Исполнение: настенные (по умолчанию), напольные (по заказу)</li><li>Покрытие: полимер</li><li>Базовый цвет: белый муар (RAL 1Т104S9016)</li><li>Рабочее давление: до 15 атм.</li><li>Испытательное давление: не менее 22,5 атм.</li><li>Температура теплоносителя: до 120ºС</li><li>Присоединительная резьба: для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\"</li><li>Межцентровое расстояние: от 300 до 2000 мм</li></ul>\n<p>Обращаем Ваше внимание, что модели с нижним подключением идут без встроенного термоклапана.</p>\n<p>Габаритная высота напольных вертикальных радиаторов увеличивается на 100мм.</p>\n<p>Цветовые решения муар в наиболее реалистичном виде представлены в карусели и ниже.</p>",
+        "markup_percent": "0.00",
+        "material": "сталь",
+        "heating": "water",
+        "pressure_bar": 15,
+        "warranty_years": 5,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 105,
+      "fields": {
+        "position": 0,
+        "slug": "kzto-quadrum-neo-50",
+        "is_published": false,
+        "family": 72,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 1,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Quadrum NEO 50",
+        "description": "<h3>Характеристики</h3><ul><li>Материал: сталь</li><li>Подключение: боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)</li><li>Исполнение: настенные (по умолчанию), напольные (по заказу)</li><li>Покрытие: полимер</li><li>Базовый цвет: белый муар (RAL 1Т104S9016)</li><li>Рабочее давление: до 15 атм.</li><li>Испытательное давление: не менее 22,5 атм.</li><li>Температура теплоносителя: до 120ºС</li><li>Присоединительная резьба: для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\"</li><li>Межцентровое расстояние: от 300 до 2000 мм</li></ul><p>Обращаем Ваше внимание, что модели с нижним подключением идут без встроенного термоклапана.Габаритная высота напольных вертикальных радиаторов увеличивается на 120мм.Цветовые решения муар в наиболее реалистичном виде представлены в карусели и ниже.</p>",
+        "markup_percent": "0.00",
+        "material": "сталь",
+        "heating": "water",
+        "pressure_bar": 15,
+        "warranty_years": 5,
+        "video": "catalog_series/video/1b24310b-998a-4745-8c73-01968fe51d8d.mp4"
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 167,
+      "fields": {
+        "position": 0,
+        "slug": "velar-p30",
+        "is_published": false,
+        "family": 79,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar P30",
+        "description": "<p>Velar P30 — стальной трубчатый радиатор с прямоугольным профилем. Есть вертикальное и горизонтальное исполнение. Глубина — 90 мм.Высота вертикального — от 270 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 14. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 168,
+      "fields": {
+        "position": 0,
+        "slug": "velar-p60",
+        "is_published": false,
+        "family": 80,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar P60",
+        "description": "<p>Velar P60 — стальной трубчатый радиатор с широким прямоугольным профилем. Есть вертикальное и горизонтальное исполнение. Глубина — 60 мм.</p><p>Высота вертикального — от 270 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 14. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 169,
+      "fields": {
+        "position": 0,
+        "slug": "velar-s",
+        "is_published": false,
+        "family": 81,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar S",
+        "description": "<p>Velar S — стальной трубчатый радиатор с профилем со скруглёнными углами. Есть вертикальное и горизонтальное исполнение. Глубина — 80 мм.</p><p>Высота вертикального — от 270 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 14. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 170,
+      "fields": {
+        "position": 0,
+        "slug": "velar-sp",
+        "is_published": false,
+        "family": 82,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar SP",
+        "description": "<p>Velar SP — стальной трубчатый радиатор с овальным профилем. Есть вертикальное и горизонтальное исполнение. Глубина — 60 мм.</p><p>Высота вертикального — от 270 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 14. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 172,
+      "fields": {
+        "position": 0,
+        "slug": "velar-q60",
+        "is_published": false,
+        "family": 84,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar Q60",
+        "description": "<p>Velar Q60 — стальной трубчатый радиатор с квадратным профилем. Есть вертикальное и горизонтальное исполнение. Глубина — 90 мм.</p><p>Высота вертикального — от 500 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 12. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 173,
+      "fields": {
+        "position": 0,
+        "slug": "velar-q80",
+        "is_published": false,
+        "family": 85,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar Q80",
+        "description": "<p>Velar Q80 — стальной трубчатый радиатор с крупным квадратным профилем. Есть вертикальное и горизонтальное исполнение. Глубина — от 107 до 110 мм.</p><p>Высота вертикального — от 500 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 8. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской. [Уточнить у заказчика: в какие цвета «муар» красится модель]</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 174,
+      "fields": {
+        "position": 0,
+        "slug": "velar-r32",
+        "is_published": false,
+        "family": 86,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar R32",
+        "description": "<p>Velar R32 — стальной трубчатый радиатор с круглой трубой. Есть вертикальное и горизонтальное исполнение. Глубина — 62 мм.</p><p>Высота вертикального — от 500 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 14. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 175,
+      "fields": {
+        "position": 0,
+        "slug": "velar-r42",
+        "is_published": false,
+        "family": 87,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar R42",
+        "description": "<p>Velar R42 — стальной трубчатый радиатор с круглой трубой. Есть вертикальное и горизонтальное исполнение. Глубина — 72 мм.</p><p>Высота вертикального — от 500 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 14. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской в любой цвет RAL без доплаты.</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.series",
+      "pk": 176,
+      "fields": {
+        "position": 0,
+        "slug": "velar-r89",
+        "is_published": false,
+        "family": 88,
+        "factory_orientation": "",
+        "offer_mode": "direct",
+        "brand": 9,
+        "category": 1,
+        "subcategory": 2,
+        "name": "Velar R89",
+        "description": "<p>Velar R89 — стальной трубчатый радиатор с круглой трубой крупного диаметра. Есть вертикальное и горизонтальное исполнение. Глубина — от 116 до 119 мм.</p><p>Высота вертикального — от 500 до 3000 мм; длина горизонтального — от 500 до 3000 мм; секций — от 2 до 8. Подключение: боковое, нижнее слева, нижнее справа, нижнее по центру, нижнее по краям. По заказу комплектуется электрическим ТЭНом.</p><p>Красится на заводе порошковой краской. [Уточнить у заказчика: в какие цвета «муар» красится модель]</p>",
+        "markup_percent": "0.00",
+        "material": "Сталь",
+        "heating": "water",
+        "pressure_bar": null,
+        "warranty_years": null,
+        "video": ""
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 2,
+      "fields": {
+        "image": "catalog_seriesimage/image/0d7ac5ee-16dc-46a3-967f-7f0a2984ef34.jpg",
+        "image_width": 1200,
+        "image_height": 1500,
+        "image_alt": "Nova Siluet: в интерьере",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 51,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 4,
+      "fields": {
+        "image": "catalog_seriesimage/image/dd087da1-8193-4889-9f18-f4a2b0215e66.jpg",
+        "image_width": 1200,
+        "image_height": 1500,
+        "image_alt": "Guardo Retta 3P: общий вид",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 5,
+      "fields": {
+        "image": "catalog_seriesimage/image/eae26129-1e66-41b6-b073-50ccd6959038.jpg",
+        "image_width": 1200,
+        "image_height": 1500,
+        "image_alt": "Guardo Retta 3P: в интерьере",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 6,
+      "fields": {
+        "image": "catalog_seriesimage/image/4122f5d7-5bef-4059-984e-386b8df0dc14.jpg",
+        "image_width": 1200,
+        "image_height": 1500,
+        "image_alt": "Guardo Retta 3P: деталь",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 10,
+      "fields": {
+        "image": "catalog_seriesimage/image/3107efd2-6d2d-4b26-804a-6c3b86679285.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 3P, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 11,
+      "fields": {
+        "image": "catalog_seriesimage/image/689699a7-ffeb-4cec-b0f2-63b4a21baeb2.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 3P, общий вид, бежевый",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 12,
+      "fields": {
+        "image": "catalog_seriesimage/image/64044a9e-3495-4ac7-9bc5-3ef25205fbf3.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 3P, общий вид, серый",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 13,
+      "fields": {
+        "image": "catalog_seriesimage/image/af88303a-4f78-4ca2-8343-15a5ce0a1005.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 3P, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 14,
+      "fields": {
+        "image": "catalog_seriesimage/image/5063c209-d6d6-4965-bc24-17dc480cdbe5.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 3P, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 15,
+      "fields": {
+        "image": "catalog_seriesimage/image/34d4d33d-6e6d-4571-823a-0c49ae4c1dc6.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 3P, в интерьере, серый",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 55,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 16,
+      "fields": {
+        "image": "catalog_seriesimage/image/d1fa351f-b4c9-47d2-b709-e834e1630980.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 3P, в интерьере, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 17,
+      "fields": {
+        "image": "catalog_seriesimage/image/ab6e3204-2729-4e2a-b622-cc53d221d51a.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 18,
+      "fields": {
+        "image": "catalog_seriesimage/image/f8e1f534-61c0-47ff-ac5a-7a3c9e6c1727.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 19,
+      "fields": {
+        "image": "catalog_seriesimage/image/7c194d7a-89b0-4ed5-903c-860b5b0746e3.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, общий вид, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 20,
+      "fields": {
+        "image": "catalog_seriesimage/image/b37bc208-639e-4927-87b4-46cb1117e558.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, общий вид, белый (2)",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 21,
+      "fields": {
+        "image": "catalog_seriesimage/image/490d232c-576b-4d0a-82cf-b547792f2883.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 22,
+      "fields": {
+        "image": "catalog_seriesimage/image/92185a67-2fce-46a9-90f5-7d9eebde0d9a.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, в интерьере, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 23,
+      "fields": {
+        "image": "catalog_seriesimage/image/cc28d7ae-6e3c-4330-bce7-158822a4a9b4.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 4P, в интерьере, чёрный (3)",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 24,
+      "fields": {
+        "image": "catalog_seriesimage/image/3a800a0d-775f-4abd-88e3-9fab1a31646e.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 6P, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 25,
+      "fields": {
+        "image": "catalog_seriesimage/image/cad3a057-d2ca-439f-adc5-d9fa066a60c4.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 6P, общий вид, серый",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 26,
+      "fields": {
+        "image": "catalog_seriesimage/image/0c3e4798-9fac-4ac9-ae3d-ab0a538d33eb.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 6P, общий вид, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 27,
+      "fields": {
+        "image": "catalog_seriesimage/image/584ae5e2-87b1-4882-8c34-a8de6ecb28f8.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 6P, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 28,
+      "fields": {
+        "image": "catalog_seriesimage/image/05db7a7c-1dab-4dd5-bf32-057d2459b6c9.jpg",
+        "image_width": 1500,
+        "image_height": 2000,
+        "image_alt": "Guardo Retta 6P, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 29,
+      "fields": {
+        "image": "catalog_seriesimage/image/e0b27453-25a3-427b-b827-db98ff43794b.jpg",
+        "image_width": 1536,
+        "image_height": 1024,
+        "image_alt": "Guardo Retta 6P, в интерьере",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 30,
+      "fields": {
+        "image": "catalog_seriesimage/image/d5b88271-8c9d-4727-9b09-39622a442996.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Retta 6P, в интерьере, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 31,
+      "fields": {
+        "image": "catalog_seriesimage/image/7a0ae8e9-1d6e-4db7-8bac-d7947a772429.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, общий вид, серый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 32,
+      "fields": {
+        "image": "catalog_seriesimage/image/6d52b1d3-2938-4375-b5f3-7c64db7d96ee.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, общий вид, бежевый",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 33,
+      "fields": {
+        "image": "catalog_seriesimage/image/421d8f10-77d8-402d-8d37-41398ada0ab8.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 34,
+      "fields": {
+        "image": "catalog_seriesimage/image/8a707510-26b8-41eb-b2a8-988325e7753b.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 35,
+      "fields": {
+        "image": "catalog_seriesimage/image/9c8774fb-0196-43d2-95d6-701f8d21b3ac.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 36,
+      "fields": {
+        "image": "catalog_seriesimage/image/440abe1e-be2d-46f0-bc5f-97e9a6635ae2.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, в интерьере, серый",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 55,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 37,
+      "fields": {
+        "image": "catalog_seriesimage/image/07b385bb-6eff-4848-803b-489d7130eb26.jpg",
+        "image_width": 1580,
+        "image_height": 1185,
+        "image_alt": "Guardo Retta 6SP, в интерьере, бежевый",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 57,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 38,
+      "fields": {
+        "image": "catalog_seriesimage/image/8c9cdf49-9d7b-40e4-b72c-907a327bc89a.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 39,
+      "fields": {
+        "image": "catalog_seriesimage/image/a37313b6-5ec4-45f3-9e5b-75ca371811a8.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 40,
+      "fields": {
+        "image": "catalog_seriesimage/image/1f983b0f-a3b1-4ccc-bbf2-564e905bb5db.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, общий вид, бежевый",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 41,
+      "fields": {
+        "image": "catalog_seriesimage/image/bab0e9c1-82ac-4476-aa31-4ddf5d83e15e.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, общий вид, серый",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 42,
+      "fields": {
+        "image": "catalog_seriesimage/image/0ac92cb1-fffd-4264-91d8-3fe564388bc7.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 43,
+      "fields": {
+        "image": "catalog_seriesimage/image/63c63202-b3fc-4651-a043-ce5d376be296.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 44,
+      "fields": {
+        "image": "catalog_seriesimage/image/aeafc3b4-f487-4a48-a91b-dfd816f08563.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 3D, в интерьере, белый (2)",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 45,
+      "fields": {
+        "image": "catalog_seriesimage/image/bad513a5-646b-49b7-acb3-ad3947161395.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 46,
+      "fields": {
+        "image": "catalog_seriesimage/image/66539013-6961-47b3-830e-38a16dc4ba8a.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 47,
+      "fields": {
+        "image": "catalog_seriesimage/image/a9f2e936-37e1-420b-a0d7-a43e6fcc5926.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, общий вид, бежевый",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 48,
+      "fields": {
+        "image": "catalog_seriesimage/image/373139c5-6bbd-47b7-bded-be299740e2d4.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, общий вид, серый",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 49,
+      "fields": {
+        "image": "catalog_seriesimage/image/5180cdce-d7d9-4c67-a55f-07a2e9470609.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 50,
+      "fields": {
+        "image": "catalog_seriesimage/image/507c538e-ff7c-4ef0-91c9-7d3be8f427b5.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, в интерьере, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 51,
+      "fields": {
+        "image": "catalog_seriesimage/image/19a356a3-9171-4631-a591-2164f8161762.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 4D, в интерьере, серый",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 55,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 52,
+      "fields": {
+        "image": "catalog_seriesimage/image/9edebe3e-e64e-4a67-ad38-0f33ff256c26.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, общий вид, белый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 53,
+      "fields": {
+        "image": "catalog_seriesimage/image/cb2909fa-05b6-4a83-b15a-92b6f39b95d9.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, общий вид, чёрный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 54,
+      "fields": {
+        "image": "catalog_seriesimage/image/74aa33e6-4096-42dd-95d1-fb5929c6f96a.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, общий вид, серый",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 55,
+      "fields": {
+        "image": "catalog_seriesimage/image/d7d2f9f9-166c-41eb-b949-b1f2454a3f1e.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, общий вид, бежевый",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 56,
+      "fields": {
+        "image": "catalog_seriesimage/image/3e8cab58-e8ce-42d5-a0fa-269b24306bdb.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 8,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 57,
+      "fields": {
+        "image": "catalog_seriesimage/image/4d1dcc79-522a-490b-b892-a1105d16908e.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, в интерьере, бежевый",
+        "image_focus": "50 50",
+        "position": 9,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 57,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 58,
+      "fields": {
+        "image": "catalog_seriesimage/image/72a1f98d-cb7f-4ee2-b573-bd6c36c64414.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Guardo Torre 6D, в интерьере, чёрный (2)",
+        "image_focus": "50 50",
+        "position": 10,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 100,
+      "fields": {
+        "image": "catalog_seriesimage/image/909096f8-dd91-4fda-b174-684899441bff.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Nova Siluet, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 51,
+        "color": 68,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 101,
+      "fields": {
+        "image": "catalog_seriesimage/image/6ab836d8-d3e1-4c70-814d-856393067e91.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Nova Siluet, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 51,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 102,
+      "fields": {
+        "image": "catalog_seriesimage/image/0cfbade2-0da6-41ca-8ab4-ee3930f0b688.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Nova Siluet, в интерьере, белый (2)",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 51,
+        "color": 68,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 103,
+      "fields": {
+        "image": "catalog_seriesimage/image/1230b42f-9b54-4b06-b0a8-b7265cb442d1.jpg",
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_alt": "Nova Siluet, в интерьере, белый (3)",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 51,
+        "color": 68,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 158,
+      "fields": {
+        "image": "catalog_seriesimage/image/60b595b7-ffee-4268-b3f9-2deb5bd7f5d6.jpg",
+        "image_width": 1008,
+        "image_height": 720,
+        "image_alt": "Quadrum 60 — фото 1",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 99,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 159,
+      "fields": {
+        "image": "catalog_seriesimage/image/65cbd14d-f085-478a-baee-d14390f6aade.png",
+        "image_width": 1290,
+        "image_height": 720,
+        "image_alt": "Quadrum 60 — фото 2",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 99,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 160,
+      "fields": {
+        "image": "catalog_seriesimage/image/058b839d-6830-46f1-9cb2-19158119751d.jpg",
+        "image_width": 1008,
+        "image_height": 720,
+        "image_alt": "Quadrum 60 — фото 3",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 99,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 161,
+      "fields": {
+        "image": "catalog_seriesimage/image/19df57d2-3252-492a-b625-e08f946045c7.jpg",
+        "image_width": 960,
+        "image_height": 720,
+        "image_alt": "Quadrum 60 — фото 4",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 99,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 162,
+      "fields": {
+        "image": "catalog_seriesimage/image/b453a88d-e924-4e6d-837c-72982d89e538.png",
+        "image_width": 1290,
+        "image_height": 720,
+        "image_alt": "Quadrum 60 — фото 5",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 99,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 163,
+      "fields": {
+        "image": "catalog_seriesimage/image/f4037c93-1beb-4d0d-ab0c-677970d3af80.jpg",
+        "image_width": 960,
+        "image_height": 720,
+        "image_alt": "Quadrum 60 — фото 6",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 99,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 189,
+      "fields": {
+        "image": "catalog_seriesimage/image/52a1b16a-720a-40fa-8b88-47ba26c524a9.png",
+        "image_width": 1440,
+        "image_height": 1080,
+        "image_alt": "Quadrum NEO 50 — фото 1",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 190,
+      "fields": {
+        "image": "catalog_seriesimage/image/d05f2779-294f-4457-b7d6-70d2e36bf4c6.png",
+        "image_width": 1440,
+        "image_height": 1080,
+        "image_alt": "Quadrum NEO 50 — фото 2",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 191,
+      "fields": {
+        "image": "catalog_seriesimage/image/bcf44312-1e85-4e21-8c6d-069692c9620a.png",
+        "image_width": 1440,
+        "image_height": 1080,
+        "image_alt": "Quadrum NEO 50 — фото 3",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 192,
+      "fields": {
+        "image": "catalog_seriesimage/image/997ea92d-0a56-4cc0-a9ce-601b3f91d646.png",
+        "image_width": 1290,
+        "image_height": 720,
+        "image_alt": "Quadrum NEO 50 — фото 4",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 193,
+      "fields": {
+        "image": "catalog_seriesimage/image/5786513a-e2d1-4981-b508-41d2ee9a01eb.png",
+        "image_width": 1440,
+        "image_height": 1080,
+        "image_alt": "Quadrum NEO 50 — фото 5",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 194,
+      "fields": {
+        "image": "catalog_seriesimage/image/a58f6f0b-016c-491b-b412-21c2e5faf647.png",
+        "image_width": 1440,
+        "image_height": 1080,
+        "image_alt": "Quadrum NEO 50 — фото 6",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 231,
+      "fields": {
+        "image": "catalog_seriesimage/image/f9322ce8-9f76-470a-a901-5b2dcbfaf887.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 3P, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 232,
+      "fields": {
+        "image": "catalog_seriesimage/image/58f776d0-d961-4cef-8532-2ea89ffb51dd.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 3P, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 233,
+      "fields": {
+        "image": "catalog_seriesimage/image/c2045f1b-f2da-4bdb-858f-eba9e75cfc5f.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 3P, 430 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 234,
+      "fields": {
+        "image": "catalog_seriesimage/image/e9f28214-6796-4a79-8722-caef2cec2bc1.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 3P, 230 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 235,
+      "fields": {
+        "image": "catalog_seriesimage/image/aac9589e-2d94-4f1f-b4e9-5058c497a27c.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 4P, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 236,
+      "fields": {
+        "image": "catalog_seriesimage/image/70bc3025-13c4-47d5-be78-600b13695d5f.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 4P, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 237,
+      "fields": {
+        "image": "catalog_seriesimage/image/72be361b-2d6d-4815-a576-6681d91ef3a7.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 4P, 460 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 238,
+      "fields": {
+        "image": "catalog_seriesimage/image/51b94ec8-fef9-4852-afac-7e344bb55e77.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 4P, 220 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 239,
+      "fields": {
+        "image": "catalog_seriesimage/image/7dc2f492-1b91-476f-b0e4-e27315dacb26.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6P, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 240,
+      "fields": {
+        "image": "catalog_seriesimage/image/ffb4d7eb-952a-472d-8aa6-6007295bbe4e.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6P, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 241,
+      "fields": {
+        "image": "catalog_seriesimage/image/1db10b13-e554-425e-9119-28f6039e5061.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6P, 430 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 242,
+      "fields": {
+        "image": "catalog_seriesimage/image/648af6fb-e50e-436e-a51c-852eac47c560.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6P, 230 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 243,
+      "fields": {
+        "image": "catalog_seriesimage/image/94291bfd-fb69-49cc-b0ff-5cb97a5017f4.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6SP, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 244,
+      "fields": {
+        "image": "catalog_seriesimage/image/19972e2d-ae27-49be-b058-78f2c3febdbc.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6SP, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 245,
+      "fields": {
+        "image": "catalog_seriesimage/image/e77dbac6-3332-4aab-86fb-edfac6ef370a.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6SP, 460 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 246,
+      "fields": {
+        "image": "catalog_seriesimage/image/eb5fcb6e-0ed0-4196-8b1b-69a4202b9610.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Retta 6SP, 220 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 247,
+      "fields": {
+        "image": "catalog_seriesimage/image/37af1581-5f49-48a2-9ecb-99cba1691427.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 3D, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 248,
+      "fields": {
+        "image": "catalog_seriesimage/image/66d56c39-4d88-4868-85cf-59f837b99ce5.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 3D, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 249,
+      "fields": {
+        "image": "catalog_seriesimage/image/0dfccb7e-21d1-47a6-90f1-7d684c88a91f.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 3D, 232 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 250,
+      "fields": {
+        "image": "catalog_seriesimage/image/97f2cde5-6961-4b75-990a-338c593d54cc.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 3D, 182 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 251,
+      "fields": {
+        "image": "catalog_seriesimage/image/ad69d99a-3aa6-4093-8e0b-c6426474418e.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 4D, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 252,
+      "fields": {
+        "image": "catalog_seriesimage/image/eb4f4d7d-2c60-465a-90a2-9998233f6894.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 4D, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 253,
+      "fields": {
+        "image": "catalog_seriesimage/image/d4c8d6a1-efbd-45d2-8c12-406e899e2dda.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 4D, 274 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 254,
+      "fields": {
+        "image": "catalog_seriesimage/image/b5feeb64-b2f5-4183-b99b-c857d488e9e1.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 4D, 216 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 255,
+      "fields": {
+        "image": "catalog_seriesimage/image/67bbf6ad-1410-4cac-b8ba-1794a46d99a7.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 6D, 1800 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 256,
+      "fields": {
+        "image": "catalog_seriesimage/image/01b5b9c5-f5fe-4108-9c63-351bd4f03d9f.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 6D, 1200 мм, вертикальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 257,
+      "fields": {
+        "image": "catalog_seriesimage/image/80dfdc69-4e9a-4394-a6b6-1d4c14544e34.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 6D, 296 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 258,
+      "fields": {
+        "image": "catalog_seriesimage/image/baee886d-8115-49a5-b805-a4bd2cfb65b8.jpg",
+        "image_width": 1400,
+        "image_height": 932,
+        "image_alt": "Guardo Torre 6D, 217 мм, горизонтальный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 266,
+      "fields": {
+        "image": "catalog_seriesimage/image/67d32c92-d1f8-4b77-9399-bc2347bb09c3.png",
+        "image_width": 2000,
+        "image_height": 1500,
+        "image_alt": "Quadrum NEO 50, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 105,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 269,
+      "fields": {
+        "image": "catalog_seriesimage/image/7347daca-e624-43cd-8850-e98fd1201810.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar P30, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 270,
+      "fields": {
+        "image": "catalog_seriesimage/image/beb3defa-1fc1-4e54-8a11-83a6b6c826a8.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar P30, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 271,
+      "fields": {
+        "image": "catalog_seriesimage/image/7d1fc0a6-f925-4678-a6d4-b553e0504618.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P30, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 272,
+      "fields": {
+        "image": "catalog_seriesimage/image/951bcbc8-0c84-4e2e-a54a-0de307a8234e.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P30, вертикальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 273,
+      "fields": {
+        "image": "catalog_seriesimage/image/d1f57ce3-ba16-4894-b4c3-21da355833a8.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P30, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 274,
+      "fields": {
+        "image": "catalog_seriesimage/image/13eeaafc-8d50-4d6f-887b-603f1f0ca66b.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P30, горизонтальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": null,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 275,
+      "fields": {
+        "image": "catalog_seriesimage/image/a20eb2ba-58c6-4cec-baf3-8643c5855c8e.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P30, горизонтальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 167,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 278,
+      "fields": {
+        "image": "catalog_seriesimage/image/056ef4af-2ac4-4d16-9694-2a42ea6a3ae3.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar P60, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 279,
+      "fields": {
+        "image": "catalog_seriesimage/image/70669faf-b3d7-4fc4-a2c8-074b75507952.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar P60, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 280,
+      "fields": {
+        "image": "catalog_seriesimage/image/9c29ab92-5156-4e29-bc67-2da1d66d5664.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P60, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 281,
+      "fields": {
+        "image": "catalog_seriesimage/image/d172784a-1ddc-451a-81d5-c372249465f6.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P60, вертикальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 282,
+      "fields": {
+        "image": "catalog_seriesimage/image/afaa4276-66f2-4802-b596-133d93c8c388.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P60, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 283,
+      "fields": {
+        "image": "catalog_seriesimage/image/64134d56-a73e-4f01-816c-4861e07c0f6e.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P60, горизонтальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 284,
+      "fields": {
+        "image": "catalog_seriesimage/image/32ce5a94-7511-4ff5-a188-8a7cea9a054e.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar P60, горизонтальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 168,
+        "color": null,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 292,
+      "fields": {
+        "image": "catalog_seriesimage/image/ddcfbeb0-2f82-429a-9850-f77d026a44ae.jpg",
+        "image_width": 1344,
+        "image_height": 1920,
+        "image_alt": "Velar Q60, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 172,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 293,
+      "fields": {
+        "image": "catalog_seriesimage/image/18316b14-9436-4d24-86d3-7e002b2a8467.jpg",
+        "image_width": 1920,
+        "image_height": 1440,
+        "image_alt": "Velar Q60, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 172,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 294,
+      "fields": {
+        "image": "catalog_seriesimage/image/86c191dd-3a68-4427-929e-323dee0c21a1.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q60, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 172,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 295,
+      "fields": {
+        "image": "catalog_seriesimage/image/4757181b-cbbe-4da2-8b93-4246ce109497.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q60, вертикальный, в интерьере",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 172,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 296,
+      "fields": {
+        "image": "catalog_seriesimage/image/374b48b6-0b33-4a6e-996c-c02702326723.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q60, горизонтальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 172,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 297,
+      "fields": {
+        "image": "catalog_seriesimage/image/b8874d0e-01b0-4234-aa8b-f8477f4fd3e9.jpg",
+        "image_width": 1508,
+        "image_height": 1507,
+        "image_alt": "Velar Q80, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 298,
+      "fields": {
+        "image": "catalog_seriesimage/image/9bd923ad-bef7-4111-8cf5-64c2f764d0db.jpg",
+        "image_width": 1512,
+        "image_height": 1511,
+        "image_alt": "Velar Q80, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 299,
+      "fields": {
+        "image": "catalog_seriesimage/image/91c4047b-8ef0-49f9-9ea3-78d97bd7bfe4.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q80, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 300,
+      "fields": {
+        "image": "catalog_seriesimage/image/4dd85a04-82e5-48a4-8125-4954090e63c5.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q80, вертикальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 301,
+      "fields": {
+        "image": "catalog_seriesimage/image/e7042d0b-c70b-4e28-ba8c-e6e81638a913.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q80, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 302,
+      "fields": {
+        "image": "catalog_seriesimage/image/d08aa311-7042-416c-81bb-b082d292d4ed.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q80, горизонтальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 303,
+      "fields": {
+        "image": "catalog_seriesimage/image/21ba7adc-36d9-4ab4-8894-cb83b718dcfe.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q80, горизонтальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 304,
+      "fields": {
+        "image": "catalog_seriesimage/image/f06d67c8-ae48-447a-9ce5-69695372ba1d.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar Q80, горизонтальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 173,
+        "color": null,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 313,
+      "fields": {
+        "image": "catalog_seriesimage/image/32517751-b2f1-4115-967a-136c85f5e560.jpg",
+        "image_width": 582,
+        "image_height": 451,
+        "image_alt": "Velar R32, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 174,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 314,
+      "fields": {
+        "image": "catalog_seriesimage/image/74cd04be-18fe-485f-81af-48bb0417ecc0.jpg",
+        "image_width": 1140,
+        "image_height": 1074,
+        "image_alt": "Velar R32, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 174,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 315,
+      "fields": {
+        "image": "catalog_seriesimage/image/246d7931-f127-4477-9180-c4e7c6157416.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R32, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 174,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 316,
+      "fields": {
+        "image": "catalog_seriesimage/image/3532ff33-fc68-4190-9403-9511f2881bb0.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R32, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 174,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 317,
+      "fields": {
+        "image": "catalog_seriesimage/image/c8ba181b-22a6-4653-8fc6-4143b61cca46.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R32, горизонтальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 174,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 318,
+      "fields": {
+        "image": "catalog_seriesimage/image/384e5813-4a8a-403d-92b8-64d9fc5055b3.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R32, горизонтальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 174,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 319,
+      "fields": {
+        "image": "catalog_seriesimage/image/7dcc29a0-c729-4ac6-8f88-6742e7e8aea9.jpg",
+        "image_width": 951,
+        "image_height": 1280,
+        "image_alt": "Velar R42, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 175,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 320,
+      "fields": {
+        "image": "catalog_seriesimage/image/e6f505e7-354a-46d1-a8c4-a752c658f8b7.jpg",
+        "image_width": 807,
+        "image_height": 953,
+        "image_alt": "Velar R42, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 175,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 321,
+      "fields": {
+        "image": "catalog_seriesimage/image/f48f01b8-335d-4d9c-bf52-b25af884e86b.jpg",
+        "image_width": 1256,
+        "image_height": 1245,
+        "image_alt": "Velar R89, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 322,
+      "fields": {
+        "image": "catalog_seriesimage/image/e7c860f7-f27e-4425-a713-5ef477651004.jpg",
+        "image_width": 1229,
+        "image_height": 1229,
+        "image_alt": "Velar R89, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 323,
+      "fields": {
+        "image": "catalog_seriesimage/image/8eefbf3c-e428-4f25-a2b2-815116a4d86f.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R89, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 324,
+      "fields": {
+        "image": "catalog_seriesimage/image/7cddd03c-22ec-4c35-bb47-40d39b179435.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R89, вертикальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 325,
+      "fields": {
+        "image": "catalog_seriesimage/image/adcfc01c-4b53-45cd-a372-02a506972b3d.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R89, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 326,
+      "fields": {
+        "image": "catalog_seriesimage/image/274d1e01-465a-46eb-82a0-89fe6a4cc726.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R89, горизонтальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 327,
+      "fields": {
+        "image": "catalog_seriesimage/image/f9f494f6-5c18-467b-b600-04dc616e37bd.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R89, горизонтальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 328,
+      "fields": {
+        "image": "catalog_seriesimage/image/ce626ac8-efcb-4125-95cd-652370535638.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar R89, горизонтальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 176,
+        "color": null,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 341,
+      "fields": {
+        "image": "catalog_seriesimage/image/7a579eff-9ab6-4315-b3cc-e27b2271a2f8.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar S, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 342,
+      "fields": {
+        "image": "catalog_seriesimage/image/5d0363d6-2cbc-4dc6-8bef-d5f6f657eb75.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar S, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 343,
+      "fields": {
+        "image": "catalog_seriesimage/image/e5d49056-5709-4640-bb14-a3e6c61bb697.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar S, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 344,
+      "fields": {
+        "image": "catalog_seriesimage/image/b1e63c1f-58a4-46c4-9a32-e90242187827.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar S, вертикальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 345,
+      "fields": {
+        "image": "catalog_seriesimage/image/32faf409-a0bc-4a31-9234-c4bd608b0235.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar S, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 346,
+      "fields": {
+        "image": "catalog_seriesimage/image/e619fe63-5dd5-4931-8b70-b922ae5b9163.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar S, горизонтальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": 51,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 347,
+      "fields": {
+        "image": "catalog_seriesimage/image/48587294-9c28-445b-9ae8-cfb72e4e644a.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar S, горизонтальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 348,
+      "fields": {
+        "image": "catalog_seriesimage/image/64604a88-111a-4647-b4de-b8e001e78c67.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar S, горизонтальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 7,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 169,
+        "color": null,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 349,
+      "fields": {
+        "image": "catalog_seriesimage/image/7834564a-41a7-4c57-bb67-8191fe6063e6.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar SP, вертикальный",
+        "image_focus": "50 50",
+        "position": 0,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": null,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 350,
+      "fields": {
+        "image": "catalog_seriesimage/image/08fec58f-bd9e-4605-acc5-74f64e4c818a.jpg",
+        "image_width": 582,
+        "image_height": 450,
+        "image_alt": "Velar SP, горизонтальный",
+        "image_focus": "50 50",
+        "position": 1,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": null,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 351,
+      "fields": {
+        "image": "catalog_seriesimage/image/222bcfa4-9c48-4983-a444-3e345ec03592.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar SP, вертикальный, в интерьере, белый",
+        "image_focus": "50 50",
+        "position": 2,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": 51,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 352,
+      "fields": {
+        "image": "catalog_seriesimage/image/fc42a3e0-9bb1-42cf-9e66-1cda6a8360ff.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar SP, вертикальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 3,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": 53,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 353,
+      "fields": {
+        "image": "catalog_seriesimage/image/1cf49d62-7a9b-4d01-9e6a-f5f59392189c.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar SP, вертикальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 4,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": null,
+        "orientation": "v",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 354,
+      "fields": {
+        "image": "catalog_seriesimage/image/f89fe955-71d2-42f6-9782-9e764153287f.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar SP, горизонтальный, в интерьере, чёрный",
+        "image_focus": "50 50",
+        "position": 5,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": 53,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 355,
+      "fields": {
+        "image": "catalog_seriesimage/image/5c8e52aa-dcf3-4912-bb72-93a59a2cb1c4.jpg",
+        "image_width": 1920,
+        "image_height": 1920,
+        "image_alt": "Velar SP, горизонтальный, в интерьере, красный",
+        "image_focus": "50 50",
+        "position": 6,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 170,
+        "color": null,
+        "orientation": "h",
+        "kind": "interior"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 356,
+      "fields": {
+        "image": "catalog_seriesimage/image/ed2efe78-9207-4cb4-937d-1ccc77affb76.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 357,
+      "fields": {
+        "image": "catalog_seriesimage/image/9ba88050-abea-4bdd-a22b-84ddfe581e7c.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 358,
+      "fields": {
+        "image": "catalog_seriesimage/image/4690152a-3e9f-4931-9858-fccdf881fe87.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, вертикальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 359,
+      "fields": {
+        "image": "catalog_seriesimage/image/4c1d9b63-c7a5-448f-8f54-030947cc11ea.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, вертикальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 360,
+      "fields": {
+        "image": "catalog_seriesimage/image/8d5907bf-2074-4241-87fe-e831662d1842.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 361,
+      "fields": {
+        "image": "catalog_seriesimage/image/584fce36-9f5d-4abd-8b36-cc4881768c8f.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 19,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 362,
+      "fields": {
+        "image": "catalog_seriesimage/image/02cf5e76-8c7b-40b3-b826-f0d37b5ae478.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, горизонтальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 20,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 55,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 363,
+      "fields": {
+        "image": "catalog_seriesimage/image/2b05b519-9e6d-4417-b24a-2a2aa6a2939a.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 21,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 364,
+      "fields": {
+        "image": "catalog_seriesimage/image/66579d7d-222f-4b7b-89fe-6c3863fbc78c.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 22,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 365,
+      "fields": {
+        "image": "catalog_seriesimage/image/e902d143-e71d-46d6-a240-d291959f1501.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 3P, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 23,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 41,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 366,
+      "fields": {
+        "image": "catalog_seriesimage/image/ed502c9b-37a1-492a-8e40-5247bca2a161.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 367,
+      "fields": {
+        "image": "catalog_seriesimage/image/4320ebd0-db2f-416d-a2d2-9484cbef0d46.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 368,
+      "fields": {
+        "image": "catalog_seriesimage/image/3b556181-8842-44a5-adeb-2540a76e45f6.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, вертикальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 369,
+      "fields": {
+        "image": "catalog_seriesimage/image/95f70089-ca81-46e0-83f1-7cbad8bff0de.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 370,
+      "fields": {
+        "image": "catalog_seriesimage/image/8a1affc1-60fd-4033-ac20-306dbec988cf.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 371,
+      "fields": {
+        "image": "catalog_seriesimage/image/faa1743e-12c7-4111-9527-449ce8ddfb0d.jpg",
+        "image_width": 1309,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 372,
+      "fields": {
+        "image": "catalog_seriesimage/image/e426cb6f-99fc-44d0-bbb5-7d8d050c2ec0.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 373,
+      "fields": {
+        "image": "catalog_seriesimage/image/cab18486-473a-433a-afc1-86ff266bf933.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 4P, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 37,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 374,
+      "fields": {
+        "image": "catalog_seriesimage/image/06287bd1-358e-4213-94bc-4be1595dc6c3.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 375,
+      "fields": {
+        "image": "catalog_seriesimage/image/6dbaa2ab-701d-4850-b261-1330e974de60.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 376,
+      "fields": {
+        "image": "catalog_seriesimage/image/3887544f-2a8d-4e4a-837c-9da865c78a1f.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, вертикальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 377,
+      "fields": {
+        "image": "catalog_seriesimage/image/8361f009-cf32-49c8-bc0d-32c21a6909a0.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 378,
+      "fields": {
+        "image": "catalog_seriesimage/image/fc56d872-5a53-4f10-8c30-626c57ac1717.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 379,
+      "fields": {
+        "image": "catalog_seriesimage/image/b674ccac-4cc1-419e-a967-1deebe93b511.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, горизонтальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 55,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 380,
+      "fields": {
+        "image": "catalog_seriesimage/image/29e61e89-972e-45e5-b75a-c175b154a096.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 381,
+      "fields": {
+        "image": "catalog_seriesimage/image/cc9addc2-b37b-4b18-a7b3-52da9c657fd5.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 382,
+      "fields": {
+        "image": "catalog_seriesimage/image/2a41ca95-6929-4582-81e1-428a1d065807.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6P, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 19,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 36,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 383,
+      "fields": {
+        "image": "catalog_seriesimage/image/807ca7a6-55e0-484e-9597-da71f613b010.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 384,
+      "fields": {
+        "image": "catalog_seriesimage/image/fbcf26de-9bba-43b4-8388-ebaebf5d733f.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 385,
+      "fields": {
+        "image": "catalog_seriesimage/image/4426c3ff-734d-4bd3-9acf-e6d7cfec3f20.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, вертикальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 386,
+      "fields": {
+        "image": "catalog_seriesimage/image/d7c4d118-ef16-47ad-a804-1c38f2db15cf.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 387,
+      "fields": {
+        "image": "catalog_seriesimage/image/911044fd-c734-4008-99de-c61f7e3aad16.jpg",
+        "image_width": 1279,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 388,
+      "fields": {
+        "image": "catalog_seriesimage/image/a6bda781-a5cf-4616-9ac6-9136dd88edc3.jpg",
+        "image_width": 1279,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, горизонтальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 55,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 389,
+      "fields": {
+        "image": "catalog_seriesimage/image/3258706c-a9bb-443f-8408-3cdbc48092de.jpg",
+        "image_width": 1280,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 390,
+      "fields": {
+        "image": "catalog_seriesimage/image/4b66a988-e5a1-4493-a6e0-1586117dee99.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 391,
+      "fields": {
+        "image": "catalog_seriesimage/image/e712fdf8-c628-4c92-aeae-ba15774e1531.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Retta 6SP, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 19,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 40,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 392,
+      "fields": {
+        "image": "catalog_seriesimage/image/0233cbf6-5033-470f-9977-11a30b3228a0.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 393,
+      "fields": {
+        "image": "catalog_seriesimage/image/750a75b6-fb69-4e80-881e-a5f9fac1df90.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 394,
+      "fields": {
+        "image": "catalog_seriesimage/image/cad16700-724c-4de6-858d-32d27168c525.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, вертикальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 395,
+      "fields": {
+        "image": "catalog_seriesimage/image/6bd8f704-823a-48c3-93bb-0fc54338e498.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, вертикальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 396,
+      "fields": {
+        "image": "catalog_seriesimage/image/9b4046bb-34bc-4e86-b962-d95ac76f6e2d.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 397,
+      "fields": {
+        "image": "catalog_seriesimage/image/aec3cefd-a6af-4f96-8040-27c44932a985.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 398,
+      "fields": {
+        "image": "catalog_seriesimage/image/e8e55225-3006-4216-a599-a3ba41dcd5f5.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 399,
+      "fields": {
+        "image": "catalog_seriesimage/image/ceec15bb-b267-480d-9bd1-e6279f860206.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 400,
+      "fields": {
+        "image": "catalog_seriesimage/image/c4edea90-d548-4333-8c1a-67f555d48159.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 3D, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 19,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 48,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 401,
+      "fields": {
+        "image": "catalog_seriesimage/image/51406caa-acb8-4298-9d14-81d8d391a44c.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 402,
+      "fields": {
+        "image": "catalog_seriesimage/image/82d7601a-1964-4266-8009-dfc8cfe3a107.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 403,
+      "fields": {
+        "image": "catalog_seriesimage/image/449a06be-82bc-4ce9-a97b-688c18c381ce.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, вертикальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 404,
+      "fields": {
+        "image": "catalog_seriesimage/image/b86fe194-b558-419c-9280-b82dc70941f6.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, вертикальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 405,
+      "fields": {
+        "image": "catalog_seriesimage/image/7c9b9bc9-601d-4c17-9224-7a219d1cdefb.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 406,
+      "fields": {
+        "image": "catalog_seriesimage/image/91ea3d66-c76f-42c2-8c6d-9fab7a3ea2ef.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 407,
+      "fields": {
+        "image": "catalog_seriesimage/image/bc036b3d-5aba-48aa-9b0f-c8cdf2d101f9.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, горизонтальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 55,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 408,
+      "fields": {
+        "image": "catalog_seriesimage/image/41212819-bcc8-481e-9c5a-c7ea4e80bf97.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 409,
+      "fields": {
+        "image": "catalog_seriesimage/image/03fd826b-eddd-4bd8-9c91-232b6ecb5c0e.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 19,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 410,
+      "fields": {
+        "image": "catalog_seriesimage/image/97a0a16c-4235-4443-b8e4-28a5524b1120.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 4D, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 20,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 47,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 411,
+      "fields": {
+        "image": "catalog_seriesimage/image/f4639a0e-99a0-463f-85ee-d10d5c1123e6.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, вертикальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 11,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 51,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 412,
+      "fields": {
+        "image": "catalog_seriesimage/image/7b7a039e-a9da-415f-bb01-1a9ad22fe329.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, вертикальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 12,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 53,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 413,
+      "fields": {
+        "image": "catalog_seriesimage/image/6e27209b-72df-4392-b137-604201a37c58.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, вертикальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 13,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 55,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 414,
+      "fields": {
+        "image": "catalog_seriesimage/image/13827e7b-71f4-467e-a170-24707ed3a262.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, вертикальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 14,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 57,
+        "orientation": "v",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 415,
+      "fields": {
+        "image": "catalog_seriesimage/image/6dce1fe1-0c17-4519-9121-97bf3f8905a1.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, горизонтальный, RAL 9016",
+        "image_focus": "50 50",
+        "position": 15,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 51,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 416,
+      "fields": {
+        "image": "catalog_seriesimage/image/858e412d-764c-4b30-b104-4a66997345b6.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, горизонтальный, RAL 9005",
+        "image_focus": "50 50",
+        "position": 16,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 53,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 417,
+      "fields": {
+        "image": "catalog_seriesimage/image/3340c3bb-5e00-4655-9711-87d28cb18b46.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, горизонтальный, RAL 7040",
+        "image_focus": "50 50",
+        "position": 17,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 55,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 418,
+      "fields": {
+        "image": "catalog_seriesimage/image/c18e9bf3-db1e-4392-9248-0cecf8a90868.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, горизонтальный, RAL 1015",
+        "image_focus": "50 50",
+        "position": 18,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": 57,
+        "orientation": "h",
+        "kind": "product"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 419,
+      "fields": {
+        "image": "catalog_seriesimage/image/d066457b-8bd0-4d16-b249-1540de50bdd0.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, вертикальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 19,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": null,
+        "orientation": "v",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesimage",
+      "pk": 420,
+      "fields": {
+        "image": "catalog_seriesimage/image/5e9c42d1-5dec-4510-bf91-dd5311f795f7.jpg",
+        "image_width": 1308,
+        "image_height": 960,
+        "image_alt": "Guardo Torre 6D, горизонтальный, схема подключений",
+        "image_focus": "50 50",
+        "position": 20,
+        "source_url": "",
+        "source_aliases": [],
+        "is_visible": true,
+        "source_sha256": "",
+        "series": 46,
+        "color": null,
+        "orientation": "h",
+        "kind": "scheme"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 74,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 99,
+        "title": "Паспорт радиатора Quadrum 60V",
+        "file": "catalog_seriesfile/file/52fed0be-7fba-4377-9a2d-44209cb5041c.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 75,
+      "fields": {
+        "position": 2,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 99,
+        "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+        "file": "catalog_seriesfile/file/2232c41c-d24f-49ef-9185-5e4b1f1adfdb.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 76,
+      "fields": {
+        "position": 3,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 99,
+        "title": "Монтажные схемы для радиаторов Quadrum 60V",
+        "file": "catalog_seriesfile/file/0c1b92f1-ab69-4fb2-8757-bd8704d43f3c.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 77,
+      "fields": {
+        "position": 4,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 99,
+        "title": "Паспорт радиатора Quadrum 60H",
+        "file": "catalog_seriesfile/file/7ca752b1-724c-4255-a5e2-1d70f3bd78de.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 78,
+      "fields": {
+        "position": 5,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 99,
+        "title": "Монтажные схемы для радиаторов Quadrum 60H",
+        "file": "catalog_seriesfile/file/f4513db9-162f-4182-8b50-d2a3e5a19f77.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 99,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 105,
+        "title": "Паспорт радиатора Quadrum NEO 50V",
+        "file": "catalog_seriesfile/file/ff1c0b96-1809-4e37-b468-7dd16a714194.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 100,
+      "fields": {
+        "position": 2,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 105,
+        "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+        "file": "catalog_seriesfile/file/2c727210-213c-4bea-a9a8-489e6d15dec9.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 101,
+      "fields": {
+        "position": 3,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 105,
+        "title": "Монтажные схемы для радиаторов Quadrum NEO 50V",
+        "file": "catalog_seriesfile/file/db56cf75-abc3-4b3a-87dd-78209ca5da00.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 102,
+      "fields": {
+        "position": 4,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 105,
+        "title": "Паспорт радиатора Quadrum NEO 50H",
+        "file": "catalog_seriesfile/file/d223365f-126e-4c26-a108-2d33756f1733.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 103,
+      "fields": {
+        "position": 5,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 105,
+        "title": "Монтажные схемы для радиаторов Quadrum NEO 50H",
+        "file": "catalog_seriesfile/file/8c2e96b0-2a8d-4915-82f9-c83ddd98c4a7.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 129,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 41,
+        "title": "Каталог Guardo Retta",
+        "file": "catalog_seriesfile/file/b1bd6e5f-d18a-4108-a5b4-742c5f37a001.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 130,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 41,
+        "title": "Паспорт Guardo Retta",
+        "file": "catalog_seriesfile/file/32d0efd6-2aca-4cb1-ade9-4ee3478defc7.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 131,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 37,
+        "title": "Каталог Guardo Retta",
+        "file": "catalog_seriesfile/file/b1bd6e5f-d18a-4108-a5b4-742c5f37a001.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 132,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 37,
+        "title": "Паспорт Guardo Retta",
+        "file": "catalog_seriesfile/file/32d0efd6-2aca-4cb1-ade9-4ee3478defc7.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 133,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 36,
+        "title": "Каталог Guardo Retta",
+        "file": "catalog_seriesfile/file/b1bd6e5f-d18a-4108-a5b4-742c5f37a001.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 134,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 36,
+        "title": "Паспорт Guardo Retta",
+        "file": "catalog_seriesfile/file/32d0efd6-2aca-4cb1-ade9-4ee3478defc7.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 135,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 40,
+        "title": "Каталог Guardo Retta",
+        "file": "catalog_seriesfile/file/b1bd6e5f-d18a-4108-a5b4-742c5f37a001.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 136,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 40,
+        "title": "Паспорт Guardo Retta",
+        "file": "catalog_seriesfile/file/32d0efd6-2aca-4cb1-ade9-4ee3478defc7.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 137,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 48,
+        "title": "Каталог Guardo Torre",
+        "file": "catalog_seriesfile/file/35d06f2f-7476-433c-bf36-344c57f26272.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 138,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 48,
+        "title": "Паспорт Guardo Torre",
+        "file": "catalog_seriesfile/file/2cb09426-27de-4b1b-8f9e-2ea27183290d.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 139,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 47,
+        "title": "Каталог Guardo Torre",
+        "file": "catalog_seriesfile/file/35d06f2f-7476-433c-bf36-344c57f26272.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 140,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 47,
+        "title": "Паспорт Guardo Torre",
+        "file": "catalog_seriesfile/file/2cb09426-27de-4b1b-8f9e-2ea27183290d.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 141,
+      "fields": {
+        "position": 0,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 46,
+        "title": "Каталог Guardo Torre",
+        "file": "catalog_seriesfile/file/35d06f2f-7476-433c-bf36-344c57f26272.pdf"
+      }
+    },
+    {
+      "model": "catalog.seriesfile",
+      "pk": 142,
+      "fields": {
+        "position": 1,
+        "is_visible": true,
+        "source_url": "",
+        "source_aliases": [],
+        "source_sha256": "",
+        "series": 46,
+        "title": "Паспорт Guardo Torre",
+        "file": "catalog_seriesfile/file/2cb09426-27de-4b1b-8f9e-2ea27183290d.pdf"
+      }
+    },
+    {
+      "model": "catalog.showcase",
+      "pk": 1,
+      "fields": {
+        "image_width": 1580,
+        "image_height": 1160,
+        "image_focus": "50 50",
+        "position": 0,
+        "series": 51,
+        "label": "",
+        "variant": null,
+        "image": "catalog_seriesimage/image/0cfbade2-0da6-41ca-8ab4-ee3930f0b688.jpg",
+        "image_alt": "Nova Siluet, в интерьере, белый (2)"
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 200,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 36,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 201,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 36,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 202,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 37,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 203,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 37,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 209,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 40,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 210,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 40,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 211,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 41,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 212,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 41,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 221,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 46,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 222,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 46,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 223,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 47,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 224,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 47,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 225,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 48,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          57,
+          58,
+          55,
+          56,
+          53,
+          54,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 226,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 48,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 231,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 51,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          68
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 232,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 51,
+        "name": "Черный матовый +10 %",
+        "percent": "10.00",
+        "is_base": false,
+        "any_ral": false,
+        "colors": [
+          53
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 337,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 167,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 338,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 167,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 339,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 168,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 340,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 168,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 341,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 169,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 342,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 169,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 343,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 170,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 344,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 170,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 347,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 172,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 348,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 172,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 349,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 173,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 350,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 174,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 351,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 174,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 352,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 175,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 353,
+      "fields": {
+        "position": 1,
+        "legacy_origin": null,
+        "series": 175,
+        "name": "Любой RAL",
+        "percent": "0.00",
+        "is_base": false,
+        "any_ral": true,
+        "colors": []
+      }
+    },
+    {
+      "model": "catalog.colorgroup",
+      "pk": 354,
+      "fields": {
+        "position": 0,
+        "legacy_origin": null,
+        "series": 176,
+        "name": "Стандартные",
+        "percent": "0.00",
+        "is_base": true,
+        "any_ral": false,
+        "colors": [
+          51
+        ]
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 51,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "retta-6p",
+        "name": "Retta 6P",
+        "presentation_photo": 239
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 52,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "retta-4p",
+        "name": "Retta 4P",
+        "presentation_photo": 236
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 53,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "retta-6sp",
+        "name": "Retta 6SP",
+        "presentation_photo": 243
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 56,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "torre-6d",
+        "name": "Torre 6D",
+        "presentation_photo": 255
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 57,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "torre-4d",
+        "name": "Torre 4D",
+        "presentation_photo": 251
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 58,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "torre-3d",
+        "name": "Torre 3D",
+        "presentation_photo": 247
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 79,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "p30",
+        "name": "P30",
+        "presentation_photo": 269
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 80,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "p60",
+        "name": "P60",
+        "presentation_photo": 278
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 81,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "s",
+        "name": "S",
+        "presentation_photo": 341
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 82,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "sp",
+        "name": "SP",
+        "presentation_photo": 349
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 84,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "q60",
+        "name": "Q60",
+        "presentation_photo": 292
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 85,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "q80",
+        "name": "Q80",
+        "presentation_photo": 297
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 86,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "r32",
+        "name": "R32",
+        "presentation_photo": 313
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 87,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "r42",
+        "name": "R42",
+        "presentation_photo": 319
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 88,
+      "fields": {
+        "brand": 9,
+        "category": 1,
+        "key": "r89",
+        "name": "R89",
+        "presentation_photo": 321
+      }
+    },
+    {
+      "model": "catalog.productfamily",
+      "pk": 98,
+      "fields": {
+        "brand": 2,
+        "category": 1,
+        "key": "retta-3p",
+        "name": "Retta 3P",
+        "presentation_photo": 231
+      }
+    },
+    {
+      "model": "content.project_series",
+      "pk": 27,
+      "fields": {
+        "project": 7,
+        "series": 99
+      }
+    },
+    {
+      "model": "content.project_series",
+      "pk": 33,
+      "fields": {
+        "project": 14,
+        "series": 105
+      }
+    }
+  ],
+  "database": {
+    "ENGINE": "django.db.backends.postgresql",
+    "HOST": "127.0.0.1",
+    "PORT": 5432,
+    "NAME": "artteplo"
+  },
+  "applied": false
+}

@@ -3,7 +3,7 @@
 Варианты, размеры, мощность, цены в RUB и фото — из YML-фида; описание,
 параметры и документы серии — со страницы серии. Категория фида — серия
 завода; H- и V-исполнения одной модели у нас одна серия с полем
-«Положение». Цены в BYN считает ночная задача курсов с наценкой бренда.
+«Положение». Цены в BYN считает ночная задача курсов с наценкой серии.
 
 Повторный импорт обновляет варианты и цены, пропавшие из фида варианты
 скрывает. У серии заполняет только пустые поля (описание, материал,
@@ -33,6 +33,7 @@ from apps.content.signals import muted_revalidation
 from apps.content.tasks import revalidate_frontend
 
 from ..choices import Connection, Currency, Heating, Orientation
+from ..finishes import ensure_any_ral
 from ..models import (
     MAX_PDF_MB,
     Brand,
@@ -46,6 +47,8 @@ from ..models import (
 from ..photos import trim_white
 from ..pricing import recalculate
 from .kzto_page import Page, parse_page
+from .kzto_series import separate_targets
+from .product_families import assign_family
 
 logger = logging.getLogger(__name__)
 
@@ -60,8 +63,6 @@ BRAND_SLUG = 'kzto'
 BRAND_NAME = 'КЗТО'
 MB = 1024 * 1024
 BATCH_SIZE = 1000
-MAX_IMAGES = 6
-MAX_FILES = 6
 # Вытянутое по горизонтали фото — интерьер, остальное — товар
 INTERIOR_RATIO = Decimal('1.2')
 # Документы серии; общие файлы сайта (условные обозначения, приложения к
@@ -151,6 +152,8 @@ TARGETS: dict[str, Target] = {
     'Элегант Плюс': _on_floor('kzto-elegant-plyus', 'Элегант Плюс'),
     'Элегант В': _on_floor('kzto-elegant-v', 'Элегант В'),
 }
+TARGETS = separate_targets(TARGETS)
+
 # Не продаём отдельно или не берём на старте (№ 122)
 SKIPPED = frozenset(
     {
@@ -492,7 +495,10 @@ def _save(
         if series.brand_id != brand.pk:
             summary.errors.append(FOREIGN_SERIES.format(slug))
             continue
+        assign_family(series)
         result = SeriesResult(series, created, len(offers))
+        if target.kind == RADIATOR:
+            ensure_any_ral(series)
         summary.series.append(result)
         _fill_series(result, target, offers, loaded.get(slug, []))
         kept |= _save_variants(
@@ -504,6 +510,8 @@ def _save(
             existing,
             seen_articles,
         )
+        if series.offer_mode == 'configured':
+            series.full_clean()
     hidden = [
         variant.pk
         for key, variant in existing.items()
@@ -681,24 +689,29 @@ def _values(offer: Offer, target: Target) -> dict:
 
 
 def _media(summary, result: SeriesResult, offers, loaded):
-    series = result.series
-    if not series.images.exists():
-        pictures = list(
-            dict.fromkeys(url for offer in offers for url in offer.pictures),
+    from .kzto_media import factory_photo_kinds, sync_kzto_media  # noqa: PLC0415 — circular importer I/O helpers
+
+    pages = loaded.get(result.series.slug, [])
+    gallery = list(
+        dict.fromkeys(url for page in pages for url in page.gallery)
+    )
+    if not gallery:
+        gallery = list(
+            dict.fromkeys(url for offer in offers for url in offer.pictures)
         )
-        for position, url in enumerate(pictures[:MAX_IMAGES], start=1):
-            result.images += _save_image(summary, series, url, position)
-    if not series.files.exists():
-        documents = [
-            document
-            for page in loaded.get(series.slug, [])
-            for document in page.documents
-            if DOCUMENTS.match(document.title)
-            and document.url.lower().endswith('.pdf')
-        ]
-        unique = list({d.url: d for d in documents}.values())
-        for position, document in enumerate(unique[:MAX_FILES], start=1):
-            result.files += _save_file(summary, series, document, position)
+    page = Page(
+        gallery=gallery,
+        documents=[document for page in pages for document in page.documents],
+    )
+    report = sync_kzto_media(
+        result.series,
+        page,
+        fetcher=fetch,
+        photo_kinds=factory_photo_kinds(result.series.slug),
+    )
+    result.images += report['images']
+    result.files += report['files']
+    summary.errors.extend(report['errors'])
 
 
 def _download(summary, url: str, limit_mb: int) -> bytes | None:

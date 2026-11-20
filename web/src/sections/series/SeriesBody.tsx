@@ -3,19 +3,20 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Container } from "@/components/Container/Container";
+import { Button } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import { mapRow, mapVariants, type ApiRow, type ApiVariants, type Variants } from "@/data/catalog-map";
 import type { SeriesDetail, VariantRow } from "@/data/types";
 import { executionConnection, serializeCatalogQuery, type CatalogQuery } from "@/lib/catalog-query";
-import { parseOrientation } from "@/lib/orientation";
 import { rowPrice } from "@/lib/price";
 import { colorForApi } from "@/lib/series-color";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
+import { shouldFetchSelected } from "@/lib/series-selection";
 import { SeriesHero } from "./SeriesHero";
 import { SeriesVariants } from "./SeriesVariants";
 
 // Выбранный ?v, которого нет на первой странице таблицы: одна строка с эндпоинта варианта (null — такого нет)
-type Extra = { key: string; row: VariantRow | null };
+type Extra = { key: string; row: VariantRow | null; failed?: boolean };
 type Loaded = Variants & { key: string; color: string | undefined; dropped: boolean; all: boolean };
 type Props = {
   series: SeriesDetail;
@@ -23,12 +24,12 @@ type Props = {
   breadcrumbs: ReactNode;
   topClassName: string;
   tabs: ReactNode; // липкая полоса разделов: между первым экраном и таблицей
-  images: { product: SeriesDetail["images"]; interior: SeriesDetail["images"] };
+  images: SeriesDetail["images"];
 };
 
 // Строки таблицы: на бэк по /api/series/<slug>/variants/, в демо — те же правила из src/data (грузим только там)
 async function fetchVariants(slug: string, raw: CatalogQuery, signal: AbortSignal): Promise<Variants> {
-  const query = { ...raw, color: colorForApi(raw.color) };
+  const query = { ...raw };
   if (process.env.NEXT_PUBLIC_DEMO === "1") {
     const { demoVariants } = await import("@/data/catalog-demo");
     return demoVariants(slug, query);
@@ -42,12 +43,13 @@ async function fetchVariants(slug: string, raw: CatalogQuery, signal: AbortSigna
 // Один вариант: /api/variants/<артикул>/?series=…&connection=…; в демо — из src/data. Нет такого — null
 async function fetchVariant(slug: string, article: string, query: CatalogQuery, signal: AbortSignal): Promise<VariantRow | null> {
   const connection = executionConnection(query.execution);
-  const color = colorForApi(query.color);
+  const color = query.color;
   if (process.env.NEXT_PUBLIC_DEMO === "1") {
     const { demoVariant } = await import("@/data/catalog-demo");
     return demoVariant(slug, article, connection, color);
   }
-  const params = new URLSearchParams({ series: slug });
+  const params = new URLSearchParams(serializeCatalogQuery({ ...query, brand: undefined, v: undefined, page: undefined, color }));
+  params.set("series", slug);
   if (connection) params.set("connection", connection);
   if (color) params.set("color", color);
   const response = await fetch(`/api/variants/${encodeURIComponent(article)}/?${params}`, { signal });
@@ -66,15 +68,15 @@ const withoutColorKey = (k: string) => {
 function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Props) {
   const pathname = usePathname();
   const params = useSearchParams();
-  // ?o= с карточки витрины: адрес перепишут фильтры, а порядок фото держим, пока открыта страница
-  const [orientation] = useState(() => parseOrientation(params.get("o")));
   const [failed, setFailed] = useState(false);
+  const [selectionNotice, setSelectionNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   // всё, что влияет на строки (кроме v и page): цвет меняет цену, остальное — выборку
   const key = useMemo(() => {
     const p = new URLSearchParams(params.toString());
     p.delete("v");
     p.delete("page");
+    p.delete("o");
     return p.toString();
   }, [params]);
   const parsed = useMemo(() => seriesQuery(new URLSearchParams(params.toString()), series), [params, series]);
@@ -92,14 +94,14 @@ function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Prop
   // сменился только цвет: таблицу не затемняем, старые строки стоят, пока не придут новые (запрос быстрый)
   const colorOnly = pending && withoutColorKey(key) === withoutColorKey(loaded.key);
   // Сменился цвет, а строки ещё со старым: если в них есть цена без цвета — пересчитываем сразу, как бэк
-  const repriceable = loaded.color !== query.color && loaded.results.every((r) => r.priceByn !== undefined);
+  const repriceable = colorOnly && loaded.color !== query.color && loaded.results.every((r) => r.priceByn !== undefined);
   const reprice = useCallback(
     (row: VariantRow): VariantRow =>
       row.priceByn === undefined ? row : { ...row, price: rowPrice({ priceByn: row.priceByn, colorGroups: row.colorGroups ?? [] }, series.colorGroups, colorForApi(query.color)) },
     [series.colorGroups, query.color],
   );
-  const shown: Loaded = useMemo(() => (repriceable ? { ...loaded, results: loaded.results.map(reprice) } : loaded), [repriceable, loaded, reprice]);
-  const stale = loaded.color !== query.color && !repriceable ? (failed ? "failed" : "pending") : null;
+  const shown: Loaded = useMemo(() => (repriceable ? { ...loaded, results: loaded.results.map(reprice), priceFrom: undefined } : loaded), [repriceable, loaded, reprice]);
+  const stale = pending && !repriceable ? (failed ? "failed" : "pending") : null;
 
   useEffect(() => {
     if (key === loaded.key) return;
@@ -161,37 +163,37 @@ function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Prop
   const article = query.v;
   const attemptKey = article ? `${key}|${article}` : null;
   const inRows = article ? (shown.results.find((r) => r.article === article) ?? null) : null;
-  const beyondFirstPage = loaded.results.length < loaded.count;
   const fetched = extra && extra.key === attemptKey ? extra : null;
   const selected = inRows ?? (fetched?.row ? reprice(fetched.row) : null);
   useEffect(() => {
-    if (!article || !attemptKey || pending || inRows) return;
-    if (!beyondFirstPage) {
-      replace({ ...query, v: undefined });
-      return;
-    }
+    if (!shouldFetchSelected({ article, pending, inRows: Boolean(inRows) }) || !article || !attemptKey) return;
     if (fetched) {
-      if (!fetched.row) replace({ ...query, v: undefined });
+      if (!fetched.row && !fetched.failed) replace({ ...query, v: undefined });
       return;
     }
     const c = new AbortController();
     (async () => {
       const row = await fetchVariant(series.slug, article, query, c.signal);
-      if (!c.signal.aborted) setExtra({ key: attemptKey, row });
+      if (!c.signal.aborted) {
+        setExtra({ key: attemptKey, row });
+        setSelectionNotice(row ? null : `Артикул ${article} недоступен с выбранными параметрами. Выберите другой размер в таблице.`);
+      }
     })().catch((e) => {
       if (c.signal.aborted) return;
       console.error(e);
-      setExtra({ key: attemptKey, row: null }); // не получилось — как будто ?v не было
+      setExtra({ key: attemptKey, row: null, failed: true });
     });
     return () => c.abort();
-  }, [article, attemptKey, pending, inRows, beyondFirstPage, fetched, query, replace, series.slug]);
+  }, [article, attemptKey, pending, inRows, fetched, query, replace, series.slug]);
 
   return (
     <>
       <Section className={topClassName} labelledBy="series-title">
         <Container>
           {breadcrumbs}
-          <SeriesHero series={series} images={images.product} row={selected} color={query.color} stale={stale} orientation={orientation} onColor={(color) => replace({ ...query, color })} />
+          <SeriesHero series={series} images={images} row={selected} color={query.color} stale={stale} configurationPriceFrom={shown.priceFrom} onColor={(color) => replace({ ...query, color })} />
+          {selectionNotice && <p role="status">{selectionNotice}</p>}
+          {fetched?.failed && <p role="status">Не удалось загрузить выбранный артикул. <Button variant="secondary" onClick={() => setExtra(null)}>Повторить</Button></p>}
         </Container>
       </Section>
       {tabs}
@@ -200,11 +202,12 @@ function Body({ series, initial, breadcrumbs, topClassName, tabs, images }: Prop
         loaded={shown}
         query={query}
         selected={selected}
+        stale={stale}
         pending={pending}
         quiet={colorOnly}
         loading={loading}
         failed={failed}
-        onQuery={replace}
+        onQuery={(next) => { if (next.v) setSelectionNotice(null); replace(next); }}
         onShowAll={showAll}
         onRetry={retry}
         onReset={() => replace({ lists: {}, ranges: {}, execution: query.execution, color: query.color, v: query.v })}

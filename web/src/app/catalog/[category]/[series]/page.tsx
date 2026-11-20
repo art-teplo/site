@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import { getBrands, getCategories, getProjects, getSeries, getShowcases, getVariants } from "@/data/api";
+import { getBrands, getCategories, getLegacySeries, getProjects, getSeries, getShowcases, getVariants } from "@/data/api";
+import { Container } from "@/components/Container/Container";
+import { Section } from "@/components/Section/Section";
+import { ShowcaseCard } from "@/components/ShowcaseCard/ShowcaseCard";
 import { formatPrice } from "@/lib/format";
-import { byOrientation, parseOrientation } from "@/lib/orientation";
 import { seriesQuery, withoutHeight } from "@/lib/series-query";
 import { LeadSection } from "@/sections/home/LeadSection";
 import { SeriesAbout, seriesTabs } from "@/sections/series/SeriesAbout";
@@ -43,14 +45,30 @@ export async function generateMetadata({ params }: PageProps<"/catalog/[category
 
 export default async function SeriesPage({ params, searchParams }: PageProps<"/catalog/[category]/[series]">) {
   const { category: categorySlug, series: slug } = await params;
+  const urlParams = toParams(await searchParams);
   const series = await getSeries(slug);
+  if (!series) {
+    const legacy = categorySlug === "radiatory" ? await getLegacySeries(slug, urlParams.toString()) : null;
+    if (!legacy?.choices.length) notFound();
+    if (legacy.target) {
+      const query = new URLSearchParams(urlParams);
+      query.delete("o");
+      if (legacy.execution) query.set("execution", legacy.execution);
+      if (legacy.color) query.set("color", legacy.color);
+      redirect(`/catalog/${categorySlug}/${legacy.target}${query.size ? `?${query}` : ""}`);
+    }
+    return <Section className={styles.top} labelledBy="series-title"><Container>
+      <Breadcrumbs items={[{ href: "/", label: "Главная" }, { href: "/catalog/radiatory", label: "Радиаторы" }, { label: "Выберите исполнение" }]} />
+      <h1 id="series-title" className={styles.legacyTitle}>Выберите исполнение радиатора</h1>
+      <div className={styles.legacyGrid}>{legacy.choices.map((card) => <ShowcaseCard key={card.series} query={legacy.queries?.[card.series]} article={new URLSearchParams(legacy.queries?.[card.series]).get("v") ?? undefined} card={card} category={categorySlug} sizes="(max-width: 767px) 100vw, 50vw" />)}</div>
+    </Container></Section>;
+  }
   if (!series || series.category !== categorySlug) notFound();
   const [categories, brands, allProjects] = await Promise.all([getCategories(), getBrands(), getProjects()]);
   const category = categories.find((c) => c.slug === series.category);
   if (!category) notFound();
 
   // Первая страница по адресу; пустой результат по ?h — повод открыть таблицу без высоты
-  const urlParams = toParams(await searchParams);
   const { query, fromH } = seriesQuery(urlParams, series);
   let initial = await getVariants(slug, { ...query, page: 1 });
   let dropped = false;
@@ -60,12 +78,8 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
   }
 
   // Фото: изделие — в галерее первого экрана, интерьер — в своём разделе. Нет разметки kind — всё как изделие
-  // Пришли с карточки витрины (?o=) — интерьер её ориентации первым
-  const interior = byOrientation(
-    series.images.filter((i) => i.kind === "interior"),
-    parseOrientation(urlParams.get("o")),
-  );
-  // Товарных меньше HERO_MIN — добираем интерьером (той же ориентации первым), чтобы первый экран не был пустым
+  const interior = series.images.filter((i) => i.kind === "interior");
+  // Товарных меньше HERO_MIN — добираем интерьером, чтобы первый экран не был пустым.
   const product = series.images.filter((i) => !i.kind || i.kind === "product");
   const schemes = series.images.filter((i) => i.kind === "scheme");
   const gallery = product.length ? [...product, ...interior.slice(0, Math.max(0, HERO_MIN - product.length))] : series.images.filter((i) => i.kind !== "scheme");
@@ -96,10 +110,10 @@ export default async function SeriesPage({ params, searchParams }: PageProps<"/c
           />
         }
         topClassName={styles.top}
-        images={{ product: gallery, interior }}
+        images={gallery}
         tabs={<SeriesTabs tabs={seriesTabs(content)} />}
       />
-      <SeriesAbout {...content} orientation={parseOrientation(urlParams.get("o"))} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
+      <SeriesAbout {...content} category={category.slug} brandNames={Object.fromEntries(brands.map((b) => [b.slug, b.name]))} />
       <LeadSection source={`series/${series.slug}`} />
     </>
   );

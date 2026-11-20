@@ -1,0 +1,866 @@
+{
+  "date": "2026-11-18",
+  "scope": "A: common offers/traits/admin/controls; no Guardo/Velar split or storage writes",
+  "source_snapshot": {
+    "variants": {
+      "kzto": {
+        "count": 15479,
+        "sha256": "2a5032ee81faf03aa50cfb2dde3a77d67d7123d586685140566fcca212635aa8"
+      },
+      "guardo": {
+        "count": 35961,
+        "sha256": "4749494ea3e38adb3402b2df2350b23cecbb8536443ce9bc7ece8e7ee4c2e52d"
+      },
+      "nova": {
+        "count": 1380,
+        "sha256": "167ea256df56b718b708464eb38bef5ab44d995f1302e58472655e625b594319"
+      },
+      "velar": {
+        "count": 12608,
+        "sha256": "993b98cd4dd0a7ac0683622b1bdf7cbd385231c2656e2b1ecd29cc4d26fef92d"
+      }
+    },
+    "presentation": [
+      {
+        "series_id": 35,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/352ad583-4105-46d5-876f-7fb2fc5db3ff.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Pilon, общий вид, чёрный"
+      },
+      {
+        "series_id": 36,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/7dc2f492-1b91-476f-b0e4-e27315dacb26.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Retta 6P, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 37,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/70bc3025-13c4-47d5-be78-600b13695d5f.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Retta 4P, 1200 мм, вертикальный"
+      },
+      {
+        "series_id": 38,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/6433f9d9-091a-4e02-af24-20db568a3cab.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Diagonale, общий вид, белый"
+      },
+      {
+        "series_id": 39,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/804f078c-55ae-4005-a665-59a9e9764dbd.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Novanta, общий вид, белый"
+      },
+      {
+        "series_id": 40,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/94291bfd-fb69-49cc-b0ff-5cb97a5017f4.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Retta 6SP, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 42,
+        "showcase_id": null,
+        "image": "",
+        "focus": "",
+        "alt": ""
+      },
+      {
+        "series_id": 43,
+        "showcase_id": null,
+        "image": "",
+        "focus": "",
+        "alt": ""
+      },
+      {
+        "series_id": 44,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/6b0add6e-64e8-432d-85c1-9a963a8b08ba.png",
+        "focus": "50 50",
+        "alt": "Guardo Piatto, общий вид, белый"
+      },
+      {
+        "series_id": 46,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/67bbf6ad-1410-4cac-b8ba-1794a46d99a7.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Torre 6D, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 47,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/ad69d99a-3aa6-4093-8e0b-c6426474418e.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Torre 4D, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 48,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/37af1581-5f49-48a2-9ecb-99cba1691427.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Torre 3D, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 49,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/7d0b4b2b-bddb-4e01-b5a3-f05667d18e59.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Alto, общий вид, белый"
+      },
+      {
+        "series_id": 50,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/f48fe6cc-c7e4-4240-bb95-2fbece1030f0.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Alto Q, общий вид, белый"
+      },
+      {
+        "series_id": 51,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/0d7ac5ee-16dc-46a3-967f-7f0a2984ef34.jpg",
+        "focus": "50 50",
+        "alt": "Nova Siluet: в интерьере"
+      },
+      {
+        "series_id": 51,
+        "showcase_id": 1,
+        "image": "catalog_seriesimage/image/0cfbade2-0da6-41ca-8ab4-ee3930f0b688.jpg",
+        "focus": "50 50",
+        "alt": "Nova Siluet, в интерьере, белый (2)"
+      },
+      {
+        "series_id": 51,
+        "showcase_id": 2,
+        "image": "catalog_seriesimage/image/909096f8-dd91-4fda-b174-684899441bff.jpg",
+        "focus": "50 50",
+        "alt": "Nova Siluet, в интерьере, белый"
+      },
+      {
+        "series_id": 82,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/ac3830c8-aeb2-482e-bf7b-1032e0db1314.webp",
+        "focus": "50 50",
+        "alt": "Гармония — фото 4"
+      },
+      {
+        "series_id": 82,
+        "showcase_id": 32,
+        "image": "catalog_showcase/image/374e42db-2a3f-4110-901b-13b5a184cf7b.webp",
+        "focus": "50 50",
+        "alt": "Гармония"
+      },
+      {
+        "series_id": 83,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/e1165059-020d-4ac9-8e32-637a964e6273.jpg",
+        "focus": "50 50",
+        "alt": "Соло — фото 2"
+      },
+      {
+        "series_id": 84,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/207c7f20-1ebe-4a2a-bf07-a6156be93353.webp",
+        "focus": "50 50",
+        "alt": "Гармония А40 — фото 2"
+      },
+      {
+        "series_id": 84,
+        "showcase_id": 34,
+        "image": "catalog_showcase/image/0874987c-557e-4b61-86ee-fea2faf3daf4.webp",
+        "focus": "50 50",
+        "alt": "Гармония А40"
+      },
+      {
+        "series_id": 85,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/c1eef307-7774-4bc5-8b0a-11649bb6f818.webp",
+        "focus": "50 50",
+        "alt": "Гармония С40 — фото 2"
+      },
+      {
+        "series_id": 85,
+        "showcase_id": 33,
+        "image": "catalog_showcase/image/61430c07-4658-45dd-ab20-e8cf5e200cc2.webp",
+        "focus": "50 50",
+        "alt": "Гармония С40"
+      },
+      {
+        "series_id": 86,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/b85b4c19-8ed7-4cd5-9ff9-13f8c167d7e1.jpg",
+        "focus": "50 50",
+        "alt": "Элегант — фото 1"
+      },
+      {
+        "series_id": 87,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/b554a8e0-39dd-452b-be7d-eb31ad4ba2ad.jpg",
+        "focus": "50 50",
+        "alt": "Элегант Мини — фото 1"
+      },
+      {
+        "series_id": 88,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/aa53f9d2-de32-414a-a51e-bbde414174dc.png",
+        "focus": "50 50",
+        "alt": "Элегант Плюс — фото 1"
+      },
+      {
+        "series_id": 89,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/2e67cba4-c34e-449e-b0cf-466cfe43c4b8.jpg",
+        "focus": "50 50",
+        "alt": "Элегант В — фото 1"
+      },
+      {
+        "series_id": 90,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/d975769d-6604-4aa3-9a56-366809fe93ec.png",
+        "focus": "50 50",
+        "alt": "Бриз — фото 1"
+      },
+      {
+        "series_id": 91,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/c11a35d3-de66-4008-9bb7-12c7c4683965.png",
+        "focus": "50 50",
+        "alt": "Бриз Нерж — фото 1"
+      },
+      {
+        "series_id": 92,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/5087f9fd-79fb-48f1-8d26-95c5bab787cd.png",
+        "focus": "50 50",
+        "alt": "Бриз В — фото 1"
+      },
+      {
+        "series_id": 93,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/773b8a31-10cf-49fc-b925-1130c59bfbd5.png",
+        "focus": "50 50",
+        "alt": "Бриз В Нерж — фото 1"
+      },
+      {
+        "series_id": 94,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/8a4bf418-29e4-4260-8791-3d2034f6d8db.jpg",
+        "focus": "50 50",
+        "alt": "Бриз В TURBO — фото 1"
+      },
+      {
+        "series_id": 95,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/f01de8d4-6e57-4f02-8275-4093ea4a4060.png",
+        "focus": "50 50",
+        "alt": "Бриз В TURBO Нерж — фото 1"
+      },
+      {
+        "series_id": 96,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/62f62515-bb10-4146-91b3-a5649d4bd702.jpg",
+        "focus": "50 50",
+        "alt": "Параллели — фото 6"
+      },
+      {
+        "series_id": 97,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/63955405-72f9-420f-9a9a-16f229f7e881.png",
+        "focus": "50 50",
+        "alt": "Решётка Бриз — фото 1"
+      },
+      {
+        "series_id": 98,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/13cfefcc-763d-4abe-b6ea-efae0184c4d1.jpg",
+        "focus": "50 50",
+        "alt": "Quadrum 40 — фото 1"
+      },
+      {
+        "series_id": 99,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/60b595b7-ffee-4268-b3f9-2deb5bd7f5d6.jpg",
+        "focus": "50 50",
+        "alt": "Quadrum 60 — фото 1"
+      },
+      {
+        "series_id": 100,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/90e6e5b0-f6e0-4b5d-b83a-a2fd13abd25c.webp",
+        "focus": "50 50",
+        "alt": "РС — фото 1"
+      },
+      {
+        "series_id": 100,
+        "showcase_id": 31,
+        "image": "catalog_showcase/image/da0512a7-6f04-4e81-951f-c94bc130ea25.webp",
+        "focus": "50 50",
+        "alt": "РС"
+      },
+      {
+        "series_id": 101,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/5d8546e8-c244-4c61-a43d-2930ec9a6a16.webp",
+        "focus": "50 50",
+        "alt": "РСК — фото 4"
+      },
+      {
+        "series_id": 101,
+        "showcase_id": 30,
+        "image": "catalog_showcase/image/01ee29f6-41cf-40b8-90ee-dd813bda0876.webp",
+        "focus": "50 50",
+        "alt": "РСК"
+      },
+      {
+        "series_id": 102,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/f2c63eff-6ddf-46e9-9cc0-3acf967cfdf5.webp",
+        "focus": "50 50",
+        "alt": "Гармония С25 N — фото 2"
+      },
+      {
+        "series_id": 102,
+        "showcase_id": 23,
+        "image": "catalog_showcase/image/a154ea76-dead-43fe-9405-830d8fb48ee2.webp",
+        "focus": "50 50",
+        "alt": "Гармония С25 N"
+      },
+      {
+        "series_id": 103,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/b7763049-9430-44c1-80b6-851021d4ccb4.webp",
+        "focus": "50 50",
+        "alt": "Гармония А25 N — фото 1"
+      },
+      {
+        "series_id": 103,
+        "showcase_id": 22,
+        "image": "catalog_showcase/image/764f79e7-b0a3-4175-a7fe-a182ca61804c.webp",
+        "focus": "50 50",
+        "alt": "Гармония А25 N"
+      },
+      {
+        "series_id": 104,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/dd3a9ca4-d48f-4ce8-9e1e-7186a9421b4e.webp",
+        "focus": "50 50",
+        "alt": "Гармония А20 — фото 1"
+      },
+      {
+        "series_id": 104,
+        "showcase_id": 19,
+        "image": "catalog_showcase/image/9606c189-a594-41e8-981f-31c65f0dcc8f.webp",
+        "focus": "50 50",
+        "alt": "Гармония А20"
+      },
+      {
+        "series_id": 105,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/5786513a-e2d1-4981-b508-41d2ee9a01eb.png",
+        "focus": "50 50",
+        "alt": "Quadrum NEO 50 — фото 5"
+      },
+      {
+        "series_id": 106,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/5f1c4120-8df7-4f29-816d-a2bf4c0521a1.png",
+        "focus": "50 50",
+        "alt": "Quadrum 30, вертикальный"
+      },
+      {
+        "series_id": 107,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/80dfa723-d347-4e36-b675-46a1d5ab5ed4.png",
+        "focus": "50 50",
+        "alt": "Quadrum 50, вертикальный"
+      },
+      {
+        "series_id": 108,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/3cdcb6fb-d3e6-4053-89ca-a873251ee838.webp",
+        "focus": "50 50",
+        "alt": "BATARÌA — фото 1"
+      },
+      {
+        "series_id": 108,
+        "showcase_id": 14,
+        "image": "catalog_showcase/image/f5cdddad-c366-45ab-8606-e7cd61967110.webp",
+        "focus": "50 50",
+        "alt": "BATARÌA"
+      },
+      {
+        "series_id": 109,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/10299778-bd96-4239-9e99-f98f11877766.webp",
+        "focus": "50 50",
+        "alt": "BATARÌA Retro — фото 1"
+      },
+      {
+        "series_id": 109,
+        "showcase_id": 13,
+        "image": "catalog_showcase/image/2f936b65-1dc3-4d48-99a2-f12b651fb372.webp",
+        "focus": "50 50",
+        "alt": "BATARÌA Retro"
+      },
+      {
+        "series_id": 110,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/14c6418e-f65e-43c8-aa06-72fcf87eeb49.jpg",
+        "focus": "50 50",
+        "alt": "Ellipse S, вертикальный"
+      },
+      {
+        "series_id": 111,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/01039be4-275b-45f0-a291-0693e6fdbae8.jpg",
+        "focus": "50 50",
+        "alt": "Ellipse P, вертикальный"
+      },
+      {
+        "series_id": 167,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/7347daca-e624-43cd-8850-e98fd1201810.jpg",
+        "focus": "50 50",
+        "alt": "Velar P30, вертикальный"
+      },
+      {
+        "series_id": 168,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/056ef4af-2ac4-4d16-9694-2a42ea6a3ae3.jpg",
+        "focus": "50 50",
+        "alt": "Velar P60, вертикальный"
+      },
+      {
+        "series_id": 169,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/7a579eff-9ab6-4315-b3cc-e27b2271a2f8.jpg",
+        "focus": "50 50",
+        "alt": "Velar S, вертикальный"
+      },
+      {
+        "series_id": 170,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/7834564a-41a7-4c57-bb67-8191fe6063e6.jpg",
+        "focus": "50 50",
+        "alt": "Velar SP, вертикальный"
+      },
+      {
+        "series_id": 171,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/1f5cbdaa-ac9c-4bb0-ab78-b33f5e5da615.jpg",
+        "focus": "50 50",
+        "alt": "Velar Q40, вертикальный"
+      },
+      {
+        "series_id": 172,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/18316b14-9436-4d24-86d3-7e002b2a8467.jpg",
+        "focus": "50 50",
+        "alt": "Velar Q60, горизонтальный"
+      },
+      {
+        "series_id": 173,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/b8874d0e-01b0-4234-aa8b-f8477f4fd3e9.jpg",
+        "focus": "50 50",
+        "alt": "Velar Q80, вертикальный"
+      },
+      {
+        "series_id": 174,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/32517751-b2f1-4115-967a-136c85f5e560.jpg",
+        "focus": "50 50",
+        "alt": "Velar R32, вертикальный"
+      },
+      {
+        "series_id": 175,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/e6f505e7-354a-46d1-a8c4-a752c658f8b7.jpg",
+        "focus": "50 50",
+        "alt": "Velar R42, горизонтальный"
+      },
+      {
+        "series_id": 176,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/f48f01b8-335d-4d9c-bf52-b25af884e86b.jpg",
+        "focus": "50 50",
+        "alt": "Velar R89, вертикальный"
+      },
+      {
+        "series_id": 177,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/0534020e-7ac3-48de-b2cf-9ae9add711d6.jpg",
+        "focus": "50 50",
+        "alt": "Velar RT1, вертикальный"
+      },
+      {
+        "series_id": 178,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/a51b7cf0-9104-4c08-8969-5187d6552630.jpg",
+        "focus": "50 50",
+        "alt": "Velar RT2, вертикальный"
+      },
+      {
+        "series_id": 179,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/29c113b0-0df1-44fa-a711-a2ca27d060f4.jpg",
+        "focus": "50 50",
+        "alt": "Velar RT1W, вертикальный"
+      },
+      {
+        "series_id": 180,
+        "showcase_id": null,
+        "image": "",
+        "focus": "",
+        "alt": ""
+      },
+      {
+        "series_id": 181,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/efe0b13b-c103-452a-8b4e-a4f24ee8cc63.jpg",
+        "focus": "50 50",
+        "alt": "Velar QT1, вертикальный"
+      },
+      {
+        "series_id": 182,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/1d571fe4-ced6-4875-b81d-9377a40f45fe.jpg",
+        "focus": "50 50",
+        "alt": "Velar QT2, вертикальный"
+      },
+      {
+        "series_id": 183,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/597ad305-eb5b-4588-8b95-57ec38aa7e56.jpg",
+        "focus": "50 50",
+        "alt": "Velar P200, горизонтальный"
+      },
+      {
+        "series_id": 184,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/360fe283-f49f-41ad-a8b3-3cc7ce85110a.jpg",
+        "focus": "50 50",
+        "alt": "Velar P300, горизонтальный"
+      },
+      {
+        "series_id": 185,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/d23730a8-2cd3-4e97-b70d-9e5cb014c042.jpg",
+        "focus": "50 50",
+        "alt": "Velar Q500, горизонтальный"
+      },
+      {
+        "series_id": 186,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/a2c083d2-121e-480b-a32c-45b7a24b99b8.webp",
+        "focus": "50 50",
+        "alt": "Quadrum NEO 50 V — фото 1"
+      },
+      {
+        "series_id": 186,
+        "showcase_id": 8,
+        "image": "catalog_showcase/image/9302924c-3476-4f69-aeb8-e258d07874d9.webp",
+        "focus": "50 50",
+        "alt": "Quadrum NEO 50 V"
+      },
+      {
+        "series_id": 187,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/fde5c95f-0303-461b-aec8-ff3f58a6d7a6.webp",
+        "focus": "50 50",
+        "alt": "Quadrum NEO 50 H — фото 1"
+      },
+      {
+        "series_id": 187,
+        "showcase_id": 7,
+        "image": "catalog_showcase/image/05fd14c5-6a55-4746-94cc-d924b82b1505.webp",
+        "focus": "50 50",
+        "alt": "Quadrum NEO 50 H"
+      },
+      {
+        "series_id": 188,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/88d56449-5e1d-44a6-b924-70a681df39c2.webp",
+        "focus": "50 50",
+        "alt": "Соло В — фото 6"
+      },
+      {
+        "series_id": 188,
+        "showcase_id": 29,
+        "image": "catalog_showcase/image/c3dd6514-afed-4d83-9cf8-7ce86e3c1cf8.webp",
+        "focus": "50 50",
+        "alt": "Соло В"
+      },
+      {
+        "series_id": 189,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/3978d676-7943-40eb-96cd-40aec48a2a69.webp",
+        "focus": "50 50",
+        "alt": "Соло Г — фото 2"
+      },
+      {
+        "series_id": 189,
+        "showcase_id": 28,
+        "image": "catalog_showcase/image/a13a5f33-537e-4408-9542-7245ac23c9e7.webp",
+        "focus": "50 50",
+        "alt": "Соло Г"
+      },
+      {
+        "series_id": 190,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/a7ce2b46-d825-49b1-a035-1331387a6611.webp",
+        "focus": "50 50",
+        "alt": "Параллели В — фото 2"
+      },
+      {
+        "series_id": 190,
+        "showcase_id": 27,
+        "image": "catalog_showcase/image/1e168859-a9ad-4406-815c-f3834a2dc053.webp",
+        "focus": "50 50",
+        "alt": "Параллели В"
+      },
+      {
+        "series_id": 191,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/6f02c1e1-55b0-494c-9888-15f5371991ad.webp",
+        "focus": "50 50",
+        "alt": "Параллели Г — фото 1"
+      },
+      {
+        "series_id": 191,
+        "showcase_id": 26,
+        "image": "catalog_showcase/image/fd764ed0-6706-4db8-92b5-7e824adfbef5.webp",
+        "focus": "50 50",
+        "alt": "Параллели Г"
+      },
+      {
+        "series_id": 192,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/25b7f80c-8eb9-48b3-9fa7-3cc7b2b7127d.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 40 V — фото 1"
+      },
+      {
+        "series_id": 192,
+        "showcase_id": 25,
+        "image": "catalog_showcase/image/07198988-28ed-4833-ac86-cbd0df5cf796.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 40 V"
+      },
+      {
+        "series_id": 193,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/3d577896-5c45-4d6d-b06b-22569e4b6319.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 40 H — фото 1"
+      },
+      {
+        "series_id": 193,
+        "showcase_id": 24,
+        "image": "catalog_showcase/image/73fff292-d377-42e6-9f8d-255b568b51fd.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 40 H"
+      },
+      {
+        "series_id": 194,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/c7a36f64-9dc0-4eb8-86c1-d15fc7e93de9.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 60 V — фото 1"
+      },
+      {
+        "series_id": 194,
+        "showcase_id": 20,
+        "image": "catalog_showcase/image/8f487ec4-8be8-4f92-b35a-a05df93ead28.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 60 V"
+      },
+      {
+        "series_id": 195,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/fd163f40-9266-494a-8d39-cc8ee115ba47.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 60 H — фото 1"
+      },
+      {
+        "series_id": 195,
+        "showcase_id": 21,
+        "image": "catalog_showcase/image/39ebce42-9b4f-4092-9472-101313e76c55.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 60 H"
+      },
+      {
+        "series_id": 196,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/fb240955-185c-4b53-a60c-576941710eea.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 30 V — фото 1"
+      },
+      {
+        "series_id": 196,
+        "showcase_id": 18,
+        "image": "catalog_showcase/image/f4691f05-7829-4ef8-b936-0355cf06f832.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 30 V"
+      },
+      {
+        "series_id": 197,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/4452f070-5d45-469c-bb84-691f7fb01d59.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 30 H — фото 1"
+      },
+      {
+        "series_id": 197,
+        "showcase_id": 17,
+        "image": "catalog_showcase/image/1b463cc3-4170-44cb-98e1-179b485888cd.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 30 H"
+      },
+      {
+        "series_id": 198,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/f808cb95-7555-4f74-8bd3-e027cbeb1082.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 50 V — фото 1"
+      },
+      {
+        "series_id": 198,
+        "showcase_id": 15,
+        "image": "catalog_showcase/image/f6dd9d5a-8417-4879-a80b-5f3d7694f362.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 50 V"
+      },
+      {
+        "series_id": 199,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/d8cb75ae-8e04-41bf-badc-9fa912be9ec8.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 50 H — фото 1"
+      },
+      {
+        "series_id": 199,
+        "showcase_id": 16,
+        "image": "catalog_showcase/image/39b7de88-1afa-4c41-b4e1-8adf431b9d1f.webp",
+        "focus": "50 50",
+        "alt": "Quadrum 50 H"
+      },
+      {
+        "series_id": 200,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/71fe4feb-e7f7-4504-be86-08566901166b.webp",
+        "focus": "50 50",
+        "alt": "Ellipse S V — фото 1"
+      },
+      {
+        "series_id": 200,
+        "showcase_id": 12,
+        "image": "catalog_showcase/image/31bb56ae-f63f-4479-b1ad-a91e0ab855f1.webp",
+        "focus": "50 50",
+        "alt": "Ellipse S V"
+      },
+      {
+        "series_id": 201,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/e8d1864b-94f3-4240-9e02-4af8831a9dc4.webp",
+        "focus": "50 50",
+        "alt": "Ellipse S H — фото 1"
+      },
+      {
+        "series_id": 201,
+        "showcase_id": 10,
+        "image": "catalog_showcase/image/9b4cdfbc-82a3-4a99-bdea-8cd2a274b1f5.webp",
+        "focus": "50 50",
+        "alt": "Ellipse S H"
+      },
+      {
+        "series_id": 202,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/bf02538b-62f7-406e-8764-b75ed7879efe.webp",
+        "focus": "50 50",
+        "alt": "Ellipse P V — фото 1"
+      },
+      {
+        "series_id": 202,
+        "showcase_id": 11,
+        "image": "catalog_showcase/image/c48e2441-cd4d-4d1e-a432-d5c1ad8fa82f.webp",
+        "focus": "50 50",
+        "alt": "Ellipse P V"
+      },
+      {
+        "series_id": 203,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/d389bcd8-a249-4809-97e2-bb687d91ba1a.webp",
+        "focus": "50 50",
+        "alt": "Ellipse P H — фото 1"
+      },
+      {
+        "series_id": 203,
+        "showcase_id": 9,
+        "image": "catalog_showcase/image/e7d01414-c1df-4dd0-bfda-ceae6c44fde4.webp",
+        "focus": "50 50",
+        "alt": "Ellipse P H"
+      },
+      {
+        "series_id": 41,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/f9322ce8-9f76-470a-a901-5b2dcbfaf887.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Retta 3P, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 41,
+        "showcase_id": 3,
+        "image": "catalog_seriesimage/image/c2045f1b-f2da-4bdb-858f-eba9e75cfc5f.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Retta 3P, 430 мм, горизонтальный"
+      },
+      {
+        "series_id": 41,
+        "showcase_id": 4,
+        "image": "catalog_seriesimage/image/f9322ce8-9f76-470a-a901-5b2dcbfaf887.jpg",
+        "focus": "50 50",
+        "alt": "Guardo Retta 3P, 1800 мм, вертикальный"
+      },
+      {
+        "series_id": 45,
+        "showcase_id": null,
+        "image": "catalog_seriesimage/image/86dc5c1a-1904-4539-85f8-fc90193c748d.png",
+        "focus": "50 50",
+        "alt": "Guardo Stretto, общий вид, белый"
+      },
+      {
+        "series_id": 45,
+        "showcase_id": 5,
+        "image": "catalog_seriesimage/image/86dc5c1a-1904-4539-85f8-fc90193c748d.png",
+        "focus": "50 50",
+        "alt": "Guardo Stretto, общий вид, белый"
+      },
+      {
+        "series_id": 45,
+        "showcase_id": 6,
+        "image": "catalog_seriesimage/image/86dc5c1a-1904-4539-85f8-fc90193c748d.png",
+        "focus": "50 50",
+        "alt": "Guardo Stretto, общий вид, белый"
+      }
+    ]
+  },
+  "data_verification": {
+    "variant_pk_article_connection_prices_geometry": "unchanged, all4brands",
+    "presentation_image_focus_alt": "unchanged,118references"
+  },
+  "checks": {
+    "backend": "425passed after finalreview, Ruffcheck/format and migrationcheck",
+    "frontend": "12node tests, lint/productionbuild passed;375/768/1440 reduced-motion inspected"
+  },
+  "migration": "0019 local applied",
+  "attribute_audit": {
+    "series_changes": 67,
+    "verified_velar_unknown_traits": 12608
+  },
+  "shared_storage_writes": 0
+}

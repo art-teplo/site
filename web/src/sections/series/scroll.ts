@@ -7,6 +7,8 @@ const stickyOffset = () => {
   return header + tabs;
 };
 
+export const purchaseSectionId = (slug: string) => `series-purchase-${slug}`;
+
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (!el) return;

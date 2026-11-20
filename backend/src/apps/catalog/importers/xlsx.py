@@ -21,9 +21,10 @@ from apps.content.models import Tag
 from apps.content.signals import muted_revalidation
 from apps.content.tasks import revalidate_frontend
 
-from ..choices import Connection, Heating, Orientation
+from ..choices import Connection, Heating
 from ..models import Brand, Category, Color, ColorGroup, Series, Variant
 from ..pricing import recalculate
+from .factory_editions import route_grouped
 from .parse import (
     ANY_RAL,
     COLUMNS,
@@ -32,6 +33,7 @@ from .parse import (
     clean_text,
     parse_row,
 )
+from .product_families import assign_family, import_traits
 
 SHEETS = ('Guardo', 'Nova')
 CATEGORY_NAMES = {
@@ -234,21 +236,27 @@ def _group_rows(summary: Summary, rows):
                 connection == Connection.BOTTOM_ENDS
                 and (article, Connection.SIDE) in bases
             ):
-                _orient_rotated(colors)
+                _orient_rotated(colors, bases[article, Connection.SIDE])
     return grouped, article_series
 
 
-def _orient_rotated(colors):
-    """Повёрнутый двойник: артикул (GOR/VER) описывает боковой вариант, а
-    у нижнего по краям высота и ширина поменяны — положение берём из
-    геометрии самой строки."""
+def _orient_rotated(colors, counterparts):
+    """Подтверждённая пара заводских схем, без сравнения высоты и ширины."""
     for parsed in colors.values():
-        if parsed.height_mm and parsed.width_mm:
-            parsed.orientation = str(
-                Orientation.VERTICAL
-                if parsed.height_mm > parsed.width_mm
-                else Orientation.HORIZONTAL
-            )
+        side = counterparts.get(parsed.color_code) or next(
+            iter(counterparts.values())
+        )
+        if (
+            side.orientation in ('h', 'v')
+            and parsed.height_mm == side.width_mm
+            and parsed.width_mm == side.height_mm
+            and parsed.depth_mm == side.depth_mm
+            and parsed.power_w == side.power_w
+        ):
+            parsed.orientation = 'v' if side.orientation == 'h' else 'h'
+        else:
+            message = f'Неоднозначная повёрнутая пара: {parsed.base_article}'
+            raise PriceFileError(message)
 
 
 def _first(bases) -> ParsedRow:
@@ -258,6 +266,7 @@ def _first(bases) -> ParsedRow:
 def import_rows(sheet: str, rows) -> Summary:
     summary = Summary(sheet)
     grouped, _ = _group_rows(summary, rows)
+    grouped = route_grouped(grouped)
 
     brands, variants = {}, {}
     for slug, bases in grouped.items():
@@ -283,6 +292,7 @@ def import_rows(sheet: str, rows) -> Summary:
         if series.brand_id != brand.pk:
             summary.errors.append(FOREIGN_SERIES.format(slug))
             continue
+        assign_family(series)
         report = SeriesReport(series, created)
         summary.series.append(report)
         groups = _update_groups(report, bases, first.brand_slug)
@@ -563,6 +573,7 @@ def _save_variants(summary, series, bases, groups, existing):
         values['price'] = price
         values['is_active'] = any(row.is_active for row in colors.values())
         variant = existing.get(key)
+        values = import_traits(series, values, variant)
         if reference is None and variant is not None:
             # Ни одного цвета варианта нет в группах (менеджер их убрал):
             # базовую цену не вывести — оставляем прежнюю, не обнуляем

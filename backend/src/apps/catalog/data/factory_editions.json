@@ -1,0 +1,329 @@
+{
+  "version": 1,
+  "checked_on": "2026-11-18",
+  "parents": {
+    "guardo-retta-3p": {
+      "brand": "guardo",
+      "family_key": "retta-3p",
+      "name": "Guardo Retta 3P",
+      "source": "https://guardo.ru/downloads/Guardo_Retta-catalog-web-14-12-23.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-retta-3p-v",
+          "name": "Guardo Retta 3P V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-retta-3p-h",
+          "name": "Guardo Retta 3P H",
+          "orientation": "h"
+        }
+      }
+    },
+    "guardo-retta-4p": {
+      "brand": "guardo",
+      "family_key": "retta-4p",
+      "name": "Guardo Retta 4P",
+      "source": "https://guardo.ru/downloads/Guardo_Retta-catalog-web-14-12-23.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-retta-4p-v",
+          "name": "Guardo Retta 4P V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-retta-4p-h",
+          "name": "Guardo Retta 4P H",
+          "orientation": "h"
+        }
+      }
+    },
+    "guardo-retta-6p": {
+      "brand": "guardo",
+      "family_key": "retta-6p",
+      "name": "Guardo Retta 6P",
+      "source": "https://guardo.ru/downloads/Guardo_Retta-catalog-web-14-12-23.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-retta-6p-v",
+          "name": "Guardo Retta 6P V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-retta-6p-h",
+          "name": "Guardo Retta 6P H",
+          "orientation": "h"
+        }
+      }
+    },
+    "guardo-retta-6sp": {
+      "brand": "guardo",
+      "family_key": "retta-6sp",
+      "name": "Guardo Retta 6SP",
+      "source": "https://guardo.ru/downloads/Guardo_Retta-catalog-web-14-12-23.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-retta-6sp-v",
+          "name": "Guardo Retta 6SP V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-retta-6sp-h",
+          "name": "Guardo Retta 6SP H",
+          "orientation": "h"
+        }
+      }
+    },
+    "guardo-torre-3d": {
+      "brand": "guardo",
+      "family_key": "torre-3d",
+      "name": "Guardo Torre 3D",
+      "source": "https://guardo.ru/downloads/Guardo_Torre_15-12-24-catalog.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-torre-3d-v",
+          "name": "Guardo Torre 3D V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-torre-3d-h",
+          "name": "Guardo Torre 3D H",
+          "orientation": "h"
+        }
+      }
+    },
+    "guardo-torre-4d": {
+      "brand": "guardo",
+      "family_key": "torre-4d",
+      "name": "Guardo Torre 4D",
+      "source": "https://guardo.ru/downloads/Guardo_Torre_15-12-24-catalog.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-torre-4d-v",
+          "name": "Guardo Torre 4D V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-torre-4d-h",
+          "name": "Guardo Torre 4D H",
+          "orientation": "h"
+        }
+      }
+    },
+    "guardo-torre-6d": {
+      "brand": "guardo",
+      "family_key": "torre-6d",
+      "name": "Guardo Torre 6D",
+      "source": "https://guardo.ru/downloads/Guardo_Torre_15-12-24-catalog.pdf",
+      "targets": {
+        "v": {
+          "slug": "guardo-torre-6d-v",
+          "name": "Guardo Torre 6D V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "guardo-torre-6d-h",
+          "name": "Guardo Torre 6D H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-p30": {
+      "brand": "velar",
+      "family_key": "p30",
+      "name": "Velar P30",
+      "source": "Velar_профильные радиаторы.xlsx; P30 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-p30-v",
+          "name": "Velar P30 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-p30-h",
+          "name": "Velar P30 H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-p60": {
+      "brand": "velar",
+      "family_key": "p60",
+      "name": "Velar P60",
+      "source": "Velar_профильные радиаторы.xlsx; P60 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-p60-v",
+          "name": "Velar P60 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-p60-h",
+          "name": "Velar P60 H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-s": {
+      "brand": "velar",
+      "family_key": "s",
+      "name": "Velar S",
+      "source": "Velar_профильные радиаторы.xlsx; S V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-s-v",
+          "name": "Velar S V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-s-h",
+          "name": "Velar S H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-sp": {
+      "brand": "velar",
+      "family_key": "sp",
+      "name": "Velar SP",
+      "source": "Velar_профильные радиаторы.xlsx; SP V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-sp-v",
+          "name": "Velar SP V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-sp-h",
+          "name": "Velar SP H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-q60": {
+      "brand": "velar",
+      "family_key": "q60",
+      "name": "Velar Q60",
+      "source": "Velar_профильные радиаторы.xlsx; Q60 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-q60-v",
+          "name": "Velar Q60 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-q60-h",
+          "name": "Velar Q60 H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-q80": {
+      "brand": "velar",
+      "family_key": "q80",
+      "name": "Velar Q80",
+      "source": "Velar_профильные радиаторы.xlsx; Q80 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-q80-v",
+          "name": "Velar Q80 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-q80-h",
+          "name": "Velar Q80 H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-r32": {
+      "brand": "velar",
+      "family_key": "r32",
+      "name": "Velar R32",
+      "source": "Velar_профильные радиаторы.xlsx; R32 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-r32-v",
+          "name": "Velar R32 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-r32-h",
+          "name": "Velar R32 H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-r42": {
+      "brand": "velar",
+      "family_key": "r42",
+      "name": "Velar R42",
+      "source": "Velar_профильные радиаторы.xlsx; R42 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-r42-v",
+          "name": "Velar R42 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-r42-h",
+          "name": "Velar R42 H",
+          "orientation": "h"
+        }
+      }
+    },
+    "velar-r89": {
+      "brand": "velar",
+      "family_key": "r89",
+      "name": "Velar R89",
+      "source": "Velar_профильные радиаторы.xlsx; R89 V/H sheets",
+      "targets": {
+        "v": {
+          "slug": "velar-r89-v",
+          "name": "Velar R89 V",
+          "orientation": "v"
+        },
+        "h": {
+          "slug": "velar-r89-h",
+          "name": "Velar R89 H",
+          "orientation": "h"
+        }
+      }
+    }
+  },
+  "guardo_schemes": {
+    "side|BK-VER": "v",
+    "side|BK-GOR": "h",
+    "side|BK-VER-FL": "v",
+    "side|BK-GOR-FL": "h",
+    "bottom_ends|BK-VER": "h",
+    "bottom_ends|BK-GOR": "v",
+    "bottom_ends|NK-VER-FL": "v",
+    "bottom_ends|NK-GOR-FL": "h",
+    "bottom_left|NK-VER-L": "v",
+    "bottom_left|NK-VER-L-FL": "v",
+    "bottom_left|NK-GOR-L": "h",
+    "bottom_left|NK-GOR-L-FL": "h",
+    "bottom_right|NK-VER-R": "v",
+    "bottom_right|NK-VER-R-FL": "v",
+    "bottom_right|NK-GOR-R": "h",
+    "bottom_right|NK-GOR-R-FL": "h",
+    "bottom_center|MK-VER": "v",
+    "electric_left|E-L": "v",
+    "electric_right|E-R": "v"
+  },
+  "exceptions": [
+    {
+      "model": "Velar Q40 H",
+      "reason": "Нет листа и цены в предоставленном XLSX; не создавать поворотом V"
+    },
+    {
+      "model": "Velar P60-30",
+      "reason": "Повторные артикулы с конфликтующей шириной; исключён из импорта"
+    },
+    {
+      "model": "Nova Siluet / Guardo Pilon",
+      "reason": "Нет отдельных подтверждённых H/V исполнений; без разделения"
+    }
+  ]
+}

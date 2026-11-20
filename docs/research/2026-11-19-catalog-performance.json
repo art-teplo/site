@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-19",
+  "environment": "Локальная PostgreSQL, Django test Client GET /api/series/?category=radiatory[&brand=...], без кэша HTTP; по одному последовательному запросу на вариант.",
+  "scope": "Снимок до очистки архивных серий и объединения витрин Nova. after включает исправленные фасеты и поддержку RAL через palette CTE; модель, цены, наценки и данные вариантов этим изменением не менялись.",
+  "limitation": "Один замер, не распределение latency и не обещание времени на сервере.",
+  "results": [
+    {
+      "brand": "all",
+      "before": {
+        "status": 200,
+        "card_count": 72,
+        "seconds": 6.9346,
+        "sql_seconds": 6.5601,
+        "sql_queries": 20,
+        "colour_facet_sql_seconds": 0.8861
+      },
+      "after": {
+        "status": 200,
+        "card_count": 72,
+        "seconds": 3.457,
+        "sql_seconds": 3.081,
+        "sql_queries": 15,
+        "colour_facet_sql_seconds": 1.0365
+      }
+    },
+    {
+      "brand": "guardo",
+      "before": {
+        "status": 200,
+        "card_count": 15,
+        "seconds": 4.5114,
+        "sql_seconds": 4.4847,
+        "sql_queries": 20,
+        "colour_facet_sql_seconds": 0.7222
+      },
+      "after": {
+        "status": 200,
+        "card_count": 15,
+        "seconds": 2.1161,
+        "sql_seconds": 2.0908,
+        "sql_queries": 15,
+        "colour_facet_sql_seconds": 0.5905
+      }
+    },
+    {
+      "brand": "nova",
+      "before": {
+        "status": 200,
+        "card_count": 2,
+        "seconds": 2.5682,
+        "sql_seconds": 2.5542,
+        "sql_queries": 19,
+        "colour_facet_sql_seconds": 0.0174
+      },
+      "after": {
+        "status": 200,
+        "card_count": 2,
+        "seconds": 1.2186,
+        "sql_seconds": 1.2067,
+        "sql_queries": 14,
+        "colour_facet_sql_seconds": 0.0139
+      }
+    },
+    {
+      "brand": "velar",
+      "before": {
+        "status": 200,
+        "card_count": 27,
+        "seconds": 3.0738,
+        "sql_seconds": 3.0454,
+        "sql_queries": 19,
+        "colour_facet_sql_seconds": 0.1199
+      },
+      "after": {
+        "status": 200,
+        "card_count": 27,
+        "seconds": 1.4288,
+        "sql_seconds": 1.402,
+        "sql_queries": 14,
+        "colour_facet_sql_seconds": 0.1096
+      }
+    },
+    {
+      "brand": "kzto",
+      "before": {
+        "status": 200,
+        "card_count": 28,
+        "seconds": 4.4029,
+        "sql_seconds": 4.3685,
+        "sql_queries": 18,
+        "colour_facet_sql_seconds": 0.3225
+      },
+      "after": {
+        "status": 200,
+        "card_count": 28,
+        "seconds": 2.0214,
+        "sql_seconds": 1.9875,
+        "sql_queries": 13,
+        "colour_facet_sql_seconds": 0.3757
+      }
+    }
+  ]
+}

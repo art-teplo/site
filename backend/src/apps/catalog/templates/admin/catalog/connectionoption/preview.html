@@ -1,0 +1,15 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h2>{{ option.label }}</h2>
+<p>{{ option.series }} · {{ option.tubes }} рядов · {{ option.get_mount_display }}</p>
+<form method="get">{{ form.as_p }}<button type="submit" class="bg-primary-600 text-white px-4 py-2 rounded-default">Рассчитать</button></form>
+{% if row %}
+<table class="mt-6 w-full"><tbody>
+<tr><th>Артикул</th><td>{{ row.article }}</td></tr>
+<tr><th>Подключение</th><td>{{ row.configuration_label }}</td></tr>
+<tr><th>Размеры, мм</th><td>{{ row.width_mm }} × {{ row.height_mm }}</td></tr>
+<tr><th>Цена</th><td>{% if row.price != None %}{{ row.price }} BYN{% else %}Цена по запросу{% endif %}</td></tr>
+</tbody></table>
+{% elif form.is_bound %}<p class="mt-6">Нет подтверждённой конфигурации для этого артикула и подключения.</p>{% endif %}
+<p class="mt-6">Расчёт использует сохранённые настройки и базовую группу цвета. Новый вариант не создаётся.</p>
+{% endblock %}

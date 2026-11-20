@@ -7,6 +7,8 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+from apps.core.storage import LOCAL_MEDIA_PREFIX
+
 schema_urls = [
     path('', SpectacularAPIView.as_view(), name='schema'),
     path(
@@ -34,4 +36,10 @@ urlpatterns = [
 if not settings.S3__ENABLED:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
+
+elif settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL + LOCAL_MEDIA_PREFIX,
+        document_root=settings.MEDIA_ROOT / LOCAL_MEDIA_PREFIX,
     )

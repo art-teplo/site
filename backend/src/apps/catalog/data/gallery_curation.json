@@ -1,0 +1,187 @@
+{
+  "checked": "2026-11-18",
+  "scope": "Только КЗТО, серии с более чем 12 фото. Исходные записи и файлы сохраняются; скрытие обратимо в админке.",
+  "series": {
+    "kzto-garmoniya": {
+      "before": 18,
+      "kept": 11,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/78/k9a5420-obr_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/78/k9a0451-obr_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/1aa59689-7e3f-4ec8-be7f-a31db90a1c93.jpg",
+        "catalog_seriesimage/image/4eb02739-7163-4528-987a-adcf4cb84af9.jpg",
+        "catalog_seriesimage/image/95a1a28b-4de6-4d87-81f8-d80ecd76d1f1.jpg",
+        "catalog_seriesimage/image/035ca53b-6c05-4e7c-b47d-5e347b9ed452.jpg",
+        "catalog_seriesimage/image/4ae9bb7c-87aa-4d4e-9644-e673a497221a.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-garmoniya-s40": {
+      "before": 15,
+      "kept": 10,
+      "hidden_source_urls": [],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/7d24482e-ace7-47bd-b6af-762c244fabeb.jpg",
+        "catalog_seriesimage/image/7e0c12fe-2036-4a3c-8ed1-0870530137fd.jpg",
+        "catalog_seriesimage/image/c96e4c81-2ff7-4bef-bff0-eb3a2c882179.jpg",
+        "catalog_seriesimage/image/594478ba-3ef6-49de-9f57-81d8999db322.jpg",
+        "catalog_seriesimage/image/501dbcfd-659c-4a5e-86c2-6ba7dd8367aa.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-rs": {
+      "before": 19,
+      "kept": 12,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/1778/20.10.2024-rs-podokno-bel-do-matveenko-kuxnya-transformer-dlya-osobennoj-semi-(10)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/1778/k9a7387-obr-2-1_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/1c80cb3c-6dd2-42e5-80bb-614ed836476c.jpg",
+        "catalog_seriesimage/image/981db481-e8a0-494a-9772-a56dd7b55cbc.jpg",
+        "catalog_seriesimage/image/113deb72-3e11-40c9-a71b-a820611072bd.jpg",
+        "catalog_seriesimage/image/105e3224-c551-4110-a992-f2ef8a185b05.jpg",
+        "catalog_seriesimage/image/d0f9e664-23c7-4623-8825-107aea192779.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-rsk": {
+      "before": 20,
+      "kept": 12,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/5986/k9a0203_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/5986/k9a0385_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/5986/24.11.2024-rsk-do-malyutina-peredelka-v-biletnoj-kasse-kzto-vyiborka-(20)_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/7eb9a1e6-bb86-459f-b030-a04520043384.jpg",
+        "catalog_seriesimage/image/6bbcb587-90f3-4804-82a9-65af72a32a94.jpg",
+        "catalog_seriesimage/image/8d564664-6729-4d14-bc08-239d1504f882.jpg",
+        "catalog_seriesimage/image/69fa4444-4a28-4f85-944d-3a574303eb53.jpg",
+        "catalog_seriesimage/image/33f2cbdc-b367-4f75-a44f-d297beffeff4.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-garmoniya-s25-n": {
+      "before": 13,
+      "kept": 8,
+      "hidden_source_urls": [],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/76a7038b-72c2-4e8a-bccf-076ee346dd8a.jpg",
+        "catalog_seriesimage/image/2215cab3-d219-489a-99d7-da3f714e231d.jpg",
+        "catalog_seriesimage/image/27c8d9b7-3e63-430d-a810-41ad9807be9a.jpg",
+        "catalog_seriesimage/image/1598de38-c7b1-4ae6-8acd-5ab9c0ad9e83.jpg",
+        "catalog_seriesimage/image/ed75b2b5-4005-4089-86ac-162ca8791fe8.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-garmoniya-a25-n": {
+      "before": 13,
+      "kept": 6,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/20606/05.05.2024-garmoniyaa25-do-chistyakova-gostinaya-dlya-gnomov-i-lyudej-(8)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/20606/k9a0533_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/f3f906bb-b12d-4177-a31d-94807e5c8c84.png",
+        "catalog_seriesimage/image/156d6ba1-d7f6-4414-bc35-4d04fb0298d5.jpg",
+        "catalog_seriesimage/image/521b135c-fe08-4403-bbfb-3986ab192f33.jpg",
+        "catalog_seriesimage/image/ef94369c-85ad-4426-ad68-e0ab9be7c98c.jpg",
+        "catalog_seriesimage/image/ac542ed4-7729-46bd-a0db-62b36f3581cb.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-bataria": {
+      "before": 58,
+      "kept": 12,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/08.12.2024-batariya-denisova-ryikova-kuxnya-gostinaya-s-vishenkoj-na-torte-(6)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/08.12.2024-batariya-denisova-ryikova-kuxnya-gostinaya-s-vishenkoj-na-torte-(3)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/19.01.2025-batariya2-zhelt-miklashevskaya-spalnya-v-besedke-pod-zvyozdami-(3)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22582_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-015_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-nogi-1_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-027_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/batariya-3-4k-nv-v-interere-2-1-(dlya-sajta)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22613_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22592_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22598_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22599_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22596_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/batariya-2-4k-nv-v-interere-1-1-(dlya-sajta)_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22572_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22573_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22606_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22608_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22609_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22611_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22580_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22581_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22583_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22584_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22588_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bat-003.1.22603_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-016_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-018_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-019_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-020_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-021_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-022_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-024_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-025_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-026_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-028_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-030_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-031_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-032_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/bataria-033_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/24500/batariya-2-4k-nv-v-interere-2-1-(dlya-sajta)_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [
+        "catalog_seriesimage/image/051a98f0-6708-4403-a490-5eafaef76194.png",
+        "catalog_seriesimage/image/3185a0af-8f10-48fc-994c-4d887fb283a2.jpg",
+        "catalog_seriesimage/image/ad0b564f-b0ba-43e9-9533-e061c1c83c16.jpg",
+        "catalog_seriesimage/image/2868fe87-0be9-45df-8115-fea9cde16e26.jpg",
+        "catalog_seriesimage/image/2429a253-3796-45fd-98ae-d916b72acf87.jpg"
+      ],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-quadrum-30-v": {
+      "before": 16,
+      "kept": 7,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/quadrum30v-015-1_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/q30v-high4_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/quadrum30v-001-1_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/q30v-high5_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/q30v-high6_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/quadrum30v-003-1_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/q30v-high7_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/quadrum30v-009-1_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23163/quadrum30v-014-1_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    },
+    "kzto-quadrum-30-h": {
+      "before": 16,
+      "kept": 6,
+      "hidden_source_urls": [
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-24_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-17_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-18_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-19_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-29_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-22_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-20_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-28_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-25_1290x720_5f7.webp",
+        "https://kztoradiator.ru/assets/cache_image/resources/23334/quadrum-30h-27_1290x720_5f7.webp"
+      ],
+      "hidden_image_files": [],
+      "reason": "Визуально отобраны разные общие планы, детали и интерьеры; убраны повторы и близкие ракурсы."
+    }
+  }
+}

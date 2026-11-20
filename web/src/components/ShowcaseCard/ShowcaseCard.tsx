@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { colorPreview } from "@/lib/color-preview";
+import { showcaseQuery } from "@/lib/series-selection";
 import Link from "next/link";
 import { Arrow } from "@/components/Button/Button";
 import { Frame } from "@/components/Frame/Frame";
@@ -10,25 +15,34 @@ const MAX_DOTS = 5;
 const RATIO = "4 / 3"; // под форму фото: у большинства 4:3…16:9, обрезка небольшая
 
 // Карточка формфактора серии: фото, «Гармония А40 · 1800 мм, вертикальный», бренд, «от N BYN», цвета.
-// Вся карточка — одна ссылка на серию с выбранной высотой и ориентацией.
-type Props = { card: Card; category: string; brand?: string; sizes?: string; priority?: boolean };
+// Вся карточка — одна ссылка на серию. Передаёт уже заданные фильтры каталога.
+type Props = { card: Card; category: string; brand?: string; sizes?: string; priority?: boolean; query?: string; article?: string };
 
-export function ShowcaseCard({ card, category, brand, sizes = "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw", priority }: Props) {
-  // Высота — фильтр таблицы, ориентация — какие фото показать первыми
-  const params = new URLSearchParams();
-  if (card.heightMm) params.set("h", String(card.heightMm));
-  if (card.orientation) params.set("o", card.orientation);
+export function ShowcaseCard({ card, category, brand, sizes = "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw", priority, query, article }: Props) {
+  const params = showcaseQuery(query ?? "", article);
   const href = `/catalog/${category}/${card.series}${params.size ? `?${params}` : ""}`;
-  const extra = card.colors.length - MAX_DOTS;
+  const { visible: colors, extra } = colorPreview(card.colors, MAX_DOTS);
   const photo = { fit: "smart" as const, frame: 4 / 3 };
+  const hoverImage = card.image ? card.hoverImage : null;
+  const [requestedPhoto, setRequestedPhoto] = useState<string | null>(null);
+  const [loadedPhoto, setLoadedPhoto] = useState<string | null>(null);
   return (
-    <article className={styles.card}>
-      <div className={cx(styles.media, card.image && card.hoverImage && styles.swap)}>
+    <article className={styles.card} onPointerEnter={hoverImage ? (event) => {
+      if (event.pointerType !== "touch" && window.matchMedia("(hover: hover)").matches) setRequestedPhoto(hoverImage.src);
+    } : undefined}>
+      <div className={cx(styles.media, hoverImage && styles.swap)}>
         {card.image ? (
           <>
             <Picture image={card.image} sizes={sizes} eager={priority} {...photo} />
-            {/* второе фото проявляется поверх первого при наведении */}
-            {card.hoverImage && <Picture image={card.hoverImage} sizes={sizes} {...photo} className={styles.hoverImage} />}
+            {hoverImage && requestedPhoto === hoverImage.src && (
+              <Picture
+                image={{ ...hoverImage, alt: "" }}
+                sizes={sizes}
+                {...photo}
+                className={cx(styles.hoverImage, loadedPhoto === hoverImage.src && styles.hoverReady)}
+                onLoad={() => setLoadedPhoto(hoverImage.src)}
+              />
+            )}
           </>
         ) : (
           <Frame ratio={RATIO} rounded={false}>
@@ -46,7 +60,7 @@ export function ShowcaseCard({ card, category, brand, sizes = "(max-width: 767px
         {card.label && <p className={styles.meta}>{card.label}</p>}
         {card.colors.length > 0 && (
           <p className={styles.colors} aria-label={`Цветов: ${card.colors.length}`}>
-            {card.colors.slice(0, MAX_DOTS).map((c) => (
+            {colors.map((c) => (
               <span key={c.code} className={styles.dot} style={{ background: c.hex }} title={c.name} />
             ))}
             {extra > 0 && <span className={styles.more}>+{extra}</span>}

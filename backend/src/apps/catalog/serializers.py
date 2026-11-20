@@ -1,5 +1,3 @@
-import math
-
 from rest_framework import serializers
 
 from apps.content.serializers import ImageAssetMixin, image_asset
@@ -58,77 +56,24 @@ class LeadTimeSerializer(serializers.ModelSerializer):
         fields = ['series', 'brand', 'days', 'updated_at']
 
 
-# Витрину без ориентации от этой высоты считаем вертикальной
-VERTICAL_FROM_MM = 900
-
-
-def _orientation(variant) -> str:
-    """h / v варианта витрины: из поля, иначе по высоте; неизвестно — ''."""
-    if variant is None:
-        return ''
-    if variant.orientation:
-        return variant.orientation
-    # По высоте, а не по пропорциям: витрина стоит на самом маленьком
-    # варианте, и низкий радиатор на 4 секции выходит «выше, чем шире»
-    if variant.height_mm:
-        return 'v' if variant.height_mm >= VERTICAL_FROM_MM else 'h'
-    return ''
-
-
 def _photos(series) -> list:
     """Фото серии без схем: схема подключений — не фото товара."""
     return [
-        i for i in series.images.all() if i.kind != SeriesImage.Kind.SCHEME
+        i
+        for i in series.images.all()
+        if i.is_visible and i.kind != SeriesImage.Kind.SCHEME
     ]
 
 
-def _fits(image, orientation: str) -> bool:
-    """Фото подходит формфактору: без ориентации — к любому."""
-    return not orientation or image.orientation in {'', orientation}
-
-
 def _card_photo(showcase, series):
-    """Фото серии для карточки витрины без своего фото: той же ориентации,
-    что вариант витрины (низкий и высокий формфактор одной серии не
-    выглядят одинаково), «товарное» раньше «в интерьере»; иначе главное.
-    Фото другой ориентации у витрины не берём, пока есть другие."""
-    orientation = _orientation(showcase.variant if showcase else None)
-    images = [i for i in _photos(series) if _fits(i, orientation)]
-    if orientation:
-        same = [i for i in images if i.orientation == orientation]
-        same.sort(key=lambda i: i.kind != SeriesImage.Kind.PRODUCT)
-        if same:
-            return same[0]
-    # Формфактор не задан: первое по порядку админки товарное фото, которое
-    # ложится в рамку карточки (4:3) без размытого фона; таких нет — самое
-    # близкое по форме. Вертикальное фото в горизонтальной рамке уходит на
-    # размытый фон и выглядит мелким
-    product = [i for i in images if i.kind == SeriesImage.Kind.PRODUCT]
-    fitting = [i for i in product if _card_misfit(i) <= CARD_FIT]
-    if fitting:
-        return fitting[0]
-    if product:
-        return min(product, key=_card_misfit)
-    return images[0] if images else _main_image(series)
-
-
-CARD_RATIO = 4 / 3  # рамка фото в карточке, как RATIO в ShowcaseCard.tsx
-# Обрезка до 30 % — фото заполняет рамку (MAX_CROP в Picture.tsx): |ln(1-0.3)|
-CARD_FIT = -math.log(1 - 0.3)
-
-
-def _card_misfit(image):
-    """Насколько фото не совпадает по форме с карточкой: 0 — точно.
-    Без размеров — в конец, порядок из админки сохраняется (min стабилен)."""
-    if not image.image_width or not image.image_height:
-        return math.inf
-    return abs(math.log(image.image_width / image.image_height / CARD_RATIO))
+    """Своя обложка витрины или первое товарное фото серии."""
+    if showcase is not None and showcase.image:
+        return showcase
+    return _main_image(series)
 
 
 def card_image(showcase, series):
-    """Фото витрины, иначе фото серии под её формфактор, иначе None."""
-    if showcase is not None and showcase.image:
-        return image_asset(showcase)
+    """Фото витрины или подходящее фото серии."""
     image = _card_photo(showcase, series)
     return image_asset(image) if image is not None else None
 
@@ -147,44 +92,26 @@ def series_image(series):
 
 def hover_image(series, showcase=None):
     """Фото при наведении: первое «в интерьере», иначе второе «товарное»;
-    не то же, что уже стоит в карточке. У витрины — только фото её
-    ориентации или без ориентации, своей ориентации — раньше."""
-    shown = (
-        None
-        if showcase and showcase.image
-        else _card_photo(
-            showcase,
-            series,
-        )
-    )
-    orientation = _orientation(showcase.variant if showcase else None)
+    отличается от фото на карточке."""
+    shown = _card_photo(showcase, series)
     images = [
-        i for i in _photos(series) if i != shown and _fits(i, orientation)
+        i for i in _photos(series) if not shown or i.image != shown.image
     ]
-    # sort стабилен: внутри — порядок из админки
-    images.sort(key=lambda i: bool(orientation) and i.orientation == '')
     interior = [i for i in images if i.kind == SeriesImage.Kind.INTERIOR]
     product = [i for i in images if i.kind == SeriesImage.Kind.PRODUCT]
     if interior:
         return image_asset(interior[0])
-    if shown is None and len(product) > 1:
-        return image_asset(product[1])
-    return image_asset(product[0]) if product and shown else None
+    return image_asset(product[0]) if product else None
 
 
 def card(series, showcase, price, colors, label=''):
-    """Карточка списка: серия в одном формфакторе. Подпись — витрины, без
-    витрины — собранная из вариантов (label)."""
-    variant = showcase.variant if showcase is not None else None
+    """Карточка серии с автоматической подписью по размерам."""
     return {
         'series': series.slug,
         'name': series.name,
         'brand': series.brand.slug,
         'category': series.category.slug,
-        'label': showcase.label if showcase is not None else label,
-        'height_mm': variant.height_mm if variant is not None else None,
-        # h / v витрины: страница серии ставит фото этой ориентации первыми
-        'orientation': _orientation(variant),
+        'label': label,
         'price_from': price,
         'image': card_image(showcase, series),
         'hover_image': hover_image(series, showcase),
@@ -195,6 +122,13 @@ def card(series, showcase, price, colors, label=''):
 
 def tile(series):
     """Плитка модельного ряда бренда."""
+    family = series.family if series.family_id else None
+    if family and family.presentation_photo_id:
+        return {
+            'series': f'{series.brand.slug}-{family.key}',
+            'name': f'{series.brand.name} {family.name}',
+            'image': image_asset(family.presentation_photo),
+        }
     return {
         'series': series.slug,
         'name': series.name,
@@ -235,7 +169,6 @@ def series_image_full(image) -> dict:
         **image_asset(image),
         'color': image.color.code if image.color else None,
         'kind': image.kind,
-        'orientation': image.orientation,
     }
 
 
@@ -243,6 +176,7 @@ def series_detail(
     series,
     *,
     ranges: dict,
+    range_steps: dict,
     price_from: int | None,
     price_from_by_group: dict[int, int | None],
     executions: list[dict],
@@ -261,18 +195,40 @@ def series_detail(
             'country': series.brand.country,
         },
         'description': series.description,
+        'factory_orientation': series.factory_orientation or None,
+        'editions': [
+            {
+                'slug': s.slug,
+                'orientation': s.factory_orientation or None,
+                'label': s.family_label
+                or s.get_factory_orientation_display()
+                or s.name,
+            }
+            for s in series.family.series.filter(
+                is_published=True, variants__is_active=True
+            )
+            .order_by('factory_orientation', 'family_label', 'pk')
+            .distinct()
+        ]
+        if series.family_id
+        else [],
         'material': series.material,
         'heating': series.heating,
         'pressure_bar': series.pressure_bar,
         'warranty_years': series.warranty,
         # Файл в S3; ключ прежний — фронт ждёт адрес, пусто — видео нет
         'video_url': series.video.url if series.video else '',
-        'images': [series_image_full(i) for i in series.images.all()],
+        'images': [
+            series_image_full(i) for i in series.images.all() if i.is_visible
+        ],
         'files': [
-            {'title': f.title, 'url': f.file.url} for f in series.files.all()
+            {'title': f.title, 'url': f.file.url}
+            for f in series.files.all()
+            if f.is_visible
         ],
         'color_groups': [color_group(g) for g in series.color_groups.all()],
         'ranges': ranges,
+        'range_steps': range_steps,
         'price_from': price_from,
         'price_from_by_group': price_from_by_group,
         'executions': executions,

@@ -14,7 +14,6 @@ from apps.catalog.models import (
     LeadTime,
     Series,
     SeriesImage,
-    Showcase,
     Subcategory,
     Variant,
 )
@@ -264,7 +263,6 @@ class Command(BaseCommand):
             self.load_color_groups(series, item['color_groups'])
             variants += self.load_variants(series, item['variants'])
             self.load_series_images(series, item['images'])
-            self.load_showcases(series, item['showcases'])
         pricing.recalculate(Variant.objects.filter(pk__in=variants))
 
     def load_color_groups(self, series, groups):
@@ -305,23 +303,8 @@ class Command(BaseCommand):
             obj = series.images.filter(image_alt=image['alt']).first()
             obj = obj or SeriesImage(series=series)
             obj.position = position
+            obj.kind = image.get('kind', obj.kind)
+            if color := image.get('color'):
+                obj.color = Color.objects.get(code=color)
             self.attach(obj, image)
             obj.save()
-
-    def showcase_variant(self, series, item):
-        # Артикул может быть и у «стоя», и у повёрнутого: берём указанное
-        # подключение, без него — боковое, иначе первый по размерам
-        found = series.variants.filter(article=item['variant'])
-        if 'connection' in item:
-            return found.get(connection=item['connection'])
-        found = found.order_by('height_mm', 'width_mm')
-        return found.filter(connection='side').first() or found.first()
-
-    def load_showcases(self, series, items):
-        for position, item in enumerate(items):
-            showcase = series.showcases.filter(label=item['label']).first()
-            showcase = showcase or Showcase(series=series)
-            showcase.label = item['label']
-            showcase.variant = self.showcase_variant(series, item)
-            showcase.position = position
-            showcase.save()

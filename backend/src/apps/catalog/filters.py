@@ -7,7 +7,17 @@ apply() не нужна схема: она нужна только разбор�
 import re
 from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal, InvalidOperation
 
-from django.db.models import Count, F, IntegerField, Max, Min, Q, QuerySet
+from django.contrib.postgres.aggregates import ArrayAgg
+from django.db.models import (
+    BooleanField,
+    Count,
+    F,
+    IntegerField,
+    Max,
+    Min,
+    Q,
+    QuerySet,
+)
 from django.db.models.fields.json import KeyTextTransform
 from django.http import QueryDict
 
@@ -56,6 +66,12 @@ def _expression(source: str):
 
 
 def _coerce(source: str, values: list[str]) -> list:
+    if isinstance(_model_field(source), BooleanField):
+        return [
+            value.lower() == 'true'
+            for value in values
+            if value.lower() in ('true', 'false')
+        ]
     if not _is_int_column(source):
         return values
     result = []
@@ -97,6 +113,8 @@ def _parse_colors(params, field):
     known = set(
         Color.objects.filter(code__in=codes).values_list('code', flat=True)
     )
+    # Общая возможность запроса RAL не является записью обычного цвета.
+    known.add('any-ral')
     codes = [code for code in codes if code in known]
     return (COLORS, field.source, codes) if codes else None
 
@@ -194,6 +212,31 @@ def _plain_number(value) -> int | float:
     return float(value)
 
 
+def range_steps(qs: QuerySet, fields: list[Field]) -> dict[str, list[int]]:
+    """Размеры всей серии одним агрегатом; фронт кэширует с её деталями.
+
+    Не вычисляется при фильтрации/пагинации таблицы. Цена и мощность могут
+    иметь тысячи значений, поэтому для них остаётся обычный числовой ввод.
+    """
+    keys = {'height', 'width', 'depth', 'length', 'axis', 'sections'}
+    aggregates = {
+        field.key: ArrayAgg(
+            field.source,
+            distinct=True,
+            order_by=field.source,
+            filter=Q(**{f'{field.source}__isnull': False}),
+        )
+        for field in fields
+        if field.kind == RANGE and field.filter and field.key in keys
+    }
+    if not aggregates:
+        return {}
+    return {
+        key: values or []
+        for key, values in qs.order_by().aggregate(**aggregates).items()
+    }
+
+
 def range_facets(qs: QuerySet, fields: list[Field]) -> dict[str, dict]:
     ranges = [f for f in fields if f.kind == RANGE and f.filter]
     if not ranges:
@@ -240,6 +283,8 @@ def _value_labels(field: Field, values: list[str]) -> dict[str, str]:
         )
         return {value: names.get(value, value) for value in values}
     model_field = _model_field(source)
+    if isinstance(model_field, BooleanField):
+        return {v: YES if v.lower() == 'true' else NO for v in values}
     if model_field is not None and model_field.choices:
         choices = {str(k): str(v) for k, v in model_field.choices}
         return {value: choices.get(value, value) for value in values}

@@ -29,6 +29,12 @@ from apps.core.groups import (
 PASSWORD = 'длинный-пароль-менеджера'
 
 
+def test_admin_configuration_passes_django_system_checks():
+    from django.core.checks import Tags, run_checks  # noqa: PLC0415
+
+    assert run_checks(tags=[Tags.admin]) == []
+
+
 def codenames(group):
     return {
         f'{p.content_type.app_label}.{p.codename}'
@@ -164,6 +170,8 @@ def test_manager_sees_catalog_admin_pages(manager_client):
         'admin:catalog_series_add',
         'admin:catalog_variant_changelist',
         'admin:catalog_variant_add',
+        'admin:catalog_productfamily_changelist',
+        'admin:catalog_connectionoption_changelist',
         'admin:catalog_color_changelist',
         'admin:catalog_currencyrate_changelist',
     ]:
@@ -172,6 +180,59 @@ def test_manager_sees_catalog_admin_pages(manager_client):
     add = manager_client.get(reverse('admin:catalog_currencyrate_add'))
 
     assert add.status_code == 403
+
+
+@pytest.mark.django_db
+def test_manager_can_preview_connection_without_creating_variant(
+    manager_client,
+):
+    from apps.catalog.models import ConnectionOption, CurrencyRate  # noqa: PLC0415
+
+    brand = Brand.objects.create(slug='kzto', name='КЗТО')
+    category = Category.objects.create(slug='radiatory', name='Радиаторы')
+    series = Series.objects.create(
+        slug='preview',
+        name='Пример',
+        brand=brand,
+        category=category,
+        offer_mode='configured',
+    )
+    Variant.objects.create(
+        series=series,
+        article='preview-5',
+        tubes=2,
+        sections=5,
+        price=10000,
+        currency='RUB',
+    )
+    option = ConnectionOption.objects.create(
+        series=series,
+        source_id='test',
+        label='Нижнее',
+        tubes=2,
+        mount='wall',
+        connection='bottom_center',
+        surcharge_rub=6007,
+        allowed_sections=[5],
+        checked_on='2026-11-18',
+    )
+    CurrencyRate.objects.create(
+        currency='RUB', rate=Decimal('0.04'), date='2026-11-18'
+    )
+    before = Variant.objects.count()
+    response = manager_client.get(
+        reverse('admin:catalog_connectionoption_preview', args=[option.pk]),
+        {'article': 'preview-5'},
+    )
+    assert response.status_code == 200
+    assert response.context_data['row']['price'] == 640
+    assert Variant.objects.count() == before
+    assert (
+        manager_client.get(
+            reverse('admin:catalog_connectionoption_add')
+        ).status_code
+        == 403
+    )
 
 
 @pytest.mark.django_db
@@ -186,7 +247,7 @@ def test_catalog_admin_series_change_page_opens(manager_client):
 
 
 @pytest.mark.django_db
-def test_brand_markup_change_recalculates_prices(
+def test_series_markup_change_recalculates_prices(
     manager_client,
     django_capture_on_commit_callbacks,
 ):
@@ -202,14 +263,23 @@ def test_brand_markup_change_recalculates_prices(
 
     with django_capture_on_commit_callbacks(execute=False):
         response = manager_client.post(
-            reverse('admin:catalog_brand_change', args=[brand.pk]),
+            reverse('admin:catalog_series_change', args=[series.pk]),
             {
-                'name': 'Б',
-                'slug': 'b',
-                'country': '',
-                'note': 'Примечание',
+                'name': 'С',
+                'slug': series.slug,
+                'brand': brand.pk,
+                'category': category.pk,
+                'heating': 'water',
                 'markup_percent': '10',
                 'is_published': 'on',
+                'color_groups-TOTAL_FORMS': '0',
+                'color_groups-INITIAL_FORMS': '0',
+                'images-TOTAL_FORMS': '0',
+                'images-INITIAL_FORMS': '0',
+                'files-TOTAL_FORMS': '0',
+                'files-INITIAL_FORMS': '0',
+                'showcases-TOTAL_FORMS': '0',
+                'showcases-INITIAL_FORMS': '0',
             },
         )
 

@@ -99,10 +99,10 @@ def test_import_puts_new_photos_first_and_skips_repeats():
         import_series(series, again, dry_run=False)
 
     images = list(series.images.all())
-    assert [(i.image_alt, i.orientation, i.position) for i in images] == [
-        ('Guardo Retta 3P, 1800 мм, вертикальный', 'v', 0),
-        ('Guardo Retta 3P, 430 мм, горизонтальный', 'h', 1),
-        ('старое', '', 2),
+    assert [(i.image_alt, i.position) for i in images] == [
+        ('Guardo Retta 3P, 1800 мм, вертикальный', 0),
+        ('Guardo Retta 3P, 430 мм, горизонтальный', 1),
+        ('старое', 2),
     ]
     assert images[0].kind == SeriesImage.Kind.PRODUCT
     # Размеры — в базе, а не дочитаны из файла при загрузке записи
@@ -113,6 +113,37 @@ def test_import_puts_new_photos_first_and_skips_repeats():
     assert (summary.added, again.added, again.skipped) == (2, 0, 2)
     old.refresh_from_db()
     assert old.position == 2
+
+
+@pytest.mark.django_db
+def test_import_targets_split_series_even_when_archive_is_absent(
+    monkeypatch, settings, tmp_path
+):
+    from django.core.management import call_command  # noqa: PLC0415
+
+    settings.MEDIA_ROOT = tmp_path
+    brand = Brand.objects.create(name='Guardo', slug='guardo')
+    category = Category.objects.create(name='К', slug='k')
+    horizontal = Series.objects.create(
+        brand=brand,
+        category=category,
+        name='Guardo Retta 3P H',
+        slug='guardo-retta-3p-h',
+        factory_orientation='h',
+    )
+    html = page(
+        render(1800, 'vertikalnoe'),
+        render(430, 'gorizontalnoe'),
+        render(250, 'beloe'),
+    )
+
+    def fetch(url):
+        return html.encode() if url.endswith('/') else jpeg()
+
+    monkeypatch.setattr(factory_photos, 'fetch', fetch)
+    call_command('import_photos', brand='guardo')
+    photo = horizontal.images.get()
+    assert '430 мм' in photo.image_alt
 
 
 @pytest.mark.parametrize(

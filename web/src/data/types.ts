@@ -130,8 +130,8 @@ export type CatalogField = {
 
 export type FacetValue = { value: string; label: string; count: number; hex?: string };
 export type Facet =
-  | { key: string; label: string; kind: "range"; unit: string; min: number | null; max: number | null }
-  | { key: string; label: string; kind: "list" | "colors"; unit?: string; values: FacetValue[] };
+  | { key: string; label: string; kind: "range"; unit: string; has_unknown?: boolean; total_values?: number; min: number | null; max: number | null }
+  | { key: string; label: string; kind: "list" | "colors"; unit?: string; has_unknown?: boolean; total_values?: number; values: FacetValue[] };
 
 export type ShowcaseCard = {
   series: string;
@@ -139,8 +139,6 @@ export type ShowcaseCard = {
   brand: string;
   category?: string; // Category.slug — приходит в поиске и «Похожих»
   label: string;
-  heightMm: number | null;
-  orientation?: "h" | "v" | ""; // ориентация витрины: на странице серии фото этой ориентации — первыми
   priceFrom: number | null;
   image: ImageAsset | null;
   hoverImage?: ImageAsset | null; // второе фото: показывается при наведении
@@ -151,9 +149,11 @@ export type ShowcaseCard = {
 export type ModelTile = { series: string; name: string; image: ImageAsset | null };
 
 // key = "<трубы>-<подключение>", трубы 0 = без труб; подключения нет — "0-"
-export type Execution = { key: string; tubes: number; connection: Connection | null; label: string; count: number };
+export type Execution = { key: string; tubes: number; connection: Connection | null; label: string; count: number; mount?: "wall" | "floor" | null; thermovalve?: boolean | null; sourceId?: string };
 
 export type VariantRow = {
+  configurationLabel?: string;
+  configurationKey?: string;
   article: string;
   heightMm: number | null;
   widthMm: number | null;
@@ -165,7 +165,7 @@ export type VariantRow = {
   areaM2: number | null; // 1 знак
   tubes: number | null;
   connection: Connection | null;
-  thermovalve: boolean;
+  thermovalve: boolean | null;
   orientation: "h" | "v" | "";
   mount: "wall" | "floor" | "";
   attrs: Record<string, string | number | boolean>;
@@ -178,9 +178,11 @@ export type VariantRow = {
 
 // kind: product — фото изделия (галерея первого экрана), interior — в интерьере (раздел «В интерьере»),
 // scheme — схема подключений и размеров (раздел «Подключения»); нет поля — product
-export type SeriesImage = ImageAsset & { color: string | null; orientation: "h" | "v" | ""; kind?: "product" | "interior" | "scheme" };
+export type SeriesImage = ImageAsset & { color: string | null; kind?: "product" | "interior" | "scheme" };
 
 export type SeriesDetail = {
+  factory_orientation?: "h" | "v" | null;
+  editions?: {slug: string; orientation: "h" | "v" | null; label: string}[];
   slug: string;
   name: string;
   category: string;
@@ -195,6 +197,7 @@ export type SeriesDetail = {
   files: { title: string; url: string }[];
   colorGroups: ColorGroup[];
   ranges: Record<string, [number | null, number | null]>; // только для полей фильтра, не для цены «от»
+  rangeSteps?: Record<string, number[]>; // реальные размеры всей серии, отдельно от страниц таблицы
   priceFrom: number | null; // «от» без выбранного цвета
   priceFromByGroup: Record<number, number | null>; // «от» при выбранном цвете, по id группы; null — по запросу
   executions: Execution[];
