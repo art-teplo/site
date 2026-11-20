@@ -153,14 +153,14 @@ export function SeriesHero({ series, images: gallery, row, color, stale, configu
             )}
             {firstHidden !== undefined && (
               <li>
-                <Lightbox images={images} title={series.name}>
+                <Lightbox images={images} title={series.name} video={video}>
                   {(open) => (
                     <button
                       type="button"
                       className={cx(styles.thumb, styles.thumbMore)}
                       aria-haspopup="dialog"
                       aria-label={`Посмотреть ещё ${hiddenThumbs.length} фото: ${series.name}`}
-                      onClick={() => open(firstHidden)}
+                      onClick={() => open(thumbs.indexOf(firstHidden))}
                     >
                       <Picture image={images[firstHidden]} sizes="72px" fit="smart" frame={4 / 3} />
                       <span className={styles.thumbMoreCount}>+{hiddenThumbs.length}</span>
@@ -178,7 +178,7 @@ export function SeriesHero({ series, images: gallery, row, color, stale, configu
           </div>
         ) : image ? (
           // Клик по фото — галерея на весь экран с того же кадра: стрелки, свайп, ← →, Esc
-          <Lightbox images={images} title={series.name}>
+          <Lightbox images={images} title={series.name} video={video}>
             {(open) => (
               <button
                 type="button"
@@ -186,7 +186,7 @@ export function SeriesHero({ series, images: gallery, row, color, stale, configu
                 style={{ aspectRatio: frameRatio(image) }}
                 aria-haspopup="dialog"
                 aria-label={`${series.name}: открыть фото ${current + 1} из ${images.length} на весь экран`}
-                onClick={() => open(current)}
+                onClick={() => open(thumbs.indexOf(current))}
               >
                 {/* Текущий и соседние кадры: остальные полноразмерные фото не конкурируют за загрузку первого экрана. */}
                 {images.map((im, i) => ({ im, i })).filter(({ i }) => Math.abs(i - current) <= 1).map(({ im, i }) => (
