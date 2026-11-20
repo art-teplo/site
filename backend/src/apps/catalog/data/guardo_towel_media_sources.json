@@ -1,0 +1,235 @@
+{
+  "rows": [
+    {
+      "series": "guardo-diagonale",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/929/1440_960_1/polotencesushitel-guardo-diagonale-1200x532-s-11-perekladinami-hromirovannyj-vodyanoj.jpg",
+          "filename": "polotencesushitel-guardo-diagonale-1200x532-s-11-perekladinami-hromirovannyj-vodyanoj.jpg",
+          "sha256": "ecef1b2b867738c00ee82b843b4eafca494848ade8a5bdd627a4a4c65bbae4d1",
+          "alt": "Guardo Diagonale, в интерьере, 1200 × 532 мм, водяной, хромированный",
+          "color": "Хром",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/a58/1440_960_1/polotencesushitel-guardo-diagonale-1200x532-s-11-perekladinami-hromirovannyj-elektricheskij.jpg",
+          "filename": "polotencesushitel-guardo-diagonale-1200x532-s-11-perekladinami-hromirovannyj-elektricheskij.jpg",
+          "sha256": "08c322731166064a3cc062321fc1d80ee8aa5af27c7875ffe9167fa5514d8169",
+          "alt": "Guardo Diagonale, в интерьере, 1200 × 532 мм, электрический, хромированный",
+          "color": "Хром",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/a67/1440_960_1/diagonale-shema.jpg",
+          "filename": "diagonale-shema.jpg",
+          "sha256": "699b0e3d2e8d731ee12ff47cbad7709274e64dab0f38619e5eed95f14080998b",
+          "alt": "Guardo Diagonale, схема размеров 800 и 1200 мм",
+          "color": "",
+          "kind": "scheme"
+        }
+      ]
+    },
+    {
+      "series": "guardo-novanta",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/6f3/1440_960_1/polotencesushitel-guardo-novanta-750x500-chernyj-matovyj-ral-9005-vodyanoj-min.jpg",
+          "filename": "polotencesushitel-guardo-novanta-750x500-chernyj-matovyj-ral-9005-vodyanoj-min.jpg",
+          "sha256": "40b4c51c52d52867ae15b7b4c245539d4efb1c57a66faa6785a15a07ef54fd97",
+          "alt": "Guardo Novanta, в интерьере, 750 × 500 мм, водяной, чёрный матовый",
+          "color": "RAL 9005",
+          "kind": "interior"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/593/1440_960_1/polotencesushitel-guardo-novanta-750x500-belyj-matovyj-ral-9016-vodyanoj-min.jpg",
+          "filename": "polotencesushitel-guardo-novanta-750x500-belyj-matovyj-ral-9016-vodyanoj-min.jpg",
+          "sha256": "d20431dc83698da9739e5eb8ce3bc33850568b86a17093e44e3d262e93510ab8",
+          "alt": "Guardo Novanta, в интерьере, 750 × 500 мм, водяной, белый матовый",
+          "color": "RAL 9016",
+          "kind": "interior"
+        }
+      ]
+    },
+    {
+      "series": "guardo-piatto",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/687/hr3tnzba2j7f7ohe7l3wj156ac9lrhmz/1440_960_1/render_1_2.png",
+          "filename": "render_1_2.png",
+          "sha256": "fa3c2dd9a584376b3c63cb9da0ae1f2adab35763134cfb12bf9b01b572680fc6",
+          "alt": "Guardo Piatto, общий вид, водяной, чёрный матовый",
+          "color": "RAL 9005",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/ffe/97gbx3dxuk0xfw6or0g5ectvk4u94f1e/1440_960_1/render_3_1.png",
+          "filename": "render_3_1.png",
+          "sha256": "c5fb221384a8e604d506162143c5c547ac73dc1df797bb6776415065f66bcbd6",
+          "alt": "Guardo Piatto, общий вид, водяной, хромированный",
+          "color": "Хром",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/f50/whs9lzbvqalwh6bb7o4arpyk50t58udv/1440_960_1/SHEMA.jpg",
+          "filename": "SHEMA.jpg",
+          "sha256": "093e0e9bbe970109f8603ec3b36dd0f9171b0d66af0210d0d84da5b70f85952d",
+          "alt": "Guardo Piatto, схема размеров и подключения",
+          "color": "",
+          "kind": "scheme"
+        },
+        {
+          "url": "https://guardo.ru/upload/iblock/c36/2d2rz6953jpwacl1ui63p1vfrmmjj9ik/Guardo%20Piatto%20500x800%20.png",
+          "filename": "Guardo Piatto 500x800 .png",
+          "sha256": "5a545ed2c3f78c74db587d86c6e1b93d52810e6641a41a3c0c3cfa6146247d68",
+          "alt": "Guardo Piatto, схема подключения, высота 800 мм, ширина 530 мм",
+          "color": "",
+          "kind": "scheme"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/2e1/rauc1aazizta1j3jz7ynburipcukq1ht/Guardo_Piatto_scheme.pdf",
+          "filename": "Guardo_Piatto_scheme.pdf",
+          "sha256": "3f6e156c34096592a8e8d9e879a244d59493d472912c832627da9cd3986dc7f4",
+          "title": "Guardo Piatto — схемы типоразмеров"
+        }
+      ]
+    },
+    {
+      "series": "guardo-stretto",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c5e/f2h34qefw3g7tx7mtafuvimde44pu5rc/1440_960_1/render_2.png",
+          "filename": "render_2.png",
+          "sha256": "bd0e6c637a5f617a03c49ed59fe48495635f23726646fe3927713f749e98d055",
+          "alt": "Guardo Stretto, общий вид, водяной, белый матовый",
+          "color": "RAL 9016",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/d21/k8g63dgxi262hne7gwqvvrn8owf8ec02/1440_960_1/render_1.png",
+          "filename": "render_1.png",
+          "sha256": "e588c9d76cda18ed3292fd9447edb8930f956aebb5922f0392d04be8185ac9eb",
+          "alt": "Guardo Stretto, общий вид, водяной, чёрный матовый",
+          "color": "RAL 9005",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/601/28a4b2pm17oux0x0hcbna7qgx9gm8rie/1440_960_1/render3.png",
+          "filename": "render3.png",
+          "sha256": "14c00986108ed8e20a60cf16f38a3a00c052973b4626ab86a8f41a0a161297cf",
+          "alt": "Guardo Stretto, общий вид, водяной, хромированный",
+          "color": "Хром",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/a55/k0fapp26u30n8ts8ida9nn5qya39rzsm/1440_960_1/render_1_2.png",
+          "filename": "render_1_2.png",
+          "sha256": "7ecd9391425c7bc59c6ea8347ed76609a9e0642acfee98ace6e4bff74af2a28c",
+          "alt": "Guardo Stretto, в интерьере, водяной, чёрный матовый",
+          "color": "RAL 9005",
+          "kind": "interior"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/3a4/obbdojq4cty9xy1a293cil9drgmwwmc3/1440_960_1/render_3_1.png",
+          "filename": "render_3_1.png",
+          "sha256": "d673d4cf77901de6d05e98b4b61d6321151cbfccfb4203fca685be28c78b499e",
+          "alt": "Guardo Stretto, в интерьере, водяной, хромированный",
+          "color": "Хром",
+          "kind": "interior"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/aad/qr1gwj510i67kv9eufqq7ujrlktrbfgi/1440_960_1/render3.png",
+          "filename": "render3.png",
+          "sha256": "6178405882836b7bb0cbaffe86d3cc54e7bff437849cbf61843bbe90b50041d9",
+          "alt": "Guardo Stretto, общий вид, электрический, хромированный",
+          "color": "Хром",
+          "kind": "product"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/a64/gkrd4468bviv5of61z5viuxye08pp9kz/Guardo_Stretto_scheme.pdf",
+          "filename": "Guardo_Stretto_scheme.pdf",
+          "sha256": "edabcea8f1025b55e39d6417c40abb701065d0d6b5776d524fba584d826b0914",
+          "title": "Guardo Stretto — схемы типоразмеров"
+        }
+      ]
+    },
+    {
+      "series": "guardo-alto",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e6d/p40z35veqbrxqjhk1hjzzam983y6cyuc/1400_932_240cd750bba9870f18aada2478b24840a/polotentsesushitel-guardo-alto-ral-zoloto-titan-elektricheskiy-s-greyushchim-kabelem.png",
+          "filename": "polotentsesushitel-guardo-alto-ral-zoloto-titan-elektricheskiy-s-greyushchim-kabelem.png",
+          "sha256": "bfb87a662e0fe42b73121a84e761bb3f8c5438bacad3cb53bcdc69aab0df13e0",
+          "alt": "Guardo Alto, в интерьере, электрический, титан «Золото»",
+          "color": "Золото",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e86/umutq2z4mx4ubcefax4lx5jtxk0wk6qz/1400_932_240cd750bba9870f18aada2478b24840a/polotentsesushitel-guardo-alto-ral-oruzheynaya-stal-titan-elektricheskiy-s-greyushchim-kabelem.png",
+          "filename": "polotentsesushitel-guardo-alto-ral-oruzheynaya-stal-titan-elektricheskiy-s-greyushchim-kabelem.png",
+          "sha256": "3e3e647831e968f0d5fa296600f2aac5c9e59d4ab46f9b0ede5d9147b6085242",
+          "alt": "Guardo Alto, в интерьере, электрический, титан «Оружейная сталь»",
+          "color": "Оружейная сталь",
+          "kind": "product"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/147/viojo4n6zk3323mprl92l13ryfrbaauh/1440_960_1/polotentsesushitel-guardo-alto-khromirovannyy-elektricheskiy-s-greyushchim-kabelem-2.jpg",
+          "filename": "polotentsesushitel-guardo-alto-khromirovannyy-elektricheskiy-s-greyushchim-kabelem-2.jpg",
+          "sha256": "077a1045ab305e8c5e86d210a6e20d1b0a49f8329e07472bc6a1ece5a07bd372",
+          "alt": "Guardo Alto, в интерьере, электрический, хромированный",
+          "color": "Хром",
+          "kind": "interior"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/67b/yqnvauzmtzvpud1aubmklzdrsc7huw6a/1440_960_1/polotentsesushitel-guardo-alto-1800x140-s-3-perekladinami-belyy-matovyy-ral-9016-elektricheskiy-s-greyushchim-kabelem.jpg",
+          "filename": "polotentsesushitel-guardo-alto-1800x140-s-3-perekladinami-belyy-matovyy-ral-9016-elektricheskiy-s-greyushchim-kabelem.jpg",
+          "sha256": "543a94c506135a7c846f3edd60ef7e4b3053c61e856af7f4493d525e49d4d416",
+          "alt": "Guardo Alto, в интерьере, 1800 × 140 мм, электрический, белый матовый",
+          "color": "RAL 9016",
+          "kind": "interior"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/111/90ueg7rvb6rzpfjafki3szk4vl2cb1rr/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5%20%D0%A1%D1%85%D0%B5%D0%BC%D1%8B%20ALTO.pdf",
+          "filename": "Guardo_Alto_schemes.pdf",
+          "sha256": "b9bc2ba1735c95055d3bdf4bf389766010176843208500561c1555da06fb72d6",
+          "title": "Guardo Alto — схемы типоразмеров"
+        }
+      ]
+    },
+    {
+      "series": "guardo-alto-q",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/73f/gluo8r0p13plladabw1b3lhh1hx87qab/1440_960_1/polotentsesushitel-guardo-alto-q-1800x150-s-3-perekladinami-chernyy-matovyy-ral-9005-elektricheskiy-s-greyushchim-kabelem.jpg",
+          "filename": "polotentsesushitel-guardo-alto-q-1800x150-s-3-perekladinami-chernyy-matovyy-ral-9005-elektricheskiy-s-greyushchim-kabelem.jpg",
+          "sha256": "bdaea069d95c6cdc883cfe0b6362e3961c18b04ac98b233b4554060745873f79",
+          "alt": "Guardo Alto Q, в интерьере, 1800 × 150 мм, электрический, чёрный матовый",
+          "color": "RAL 9005",
+          "kind": "interior"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/f95/tctsd26f6wyolto34arexide3r7o3am6/1440_960_1/polotentsesushitel-guardo-alto-q-1200x30-s-1-perekladinoy-khromirovannyy-elektricheskiy-s-greyushchim-kabelem.jpg",
+          "filename": "polotentsesushitel-guardo-alto-q-1200x30-s-1-perekladinoy-khromirovannyy-elektricheskiy-s-greyushchim-kabelem.jpg",
+          "sha256": "ce164f520f52af32a9b4c25e1577802425f1329431bd8e1670c188b2dda5cf58",
+          "alt": "Guardo Alto Q, в интерьере, 1200 × 30 мм, электрический, хромированный",
+          "color": "Хром",
+          "kind": "interior"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/6b5/evnb51axlrpt142oohvmosvuroy577va/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5%20%D0%A1%D1%85%D0%B5%D0%BC%D1%8B%20ALTO%20Q.pdf",
+          "filename": "Guardo_Alto_Q_schemes.pdf",
+          "sha256": "ba9acac437fc4359fbe5ff7b34b46d7b0b0314fbcd7e7ff5b991cef341ef8dc5",
+          "title": "Guardo Alto Q — схемы типоразмеров"
+        }
+      ]
+    }
+  ],
+  "source": "https://guardo.ru/catalog/polotentsesushiteli-guardo/"
+}

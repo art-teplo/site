@@ -456,7 +456,7 @@ def test_loaddemo_is_repeatable(media):
     assert ProjectPhoto.objects.count() == 6
     # проекты, их доп. фото, статьи, акции, шоурум, категории, логотипы,
     # фото демо-серий
-    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5 + 9 + 8  # + фото типов
+    assert len(files) == 4 + 6 + 3 + 1 + 5 + 4 + 5 + 8 + 8  # + фото типов
 
 
 @pytest.mark.django_db
@@ -469,11 +469,9 @@ def test_loaddemo_loads_series():
     assert series.count() == 3
     for item in series:
         assert item.color_groups.filter(is_base=True).count() == 1
-        assert item.showcases.count() >= 2
-        assert all(show.variant_id for show in item.showcases.all())
     assert Variant.objects.count() == 16
-    assert SeriesImage.objects.count() == 9
-    assert Showcase.objects.count() == 6
+    assert SeriesImage.objects.count() == 8
+    assert Showcase.objects.count() == 0
 
 
 # --- админка ---

@@ -193,31 +193,25 @@ def test_hover_image_falls_back_to_second_product(client, shop):
     assert cards['retta']['hover_image'] is None
 
 
-def test_showcase_photos_follow_its_orientation(client, shop):
-    """Вертикальная витрина: фото и наведение — только вертикальные или без
-    ориентации, хотя горизонтальные стоят в админке раньше."""
+def test_showcase_gallery_follows_admin_order(client, shop):
     variant = Variant.objects.filter(series=shop.retta).first()
     Variant.objects.filter(pk=variant.pk).update(orientation='v')
     Showcase.objects.create(series=shop.retta, label='в', variant=variant)
-    for kind, orientation, name in [
-        ('product', 'h', 'ph'),
-        ('product', 'v', 'pv'),
-        ('interior', 'h', 'ih'),
-        ('interior', '', 'i0'),
-        ('interior', 'v', 'iv'),
+    for kind, name in [
+        ('product', 'ph'),
+        ('product', 'pv'),
+        ('interior', 'ih'),
+        ('interior', 'iv'),
     ]:
         SeriesImage.objects.create(
             series=shop.retta,
             image=png(f'{name}.png'),
             image_alt=name,
             kind=kind,
-            orientation=orientation,
         )
     card = search(client, 'retta')[0]
-    assert card['orientation'] == 'v'
-    assert card['image']['alt'] == 'pv'
-    # своя ориентация раньше фото без ориентации, горизонтальное — никогда
-    assert card['hover_image']['alt'] == 'iv'
+    assert card['image']['alt'] == 'ph'
+    assert card['hover_image']['alt'] == 'ih'
 
 
 def test_detail_images_have_kind(client, shop):
@@ -377,9 +371,7 @@ def test_search_sort_and_limit(client, shop):  # noqa: ARG001
     assert len(found(limit='0')) == 1
 
 
-def test_card_prefers_photo_shaped_like_card(client, shop):
-    """Рамка карточки 4:3: вертикальное товарное фото, даже первое в
-    админке, уступает горизонтальному."""
+def test_card_takes_first_product_photo_regardless_of_shape(client, shop):
     wide = SeriesImage.objects.create(
         series=shop.retta,
         image=png('wide.png'),
@@ -403,12 +395,11 @@ def test_card_prefers_photo_shaped_like_card(client, shop):
         image_height=1300,
     )
     card = search(client, 'retta')[0]
-    assert card['image']['alt'] == 'w'
+    assert card['image']['alt'] == 't'
+    assert card['hover_image']['alt'] == 'w'
 
 
-def test_card_takes_first_fitting_photo_in_admin_order(client, shop):
-    """Из фото, которые ложатся в рамку 4:3 без размытого фона, — первое по
-    порядку админки: менеджер выбирает фото карточки перетаскиванием."""
+def test_moving_product_photo_first_changes_card_image(client, shop):
     for position, (name, width, height) in enumerate(
         [('tall', 1000, 1300), ('first', 1600, 1000), ('exact', 1600, 1200)],
     ):
@@ -423,6 +414,10 @@ def test_card_takes_first_fitting_photo_in_admin_order(client, shop):
             image_width=width,
             image_height=height,
         )
+    assert search(client, 'retta')[0]['image']['alt'] == 'tall'
+    SeriesImage.objects.filter(series=shop.retta, image_alt='tall').update(
+        position=3
+    )
     assert search(client, 'retta')[0]['image']['alt'] == 'first'
 
 
@@ -483,14 +478,17 @@ def test_water_heating_facet_label_is_russian(client, shop):
     }
 
 
-def test_empty_facets_are_dropped(client, shop):  # noqa: ARG001
+def test_empty_facets_are_dropped_and_constants_are_described(client, shop):  # noqa: ARG001
     data = client.get(
         reverse('series-list'),
         {'category': 'radiatory'},
     ).json()
     keys = {f['key'] for f in data['facets']}
-    # у всех вариантов одна высота, нет цветов, подключений и т. п.
-    assert 'height' not in keys
+    # Постоянная высота нужна общему блоку характеристик; пустые поля не нужны.
+    height = next(f for f in data['facets'] if f['key'] == 'height')
+    assert height['total_values'] == 1
+    assert height['min'] == height['max']
+    assert 'height' in keys
     assert 'color' not in keys
     assert 'connection' not in keys
     assert 'price' in keys
@@ -557,27 +555,3 @@ def test_variant_row_has_base_price_for_client_repricing(client, shop):
     row = response.json()['results'][0]
     assert row['price_byn'] == 100.0
     assert row['color_groups'] == []
-
-
-@pytest.mark.parametrize(
-    ('orientation', 'height', 'expected'),
-    [
-        ('h', 2000, 'h'),
-        ('', 300, 'h'),
-        ('', 1800, 'v'),
-        ('', None, ''),
-    ],
-)
-def test_showcase_orientation_falls_back_to_height(
-    orientation,
-    height,
-    expected,
-):
-    from apps.catalog.serializers import _orientation  # noqa: PLC0415
-
-    variant = SimpleNamespace(
-        orientation=orientation,
-        height_mm=height,
-        width_mm=200,
-    )
-    assert _orientation(variant) == expected

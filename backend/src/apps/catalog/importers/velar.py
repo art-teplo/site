@@ -32,6 +32,12 @@ from ..models import (
     Variant,
 )
 from ..pricing import recalculate
+from .factory_editions import (
+    active_split_parents,
+    route_velar,
+    validate_split_parents,
+)
+from .product_families import assign_family, import_traits
 from .velar_text import describe
 from .xlsx import ANY_RAL_GROUP, BASE_GROUP, PriceFileError, _open
 
@@ -53,7 +59,7 @@ class Sheet:
     slug: str
     name: str
     orientation: str
-    mount: str = Mount.WALL
+    mount: str = ''
 
 
 def _model(code: str, name: str, *sheets: tuple[str, str]):
@@ -267,6 +273,7 @@ def import_velar(path, *, publish=False, dry_run=False) -> Summary:
     summary = Summary()
     # серия → (строки, любой RAL у всех её листов)
     parsed: dict[str, tuple[list[Row], bool]] = {}
+    active = active_split_parents()
     try:
         for title in book.sheetnames:
             if title in SKIPPED:
@@ -281,6 +288,7 @@ def import_velar(path, *, publish=False, dry_run=False) -> Summary:
                 summary,
             )
             for row in rows:
+                row = route_velar(row, active)
                 found, flag = parsed.get(row.sheet.slug, ([], True))
                 found.append(row)
                 parsed[row.sheet.slug] = (found, flag and any_ral)
@@ -289,6 +297,7 @@ def import_velar(path, *, publish=False, dry_run=False) -> Summary:
     if not parsed:
         return summary
     with muted_revalidation(), transaction.atomic():
+        validate_split_parents({p for p in active if p.startswith('velar-')})
         _save(summary, parsed, publish=publish)
         if dry_run:
             transaction.set_rollback(True)
@@ -335,6 +344,7 @@ def _save(summary: Summary, parsed, *, publish: bool) -> None:
         if series.brand_id != brand.pk:
             summary.errors.append(FOREIGN_SERIES.format(slug))
             continue
+        assign_family(series)
         imported.append(series.pk)
         result = SeriesResult(series, created)
         summary.series.append(result)
@@ -404,11 +414,12 @@ def _save_variants(summary, series, rows: list[Row], existing) -> set:
             continue  # повтор строки в файле — первая главная
         kept.add(key)
         variant = existing.get(key)
+        values = import_traits(series, row.values, variant)
         if variant is not None:
             if variant.series_id != series.pk:
                 continue  # перенесён менеджером в другую серию
-            if any(getattr(variant, k) != v for k, v in row.values.items()):
-                for name, value in row.values.items():
+            if any(getattr(variant, k) != v for k, v in values.items()):
+                for name, value in values.items():
                     setattr(variant, name, value)
                 changed.append(variant)
             continue
@@ -416,7 +427,7 @@ def _save_variants(summary, series, rows: list[Row], existing) -> set:
             series=series,
             brand_id=series.brand_id,
             article=row.article,
-            **row.values,
+            **values,
         )
         existing[key] = variant
         new.append(variant)

@@ -82,7 +82,7 @@ const FIELDS: Record<string, CatalogField[]> = {
     f("power", "Мощность", "range", "Вт"),
     f("area", "Площадь обогрева", "range", "м²"),
     f("sections", "Секции", "range"),
-    f("tubes", "Трубность", "list"),
+    f("tubes", "Рядов труб в глубину", "list"),
     f("connection", "Подключение", "list"),
     f("orientation", "Положение", "list"),
     COLOR_FIELD,
@@ -151,7 +151,7 @@ const photos = (dir: string, name: string): SeriesImage[] =>
     ["main", "общий вид"],
     ["interior", "в интерьере"],
     ["detail", "деталь"],
-  ].map(([file, what]) => ({ src: `/images/products/${dir}/${file}.jpg`, width: 1200, height: 1500, alt: `${name}: ${what}`, color: null, orientation: "" }));
+  ].map(([file, what]) => ({ src: `/images/products/${dir}/${file}.jpg`, width: 1200, height: 1500, alt: `${name}: ${what}`, color: null }));
 
 const swatch = (code: string, name: string, hex: string, finish: string) => ({ code, name, hex, finish });
 const group = (id: number, name: string, percent: number, isBase: boolean, anyRal: boolean, colors: ColorGroup["colors"]): ColorGroup => ({
@@ -169,10 +169,9 @@ type DemoDef = {
   name: string;
   brand: string;
   category: string;
-  photoDir: string;
+  images: SeriesImage[];
   groups: ColorGroup[];
   variants: DemoVariant[];
-  showcases: { label: string; article: string }[];
 };
 
 const RETTA_COLORS = [
@@ -192,7 +191,7 @@ const DEFS: DemoDef[] = [
     name: "Nova Siluet",
     brand: "nova",
     category: "radiatory",
-    photoDir: "nova-tube",
+    images: photos("nova-tube", "Nova Siluet"),
     groups: [
       group(1, "Стандартные", 0, true, false, [swatch("RAL 9010", "Белый молочный матовый RAL9010", "#f7f5eb", "matte")]),
       group(2, "Черный матовый +10 %", 10, false, false, [swatch("RAL 9005", "Черный матовый", "#0a0a0a", "matte")]),
@@ -203,17 +202,13 @@ const DEFS: DemoDef[] = [
       nova("NS-T2 1800 4 S", D(1800, 200, 70, 1725, 4, 824), 14996),
       nova("NS-T2 1800 5 S", D(1800, 245, 70, 1725, 5, 1030), 18745),
     ],
-    showcases: [
-      { label: "300 мм, боковое подключение", article: "NS-T2 300 4 S" },
-      { label: "1800 мм, боковое подключение", article: "NS-T2 1800 5 S" },
-    ],
   },
   {
     slug: "guardo-retta-3p",
     name: "Guardo Retta 3P",
     brand: "guardo",
     category: "radiatory",
-    photoDir: "guardo-retta-6p",
+    images: photos("guardo-retta-6p", "Guardo Retta 3P"),
     groups: [group(1, "Стандартные", 0, true, false, RETTA_COLORS), anyRal(2)],
     variants: [
       retta("3P-0500-08 NK-GOR-L", D(380, 500, 57, 50, 8, 429), 23543, "bottom_left", "h"),
@@ -225,17 +220,16 @@ const DEFS: DemoDef[] = [
       retta("3P-1800-03 NK-VER-L", D(1800, 130, 57, 50, 3, 494), 20079, "bottom_left", "v"),
       retta("3P-1800-03 BK-VER", D(1800, 130, 57, 1700, 3, 494), 17079, "side", "v"),
     ],
-    showcases: [
-      { label: "Горизонтальный, 380 мм", article: "3P-0500-08 BK-GOR" },
-      { label: "Вертикальный, 1800 мм", article: "3P-1800-02 BK-VER" },
-    ],
   },
   {
     slug: "guardo-stretto",
     name: "Guardo Stretto",
     brand: "guardo",
     category: "polotentsesushiteli",
-    photoDir: "guardo-polotentsesushitel",
+    images: [
+      { ...img("/images/products/guardo-stretto/guardo-stretto-white-product.png", 1308, 960, "Guardo Stretto, общий вид, водяной, белый матовый"), color: "RAL 9016", kind: "product" },
+      { ...img("/images/products/guardo-stretto/guardo-stretto-black-interior.png", 1308, 960, "Guardo Stretto, в интерьере, водяной, чёрный матовый"), color: "RAL 9005", kind: "interior" },
+    ],
     groups: [
       group(1, "Стандартные", 0, true, false, [
         swatch("RAL 9005", "Черный матовый", "#0a0a0a", "matte"),
@@ -249,10 +243,6 @@ const DEFS: DemoDef[] = [
       stretto("STRETTO 0614", D(600, 140, 87, 108, 3, 165), 228),
       stretto("STRETTO 1285", D(1200, 82, 87, 50, 2, 219), 191),
       stretto("STRETTO 1214", D(1200, 140, 87, 108, 3, 326), 275),
-    ],
-    showcases: [
-      { label: "Водяной, 600 мм", article: "STRETTO 0685" },
-      { label: "Водяной, 1200 мм", article: "STRETTO 1285" },
     ],
   },
 ];
@@ -330,10 +320,14 @@ export const demoSeries: SeriesDetail[] = DEFS.map((def) => {
     pressureBar: null,
     warrantyYears: brand.warrantyYears, // у серии своей гарантии нет — берётся бренда
     videoUrl: "",
-    images: photos(def.photoDir, def.name),
+    images: def.images,
     files: [],
     colorGroups: def.groups,
     ranges: ranges(def.category, def.variants),
+    rangeSteps: Object.fromEntries(
+      ([['height', 'heightMm'], ['width', 'widthMm'], ['depth', 'depthMm'], ['length', 'lengthMm'], ['axis', 'axisMm'], ['sections', 'sections']] as const)
+        .map(([key, property]) => [key, [...new Set(def.variants.map((row) => row[property]).filter((n): n is number => n != null))].sort((a, b) => a - b)]),
+    ),
     priceFrom: priceFrom(def.variants, def.groups),
     priceFromByGroup: Object.fromEntries(def.groups.map((g) => [g.id, priceFrom(def.variants, def.groups, g)])),
     executions,
@@ -355,8 +349,15 @@ export const demoSeriesBySlug = (slug: string) => demoSeries.find((s) => s.slug 
 // Исходные строки (priceByn, colorGroups) — для фильтрации и цены в выбранном цвете
 export const demoSource = (slug: string): DemoVariant[] => DEFS.find((d) => d.slug === slug)?.variants ?? [];
 
-// Карточки витрины: variantsOf — строки серии после фильтра (по умолчанию все).
-// Витрина попадает в выдачу, если высота её варианта есть среди отфильтрованных; цена — минимум по этой высоте.
+function cardLabel(heights: [number | null, number | null] | undefined, rows: DemoVariant[]): string {
+  const [low, high] = heights ?? [null, null];
+  const size = low == null ? "" : `${high != null && high !== low ? `${low}–${high}` : low} мм`;
+  const orientations = new Set(rows.map((row) => row.orientation).filter(Boolean));
+  const position = orientations.size === 1 ? (orientations.has("h") ? "Горизонтальный" : "Вертикальный") : "";
+  return position ? [position, size].filter(Boolean).join(", ") : size ? `Высота ${size}` : "";
+}
+
+// Одна карточка на серию: подпись описывает полный ряд размеров, цену считаем по результату фильтрации.
 export function demoCards(
   category: string,
   variantsOf: (slug: string) => DemoVariant[] = demoSource,
@@ -368,22 +369,16 @@ export function demoCards(
     const rows = variantsOf(def.slug);
     if (!rows.length) continue;
     const series = demoSeries.find((s) => s.slug === def.slug)!;
-    const colors = def.groups.flatMap((g) => g.colors);
-    for (const showcase of def.showcases) {
-      const height = def.variants.find((v) => v.article === showcase.article)?.heightMm ?? null;
-      const same = height == null ? rows : rows.filter((r) => r.heightMm === height);
-      if (!same.length) continue;
-      cards.push({
-        series: def.slug,
-        name: def.name,
-        brand: def.brand,
-        label: showcase.label,
-        heightMm: height,
-        priceFrom: priceFrom(same, def.groups),
-        image: series.images[0],
-        colors,
-      });
-    }
+    cards.push({
+      series: def.slug,
+      name: def.name,
+      brand: def.brand,
+      label: cardLabel(series.ranges.height, def.variants),
+      priceFrom: priceFrom(rows, def.groups),
+      image: series.images[0] ?? null,
+      hoverImage: series.images.find((image) => image.kind === "interior"),
+      colors: def.groups.flatMap((g) => g.colors),
+    });
   }
   return cards;
 }

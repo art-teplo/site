@@ -1,0 +1,1754 @@
+{
+  "checked_on": "2026-11-18",
+  "scope": "Guardo Retta/Torre и Velar подтверждённые H/V; существующие стилевые витрины сохраняются",
+  "rows": [
+    {
+      "series": "guardo-retta-3p-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/9cd/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-30x30-guardo-retta-3p-1800-mm-vysotoy-vertikalnoe-polozhen.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 3P, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/38b/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-30x30-guardo-retta-3p-1200-mm-vysotoy-vertikalnoe-polozhen.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 3P, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/707/1440_960_1/3P%201200%204%20NK-VER-L%20white%2001.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 3P, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7f0/1440_960_1/3P%201200%204%20NK-VER-L%20black%2002.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 3P, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c4a/1440_960_1/3P%201200%204%20NK-VER-L%20grey%2001.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Retta 3P, вертикальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/bd7/1440_960_1/3P%201200%204%20NK-VER-L%20bej%2002.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 3P, вертикальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/14f/mwjqcz8v9gfdynl5xctx2offkb8s8mo9/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 3P, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-3p",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-3p-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/324/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-30x30-guardo-retta-3p-430-mm-vysotoy-gorizontalnoe-polozhe.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 3P, 430 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/893/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-30x30-guardo-retta-3p-230-mm-vysotoy-gorizontalnoe-polozhe.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 3P, 230 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/8e5/1440_960_1/3P-BK-GOR-280mm-white-01.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 3P, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/09d/1440_960_1/3P-BK-GOR-280mm-black-02.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 3P, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/939/1440_960_1/3P-NK-GOR-FL-180-grey-01.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Retta 3P, горизонтальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7d7/1440_960_1/3P-NK-GOR-FL-180-bej-01.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 3P, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/0d8/yrbfyjh2s8j1dcdiabcq5p6kwj8s142d/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 3P, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-3p",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-3p-s-kvadratnym-profilem-30x30/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-4p-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c87/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-guardo-retta-4p-1800-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 4P, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/d58/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-guardo-retta-4p-1200-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 4P, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/6fe/080c32gqau9l65xlduuptx5bi40jla1w/1440_960_1/4p-2200-r9016-NK-VER-R.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 4P, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/dbc/rn4q28gah3yqo5o7fru1uvot0ks5swci/1440_960_1/4p-2200-r9005-NK-VER-L.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 4P, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/2a3/f0twm5kck7kcgbvykznqxo9cmelurdpa/1440_960_1/4p-2200-r1015-NK-VER-L.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 4P, вертикальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/658/ymdqlgfbz0ybui381yipkkuu9yx5yxud/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 4P, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-4p",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-4p-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/404/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-guardo-retta-4p-460-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 4P, 460 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/4b3/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-guardo-retta-4p-220-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 4P, 220 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/b8f/1440_960_1/4p-2000-gor-3-nk-r-white.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 4P, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/3a0/1440_960_1/4p-2000-gor-3-black-nk-l.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 4P, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/23d/1440_960_1/4p-1000-gor-r1015.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 4P, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/6b9/rks6h0cxfn5fbfinn4pgx2suj5oz5mec/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 4P, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-4p",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-4p-s-kvadratnym-profilem/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-6p-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/3e2/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-pryamougolnym-profilem-guardo-retta-6p-1800-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6P, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/677/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-pryamougolnym-profilem-guardo-retta-6p-1200-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6P, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/cfe/gfo531r742l63sagofdsreu8921lf0gc/1440_960_1/6p-2200-r9016-NK-VER-R.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 6P, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e36/osdt4900mt11biv59eac0bhka11pc0yq/1440_960_1/6p-2200-r9005-NK-VER-R.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 6P, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/87f/clvln9lxb7wwptqgq5nykk7mgqy4u7cq/1440_960_1/6p-2200-7040-NK-VER-R.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Retta 6P, вертикальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e50/syifyo2m3ehtw1kpz8g1hyte000kc410/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6P, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-6p",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-6p-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/ac4/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-guardo-retta-6p-430-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6P, 430 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/74a/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-kvadratnym-profilem-guardo-retta-6p-230-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6P, 230 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/2de/1440_960_1/6p-1800-gor-fl-r9016.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 6P, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/83b/1440_960_1/6p-1800-gor-fl-r9005.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 6P, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/199/1440_960_1/6p-1500-gor-r7040.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Retta 6P, горизонтальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/cc7/1440_960_1/6p-1800-gor-fl-r1015.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 6P, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/12f/v8zi6k1k5yydduiy921cinm7kyd9652a/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6P, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-6p",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6p-s-pryamougolnym-profilem/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-6sp-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/864/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-pryamougolnym-profilem-30x60-guardo-retta-6sp-1800-mm-vysotoy-vertikalnoe-polo.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6SP, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/3b0/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-pryamougolnym-profilem-30x60-guardo-retta-6sp-1200-mm-vysotoy-vertikalnoe-polo.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6SP, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c38/to64q35yy20rqsamm6btshleyrfk9dpy/1440_960_1/6SP-2200-r9016-MK-VER.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 6SP, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/30f/ypq6aufh3ui8q6g1jpt5s9l6x6dc70og/1440_960_1/6SP-2200-r9005-NK-VER-R.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 6SP, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c81/4uwb4u6npiapxjsnwg4uw7jwcvl7w257/1440_960_1/6SP-2200-r1015-NK-VER-R.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 6SP, вертикальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c39/hqfcmages4u1ydak151edlwj0l5u4uen/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6SP, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-6sp",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-retta-6sp-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/4cc/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-pryamougolnym-profilem-30x60-guardo-retta-6sp-460-mm-vysotoy-gorizontalnoe-pol.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6SP, 460 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/dc5/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-pryamougolnym-profilem-30x60-guardo-retta-6sp-220-mm-vysotoy-gorizontalnoe-pol.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6SP, 220 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/586/1440_960_1/6SP%20BK-GOR-300-white-01.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Retta 6SP, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c45/1440_960_1/6SP%20BK-GOR-300-black-01.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Retta 6SP, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7c0/1440_960_1/6SP%20BK-GOR-300-grey-01.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Retta 6SP, горизонтальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/8b2/1440_960_1/6SP%20BK-GOR-300-bej-02.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Retta 6SP, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/09c/g6zft7pxwh9np313ae29idk1i4z1x9hd/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Retta 6SP, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/555/tdntolkoq6xwczbnal49cgysk1ph0vzz/Passport-Guardo-Retta-20.06.2023.pdf",
+          "filename": "Passport-Guardo-Retta-20.06.2023.pdf",
+          "title": "Паспорт Guardo Retta",
+          "reuse_file": {
+            "series": "guardo-retta-6sp",
+            "title": "Паспорт Guardo Retta"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-retta-6sp-s-pryamougolnym-profilem-30x60/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-torre-3d-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/856/hjokisbkyz31peltgm0y2hvb7ykyw82p/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-32-mm-guardo-torre-3d-1800-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 3D, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/a2d/xtptp7tyaevlf816xr11errad4ioolqs/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-32-mm-guardo-torre-3d-1200-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 3D, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/561/1v0raoa2q44i6cvjezvqy2sx43io05zv/1440_960_1/guardo-torre-3D-28-sections-300-vertical-9016-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Torre 3D, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/f45/0ffvnhhu6uk2i2jr4uda96aqtht0xllx/1440_960_1/guardo-torre-3D-24-sections-600-vertical-9005-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Torre 3D, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/218/pw1fxeb728csv3jncpqmsl6jkzoiajry/1440_960_1/guardo-torre-3D-24-sections-600-vertical-7040-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Torre 3D, вертикальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7db/uewkxnimpq48bm0cmjkpnhdbzcqr9txu/1440_960_1/guardo-torre-3D-24-sections-600-vertical-1015-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Torre 3D, вертикальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/5e1/jtmpa9924833eyj5l5ko1hz4vijprv93/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Torre 3D, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/7d8/gwejr7q6hii54th8mb9760rh89uv2o7l/Passport-Guardo-Torre-2023.pdf",
+          "filename": "Passport-Guardo-Torre-2023.pdf",
+          "title": "Паспорт Guardo Torre",
+          "reuse_file": {
+            "series": "guardo-torre-3d",
+            "title": "Паспорт Guardo Torre"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-torre-3d-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/d93/r20j280e1dymo0953a1velylx944a4cz/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-32-mm-guardo-torre-3d-232-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 3D, 232 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/edd/nhlz1psn89pnv6erpnxnydkbbf20nc6h/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-32-mm-guardo-torre-3d-182-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 3D, 182 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/9b0/mwg1xcaoybx88fqrd03vy4dbedy2cg2g/1440_960_1/guardo-torre-3D-4-sections-1500-gorizont-9016-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Torre 3D, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/ade/45mx81wk7sf393h3ijq2ak5l7m0ejl6p/1440_960_1/guardo-torre-3D-4-sections-1500-gorizont-9005-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Torre 3D, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7ba/aie3enevxx44zmyywpnnk13c8o35i9s8/1440_960_1/guardo-torre-3D-4-sections-1500-gorizont-1015-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Torre 3D, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/d8c/d798rtgavdup5y3r3wkh8obe936y2270/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Torre 3D, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/7d8/gwejr7q6hii54th8mb9760rh89uv2o7l/Passport-Guardo-Torre-2023.pdf",
+          "filename": "Passport-Guardo-Torre-2023.pdf",
+          "title": "Паспорт Guardo Torre",
+          "reuse_file": {
+            "series": "guardo-torre-3d",
+            "title": "Паспорт Guardo Torre"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-3d-s-krugloy-truboy-32-mm/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-torre-4d-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/088/mczdf5m6sqjbj3h26x51hudjwy51ugyu/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-42-mm-guardo-torre-4d-1800-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 4D, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/0b0/64rzx6gu0rc9hyu2n0v7iju64cdaagvr/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-42-mm-guardo-torre-4d-1200-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 4D, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/738/txgtgzty66bth7g2nmptg0i8b4chqi8v/1440_960_1/guardo-torre-4d-26-sections-300-vertical-9016-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Torre 4D, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7e7/nkjfhcr2re7gqqglefgv5289dt8yplzq/1440_960_1/guardo-torre-4d-26-sections-300-vertical-9005-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Torre 4D, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/d6a/x7c2f59wx4a95ydraw5x3vnt1zlm4e1f/1440_960_1/guardo-torre-4d-26-sections-300-vertical-7040-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Torre 4D, вертикальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e9e/v6vhpe4r61z8pztp2319pewkb6f3fbcc/1440_960_1/guardo-torre-4d-26-sections-300-vertical-1015-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Torre 4D, вертикальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/abb/jrwe56l79zdq1o2y1u9jqukk3lp5jzt1/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Torre 4D, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/7d8/gwejr7q6hii54th8mb9760rh89uv2o7l/Passport-Guardo-Torre-2023.pdf",
+          "filename": "Passport-Guardo-Torre-2023.pdf",
+          "title": "Паспорт Guardo Torre",
+          "reuse_file": {
+            "series": "guardo-torre-4d",
+            "title": "Паспорт Guardo Torre"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-torre-4d-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/b86/gwt43iz4z8s2759ikk037u3amogk39cc/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-42-mm-guardo-torre-4d-274-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 4D, 274 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/945/dhgug72f9u1odukvtgw51adf05148wom/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-42-mm-guardo-torre-4d-216-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 4D, 216 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7b0/cieoevhsdro0s935dj4dbgzywv157kxc/1440_960_1/guardo-torre-4d-4-sections-1500-gorizontal-9016-website-mirror.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Torre 4D, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e04/6bhtwly2jzmz14rsa2nmk6z23qcaw0on/1440_960_1/guardo-torre-4d-4-sections-1500-gorizontal-9005-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Torre 4D, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/71d/shh0e8rhnryqubzrkoi1j98dufwcwykh/1440_960_1/guardo-torre-4d-4-sections-1500-gorizontal-7040-website-mirror.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Torre 4D, горизонтальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/457/1qqxb16so3ub9dsitfdl9lyfxl4h4jvy/1440_960_1/guardo-torre-4d-4-sections-1500-gorizontal-1015-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Torre 4D, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c2e/5douekf2muthoiyuq9djo018fuvn3r88/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Torre 4D, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/7d8/gwejr7q6hii54th8mb9760rh89uv2o7l/Passport-Guardo-Torre-2023.pdf",
+          "filename": "Passport-Guardo-Torre-2023.pdf",
+          "title": "Паспорт Guardo Torre",
+          "reuse_file": {
+            "series": "guardo-torre-4d",
+            "title": "Паспорт Guardo Torre"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-4d-s-krugloy-truboy-42-mm/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-torre-6d-v",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/1bc/5ahcn8niaydbh47wcgpqhfrvfg3mkvil/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-60-mm-guardo-torre-6d-1800-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 6D, 1800 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/fe6/dj0feswexxor4vleexuyv58s27ka43v0/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-60-mm-guardo-torre-6d-1200-mm-vysotoy-vertikalnoe-polozhenie.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 6D, 1200 мм, вертикальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/f68/puuyzig8bw2tt8o8c34zh5miy3c4z9mg/1440_960_1/guardo-torre-6d-17-sections-800-vertical-9016-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Torre 6D, вертикальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/d04/jpvhfa98p1988gtqfvbzaawo6it4buw3/1440_960_1/guardo-torre-6d-17-sections-800-vertical-9005-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Torre 6D, вертикальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/607/90ran4af140z27jura3h9jg2ckucyxs5/1440_960_1/guardo-torre-6d-16-sections-300-vertical-7040-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Torre 6D, вертикальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/131/v6ir3bcabnnhmhecermr8f1633t19glt/1440_960_1/guardo-torre-6d-16-sections-300-vertical-1015-website.jpg",
+          "orientation": "v",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Torre 6D, вертикальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/5d2/0ctm8310oprlhgxc72emrxqcpcknvt9b/1440_960_1/connection-gurdo-retta-ver.jpg",
+          "orientation": "v",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Torre 6D, вертикальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/7d8/gwejr7q6hii54th8mb9760rh89uv2o7l/Passport-Guardo-Torre-2023.pdf",
+          "filename": "Passport-Guardo-Torre-2023.pdf",
+          "title": "Паспорт Guardo Torre",
+          "reuse_file": {
+            "series": "guardo-torre-6d",
+            "title": "Паспорт Guardo Torre"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        }
+      ]
+    },
+    {
+      "series": "guardo-torre-6d-h",
+      "photos": [
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/2fc/68ub7093dolacpb1n39rqzrjtv4s2coi/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-60-mm-guardo-torre-6d-296-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 6D, 296 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/3da/fykrxk8107yi03g4c2s505vrsupi0uos/1400_932_240cd750bba9870f18aada2478b24840a/trubchatyy-radiator-s-krugloy-truboy-60-mm-guardo-torre-6d-217-mm-vysotoy-gorizontalnoe-polozhenie.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "",
+          "legacy_alt": "Guardo Torre 6D, 217 мм, горизонтальный",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/3c4/cq9xc1jfmt1hmk9jh7t5ugtht2valrhb/1440_960_1/guardo-torre-6d-4-sections-1500-gorizontal-9016-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9016",
+          "legacy_alt": "Guardo Torre 6D, горизонтальный, RAL 9016",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/c3d/xlg3w028acvbsdqnqm70v044oj0d54zv/1440_960_1/guardo-torre-6d-4-sections-1500-gorizontal-9005-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 9005",
+          "legacy_alt": "Guardo Torre 6D, горизонтальный, RAL 9005",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/5dd/44pzyurftj4dich5u3iebx8il9nlk8bo/1440_960_1/guardo-torre-6d-4-sections-1500-gorizontal-7040-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 7040",
+          "legacy_alt": "Guardo Torre 6D, горизонтальный, RAL 7040",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/e55/pa27629s8y4o5i6qbc63pu7wz66xr9cw/1440_960_1/guardo-torre-6d-4-sections-1500-gorizontal-1015-website.jpg",
+          "orientation": "h",
+          "kind": "product",
+          "color": "RAL 1015",
+          "legacy_alt": "Guardo Torre 6D, горизонтальный, RAL 1015",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        },
+        {
+          "url": "https://guardo.ru/upload/resize_cache/iblock/7b0/tt5qdsqanvn5451hb6aql3rj5zronbjx/1440_960_1/connection-gurdo-retta-gor.jpg",
+          "orientation": "h",
+          "kind": "scheme",
+          "color": "",
+          "legacy_alt": "Guardo Torre 6D, горизонтальный, схема подключений",
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://guardo.ru/upload/iblock/7d8/gwejr7q6hii54th8mb9760rh89uv2o7l/Passport-Guardo-Torre-2023.pdf",
+          "filename": "Passport-Guardo-Torre-2023.pdf",
+          "title": "Паспорт Guardo Torre",
+          "reuse_file": {
+            "series": "guardo-torre-6d",
+            "title": "Паспорт Guardo Torre"
+          },
+          "source_page": "https://guardo.ru/catalog/trubchatye-radiatory-guardo-torre-6d-s-krugloy-truboy-60-mm/"
+        }
+      ]
+    },
+    {
+      "series": "velar-p30-v",
+      "photos": [
+        {
+          "url": "https://disk.yandex.ru/d/9UuRU7XQcHJaqg?path=%2FVELAR+%D0%BF%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%84%D0%BE%D1%82%D0%BE+%D0%B8+%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8%2FP30+V%2FP30V+%286%29.jpg",
+          "filename": "P30V (6).jpg",
+          "orientation": "v",
+          "kind": "product",
+          "sha256": "24fd2f9820c063e1c61d376bfcfeb509e516d7e161de225fce37719f07225a3f",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+P30+-2025.pdf",
+          "filename": "VELAR P30 -2025.pdf",
+          "title": "Паспорт Velar P30",
+          "sha256": "09b33e0a858e6e84c506233a5c52cc90c40ed1e5236e837d3b5b58b63aaeeeba",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FP30+V+%28%D0%92%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "P30 V (Вертикальный).pdf",
+          "title": "Схема P30 V",
+          "sha256": "56395099009d5fb6188827efe6497e63642912153d75899ac413083ee0c174d3",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-p30-h",
+      "photos": [
+        {
+          "url": "https://disk.yandex.ru/d/9UuRU7XQcHJaqg?path=%2FVELAR+%D0%BF%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%84%D0%BE%D1%82%D0%BE+%D0%B8+%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8%2FP30+H%2FP30+H+%2813%29.jpg",
+          "filename": "P30 H (13).jpg",
+          "orientation": "h",
+          "kind": "product",
+          "sha256": "bbb27de5c03255af892e3ac1319b2bea8fb6a5e0f44d3a1386d9cbb01ba74fd2",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+P30+-2025.pdf",
+          "filename": "VELAR P30 -2025.pdf",
+          "title": "Паспорт Velar P30",
+          "sha256": "09b33e0a858e6e84c506233a5c52cc90c40ed1e5236e837d3b5b58b63aaeeeba",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FP30+H+%28%D0%93%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29%29.pdf",
+          "filename": "P30 H (Горизонтальный)).pdf",
+          "title": "Схема P30 H",
+          "sha256": "433c228cc6bb35e0a31dec8a00b3ac0310fcfa54063433757acfea662cff283c",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-p60-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+P60+-2025.pdf",
+          "filename": "VELAR P60 -2025.pdf",
+          "title": "Паспорт Velar P60",
+          "sha256": "99024d5f5d08d24bc741c13d30f6c430c104b24821de2c210d7e0544485af774",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FP60+V+%28%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "P60 V (вертикальный).pdf",
+          "title": "Схема P60 V",
+          "sha256": "77f5600fd191cce7c1d42c6fc062a964638e7831c9cefa58037d0ed68ff9f5f1",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-p60-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+P60+-2025.pdf",
+          "filename": "VELAR P60 -2025.pdf",
+          "title": "Паспорт Velar P60",
+          "sha256": "99024d5f5d08d24bc741c13d30f6c430c104b24821de2c210d7e0544485af774",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FP60+H+%28%D0%B3%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29+.pdf",
+          "filename": "P60 H (горизонтальный) .pdf",
+          "title": "Схема P60 H",
+          "sha256": "1b3f42ec01e99d39c54de632bd093c4f841855fb0a741984b8dfe5748bfbb161",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-s-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+S+-2025.pdf",
+          "filename": "VELAR S -2025.pdf",
+          "title": "Паспорт Velar S",
+          "sha256": "6f32aac779f2b9f9797d02c976b26f3633014b57263c27034752c071e4c035ae",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FS+V+%28%D0%92%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "S V (Вертикальный).pdf",
+          "title": "Схема S V",
+          "sha256": "43cb6f0412eb3e9ea431907c13a880a59b88ce267ce0fb31fad5ffa1dcf3dfbc",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-s-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+S+-2025.pdf",
+          "filename": "VELAR S -2025.pdf",
+          "title": "Паспорт Velar S",
+          "sha256": "6f32aac779f2b9f9797d02c976b26f3633014b57263c27034752c071e4c035ae",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FS+H+%28%D0%93%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29+%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB.pdf",
+          "filename": "S H (Горизонтальный) подкл.pdf",
+          "title": "Схема S H",
+          "sha256": "ced22f106d4dbb3384a8ac3029c3f61f38293e01b5c96401f08c98b11c819853",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-sp-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+SP-2025.pdf",
+          "filename": "VELAR SP-2025.pdf",
+          "title": "Паспорт Velar SP",
+          "sha256": "a86ec55e066ef18afd29f681e300d1eb4a7eb676821e8aa3bea2ebc3aeca305b",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FSP+V+%28%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "SP V (вертикальный).pdf",
+          "title": "Схема SP V",
+          "sha256": "b5691425a205f7b819e9b1f76691f49b7b3f699eb2d8915be059804c888fa3a0",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-sp-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+SP-2025.pdf",
+          "filename": "VELAR SP-2025.pdf",
+          "title": "Паспорт Velar SP",
+          "sha256": "a86ec55e066ef18afd29f681e300d1eb4a7eb676821e8aa3bea2ebc3aeca305b",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FSP+H+%28%D0%B3%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "SP H (горизонтальный).pdf",
+          "title": "Схема SP H",
+          "sha256": "a4e8361ca391bea0fe6c7b1067d6258423b74902fcd1f9eddcd8f5736628fe88",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-q60-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+Q60+-2025.pdf",
+          "filename": "VELAR Q60 -2025.pdf",
+          "title": "Паспорт Velar Q60",
+          "sha256": "c80d0e649af197dec567595444efef2b79306f2214c16a110ede393ec13e8c0c",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FQ60+V+%28%D0%92%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "Q60 V (Вертикальный).pdf",
+          "title": "Схема Q60 V",
+          "sha256": "c80ad4806a6f75357710bca160a49c9ecbc940d38975ce8b920b2c5e5c7c2541",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-q60-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+Q60+-2025.pdf",
+          "filename": "VELAR Q60 -2025.pdf",
+          "title": "Паспорт Velar Q60",
+          "sha256": "c80d0e649af197dec567595444efef2b79306f2214c16a110ede393ec13e8c0c",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FQ60+H+%28%D0%93%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "Q60 H (Горизонтальный).pdf",
+          "title": "Схема Q60 H",
+          "sha256": "fdc4c45d2c5a23ddd89aa88e04ae4a90589a9cf1dfbd6662df67351c4251dbbf",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-q80-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+Q+80.pdf",
+          "filename": "Паспорт Q 80.pdf",
+          "title": "Паспорт Velar Q80",
+          "sha256": "7880daaec068ea372863352920a103314bc76b48abbf7286d388067cb0fdc8a5",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FQ80+V+%28%D0%92%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "Q80 V (Вертикальный).pdf",
+          "title": "Схема Q80 V",
+          "sha256": "0cf93d96ae09302a88611050a29b2d8ff7e0b65422ee00a7be1b8826bad33d1f",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-q80-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+Q+80.pdf",
+          "filename": "Паспорт Q 80.pdf",
+          "title": "Паспорт Velar Q80",
+          "sha256": "7880daaec068ea372863352920a103314bc76b48abbf7286d388067cb0fdc8a5",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FQ80+%D0%9D+%28%D0%B3%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "Q80 Н (горизонтальный).pdf",
+          "title": "Схема Q80 H",
+          "sha256": "3cfe4db248fa5ed3cab0411b057e3f0d334427d273f82abcb43e61dfdfb1c6d2",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-r32-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+R32+-2025.pdf",
+          "filename": "VELAR R32 -2025.pdf",
+          "title": "Паспорт Velar R32",
+          "sha256": "48537bce405ea5863731783b7c6a5bf9fbff5455e33ccafe1127377858d1771d",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FR32+V.pdf",
+          "filename": "R32 V.pdf",
+          "title": "Схема R32 V",
+          "sha256": "13a79f535fd594b9bd20572dc96d059cc062254baa25dcae31d6482c2670de92",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-r32-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+R32+-2025.pdf",
+          "filename": "VELAR R32 -2025.pdf",
+          "title": "Паспорт Velar R32",
+          "sha256": "48537bce405ea5863731783b7c6a5bf9fbff5455e33ccafe1127377858d1771d",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FR32+H.pdf",
+          "filename": "R32 H.pdf",
+          "title": "Схема R32 H",
+          "sha256": "015ab9b27c913c2a1e8e7e17c1f9f695a76706cce5dfcd5c53738fcf776030db",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-r42-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+R42+-2024.pdf",
+          "filename": "VELAR R42 -2024.pdf",
+          "title": "Паспорт Velar R42",
+          "sha256": "469d4640013249ff5ff80704030b413d6155f88b3d500ced144dae48604c3cba",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FR42+V+%28%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "R42 V (вертикальный).pdf",
+          "title": "Схема R42 V",
+          "sha256": "2bc50bf84819d182fa82f4d1e96d844c595abed50d689ca42ac3b80714496acd",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80+R42.pdf",
+          "filename": "Сертификат Дизайн радиатор R42.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "228df801935e38f3a49fe32380cbae5460cdb7ae96ee4dcc4b07a9903df88a69",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-r42-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+R42+-2024.pdf",
+          "filename": "VELAR R42 -2024.pdf",
+          "title": "Паспорт Velar R42",
+          "sha256": "469d4640013249ff5ff80704030b413d6155f88b3d500ced144dae48604c3cba",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FR42+%D0%9D+%28%D0%B3%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "R42 Н (горизонтальный).pdf",
+          "title": "Схема R42 H",
+          "sha256": "7f336cdc1350589aa35005a0b801522c594e8b7b07a5e1808e2d8fdb021d420b",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80+R42.pdf",
+          "filename": "Сертификат Дизайн радиатор R42.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "228df801935e38f3a49fe32380cbae5460cdb7ae96ee4dcc4b07a9903df88a69",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-r89-v",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+R+89.pdf",
+          "filename": "Паспорт R 89.pdf",
+          "title": "Паспорт Velar R89",
+          "sha256": "78c34f7fce5e5f4d71b0be2be89a6beaa15cc4bef1fb075e793d628994a2b791",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FR89+V.pdf",
+          "filename": "R89 V.pdf",
+          "title": "Схема R89 V",
+          "sha256": "32b1c75c12f0f17423822f37ac89a428e2edcc793fa786d2dfa6ccbb7e26e5f5",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-r89-h",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+R+89.pdf",
+          "filename": "Паспорт R 89.pdf",
+          "title": "Паспорт Velar R89",
+          "sha256": "78c34f7fce5e5f4d71b0be2be89a6beaa15cc4bef1fb075e793d628994a2b791",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FR89+H.pdf",
+          "filename": "R89 H.pdf",
+          "title": "Схема R89 H",
+          "sha256": "1fb649e61fd0c0ea31c248396fa7dea0fbfaaea20bc6a89a118b950c6cf58709",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-q40",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2FVELAR+Q40+-2025.pdf",
+          "filename": "VELAR Q40 -2025.pdf",
+          "title": "Паспорт Q40",
+          "sha256": "155df74189ccf0b3ae7d4af8a84b9843270605863606fa186716088bf0c9387b",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FQ40+V+%28%D0%92%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "Q40 V (Вертикальный).pdf",
+          "title": "Схема Q40",
+          "sha256": "ffabcb4797fd8b60d2cf631d3cf7aa4b13d035c8a80989a18af7104b339e833c",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-rt1",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+R+%D0%A22.pdf",
+          "filename": "Паспорт R Т2.pdf",
+          "title": "Паспорт RT1",
+          "sha256": "9e7b89cf83a34ed91e38f55164fee8ef849916fbe4e93efdcc3a55b90f0da5ab",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%81%D1%85%D0%B5%D0%BC%D0%B0+RT1.pdf",
+          "filename": "схема RT1.pdf",
+          "title": "Схема RT1",
+          "sha256": "2eb8cb7cf27b374627d62ef86e9d0c048d40d875c0e0ad075c87ffb663b018d7",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-rt2",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+R+%D0%A22.pdf",
+          "filename": "Паспорт R Т2.pdf",
+          "title": "Паспорт RT2",
+          "sha256": "9e7b89cf83a34ed91e38f55164fee8ef849916fbe4e93efdcc3a55b90f0da5ab",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%81%D1%85%D0%B5%D0%BC%D0%B0+RT2.pdf",
+          "filename": "схема RT2.pdf",
+          "title": "Схема RT2",
+          "sha256": "2ae56d7b8494be69c652e501c455c9caa626fd849dace113dff52896c868a4a6",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-rt1w",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+R+%D0%A22+W.pdf",
+          "filename": "Паспорт R Т2 W.pdf",
+          "title": "Паспорт RT1W",
+          "sha256": "0c0cd2042353dfa0c2cd2beec4a691d8379448e9db1e130be58975ad291b223b",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-rt2w",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+R+%D0%A22+W.pdf",
+          "filename": "Паспорт R Т2 W.pdf",
+          "title": "Паспорт RT2W",
+          "sha256": "0c0cd2042353dfa0c2cd2beec4a691d8379448e9db1e130be58975ad291b223b",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%81%D1%85%D0%B5%D0%BC%D0%B0+RT2W.pdf",
+          "filename": "схема RT2W.pdf",
+          "title": "Схема RT2W",
+          "sha256": "128c17a474e5ce54389fd69a7f3c2a66828fab09e8241a0eea35e6c90aa6b95f",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-qt1",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+QT.pdf",
+          "filename": "Паспорт QT.pdf",
+          "title": "Паспорт QT1",
+          "sha256": "276990167b95c1952200ea97e6f2d85a3291bc744ac1e366931a5dccdcde344a",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%81%D1%85%D0%B5%D0%BC%D0%B0+QT1.pdf",
+          "filename": "схема QT1.pdf",
+          "title": "Схема QT1",
+          "sha256": "8eeb67623d4062a71801082c48f37c94e68863da93437ab9a5384e357729ec42",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-qt2",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+QT.pdf",
+          "filename": "Паспорт QT.pdf",
+          "title": "Паспорт QT2",
+          "sha256": "276990167b95c1952200ea97e6f2d85a3291bc744ac1e366931a5dccdcde344a",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2F%D1%81%D1%85%D0%B5%D0%BC%D0%B0+QT2.pdf",
+          "filename": "схема QT2.pdf",
+          "title": "Схема QT2",
+          "sha256": "fcea4c73df8647173568ab77e302c2820d1739d109a9cff295b45887fa7825b5",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-p200",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+P+200-300.pdf",
+          "filename": "Паспорт P 200-300.pdf",
+          "title": "Паспорт P200",
+          "sha256": "90fcb4e279492b42c43164ae00458c48f3cc20ddeccee317f37df67f9a98d56f",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FP200+%28%D0%BD%D0%B0%D0%BF%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "P200 (напольный).pdf",
+          "title": "Схема P200",
+          "sha256": "bbfc31cfb4602759eb84d21c4358349a47ffa125266b469aa98f428f7bf33dfd",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-p300",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+P+200-300.pdf",
+          "filename": "Паспорт P 200-300.pdf",
+          "title": "Паспорт P300",
+          "sha256": "90fcb4e279492b42c43164ae00458c48f3cc20ddeccee317f37df67f9a98d56f",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FP300+%28%D0%BD%D0%B0%D0%BF%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "P300 (напольный).pdf",
+          "title": "Схема P300",
+          "sha256": "914680e5bded6dfcb816650959209e85b33a9143f07764013f266ec32b3b48af",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    },
+    {
+      "series": "velar-q500",
+      "photos": [],
+      "files": [
+        {
+          "url": "https://disk.yandex.ru/d/PHRtQ6OeNBp7Jg?path=%2F%D0%9F%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82+Q500.pdf",
+          "filename": "Паспорт Q500.pdf",
+          "title": "Паспорт Q500",
+          "sha256": "1a34743de7f50d2a650d004b59ed96ff339f9b2b4a5870f2ab22de7cf93adc26",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/yKFMSiUkTXVaYg?path=%2F%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82+%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B.pdf",
+          "filename": "Сертификат Дизайн радиаторы.pdf",
+          "title": "Сертификат соответствия Velar",
+          "sha256": "0067d5914ee6153a389056b02ec4c2f2342b31cb441dcedfa679e97a10b6b847",
+          "source_page": "https://opt.velarwh.ru/"
+        },
+        {
+          "url": "https://disk.yandex.ru/d/mrpE-kZo5DXauw?path=%2FVelar+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D1%80%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%2FQ500+%28%D0%BD%D0%B0%D0%BF%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%29.pdf",
+          "filename": "Q500 (напольный).pdf",
+          "title": "Схема Q500",
+          "sha256": "52c821916248df76d72d139616f6bde23873a250443a62fdbc65be303a96860a",
+          "source_page": "https://opt.velarwh.ru/"
+        }
+      ]
+    }
+  ],
+  "exceptions": [
+    "Velar RT1W: отдельной размерной схемы в заводской папке не найдено; паспорт общий RT1W/RT2W",
+    "Velar R89 H: найденный общий сертификат перечисляет R89 только V; к H не прикреплён",
+    "Guardo: страница сертификатов не отдаёт отдельный подтверждённый PDF; используется паспорт и собственная схема серии",
+    "Velar RT2W: папка производителя RT2W V содержит кадры с именами RT1W; без однозначного подтверждения конструкции новые фото не прикреплены. Существующие стилевые фото других моделей сохранены."
+  ]
+}

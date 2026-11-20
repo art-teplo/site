@@ -1,0 +1,63 @@
+.field {
+  position: relative;
+  width: calc(var(--spacing-100) * 0.8);
+  min-width: 0;
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--control-height);
+  padding: var(--spacing-4) var(--spacing-12);
+  font-size: var(--text-caption);
+  border: var(--outline-width) solid var(--outline-color);
+  border-radius: var(--radius-inputs);
+  background: transparent;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.input:hover {
+  border-color: var(--text);
+}
+
+.discrete {
+  appearance: textfield;
+  -moz-appearance: textfield;
+  padding-right: var(--spacing-24);
+}
+
+.discrete::-webkit-inner-spin-button,
+.discrete::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.steppers {
+  position: absolute;
+  inset-block: var(--spacing-4);
+  right: var(--spacing-4);
+  width: var(--spacing-16);
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.step {
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  border-radius: var(--radius-buttons);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.step svg {
+  width: var(--spacing-12);
+  height: var(--spacing-12);
+}
+
+.step:hover {
+  color: var(--text);
+}
+
+.step:active {
+  opacity: 0.5;
+}

@@ -159,6 +159,16 @@
   height: 58%;
 }
 
+/* Крупный фрагмент предмета выходит за край, как на исходных плитках. */
+.towel .img img {
+  transform-origin: right bottom;
+  transform: translate(18%, 14%) scale(1.5);
+}
+
+.fittings .img img {
+  transform: translate(18%, 14%);
+}
+
 .tile:hover .img {
   transform: scale(1.04);
 }

@@ -13,10 +13,11 @@ import { SchemeGallery } from "./SchemeGallery";
 import styles from "./SeriesAbout.module.css";
 import { SeriesVideo } from "./SeriesVideo";
 import type { SeriesTab } from "./SeriesTabs";
-import type { Orientation } from "@/lib/orientation";
 
 type Content = { series: SeriesDetail; interior: SeriesImage[]; schemes: SeriesImage[]; projects: Project[]; similar: Card[] };
-type Props = Content & { category: string; brandNames: Record<string, string>; orientation?: Orientation };
+type Props = Content & { category: string; brandNames: Record<string, string> };
+
+const schemesTitle = (series: SeriesDetail) => series.brand.slug === "radimax" ? "Габаритные чертежи" : "Подключения";
 
 const facts = (s: SeriesDetail): [string, string][] => {
   const heating = { water: "водяной", electric: "электрический", combined: "комбинированный" }[s.heating];
@@ -34,7 +35,7 @@ export function seriesTabs({ series, interior, schemes, projects, similar }: Con
   return [
     { id: "variants", label: "Варианты исполнения" },
     { id: "about", label: "О серии" },
-    ...(schemes.length ? [{ id: "schemes", label: "Подключения" }] : []),
+    ...(schemes.length ? [{ id: "schemes", label: schemesTitle(series) }] : []),
     ...(interior.length ? [{ id: "interior", label: "В интерьере" }] : []),
     ...(series.videoUrl ? [{ id: "video", label: "Видеообзор" }] : []),
     ...(series.files.length ? [{ id: "files", label: "Файлы", count: series.files.length }] : []),
@@ -44,7 +45,7 @@ export function seriesTabs({ series, interior, schemes, projects, similar }: Con
 }
 
 // О серии, фото в интерьере, видеообзор, файлы, проекты, похожие серии. Тон секций чередуется, начиная после таблицы.
-export function SeriesAbout({ series, interior, schemes, projects, similar, category, brandNames, orientation }: Props) {
+export function SeriesAbout({ series, interior, schemes, projects, similar, category, brandNames }: Props) {
   let n = 0;
   const tone = () => (n++ % 2 === 0 ? "light" : "white");
   const hasText = Boolean(series.description);
@@ -90,7 +91,7 @@ export function SeriesAbout({ series, interior, schemes, projects, similar, cate
       {schemes.length > 0 && (
         <Section tone={tone()} id="schemes" labelledBy="schemes-title">
           <Container>
-            <SectionHead titleId="schemes-title" title="Подключения" />
+            <SectionHead titleId="schemes-title" title={schemesTitle(series)} />
             <Reveal>
               <SchemeGallery images={schemes} title={`${series.name}: схемы`} />
             </Reveal>
@@ -103,7 +104,7 @@ export function SeriesAbout({ series, interior, schemes, projects, similar, cate
           <Container>
             <SectionHead titleId="interior-title" title="В интерьере" />
             <Reveal>
-              <InteriorGallery images={interior} title={`${series.name} в интерьере`} orientation={orientation} />
+              <InteriorGallery images={interior} title={`${series.name} в интерьере`} />
             </Reveal>
           </Container>
         </Section>

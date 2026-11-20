@@ -1,8 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { brands, categories, demoCards, demoSeries, demoSeriesBySlug } from "./catalog";
 import { demoShowcases, demoVariants } from "@/data/catalog-demo";
-import { mapCard, mapVariants, mapShowcase, type ApiCard, type ApiShowcase, type ApiVariants } from "./catalog-map";
-import { serializeCatalogQuery, type CatalogQuery, type Sort } from "@/lib/catalog-query";
+import { mapCard, mapVariants, mapShowcase, type ApiCard, type ApiShowcase, type ApiVariants, type Showcase } from "./catalog-map";
+import { parseCatalogQuery, serializeCatalogQuery, type CatalogQuery, type Sort } from "@/lib/catalog-query";
 import { faq, LEAD_TIMES_UPDATED, posts, projects, promos, showroomHall } from "./content";
 import { demoSite } from "./site";
 import type {
@@ -196,8 +196,9 @@ type ApiField = Pick<CatalogField, "key" | "label" | "kind" | "unit">;
 type ApiGroup = Omit<ColorGroup, "isBase" | "anyRal"> & { is_base: boolean; any_ral: boolean };
 type ApiSeries = Omit<
   SeriesDetail,
-  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions" | "priceFrom" | "priceFromByGroup" | "similar" | "projects"
+  "pressureBar" | "warrantyYears" | "videoUrl" | "colorGroups" | "defaultExecution" | "columns" | "filters" | "images" | "executions" | "priceFrom" | "priceFromByGroup" | "similar" | "projects" | "rangeSteps"
 > & {
+  range_steps?: Record<string, number[]>;
   similar?: ApiCard[];
   projects?: (Omit<Project, "series" | "videoUrl"> & { series_slugs?: string[]; series?: string[]; video_url?: string })[];
   price_from: number | null;
@@ -207,7 +208,7 @@ type ApiSeries = Omit<
   video_url: string;
   images: SeriesImage[];
   color_groups: ApiGroup[];
-  executions: (Omit<Execution, "connection"> & { connection: Execution["connection"] | "" })[];
+  executions: (Omit<Execution, "connection" | "sourceId"> & { connection: Execution["connection"] | ""; source_id?: string })[];
   default_execution: string | null;
   columns: ApiField[];
   filters: ApiField[];
@@ -219,22 +220,29 @@ export async function getShowcases(
   category: string,
   query: CatalogQuery,
 ): Promise<{ count: number; results: ShowcaseCard[]; facets: Facet[]; modelRange: ModelTile[] }> {
-  const params = `category=${encodeURIComponent(category)}&${serializeCatalogQuery({ ...query, v: undefined })}`;
-  const data = await load<ApiShowcase>(
-    `series/?${params}`,
-    "catalog",
-  );
-  if (!data) return demoShowcases(category, query);
-  return mapShowcase(data);
+  return getShowcasesFromUrl(category, serializeCatalogQuery({ ...query, v: undefined }));
+}
+
+// Первый серверный запрос использует адрес целиком; схема и валидация фильтров остаются на бэке.
+export async function getShowcasesFromUrl(category: string, query: string): Promise<Showcase> {
+  const params = new URLSearchParams(query);
+  params.set("category", category);
+  params.delete("v");
+  const data = await load<ApiShowcase>(`series/?${params}`, "catalog");
+  if (data) return mapShowcase(data);
+  const base = demoShowcases(category, { ranges: {}, lists: {} });
+  const fields: CatalogField[] = base.facets.map((f) => ({ key: f.key, label: f.label, kind: f.kind, unit: f.kind === "range" ? f.unit : "", column: false, filter: true }));
+  return demoShowcases(category, parseCatalogQuery(params, fields));
 }
 
 export async function getSeries(slug: string): Promise<SeriesDetail | null> {
   const data = await load<ApiSeries>(`series/${encodeURIComponent(slug)}/`, "catalog");
   if (data === undefined) return demoSeriesBySlug(slug) ?? null;
   if (data === null) return null;
-  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, price_from, price_from_by_group, similar, projects: seriesProjects, ...rest } = data;
+  const { pressure_bar, warranty_years, video_url, color_groups, default_execution, columns, filters, executions, price_from, price_from_by_group, similar, projects: seriesProjects, range_steps, ...rest } = data;
   return {
     ...rest,
+    rangeSteps: range_steps ?? {},
     priceFrom: price_from,
     priceFromByGroup: Object.fromEntries(Object.entries(price_from_by_group).map(([id, price]) => [Number(id), price])),
     pressureBar: pressure_bar,
@@ -242,13 +250,19 @@ export async function getSeries(slug: string): Promise<SeriesDetail | null> {
     videoUrl: video_url,
     colorGroups: color_groups.map(({ is_base, any_ral, ...group }) => ({ ...group, isBase: is_base, anyRal: any_ral })),
     // без подключения бэк отдаёт '' — на фронте это null
-    executions: executions.map((e) => ({ ...e, connection: e.connection || null })),
+    executions: executions.map(({ source_id, ...e }) => ({ ...e, sourceId: source_id ?? undefined, connection: e.connection || null })),
     defaultExecution: default_execution,
     columns: columns.map((c) => ({ ...c, column: true, filter: false })),
     filters: filters.map((c) => ({ ...c, column: false, filter: true })),
     similar: similar ? mapShowcase({ count: similar.length, results: similar, facets: [], model_range: [] }).results : [],
     projects: (seriesProjects ?? []).map(({ series_slugs, series, video_url, ...project }) => ({ ...project, videoUrl: video_url, series: series_slugs ?? series ?? [] })),
   };
+}
+
+export async function getLegacySeries(slug: string, params?: string) {
+  const query = new URLSearchParams(params);
+  const data = await load<{ choices: ApiCard[]; queries?: Record<string, string>; target: string | null; execution?: string | null; color?: string | null }>(`series/${encodeURIComponent(slug)}/legacy/${query.size ? `?${query}` : ""}`, "catalog");
+  return data ? { ...data, choices: data.choices.map(mapCard) } : null;
 }
 
 // Строки таблицы серии. Бренд и v в бэк не уходят: бренд серии известен, v — только для адреса страницы

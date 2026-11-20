@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
 import type { Execution } from "@/data/types";
 import { PIPE_GROUPS, pipeGroup, type PipeGroup } from "@/lib/connections";
+import { chooseExecution } from "@/lib/series-selection";
+import { ParameterChoices } from "@/components/ParameterChoices/ParameterChoices";
 import styles from "./PipeChips.module.css";
 
 // Мини-схемка 64×44: контур радиатора и патрубки (красные) для группы подключений
@@ -42,121 +43,53 @@ export function Schematic({ group }: { group: PipeGroup }) {
   );
 }
 
-function plural(n: number) {
-  const m10 = n % 10;
-  const m100 = n % 100;
-  if (m10 === 1 && m100 !== 11) return "вариант";
-  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "варианта";
-  return "вариантов";
-}
+const countLabel = (n: number) => `${n} ${n % 10 === 1 && n % 100 !== 11 ? "конфигурация" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? "конфигурации" : "конфигураций"}`;
+const valveKey = (e: Execution) => e.thermovalve == null ? "unknown" : String(e.thermovalve);
 
-function Radio({
-  items,
-  value,
-  onPick,
-  label,
-  className,
-  render,
-}: {
-  items: { id: string; ariaLabel: string }[];
-  value: string | null;
-  onPick: (id: string) => void;
-  label: string;
-  className: string;
-  render: (id: string) => React.ReactNode;
+export function PipeChips({ executions, selected, onSelect }: {
+  executions: Execution[]; selected: string; onSelect: (key: string) => void;
 }) {
-  const refs = useRef<(HTMLButtonElement | null)[]>([]);
-  const cur = items.findIndex((i) => i.id === value);
-  function onKey(e: React.KeyboardEvent, i: number) {
-    const step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
-    if (!step) return;
-    e.preventDefault();
-    const n = (i + step + items.length) % items.length;
-    refs.current[n]?.focus();
-    onPick(items[n].id);
-  }
-  return (
-    <div role="radiogroup" aria-label={label} className={styles.row}>
-      {items.map((it, i) => (
-        <button
-          key={it.id}
-          ref={(el) => {
-            refs.current[i] = el;
-          }}
-          type="button"
-          role="radio"
-          aria-checked={it.id === value}
-          aria-label={it.ariaLabel}
-          tabIndex={(cur === -1 ? i === 0 : i === cur) ? 0 : -1}
-          className={className}
-          onClick={() => onPick(it.id)}
-          onKeyDown={(e) => onKey(e, i)}
-        >
-          {render(it.id)}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-// Выбор исполнения: сначала «как подведены трубы у вас», затем исполнения этой группы.
-export function PipeChips({
-  executions,
-  selected,
-  onSelect,
-}: {
-  executions: Execution[];
-  selected: string;
-  onSelect: (key: string) => void;
-}) {
-  const groupOf = (e: Execution): PipeGroup | null => (e.connection ? pipeGroup(e.connection) : null);
-  const present = (Object.keys(PIPE_GROUPS) as PipeGroup[]).filter((g) => executions.some((e) => groupOf(e) === g));
-  const current = executions.find((e) => e.key === selected);
-  const activeGroup = current ? groupOf(current) : null;
-  const inGroup = activeGroup ? executions.filter((e) => groupOf(e) === activeGroup) : executions.filter((e) => groupOf(e) === null);
-  // Исполнения без группы (электро, без подключения) показываем обычными чипами, если группы не выбрано
-  const chips = present.length === 0 ? executions : inGroup;
-  // число вариантов, а не исполнений: у исполнения много размеров
-  const count = (g: PipeGroup) => executions.filter((e) => groupOf(e) === g).reduce((sum, e) => sum + e.count, 0);
-  const loose = present.length > 0 ? executions.filter((e) => groupOf(e) === null) : [];
-
-  return (
-    <div className={styles.wrap}>
-      {present.length > 0 && (
-        <div className={styles.block}>
-          <p className={styles.title}>Как подведены трубы у вас сейчас?</p>
-          <Radio
-            label="Подведение труб"
-            className={styles.group}
-            value={activeGroup}
-            items={present.map((g) => ({ id: g, ariaLabel: `${PIPE_GROUPS[g].label}, ${count(g)} ${plural(count(g))}` }))}
-            onPick={(g) => {
-              const first = executions.find((e) => groupOf(e) === g);
-              if (first) onSelect(first.key);
-            }}
-            render={(g) => (
-              <>
-                <Schematic group={g as PipeGroup} />
-                <span className={styles.groupName}>{PIPE_GROUPS[g as PipeGroup].label}</span>
-                <span className={styles.count}>
-                  {count(g as PipeGroup)} {plural(count(g as PipeGroup))}
-                </span>
-              </>
-            )}
-          />
-        </div>
-      )}
-      <div className={styles.block}>
-        {present.length > 0 && <p className={styles.title}>Исполнение</p>}
-        <Radio
-          label="Исполнение"
-          className={styles.chip}
-          value={selected}
-          items={[...chips, ...(present.length > 0 && !activeGroup ? [] : loose)].map((e) => ({ id: e.key, ariaLabel: e.label }))}
-          onPick={onSelect}
-          render={(k) => executions.find((e) => e.key === k)?.label}
-        />
-      </div>
-    </div>
-  );
+  const current = executions.find((e) => e.key === selected) ?? executions[0];
+  if (!current) return null;
+  const depths = [...new Set(executions.map((e) => e.tubes))].sort((a, b) => a - b);
+  const showDepth = depths.some((n) => n > 0);
+  const atDepth = showDepth ? executions.filter((e) => e.tubes === current?.tubes) : executions;
+  const groupOf = (e: Execution): PipeGroup | null => e.connection ? pipeGroup(e.connection) : null;
+  const present = (Object.keys(PIPE_GROUPS) as PipeGroup[]).filter((g) => atDepth.some((e) => groupOf(e) === g));
+  const activeGroup = groupOf(current);
+  const inGroup = present.length ? atDepth.filter((e) => groupOf(e) === activeGroup) : atDepth;
+  const connected = inGroup.filter((e) => Boolean(e.connection));
+  const valves = [...new Set(connected.map(valveKey))];
+  const chips = connected.filter((e) => valveKey(e) === valveKey(current));
+  const pick = (pool: Execution[], change: Partial<Pick<Execution, "tubes" | "mount" | "thermovalve">>) => {
+    const match = chooseExecution(pool, current, change);
+    if (match) onSelect(match.key);
+  };
+  return <div className={styles.wrap}>
+    {showDepth && <div className={styles.block}>
+      <p className={styles.title}>Рядов труб в глубину</p>
+      <ParameterChoices label="Рядов труб в глубину" value={String(current?.tubes)}
+        items={depths.map((n) => ({ value: String(n), label: n ? String(n) : "Уточняется" }))}
+        onSelect={(n) => pick(executions, { tubes: Number(n) })} />
+    </div>}
+    {present.length > 0 && <div className={styles.block}>
+      <p className={styles.title}>Как подведены трубы у вас сейчас?</p>
+      <ParameterChoices label="Подведение труб" value={activeGroup} className={styles.group}
+        items={present.map((g) => ({ value: g, label: `${PIPE_GROUPS[g].label}, ${countLabel(atDepth.filter((e) => groupOf(e) === g).reduce((n,e) => n + e.count,0))}` }))}
+        onSelect={(g) => pick(atDepth.filter((e) => groupOf(e) === g), {})}
+        render={(g) => <><Schematic group={g as PipeGroup} /><span className={styles.groupName}>{PIPE_GROUPS[g as PipeGroup].label}</span>
+          <span className={styles.count}>{countLabel(atDepth.filter((e) => groupOf(e) === g).reduce((n,e) => n + e.count,0))}</span></>} />
+    </div>}
+    {valves.some((v) => v !== "unknown") && <div className={styles.block}>
+      <p className={styles.title}>Встроенный термоклапан</p>
+      <ParameterChoices label="Встроенный термоклапан" value={valveKey(current)}
+        items={valves.map((value) => ({ value, label: value === "true" ? "Есть" : value === "false" ? "Нет" : "Уточняется" }))}
+        onSelect={(v) => pick(inGroup, { thermovalve: v === "unknown" ? null : v === "true" })} />
+    </div>}
+    {chips.length > 0 && <div className={styles.block}>
+      <p className={styles.title}>Вариант подключения</p>
+      <ParameterChoices label="Вариант подключения" value={selected}
+        items={chips.map((e) => ({ value: e.key, label: e.label }))} onSelect={onSelect} />
+    </div>}
+  </div>;
 }

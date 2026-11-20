@@ -1,3 +1,12 @@
+# Фронтенд
+
+Общие правила — в `../AGENTS.md`. Перед правками прочитай `README.md`: в нём структура, правила CSS, компонентов, анимаций, изображений и кэша. Дизайн — `../DESIGN.md`, продуктовые решения — `../docs/decisions.md`.
+
+- Запуск и команды — в `README.md`; зависимости фиксирует `package-lock.json`, пакетный менеджер — npm.
+- Данные и инвалидация кэша связаны с бэком: меняя API или теги, проверь обе стороны (`src/data/api.ts`, `src/app/api/revalidate/route.ts`, `../backend/src/apps/content/models.py`).
+- Изменения поведения полей админки требуют обновить `../docs/admin-guide.md`; новые слоты фото — `../docs/images-manifest.md`.
+- После правок кода: `npm run lint && npm run build`. После правок вёрстки дополнительно проверь 375, 768 и 1440 px и уменьшение движения, как описано в README.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know

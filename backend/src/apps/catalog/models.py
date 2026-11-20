@@ -125,13 +125,6 @@ class Brand(Published, Sortable):
         blank=True,
         help_text='Пусто — бренда нет в таблице гарантий',
     )
-    markup_percent = models.DecimalField(
-        'наценка, %',
-        max_digits=5,
-        decimal_places=2,
-        default=0,
-        help_text='Добавляется к цене после перевода по курсу Нацбанка',
-    )
 
     class Meta(Sortable.Meta):
         verbose_name = 'бренд'
@@ -214,8 +207,70 @@ class Color(models.Model):
         return self.code
 
 
+class ProductFamily(models.Model):
+    cache_tag = Tag.CATALOG
+    brand = models.ForeignKey(
+        Brand, on_delete=models.PROTECT, verbose_name='бренд'
+    )
+    category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, verbose_name='категория'
+    )
+    key = models.SlugField('ключ линейки', max_length=100)
+    name = models.CharField('линейка', max_length=150)
+    presentation_photo = models.ForeignKey(
+        'SeriesImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='стилевое фото линейки',
+        help_text='Сохраняет выбранное фото плитки независимо от технических галерей исполнений.',
+    )
+
+    class Meta:
+        verbose_name = 'линейка'
+        verbose_name_plural = 'линейки'
+        ordering = ['brand', 'name']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['brand', 'key'], name='unique_product_family_brand_key'
+            )
+        ]
+
+    def __str__(self):
+        return self.name
+
+
 class Series(Published, Sortable):
     cache_tag = Tag.CATALOG
+
+    family = models.ForeignKey(
+        ProductFamily,
+        on_delete=models.PROTECT,
+        related_name='series',
+        verbose_name='линейка',
+        null=True,
+        blank=True,
+    )
+    family_label = models.CharField(
+        'подпись в линейке',
+        max_length=80,
+        blank=True,
+        help_text='Название в переключателе моделей, например 350/070. '
+        'Если пусто, используется заводское положение или название серии.',
+    )
+    factory_orientation = models.CharField(
+        'заводское положение', max_length=1, choices=Orientation, blank=True
+    )
+    offer_mode = models.CharField(
+        'получение цены',
+        max_length=10,
+        default='direct',
+        choices=[
+            ('direct', 'Готовые прайсовые варианты'),
+            ('configured', 'База с доплатами'),
+        ],
+    )
 
     brand = models.ForeignKey(
         Brand,
@@ -244,6 +299,13 @@ class Series(Published, Sortable):
     description = models.TextField(
         'описание',
         blank=True,
+    )
+    markup_percent = models.DecimalField(
+        'наценка, %',
+        max_digits=5,
+        decimal_places=2,
+        default=0,
+        help_text='Для всех вариантов этой серии, после перевода по курсу Нацбанка',
     )
     material = models.CharField(
         'материал',
@@ -304,6 +366,51 @@ class Series(Published, Sortable):
             raise ValidationError(
                 {'subcategory': 'Тип относится к другой категории'},
             )
+        if self.family_id:
+            if self.family.brand_id != self.brand_id:
+                raise ValidationError(
+                    {'family': 'Линейка относится к другому бренду'}
+                )
+            if self.family.category_id != self.category_id:
+                raise ValidationError(
+                    {'family': 'Линейка относится к другой категории'}
+                )
+        if (
+            self.pk
+            and self.factory_orientation
+            and self.variants.exclude(orientation='')
+            .exclude(orientation=self.factory_orientation)
+            .exists()
+        ):
+            raise ValidationError(
+                {
+                    'factory_orientation': 'Положение противоречит существующим вариантам'
+                }
+            )
+        if (
+            self.pk
+            and self.offer_mode == 'configured'
+            and not self.configured_coverage()
+        ):
+            raise ValidationError(
+                {'offer_mode': 'Базовыми правилами покрыты не все варианты'}
+            )
+
+    def configured_coverage(self):
+        covered = {
+            (tubes, n)
+            for tubes, sections in self.connection_options.filter(
+                surcharge_rub=0
+            ).values_list('tubes', 'allowed_sections')
+            for n in sections
+        }
+        return all(
+            pair in covered
+            for pair in self.variants.filter(is_active=True)
+            .order_by()
+            .values_list('tubes', 'sections')
+            .distinct()
+        )
 
     def save(self, *args, **kwargs):
         self.description = clean_html(self.description)
@@ -312,6 +419,16 @@ class Series(Published, Sortable):
 
 class ColorGroup(Sortable):
     cache_tag = Tag.CATALOG
+
+    legacy_origin = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.PROTECT,
+        related_name='edition_copies',
+        verbose_name='группа до разделения',
+    )
 
     series = models.ForeignKey(
         Series,
@@ -351,6 +468,11 @@ class ColorGroup(Sortable):
         verbose_name_plural = 'группы цветов'
         constraints = [
             models.UniqueConstraint(
+                fields=['series', 'legacy_origin'],
+                condition=Q(legacy_origin__isnull=False),
+                name='unique_edition_color_origin',
+            ),
+            models.UniqueConstraint(
                 fields=['series'],
                 condition=Q(is_base=True),
                 name='one_base_color_group_per_series',
@@ -359,6 +481,22 @@ class ColorGroup(Sortable):
 
     def __str__(self):
         return f'{self.series}: {self.name}'
+
+
+class LegacyColorAlias(models.Model):
+    parent_slug = models.SlugField(max_length=160)
+    old_group_id = models.PositiveBigIntegerField()
+    group = models.ForeignKey(
+        ColorGroup, on_delete=models.CASCADE, related_name='legacy_aliases'
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['parent_slug', 'old_group_id', 'group'],
+                name='unique_catalog_legacy_color_alias',
+            )
+        ]
 
 
 class Variant(models.Model):
@@ -413,7 +551,9 @@ class Variant(models.Model):
     )
     thermovalve = models.BooleanField(
         'с термоклапаном',
-        default=False,
+        default=None,
+        null=True,
+        blank=True,
     )
     orientation = models.CharField(
         'ориентация',
@@ -484,9 +624,145 @@ class Variant(models.Model):
             return f'{self.article} · {self.get_connection_display()}'
         return self.article
 
+    @property
+    def effective_orientation(self):
+        return self.orientation or self.series.factory_orientation or None
+
+    def clean(self):
+        super().clean()
+        if (
+            self.orientation
+            and self.series_id
+            and self.series.factory_orientation
+            and self.orientation != self.series.factory_orientation
+        ):
+            raise ValidationError(
+                {
+                    'orientation': 'Положение противоречит заводскому исполнению серии'
+                }
+            )
+
     def save(self, *args, **kwargs):
         self.brand_id = self.series.brand_id
         super().save(*args, **kwargs)
+
+
+class ConnectionOption(models.Model):
+    """Подтверждённая заводом конфигурация; базовые артикулы не копируются."""
+
+    cache_tag = Tag.CATALOG
+    series = models.ForeignKey(
+        Series,
+        on_delete=models.CASCADE,
+        related_name='connection_options',
+        verbose_name='серия',
+    )
+    source_id = models.CharField('код завода', max_length=40)
+    label = models.CharField('подключение', max_length=300)
+    tubes = models.PositiveSmallIntegerField('рядов в глубину')
+    connection = models.CharField(
+        'расположение', max_length=20, choices=Connection
+    )
+    thermovalve = models.BooleanField('встроенный термоклапан', default=False)
+    mount = models.CharField('монтаж', max_length=5, choices=Mount)
+    surcharge_rub = models.DecimalField(
+        'доплата подключения, RUB',
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True,
+    )
+    base_adjustment_rub = models.DecimalField(
+        'доплата установки к базе, RUB',
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+    )
+    allowed_sections = models.JSONField(
+        'подтверждённое число секций', default=list
+    )
+    source_url = models.URLField('источник', max_length=2000)
+    checked_on = models.DateField('проверено')
+    evidence = models.JSONField(
+        'проверка и ограничения', default=dict, blank=True
+    )
+
+    class Meta:
+        ordering = ['series', 'tubes', 'pk']
+        verbose_name = 'подключение серии'
+        verbose_name_plural = 'подключения серий'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['series', 'tubes', 'mount', 'source_id'],
+                name='unique_factory_connection_option',
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.series}: {self.tubes}, {self.label}'
+
+    def clean(self):
+        super().clean()
+        sections = self.allowed_sections
+        if (
+            not isinstance(sections, list)
+            or not sections
+            or any(type(n) is not int or n <= 0 for n in sections)
+            or len(set(sections)) != len(sections)
+        ):
+            raise ValidationError(
+                {
+                    'allowed_sections': 'Выберите неповторяющиеся положительные целые числа секций'
+                }
+            )
+        if self.series_id:
+            available = set(
+                self.series.variants.filter(tubes=self.tubes)
+                .order_by()
+                .values_list('sections', flat=True)
+            )
+            if not set(sections) <= available:
+                raise ValidationError(
+                    {
+                        'allowed_sections': 'Таких секций нет у выбранной рядности серии'
+                    }
+                )
+        if self.base_adjustment_rub < 0 or (
+            self.surcharge_rub is not None and self.surcharge_rub < 0
+        ):
+            message = 'Доплата не может быть отрицательной'
+            raise ValidationError(message)
+        if self.pk and self.series.offer_mode == 'configured':
+            previous = (
+                type(self)
+                .objects.filter(pk=self.pk)
+                .values('surcharge_rub')
+                .first()
+            )
+            if previous and previous['surcharge_rub'] == 0:
+                covered = {
+                    (t, n)
+                    for t, ns in self.series.connection_options.exclude(
+                        pk=self.pk
+                    )
+                    .filter(surcharge_rub=0)
+                    .values_list('tubes', 'allowed_sections')
+                    for n in ns
+                }
+                if self.surcharge_rub == 0:
+                    covered.update((self.tubes, n) for n in sections)
+                needed = set(
+                    self.series.variants.filter(is_active=True)
+                    .order_by()
+                    .values_list('tubes', 'sections')
+                    .distinct()
+                )
+                if not needed <= covered:
+                    raise ValidationError(
+                        {
+                            'allowed_sections': 'Базовыми правилами должны быть покрыты все активные типоразмеры'
+                        }
+                    )
 
 
 class SeriesImage(WithImage, Sortable):
@@ -501,6 +777,13 @@ class SeriesImage(WithImage, Sortable):
         INTERIOR = 'interior', 'в интерьере'
         SCHEME = 'scheme', 'схема'
 
+    source_url = models.URLField('источник', max_length=2000, blank=True)
+    source_aliases = models.JSONField(default=list, blank=True, editable=False)
+    is_visible = models.BooleanField('показывать на сайте', default=True)
+    source_sha256 = models.CharField(
+        'хеш источника', max_length=64, blank=True
+    )
+
     series = models.ForeignKey(
         Series,
         on_delete=models.CASCADE,
@@ -513,12 +796,6 @@ class SeriesImage(WithImage, Sortable):
         null=True,
         blank=True,
         verbose_name='цвет',
-    )
-    orientation = models.CharField(
-        'ориентация',
-        max_length=1,
-        choices=Orientation,
-        blank=True,
     )
     kind = models.CharField(
         'вид фото',
@@ -535,6 +812,13 @@ class SeriesImage(WithImage, Sortable):
     class Meta(Sortable.Meta):
         verbose_name = 'фото серии'
         verbose_name_plural = 'фото серии'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['series', 'source_url'],
+                condition=~Q(source_url=''),
+                name='unique_series_image_source',
+            )
+        ]
 
     def default_alt(self) -> str:
         return self.series.name
@@ -545,6 +829,13 @@ class SeriesImage(WithImage, Sortable):
 
 class SeriesFile(Sortable):
     cache_tag = Tag.CATALOG
+    is_visible = models.BooleanField('показывать на сайте', default=True)
+
+    source_url = models.URLField('источник', max_length=2000, blank=True)
+    source_aliases = models.JSONField(default=list, blank=True, editable=False)
+    source_sha256 = models.CharField(
+        'хеш источника', max_length=64, blank=True
+    )
 
     series = models.ForeignKey(
         Series,
@@ -557,12 +848,12 @@ class SeriesFile(Sortable):
         max_length=150,
     )
     file = models.FileField(
-        'PDF',
+        'документ (PDF или XLSX)',
         upload_to=AutoUploadTo('file'),
         validators=[
             FileExtensionValidator(
-                allowed_extensions=['pdf'],
-                message='Подойдёт только PDF',
+                allowed_extensions=['pdf', 'xlsx'],
+                message='Подойдут PDF или XLSX',
             ),
             FileSizeValidator(MAX_PDF_MB, SizeUnit.MiB),
         ],
@@ -571,13 +862,20 @@ class SeriesFile(Sortable):
     class Meta(Sortable.Meta):
         verbose_name = 'файл серии'
         verbose_name_plural = 'файлы серии'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['series', 'source_url'],
+                condition=~Q(source_url=''),
+                name='unique_series_file_source',
+            )
+        ]
 
     def __str__(self):
         return self.title
 
 
 class Showcase(WithImage, Sortable):
-    """Витрина серии: подпись и вариант, который она показывает."""
+    """Обложка серии для каталога."""
 
     cache_tag = Tag.CATALOG
     IMAGE_HINT = ('Горизонтальное 4:3, от 1000 px по ширине', 1000)
@@ -591,6 +889,7 @@ class Showcase(WithImage, Sortable):
     label = models.CharField(
         'подпись',
         max_length=150,
+        blank=True,
     )
     variant = models.ForeignKey(
         Variant,
@@ -606,8 +905,7 @@ class Showcase(WithImage, Sortable):
         height_field='image_height',
         blank=True,
         validators=WithImage._meta.get_field('image').validators,  # noqa: SLF001
-        help_text='Пусто — фото серии того же положения, что вариант, иначе '
-        'товарное, ближайшее по форме к карточке 4:3',
+        help_text='Пусто — сайт подберёт товарное фото из галереи серии',
     )
     image_alt = models.CharField(
         'описание фото',
@@ -616,14 +914,14 @@ class Showcase(WithImage, Sortable):
     )
 
     def default_alt(self) -> str:
-        return self.label or self.series.name
+        return self.series.name
 
     class Meta(Sortable.Meta):
         verbose_name = 'витрина'
         verbose_name_plural = 'витрины'
 
     def __str__(self):
-        return self.label
+        return self.series.name
 
 
 class CurrencyRate(models.Model):

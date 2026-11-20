@@ -16,7 +16,7 @@ def to_byn(
     rate: Decimal | None,
     markup: Decimal,
 ) -> Decimal | None:
-    """Цена прайса в BYN с наценкой бренда, до копеек."""
+    """Цена прайса в BYN с наценкой серии, до копеек."""
     if price is None:
         return None
     if currency != Currency.BYN:
@@ -93,7 +93,7 @@ def price_from(
 
 
 def recalculate(variants: QuerySet | None = None) -> int:
-    """Пересчитывает price_byn по последним курсам и наценке брендов."""
+    """Пересчитывает price_byn по последним курсам и наценкам серий."""
     if variants is None:
         variants = Variant.objects.all()
     rates = {
@@ -103,13 +103,13 @@ def recalculate(variants: QuerySet | None = None) -> int:
     }
     batch = []
     total = 0
-    queryset = variants.select_related('brand').order_by('pk')
+    queryset = variants.select_related('series').order_by('pk')
     for variant in queryset.iterator(chunk_size=BATCH_SIZE):
         variant.price_byn = to_byn(
             variant.price,
             variant.currency,
             rates.get(variant.currency),
-            variant.brand.markup_percent,
+            variant.series.markup_percent,
         )
         batch.append(variant)
         if len(batch) >= BATCH_SIZE:

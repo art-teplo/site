@@ -1,0 +1,863 @@
+{
+  "guardo-allumo-3p": {
+    "brand": "guardo",
+    "key": "allumo-3p",
+    "name": "Allumo 3P",
+    "orientation": ""
+  },
+  "guardo-allumo-4p": {
+    "brand": "guardo",
+    "key": "allumo-4p",
+    "name": "Allumo 4P",
+    "orientation": ""
+  },
+  "guardo-alto": {
+    "brand": "guardo",
+    "key": "alto",
+    "name": "Alto",
+    "orientation": ""
+  },
+  "guardo-alto-q": {
+    "brand": "guardo",
+    "key": "alto-q",
+    "name": "Alto Q",
+    "orientation": ""
+  },
+  "guardo-diagonale": {
+    "brand": "guardo",
+    "key": "diagonale",
+    "name": "Diagonale",
+    "orientation": ""
+  },
+  "guardo-novanta": {
+    "brand": "guardo",
+    "key": "novanta",
+    "name": "Novanta",
+    "orientation": ""
+  },
+  "guardo-piatto": {
+    "brand": "guardo",
+    "key": "piatto",
+    "name": "Piatto",
+    "orientation": ""
+  },
+  "guardo-pilon": {
+    "brand": "guardo",
+    "key": "pilon",
+    "name": "Pilon",
+    "orientation": ""
+  },
+  "guardo-retta-3p": {
+    "brand": "guardo",
+    "key": "retta-3p",
+    "name": "Retta 3P",
+    "orientation": ""
+  },
+  "guardo-retta-4p": {
+    "brand": "guardo",
+    "key": "retta-4p",
+    "name": "Retta 4P",
+    "orientation": ""
+  },
+  "guardo-retta-6p": {
+    "brand": "guardo",
+    "key": "retta-6p",
+    "name": "Retta 6P",
+    "orientation": ""
+  },
+  "guardo-retta-6sp": {
+    "brand": "guardo",
+    "key": "retta-6sp",
+    "name": "Retta 6SP",
+    "orientation": ""
+  },
+  "guardo-stretto": {
+    "brand": "guardo",
+    "key": "stretto",
+    "name": "Stretto",
+    "orientation": ""
+  },
+  "guardo-torre-3d": {
+    "brand": "guardo",
+    "key": "torre-3d",
+    "name": "Torre 3D",
+    "orientation": ""
+  },
+  "guardo-torre-4d": {
+    "brand": "guardo",
+    "key": "torre-4d",
+    "name": "Torre 4D",
+    "orientation": ""
+  },
+  "guardo-torre-6d": {
+    "brand": "guardo",
+    "key": "torre-6d",
+    "name": "Torre 6D",
+    "orientation": ""
+  },
+  "nova-siluet": {
+    "brand": "nova",
+    "key": "siluet",
+    "name": "Siluet",
+    "orientation": ""
+  },
+  "velar-p200": {
+    "brand": "velar",
+    "key": "p200",
+    "name": "P200",
+    "orientation": "h"
+  },
+  "velar-p30": {
+    "brand": "velar",
+    "key": "p30",
+    "name": "P30",
+    "orientation": ""
+  },
+  "velar-p300": {
+    "brand": "velar",
+    "key": "p300",
+    "name": "P300",
+    "orientation": "h"
+  },
+  "velar-p60": {
+    "brand": "velar",
+    "key": "p60",
+    "name": "P60",
+    "orientation": ""
+  },
+  "velar-q40": {
+    "brand": "velar",
+    "key": "q40",
+    "name": "Q40",
+    "orientation": "v"
+  },
+  "velar-q500": {
+    "brand": "velar",
+    "key": "q500",
+    "name": "Q500",
+    "orientation": "h"
+  },
+  "velar-q60": {
+    "brand": "velar",
+    "key": "q60",
+    "name": "Q60",
+    "orientation": ""
+  },
+  "velar-q80": {
+    "brand": "velar",
+    "key": "q80",
+    "name": "Q80",
+    "orientation": ""
+  },
+  "velar-qt1": {
+    "brand": "velar",
+    "key": "qt1",
+    "name": "QT1",
+    "orientation": "v"
+  },
+  "velar-qt2": {
+    "brand": "velar",
+    "key": "qt2",
+    "name": "QT2",
+    "orientation": "v"
+  },
+  "velar-r32": {
+    "brand": "velar",
+    "key": "r32",
+    "name": "R32",
+    "orientation": ""
+  },
+  "velar-r42": {
+    "brand": "velar",
+    "key": "r42",
+    "name": "R42",
+    "orientation": ""
+  },
+  "velar-r89": {
+    "brand": "velar",
+    "key": "r89",
+    "name": "R89",
+    "orientation": ""
+  },
+  "velar-rt1": {
+    "brand": "velar",
+    "key": "rt1",
+    "name": "RT1",
+    "orientation": "v"
+  },
+  "velar-rt1w": {
+    "brand": "velar",
+    "key": "rt1w",
+    "name": "RT1W",
+    "orientation": "v"
+  },
+  "velar-rt2": {
+    "brand": "velar",
+    "key": "rt2",
+    "name": "RT2",
+    "orientation": "v"
+  },
+  "velar-rt2w": {
+    "brand": "velar",
+    "key": "rt2w",
+    "name": "RT2W",
+    "orientation": "v"
+  },
+  "velar-s": {
+    "brand": "velar",
+    "key": "s",
+    "name": "S",
+    "orientation": ""
+  },
+  "velar-sp": {
+    "brand": "velar",
+    "key": "sp",
+    "name": "SP",
+    "orientation": ""
+  },
+  "kzto-bataria": {
+    "brand": "kzto",
+    "key": "bataria",
+    "name": "BATARÌA",
+    "orientation": ""
+  },
+  "kzto-bataria-retro": {
+    "brand": "kzto",
+    "key": "bataria-retro",
+    "name": "BATARÌA Retro",
+    "orientation": ""
+  },
+  "kzto-garmoniya": {
+    "brand": "kzto",
+    "key": "garmoniya",
+    "name": "Гармония",
+    "orientation": ""
+  },
+  "kzto-garmoniya-a20": {
+    "brand": "kzto",
+    "key": "garmoniya-a20",
+    "name": "Гармония А20",
+    "orientation": ""
+  },
+  "kzto-garmoniya-a25-n": {
+    "brand": "kzto",
+    "key": "garmoniya-a25-n",
+    "name": "Гармония А25 N",
+    "orientation": ""
+  },
+  "kzto-garmoniya-a40": {
+    "brand": "kzto",
+    "key": "garmoniya-a40",
+    "name": "Гармония А40",
+    "orientation": ""
+  },
+  "kzto-garmoniya-s25-n": {
+    "brand": "kzto",
+    "key": "garmoniya-s25-n",
+    "name": "Гармония С25 N",
+    "orientation": ""
+  },
+  "kzto-garmoniya-s40": {
+    "brand": "kzto",
+    "key": "garmoniya-s40",
+    "name": "Гармония С40",
+    "orientation": ""
+  },
+  "kzto-rs": {
+    "brand": "kzto",
+    "key": "rs",
+    "name": "РС",
+    "orientation": ""
+  },
+  "kzto-rsk": {
+    "brand": "kzto",
+    "key": "rsk",
+    "name": "РСК",
+    "orientation": ""
+  },
+  "kzto-quadrum-30": {
+    "brand": "kzto",
+    "key": "quadrum-30",
+    "name": "Quadrum 30",
+    "orientation": ""
+  },
+  "kzto-quadrum-30-v": {
+    "brand": "kzto",
+    "key": "quadrum-30",
+    "name": "Quadrum 30",
+    "orientation": "v"
+  },
+  "kzto-quadrum-30-h": {
+    "brand": "kzto",
+    "key": "quadrum-30",
+    "name": "Quadrum 30",
+    "orientation": "h"
+  },
+  "kzto-quadrum-40": {
+    "brand": "kzto",
+    "key": "quadrum-40",
+    "name": "Quadrum 40",
+    "orientation": ""
+  },
+  "kzto-quadrum-40-v": {
+    "brand": "kzto",
+    "key": "quadrum-40",
+    "name": "Quadrum 40",
+    "orientation": "v"
+  },
+  "kzto-quadrum-40-h": {
+    "brand": "kzto",
+    "key": "quadrum-40",
+    "name": "Quadrum 40",
+    "orientation": "h"
+  },
+  "kzto-quadrum-50": {
+    "brand": "kzto",
+    "key": "quadrum-50",
+    "name": "Quadrum 50",
+    "orientation": ""
+  },
+  "kzto-quadrum-50-v": {
+    "brand": "kzto",
+    "key": "quadrum-50",
+    "name": "Quadrum 50",
+    "orientation": "v"
+  },
+  "kzto-quadrum-50-h": {
+    "brand": "kzto",
+    "key": "quadrum-50",
+    "name": "Quadrum 50",
+    "orientation": "h"
+  },
+  "kzto-quadrum-60": {
+    "brand": "kzto",
+    "key": "quadrum-60",
+    "name": "Quadrum 60",
+    "orientation": ""
+  },
+  "kzto-quadrum-60-v": {
+    "brand": "kzto",
+    "key": "quadrum-60",
+    "name": "Quadrum 60",
+    "orientation": "v"
+  },
+  "kzto-quadrum-60-h": {
+    "brand": "kzto",
+    "key": "quadrum-60",
+    "name": "Quadrum 60",
+    "orientation": "h"
+  },
+  "kzto-quadrum-neo-50": {
+    "brand": "kzto",
+    "key": "quadrum-neo-50",
+    "name": "Quadrum NEO 50",
+    "orientation": ""
+  },
+  "kzto-quadrum-neo-50-v": {
+    "brand": "kzto",
+    "key": "quadrum-neo-50",
+    "name": "Quadrum NEO 50",
+    "orientation": "v"
+  },
+  "kzto-quadrum-neo-50-h": {
+    "brand": "kzto",
+    "key": "quadrum-neo-50",
+    "name": "Quadrum NEO 50",
+    "orientation": "h"
+  },
+  "kzto-ellipse-p": {
+    "brand": "kzto",
+    "key": "ellipse-p",
+    "name": "Ellipse P",
+    "orientation": ""
+  },
+  "kzto-ellipse-p-v": {
+    "brand": "kzto",
+    "key": "ellipse-p",
+    "name": "Ellipse P",
+    "orientation": "v"
+  },
+  "kzto-ellipse-p-h": {
+    "brand": "kzto",
+    "key": "ellipse-p",
+    "name": "Ellipse P",
+    "orientation": "h"
+  },
+  "kzto-ellipse-s": {
+    "brand": "kzto",
+    "key": "ellipse-s",
+    "name": "Ellipse S",
+    "orientation": ""
+  },
+  "kzto-ellipse-s-v": {
+    "brand": "kzto",
+    "key": "ellipse-s",
+    "name": "Ellipse S",
+    "orientation": "v"
+  },
+  "kzto-ellipse-s-h": {
+    "brand": "kzto",
+    "key": "ellipse-s",
+    "name": "Ellipse S",
+    "orientation": "h"
+  },
+  "kzto-solo": {
+    "brand": "kzto",
+    "key": "solo",
+    "name": "Соло",
+    "orientation": ""
+  },
+  "kzto-solo-v": {
+    "brand": "kzto",
+    "key": "solo",
+    "name": "Соло",
+    "orientation": "v"
+  },
+  "kzto-solo-g": {
+    "brand": "kzto",
+    "key": "solo",
+    "name": "Соло",
+    "orientation": "h"
+  },
+  "kzto-paralleli": {
+    "brand": "kzto",
+    "key": "paralleli",
+    "name": "Параллели",
+    "orientation": ""
+  },
+  "kzto-paralleli-v": {
+    "brand": "kzto",
+    "key": "paralleli",
+    "name": "Параллели",
+    "orientation": "v"
+  },
+  "kzto-paralleli-g": {
+    "brand": "kzto",
+    "key": "paralleli",
+    "name": "Параллели",
+    "orientation": "h"
+  },
+  "guardo-retta-3p-v": {
+    "brand": "guardo",
+    "key": "retta-3p",
+    "name": "Retta 3P",
+    "orientation": "v"
+  },
+  "guardo-retta-3p-h": {
+    "brand": "guardo",
+    "key": "retta-3p",
+    "name": "Retta 3P",
+    "orientation": "h"
+  },
+  "guardo-retta-4p-v": {
+    "brand": "guardo",
+    "key": "retta-4p",
+    "name": "Retta 4P",
+    "orientation": "v"
+  },
+  "guardo-retta-4p-h": {
+    "brand": "guardo",
+    "key": "retta-4p",
+    "name": "Retta 4P",
+    "orientation": "h"
+  },
+  "guardo-retta-6p-v": {
+    "brand": "guardo",
+    "key": "retta-6p",
+    "name": "Retta 6P",
+    "orientation": "v"
+  },
+  "guardo-retta-6p-h": {
+    "brand": "guardo",
+    "key": "retta-6p",
+    "name": "Retta 6P",
+    "orientation": "h"
+  },
+  "guardo-retta-6sp-v": {
+    "brand": "guardo",
+    "key": "retta-6sp",
+    "name": "Retta 6SP",
+    "orientation": "v"
+  },
+  "guardo-retta-6sp-h": {
+    "brand": "guardo",
+    "key": "retta-6sp",
+    "name": "Retta 6SP",
+    "orientation": "h"
+  },
+  "guardo-torre-3d-v": {
+    "brand": "guardo",
+    "key": "torre-3d",
+    "name": "Torre 3D",
+    "orientation": "v"
+  },
+  "guardo-torre-3d-h": {
+    "brand": "guardo",
+    "key": "torre-3d",
+    "name": "Torre 3D",
+    "orientation": "h"
+  },
+  "guardo-torre-4d-v": {
+    "brand": "guardo",
+    "key": "torre-4d",
+    "name": "Torre 4D",
+    "orientation": "v"
+  },
+  "guardo-torre-4d-h": {
+    "brand": "guardo",
+    "key": "torre-4d",
+    "name": "Torre 4D",
+    "orientation": "h"
+  },
+  "guardo-torre-6d-v": {
+    "brand": "guardo",
+    "key": "torre-6d",
+    "name": "Torre 6D",
+    "orientation": "v"
+  },
+  "guardo-torre-6d-h": {
+    "brand": "guardo",
+    "key": "torre-6d",
+    "name": "Torre 6D",
+    "orientation": "h"
+  },
+  "velar-p30-v": {
+    "brand": "velar",
+    "key": "p30",
+    "name": "P30",
+    "orientation": "v"
+  },
+  "velar-p30-h": {
+    "brand": "velar",
+    "key": "p30",
+    "name": "P30",
+    "orientation": "h"
+  },
+  "velar-p60-v": {
+    "brand": "velar",
+    "key": "p60",
+    "name": "P60",
+    "orientation": "v"
+  },
+  "velar-p60-h": {
+    "brand": "velar",
+    "key": "p60",
+    "name": "P60",
+    "orientation": "h"
+  },
+  "velar-s-v": {
+    "brand": "velar",
+    "key": "s",
+    "name": "S",
+    "orientation": "v"
+  },
+  "velar-s-h": {
+    "brand": "velar",
+    "key": "s",
+    "name": "S",
+    "orientation": "h"
+  },
+  "velar-sp-v": {
+    "brand": "velar",
+    "key": "sp",
+    "name": "SP",
+    "orientation": "v"
+  },
+  "velar-sp-h": {
+    "brand": "velar",
+    "key": "sp",
+    "name": "SP",
+    "orientation": "h"
+  },
+  "velar-q60-v": {
+    "brand": "velar",
+    "key": "q60",
+    "name": "Q60",
+    "orientation": "v"
+  },
+  "velar-q60-h": {
+    "brand": "velar",
+    "key": "q60",
+    "name": "Q60",
+    "orientation": "h"
+  },
+  "velar-q80-v": {
+    "brand": "velar",
+    "key": "q80",
+    "name": "Q80",
+    "orientation": "v"
+  },
+  "velar-q80-h": {
+    "brand": "velar",
+    "key": "q80",
+    "name": "Q80",
+    "orientation": "h"
+  },
+  "velar-r32-v": {
+    "brand": "velar",
+    "key": "r32",
+    "name": "R32",
+    "orientation": "v"
+  },
+  "velar-r32-h": {
+    "brand": "velar",
+    "key": "r32",
+    "name": "R32",
+    "orientation": "h"
+  },
+  "velar-r42-v": {
+    "brand": "velar",
+    "key": "r42",
+    "name": "R42",
+    "orientation": "v"
+  },
+  "velar-r42-h": {
+    "brand": "velar",
+    "key": "r42",
+    "name": "R42",
+    "orientation": "h"
+  },
+  "velar-r89-v": {
+    "brand": "velar",
+    "key": "r89",
+    "name": "R89",
+    "orientation": "v"
+  },
+  "velar-r89-h": {
+    "brand": "velar",
+    "key": "r89",
+    "name": "R89",
+    "orientation": "h"
+  },
+  "radimax-heat-500": {
+    "brand": "radimax",
+    "key": "heat",
+    "name": "Heat",
+    "orientation": "",
+    "label": "500"
+  },
+  "radimax-bolton": {
+    "brand": "radimax",
+    "key": "bolton",
+    "name": "Bolton",
+    "orientation": "",
+    "label": ""
+  },
+  "radimax-derby-300": {
+    "brand": "radimax",
+    "key": "derby",
+    "name": "Derby",
+    "orientation": "",
+    "label": "300"
+  },
+  "radimax-derby-500": {
+    "brand": "radimax",
+    "key": "derby",
+    "name": "Derby",
+    "orientation": "",
+    "label": "500"
+  },
+  "radimax-derby-600": {
+    "brand": "radimax",
+    "key": "derby",
+    "name": "Derby",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-derby-870": {
+    "brand": "radimax",
+    "key": "derby",
+    "name": "Derby",
+    "orientation": "",
+    "label": "870"
+  },
+  "radimax-loft-350-070": {
+    "brand": "radimax",
+    "key": "loft",
+    "name": "Loft",
+    "orientation": "",
+    "label": "350/070"
+  },
+  "radimax-loft-350": {
+    "brand": "radimax",
+    "key": "loft",
+    "name": "Loft",
+    "orientation": "",
+    "label": "350"
+  },
+  "radimax-loft-500-070": {
+    "brand": "radimax",
+    "key": "loft",
+    "name": "Loft",
+    "orientation": "",
+    "label": "500/070"
+  },
+  "radimax-loft-500": {
+    "brand": "radimax",
+    "key": "loft",
+    "name": "Loft",
+    "orientation": "",
+    "label": "500"
+  },
+  "radimax-loft-600-070": {
+    "brand": "radimax",
+    "key": "loft",
+    "name": "Loft",
+    "orientation": "",
+    "label": "600/070"
+  },
+  "radimax-loft-600": {
+    "brand": "radimax",
+    "key": "loft",
+    "name": "Loft",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-windsbold-400": {
+    "brand": "radimax",
+    "key": "windsbold",
+    "name": "Windsbold",
+    "orientation": "",
+    "label": "400"
+  },
+  "radimax-windsbold-600": {
+    "brand": "radimax",
+    "key": "windsbold",
+    "name": "Windsbold",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-bristol-300": {
+    "brand": "radimax",
+    "key": "bristol",
+    "name": "Bristol",
+    "orientation": "",
+    "label": "300"
+  },
+  "radimax-bristol-600": {
+    "brand": "radimax",
+    "key": "bristol",
+    "name": "Bristol",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-bristol-800": {
+    "brand": "radimax",
+    "key": "bristol",
+    "name": "Bristol",
+    "orientation": "",
+    "label": "800"
+  },
+  "radimax-iris": {
+    "brand": "radimax",
+    "key": "iris",
+    "name": "Iris",
+    "orientation": "",
+    "label": ""
+  },
+  "radimax-leeds": {
+    "brand": "radimax",
+    "key": "leeds",
+    "name": "Leeds",
+    "orientation": "",
+    "label": ""
+  },
+  "radimax-lynn": {
+    "brand": "radimax",
+    "key": "lynn",
+    "name": "Lynn",
+    "orientation": "",
+    "label": "1600"
+  },
+  "radimax-norwich": {
+    "brand": "radimax",
+    "key": "norwich",
+    "name": "Norwich",
+    "orientation": "",
+    "label": ""
+  },
+  "radimax-troy": {
+    "brand": "radimax",
+    "key": "troy",
+    "name": "Troy",
+    "orientation": "",
+    "label": ""
+  },
+  "radimax-windsor-350": {
+    "brand": "radimax",
+    "key": "windsor",
+    "name": "Windsor",
+    "orientation": "",
+    "label": "350"
+  },
+  "radimax-windsor-500": {
+    "brand": "radimax",
+    "key": "windsor",
+    "name": "Windsor",
+    "orientation": "",
+    "label": "500"
+  },
+  "radimax-windsor-600": {
+    "brand": "radimax",
+    "key": "windsor",
+    "name": "Windsor",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-windsor-800": {
+    "brand": "radimax",
+    "key": "windsor",
+    "name": "Windsor",
+    "orientation": "",
+    "label": "800"
+  },
+  "radimax-york-400": {
+    "brand": "radimax",
+    "key": "york",
+    "name": "York",
+    "orientation": "",
+    "label": "400"
+  },
+  "radimax-york-600": {
+    "brand": "radimax",
+    "key": "york",
+    "name": "York",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-soul-300": {
+    "brand": "radimax",
+    "key": "soul",
+    "name": "Соул",
+    "orientation": "",
+    "label": "300"
+  },
+  "radimax-soul-500": {
+    "brand": "radimax",
+    "key": "soul",
+    "name": "Соул",
+    "orientation": "",
+    "label": "500"
+  },
+  "radimax-soul-600": {
+    "brand": "radimax",
+    "key": "soul",
+    "name": "Соул",
+    "orientation": "",
+    "label": "600"
+  },
+  "radimax-still-azhur": {
+    "brand": "radimax",
+    "key": "still",
+    "name": "Стилл",
+    "orientation": "",
+    "label": "Ажур"
+  },
+  "radimax-still-vintazh": {
+    "brand": "radimax",
+    "key": "still",
+    "name": "Стилл",
+    "orientation": "",
+    "label": "Винтаж"
+  }
+}

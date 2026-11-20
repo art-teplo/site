@@ -1,30 +1,30 @@
 import type { Connection, Facet, ModelTile, ShowcaseCard, VariantRow } from "./types";
 
 // Ответ /api/series/ → витрина. Общий для сервера (api.ts) и клиентского списка.
-export type ApiCard = Omit<ShowcaseCard, "heightMm" | "priceFrom" | "hoverImage"> & {
-  height_mm: number | null;
+export type ApiCard = Omit<ShowcaseCard, "priceFrom" | "hoverImage"> & {
   price_from: number | null;
   hover_image?: ShowcaseCard["hoverImage"];
 };
 
-export const mapCard = ({ height_mm, price_from, hover_image, ...card }: ApiCard): ShowcaseCard => ({
+export const mapCard = ({ price_from, hover_image, ...card }: ApiCard): ShowcaseCard => ({
   ...card,
-  heightMm: height_mm,
   priceFrom: price_from,
   hoverImage: hover_image ?? null,
 });
-export type ApiShowcase = { count: number; results: ApiCard[]; facets: Facet[]; model_range: ModelTile[] };
+export type ApiShowcase = { count: number; results: ApiCard[]; facets?: Facet[]; model_range?: ModelTile[] };
 export type Showcase = { count: number; results: ShowcaseCard[]; facets: Facet[]; modelRange: ModelTile[] };
 
 export const mapShowcase = (data: ApiShowcase): Showcase => ({
   count: data.count,
   results: data.results.map(mapCard),
-  facets: data.facets,
-  modelRange: data.model_range,
+  facets: data.facets ?? [],
+  modelRange: data.model_range ?? [],
 });
 
 // Строка таблицы серии: ответ /api/series/<slug>/variants/ → VariantRow. Общий для сервера и клиента.
 export type ApiRow = {
+  configuration_label?: string;
+  configuration_key?: string;
   article: string;
   height_mm: number | null;
   width_mm: number | null;
@@ -36,7 +36,7 @@ export type ApiRow = {
   area_m2: number | null;
   tubes: number | null;
   connection: Connection | "" | null;
-  thermovalve: boolean;
+  thermovalve: boolean | null;
   orientation: VariantRow["orientation"] | null;
   mount: VariantRow["mount"] | null;
   attrs: VariantRow["attrs"];
@@ -46,6 +46,8 @@ export type ApiRow = {
 };
 
 export const mapRow = (row: ApiRow): VariantRow => ({
+  configurationLabel: row.configuration_label,
+  configurationKey: row.configuration_key,
   article: row.article,
   heightMm: row.height_mm,
   widthMm: row.width_mm,
@@ -66,6 +68,6 @@ export const mapRow = (row: ApiRow): VariantRow => ({
   colorGroups: row.color_groups,
 });
 
-export type ApiVariants = { count: number; results: ApiRow[]; facets: Facet[] };
-export type Variants = { count: number; results: VariantRow[]; facets: Facet[] };
-export const mapVariants = (data: ApiVariants): Variants => ({ count: data.count, results: data.results.map(mapRow), facets: data.facets });
+export type ApiVariants = { count: number; results: ApiRow[]; facets: Facet[]; price_from?: number | null };
+export type Variants = { count: number; results: VariantRow[]; facets: Facet[]; priceFrom?: number | null };
+export const mapVariants = (data: ApiVariants): Variants => ({ count: data.count, results: data.results.map(mapRow), facets: data.facets, priceFrom: data.price_from });

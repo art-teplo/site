@@ -189,6 +189,7 @@ def site(monkeypatch, no_revalidate):  # noqa: ARG001
         kzto.FEED_URL: full_feed(),
         kzto.PAGE_URL.format(1): PAGE.encode(),
         PICTURE: image_bytes((40, 50), 'PNG'),
+        'https://kztoradiator.ru/a.webp': image_bytes((40, 50), 'WEBP'),
         INTERIOR: image_bytes((160, 90), 'JPEG'),
         'https://kztoradiator.ru/assets/manager/doc/Паспорт BATARÌA.pdf': (
             b'%PDF-1.4 passport'
@@ -306,7 +307,8 @@ def test_import_creates_series_and_variants(no_revalidate):
     slugs = set(Series.objects.values_list('slug', flat=True))
     assert slugs == {
         'kzto-bataria',
-        'kzto-quadrum-30',
+        'kzto-quadrum-30-v',
+        'kzto-quadrum-30-h',
         'kzto-briz-v',
         'kzto-reshetka-briz',
     }
@@ -333,7 +335,9 @@ def test_import_creates_series_and_variants(no_revalidate):
     assert twin.sections == 49
     assert 'повтор артикула' in out
 
-    quadrum = Variant.objects.filter(series__slug='kzto-quadrum-30')
+    quadrum = Variant.objects.filter(
+        series__slug__in=['kzto-quadrum-30-v', 'kzto-quadrum-30-h']
+    )
     assert dict(quadrum.values_list('article', 'orientation')) == {
         'К30В13003': 'v',
         'К30Г13003': 'h',
@@ -381,11 +385,9 @@ def test_import_fills_series_from_page_and_media():
     images = list(SeriesImage.objects.filter(series=series))
     assert [(i.kind, i.image_alt) for i in images] == [
         ('product', 'BATARÌA — фото 1'),
-        ('interior', 'BATARÌA — фото 2'),
     ]
     assert [(i.image_width, i.image_height) for i in images] == [
         (40, 50),
-        (160, 90),
     ]
     # Только документы серии и только PDF: общие файлы сайта не берём
     files = list(SeriesFile.objects.filter(series=series))
@@ -409,7 +411,7 @@ def test_reimport_keeps_manager_edits_and_hides_missing(site):
     series.refresh_from_db()
     assert series.description == '<p>Свой текст</p>'
     assert series.is_published
-    assert SeriesImage.objects.filter(series=series).count() == 2
+    assert SeriesImage.objects.filter(series=series).count() == 1
     assert SeriesFile.objects.filter(series=series).count() == 1
     assert Variant.objects.get(article='БАТ25007').price == Decimal('12000')
     assert set(
@@ -437,7 +439,7 @@ def test_publish_and_dry_run(site, no_revalidate):
     assert requested == [kzto.FEED_URL]
 
     run('--publish', '--no-media')
-    assert Series.objects.filter(is_published=True).count() == 4
+    assert Series.objects.filter(is_published=True).count() == 5
     assert not SeriesImage.objects.exists()
 
 

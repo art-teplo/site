@@ -1,7 +1,11 @@
 from django import forms
 from django.contrib import admin, messages
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
+from django.http import Http404
 from django.shortcuts import redirect
+from django.template.response import TemplateResponse
+from django.urls import path, reverse
 from django.utils.html import format_html
 from unfold.admin import ModelAdmin, StackedInline, TabularInline
 from unfold.contrib.forms.widgets import WysiwygWidget
@@ -17,13 +21,16 @@ from apps.content.widgets import (
 )
 
 from . import pricing
+from .admin_forms import ConnectionOptionForm, ConnectionPreviewForm
 from .models import (
     Brand,
     Category,
     Color,
     ColorGroup,
+    ConnectionOption,
     CurrencyRate,
     LeadTime,
+    ProductFamily,
     Series,
     SeriesFile,
     SeriesImage,
@@ -31,6 +38,7 @@ from .models import (
     Subcategory,
     Variant,
 )
+from .offers import offer_query
 from .tasks import update_rates
 
 
@@ -111,15 +119,8 @@ class BrandAdmin(ModelAdmin):
         'note',
         'logo',
         'warranty_years',
-        'markup_percent',
         'is_published',
     ]
-
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-        if change and 'markup_percent' in form.changed_data:
-            # bulk_update сигналов не шлёт; кэш сбросит сохранение бренда
-            pricing.recalculate(Variant.objects.filter(brand=obj))
 
 
 @admin.register(LeadTime)
@@ -172,8 +173,8 @@ class SeriesImageInline(SortableInlineMixin, TabularInline):
         'image_alt',
         'image_focus',
         'kind',
+        'is_visible',
         'color',
-        'orientation',
         'position',
     ]
     readonly_fields = [preview]
@@ -183,35 +184,170 @@ class SeriesImageInline(SortableInlineMixin, TabularInline):
 class SeriesFileInline(SortableInlineMixin, TabularInline):
     model = SeriesFile
     extra = 0
-    fields = ['title', 'file', 'position']
+    fields = ['title', 'file', 'is_visible', 'position']
+
+
+@admin.register(ConnectionOption)
+class ConnectionOptionAdmin(ModelAdmin):
+    form = ConnectionOptionForm
+    list_display = [
+        'series',
+        'tubes',
+        'label',
+        'mount',
+        'total_surcharge',
+        'checked_on',
+    ]
+    list_filter = ['series', 'tubes', 'mount', 'thermovalve']
+    search_fields = ['series__name', 'label', 'source_id']
+    autocomplete_fields = ['series']
+    readonly_fields = [
+        'source_id',
+        'source_url',
+        'checked_on',
+        'evidence',
+        'surcharge_rub',
+        'base_adjustment_rub',
+        'preview_link',
+    ]
+    fieldsets = [
+        (
+            None,
+            {
+                'fields': [
+                    'series',
+                    'label',
+                    'tubes',
+                    'connection',
+                    'mount',
+                    'thermovalve',
+                    'allowed_sections',
+                    'configuration_surcharge_rub',
+                    'preview_link',
+                ]
+            },
+        ),
+        (
+            'Источник данных',
+            {
+                'classes': ['collapse'],
+                'fields': [
+                    'surcharge_rub',
+                    'base_adjustment_rub',
+                    'source_id',
+                    'source_url',
+                    'checked_on',
+                    'evidence',
+                ],
+            },
+        ),
+    ]
+
+    def has_add_permission(self, request):  # noqa: ARG002
+        return False
+
+    def has_delete_permission(self, request, obj=None):  # noqa: ARG002
+        return False  # заводские ключи нужны существующим ссылкам; правим, не удаляем
+
+    @admin.display(description='Доплата за конфигурацию, RUB')
+    def total_surcharge(self, obj):
+        return (
+            None
+            if obj.surcharge_rub is None
+            else obj.surcharge_rub + obj.base_adjustment_rub
+        )
+
+    @admin.display(description='Предварительный расчёт')
+    def preview_link(self, obj):
+        if not obj or not obj.pk:
+            return '—'
+        return format_html(
+            '<a href="{}">Выбрать базовый артикул и посмотреть цену</a>',
+            reverse('admin:catalog_connectionoption_preview', args=[obj.pk]),
+        )
+
+    def get_urls(self):
+        return [
+            path(
+                '<int:object_id>/preview/',
+                self.admin_site.admin_view(self.preview_view),
+                name='catalog_connectionoption_preview',
+            ),
+            *super().get_urls(),
+        ]
+
+    def preview_view(self, request, object_id):
+        obj = self.get_object(request, str(object_id))
+        if obj is None:
+            raise Http404
+        if not self.has_view_permission(request, obj):
+            raise PermissionDenied
+        first = (
+            obj.series.variants.filter(
+                tubes=obj.tubes,
+                sections__in=obj.allowed_sections,
+                is_active=True,
+            )
+            .order_by('pk')
+            .first()
+        )
+        form = ConnectionPreviewForm(
+            request.GET or None,
+            initial={'article': first.article if first else ''},
+        )
+        row = None
+        if form.is_bound and form.is_valid():
+            variants = obj.series.variants.filter(
+                article=form.cleaned_data['article'], is_active=True
+            )
+            rows = (
+                offer_query(variants)
+                .with_execution(f'kzto-{obj.pk}')
+                .page(1, 1)
+            )
+            if rows:
+                from .offers import serialize_rows  # noqa: PLC0415
+
+                row = serialize_rows(rows)[0]
+        return TemplateResponse(
+            request,
+            'admin/catalog/connectionoption/preview.html',
+            {
+                **self.admin_site.each_context(request),
+                'title': 'Расчёт подключения',
+                'opts': self.model._meta,  # noqa: SLF001
+                'option': obj,
+                'form': form,
+                'row': row,
+            },
+        )
+
+
+@admin.register(ProductFamily)
+class ProductFamilyAdmin(ModelAdmin):
+    readonly_fields = ['presentation_photo']
+    list_display = ['name', 'brand', 'category', 'key']
+    list_filter = ['brand', 'category']
+    search_fields = ['name', 'key', 'brand__name']
+    autocomplete_fields = ['brand']
 
 
 class ShowcaseInline(SortableInlineMixin, StackedInline):
     model = Showcase
     form = ImageModelForm
     extra = 0
+    max_num = 1
     fields = [
-        'label',
-        'variant',
         'image',
         'image_alt',
         'image_focus',
         'position',
     ]
-    autocomplete_fields = ['variant']
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        field = super().formfield_for_foreignkey(db_field, request, **kwargs)
-        if db_field.name == 'variant':
-            series_id = (request.resolver_match.kwargs or {}).get('object_id')
-            # автодополнение ищет по всем вариантам и queryset не учитывает;
-            # он нужен для проверки при сохранении: чужой вариант не пройдёт
-            field.queryset = Variant.objects.filter(series_id=series_id)
-        return field
 
 
 @admin.register(Series)
 class SeriesAdmin(InlineImagesAdminMixin, ModelAdmin):
+    readonly_fields = ['pricing_mode', 'connections_link']
     inlines = [
         ColorGroupInline,
         SeriesImageInline,
@@ -224,6 +360,7 @@ class SeriesAdmin(InlineImagesAdminMixin, ModelAdmin):
         'category',
         'subcategory',
         'heating',
+        'markup_percent',
         'is_published',
     ]
     list_display_links = ['name']
@@ -240,9 +377,15 @@ class SeriesAdmin(InlineImagesAdminMixin, ModelAdmin):
     fields = [
         'brand',
         'category',
+        'family',
+        'family_label',
+        'factory_orientation',
+        'pricing_mode',
+        'connections_link',
         'subcategory',
         'name',
         'description',
+        'markup_percent',
         'material',
         'heating',
         'pressure_bar',
@@ -251,12 +394,37 @@ class SeriesAdmin(InlineImagesAdminMixin, ModelAdmin):
         'is_published',
     ]
 
+    @admin.display(description='Как получается цена')
+    def pricing_mode(self, obj):
+        if obj and obj.offer_mode == 'configured':
+            return 'Цена базового радиатора + доплата выбранного подключения. Правила — по ссылке ниже.'
+        return 'Цена и подключение указаны в прайсовых вариантах. Отдельные правила доплат не используются.'
+
+    @admin.display(description='Где изменить подключение и цену')
+    def connections_link(self, obj):
+        if not obj or not obj.pk:
+            return 'Сначала сохраните серию'
+        configured = obj.offer_mode == 'configured'
+        return format_html(
+            '<a href="{}?series__id__exact={}">{}</a>',
+            reverse(
+                'admin:catalog_connectionoption_changelist'
+                if configured
+                else 'admin:catalog_variant_changelist'
+            ),
+            obj.pk,
+            'Правила подключений этой серии'
+            if configured
+            else 'Прайсовые варианты этой серии',
+        )
+
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if change and 'brand' in form.changed_data:
             # Variant.brand копируется из серии только в save(); кэш сбросит
             # сигнал сохранения серии
             obj.variants.update(brand=obj.brand)
+        if change and {'brand', 'markup_percent'} & set(form.changed_data):
             pricing.recalculate(obj.variants.all())
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):

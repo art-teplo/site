@@ -20,6 +20,10 @@
   min-width: 0;
 }
 
+.tableSelected {
+  padding-bottom: calc(var(--spacing-100) + env(safe-area-inset-bottom));
+}
+
 /* Чертёж стоит рядом с таблицей и едет за ней: липнет под шапкой и полосой разделов */
 .drawing {
   grid-column: 10 / -1;
@@ -37,6 +41,8 @@
 }
 
 .group {
+  flex-shrink: 0;
+  max-width: 100%;
   position: relative;
   border: 0;
   padding: 0;
@@ -72,84 +78,12 @@
   font-weight: var(--weight-medium);
 }
 
+.characteristics { margin-top: var(--spacing-24); }
+
 .rangeFields {
   display: flex;
   align-items: center;
   gap: var(--spacing-8);
-}
-
-.numberInput {
-  width: calc(var(--spacing-100) * 0.8);
-  min-width: 0;
-  min-height: var(--spacing-40);
-  padding: var(--spacing-4) var(--spacing-12);
-  font-size: var(--text-caption);
-  border: var(--outline-width) solid var(--outline-color);
-  border-radius: var(--radius-inputs);
-  background: transparent;
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-
-.numberInput:hover {
-  border-color: var(--text);
-}
-
-.options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-8);
-}
-
-.option {
-  position: relative;
-}
-
-.optionInput {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  margin: 0;
-  cursor: pointer;
-}
-
-.optionLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-8);
-  min-height: var(--spacing-32);
-  padding: var(--spacing-4) var(--spacing-12);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  font-size: var(--text-caption);
-  transition:
-    background-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
-}
-
-.option:hover .optionLabel {
-  border-color: var(--text);
-}
-
-.option:active .optionLabel {
-  transform: scale(var(--press-scale));
-}
-
-.optionInput:checked + .optionLabel {
-  background: var(--button-bg);
-  border-color: var(--button-bg);
-  color: var(--button-fg);
-}
-
-.optionInput:focus-visible + .optionLabel {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-
-.optionCount {
-  color: inherit;
-  opacity: 0.6;
 }
 
 .found {
@@ -276,6 +210,10 @@ button.filterToggle {
 }
 
 @media (max-width: 767px) {
+  .tableSelected {
+    padding-bottom: calc(var(--spacing-100) + var(--spacing-40) + env(safe-area-inset-bottom));
+  }
+
   button.filterToggle {
     display: inline-flex;
     width: 100%;
@@ -289,3 +227,15 @@ button.filterToggle {
     display: none;
   }
 }
+
+.editions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-12);
+  margin-bottom: var(--spacing-32);
+}
+.editionLabel { font-size: var(--text-caption); color: var(--text-muted); text-transform: uppercase; letter-spacing: var(--tracking-label); width: 100%; }
+.editionLink { display: inline-flex; align-items: center; min-height: var(--control-height); padding: var(--spacing-8) var(--spacing-16); border: var(--outline-width) solid var(--outline-color); border-radius: var(--radius-inputs); }
+.editionLink[aria-current="page"] { border-color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.editionLink:hover { border-color: var(--text); }

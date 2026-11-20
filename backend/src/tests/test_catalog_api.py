@@ -5,19 +5,24 @@ from types import SimpleNamespace
 import pytest
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 from PIL import Image
 
+from apps.catalog import filters, schema
 from apps.catalog.models import (
     Brand,
     Category,
     Color,
     ColorGroup,
+    ProductFamily,
     Series,
     SeriesImage,
     Showcase,
     Variant,
 )
+from apps.catalog.views import visible_variants
 
 URL = reverse('series-list')
 
@@ -202,18 +207,19 @@ def facet(data, key):
     return next(f for f in data['facets'] if f['key'] == key)
 
 
-def test_series_list_one_card_per_showcase(client, catalog):  # noqa: ARG001
+def test_series_list_one_card_per_series_with_legacy_showcases(
+    client, catalog
+):
+    assert catalog.garmoniya.showcases.count() == 2
     data = fetch(client, brand='kzto')
-    assert data['count'] == 2
-    first, second = data['results']
+    assert data['count'] == 1
+    (first,) = data['results']
     assert first == {
         'series': 'garmoniya-a40',
         'name': 'Гармония А40',
         'brand': 'kzto',
         'category': 'radiatory',
-        'label': '334 мм',
-        'height_mm': 334,
-        'orientation': 'h',
+        'label': 'Высота 334–1284 мм',
         'price_from': 101,
         'image': None,
         'hover_image': None,
@@ -223,9 +229,6 @@ def test_series_list_one_card_per_showcase(client, catalog):  # noqa: ARG001
             {'code': 'RAL 9005', 'name': 'Чёрный', 'hex': '#0a0a0a'},
         ],
     }
-    assert second['label'] == '1284 мм, вертикальный'
-    assert second['height_mm'] == 1284
-    assert second['price_from'] == 300
 
 
 def test_series_without_showcase_and_photo_still_listed(client, catalog):  # noqa: ARG001
@@ -250,6 +253,15 @@ def test_card_label_without_showcase_names_single_position(client, catalog):
     assert card['label'] == 'Высота 300–500 мм'
 
 
+def test_card_label_uses_factory_orientation(client, catalog):
+    Series.objects.filter(pk=catalog.retta.pk).update(factory_orientation='v')
+    Showcase.objects.create(series=catalog.retta, label='старая подпись')
+    make_variant(catalog.retta, 'R-300', height_mm=300)
+
+    card = fetch(client, brand='guardo')['results'][0]
+    assert card['label'] == 'Вертикальный, 300–500 мм'
+
+
 def test_card_image_falls_back_to_first_series_photo(client, catalog):
     SeriesImage.objects.create(
         series=catalog.garmoniya,
@@ -258,26 +270,24 @@ def test_card_image_falls_back_to_first_series_photo(client, catalog):
     )
     cards = fetch(client, brand='kzto')['results']
     assert {c['image']['alt'] for c in cards} == {'общее'}
-    own = Showcase.objects.get(label='334 мм')
+    own = Showcase.objects.get(label='1284 мм, вертикальный')
     own.image = png()
     own.save()
     # Своё фото витрины важнее
     cards = fetch(client, brand='kzto')['results']
     assert cards[0]['image']['src'].startswith('/media/catalog_showcase/')
-    assert cards[1]['image']['alt'] == 'общее'
 
 
-def test_filter_height_hides_other_showcases(client, catalog):  # noqa: ARG001
+def test_filter_height_uses_price_of_matching_variants(client, catalog):  # noqa: ARG001
     data = fetch(client, height_min='1000')
-    assert [c['label'] for c in data['results']] == ['1284 мм, вертикальный']
+    assert [c['price_from'] for c in data['results']] == [300]
     assert data['count'] == 1
 
 
 def test_price_from_uses_matching_variants_only(client, catalog):  # noqa: ARG001
     data = fetch(client, brand='kzto', connection='bottom_left')
     assert [(c['label'], c['price_from']) for c in data['results']] == [
-        ('334 мм', 120),
-        ('1284 мм, вертикальный', 320),
+        ('Высота 334–1284 мм', 120),
     ]
 
 
@@ -306,19 +316,19 @@ def test_facet_counts_ignore_own_filter(client, catalog):  # noqa: ARG001
     assert values == {'side': 1, 'bottom_left': 1}
 
 
-def test_range_facets_cover_whole_category(client, catalog):  # noqa: ARG001
+def test_range_facets_keep_other_filters(client, catalog):  # noqa: ARG001
     data = fetch(client, height_min='1000')
     height = facet(data, 'height')
     assert (height['min'], height['max'], height['unit']) == (334, 1284, 'мм')
     area = facet(data, 'area')
-    assert (area['min'], area['max']) == (4, 12.5)
+    assert (area['min'], area['max']) == (12, 12.5)
     price = facet(data, 'price')
-    assert (price['min'], price['max']) == (100, 320)
+    assert (price['min'], price['max']) == (300, 320)
 
 
 def test_area_filter_is_power_over_100(client, catalog):  # noqa: ARG001
     data = fetch(client, area_min='11')
-    assert [c['label'] for c in data['results']] == ['1284 мм, вертикальный']
+    assert [c['series'] for c in data['results']] == ['garmoniya-a40']
     assert fetch(client, area_max='3')['count'] == 0
 
 
@@ -354,10 +364,12 @@ def test_color_filter_respects_explicit_variant_groups(client, catalog):
     assert labels(height_min='1000', connection='side') == []
     # tall_bottom доступен
     assert labels(height_min='1000', connection='bottom_left') == [
-        '1284 мм, вертикальный'
+        'Высота 334–1284 мм'
     ]
     # Низкие без явных групп наследуют группы серии
-    assert labels(height_max='400', connection='side') == ['334 мм']
+    assert labels(height_max='400', connection='side') == [
+        'Высота 334–1284 мм'
+    ]
     black = next(
         v
         for v in facet(fetch(client), 'color')['values']
@@ -378,10 +390,7 @@ def test_unknown_color_ignored(client, catalog):  # noqa: ARG001
 
 def test_execution_filter(client, catalog):  # noqa: ARG001
     data = fetch(client, execution='2-side')
-    assert [c['label'] for c in data['results']] == [
-        '334 мм',
-        '1284 мм, вертикальный',
-    ]
+    assert [c['label'] for c in data['results']] == ['Высота 334–1284 мм']
     assert fetch(client, execution='3-side')['count'] == 0
     # 0 — без трубности
     assert [
@@ -401,13 +410,13 @@ def test_execution_filter(client, catalog):  # noqa: ARG001
     ],
 )
 def test_bad_values_ignored(client, catalog, params):  # noqa: ARG001
-    assert fetch(client, **params)['count'] == fetch(client)['count'] == 3
+    assert fetch(client, **params)['count'] == fetch(client)['count'] == 2
 
 
 def test_page_out_of_range_returns_last(client, catalog):  # noqa: ARG001
     data = fetch(client, page='99')
-    assert data['count'] == 3
-    assert len(data['results']) == 3
+    assert data['count'] == 2
+    assert len(data['results']) == 2
 
 
 def test_pagination_24_per_page(client, catalog):
@@ -421,9 +430,51 @@ def test_pagination_24_per_page(client, catalog):
         )
         make_variant(series, f'S{i}-1', height_mm=100, price_byn=Decimal(5))
     first = fetch(client)
-    assert first['count'] == 33
+    assert first['count'] == 32
     assert len(first['results']) == 24
-    assert len(fetch(client, page='2')['results']) == 9
+    assert len(fetch(client, page='2')['results']) == 8
+
+
+def test_paginated_cards_only_keeps_filtered_results_and_count(
+    client, catalog
+):
+    for i in range(24):
+        series = Series.objects.create(
+            brand=catalog.kzto,
+            category=catalog.category,
+            slug=f'page-series-{i}',
+            name=f'Series {i}',
+        )
+        make_variant(series, f'size-{i}', height_mm=100, price_byn=Decimal(5))
+    params = {'brand': 'kzto', 'sort': 'price', 'page': '2'}
+    with CaptureQueriesContext(connection) as full_queries:
+        full = fetch(client, **params)
+    with CaptureQueriesContext(connection) as cards_queries:
+        cards = fetch(client, **params, cards_only='1')
+    assert cards == {'count': 25, 'results': full['results']}
+    assert len(cards['results']) == 1
+    assert len(cards_queries) < len(full_queries)
+
+
+def test_catalog_join_plan_is_local_to_offer_queries(client, catalog):  # noqa: ARG001
+    def join_setting():
+        with connection.cursor() as cursor:
+            cursor.execute('SHOW enable_nestloop')
+            return cursor.fetchone()[0]
+
+    with connection.cursor() as cursor:
+        cursor.execute('SET LOCAL enable_nestloop = on')
+    offer_settings = []
+
+    def inspect_plan(execute, sql, params, many, context):
+        if 'WITH base AS' in sql:
+            offer_settings.append(join_setting())
+        return execute(sql, params, many, context)
+
+    with connection.execute_wrapper(inspect_plan):
+        fetch(client, brand='kzto')
+    assert set(offer_settings) == {'off'}
+    assert join_setting() == 'on'
 
 
 def test_brand_returns_model_range(client, catalog):
@@ -470,7 +521,47 @@ def test_price_on_request_sorted_last(client, catalog):
     assert cards[-1]['series'] == 'nova-x'
     assert cards[-1]['price_from'] is None
     assert all(c['price_from'] is not None for c in cards[:-1])
-    assert facet(data, 'price')['min'] == 100
+    assert facet(data, 'price')['min'] == 101
+
+
+@pytest.mark.django_db
+def test_catalog_groups_popular_cards_by_brand_and_family(client):
+    category = Category.objects.create(
+        slug='radiatory', name='Радиаторы', image=png()
+    )
+    guardo = Brand.objects.create(slug='guardo', name='Guardo', position=0)
+    velar = Brand.objects.create(slug='velar', name='Velar', position=1)
+    family = ProductFamily.objects.create(
+        brand=guardo, category=category, key='retta', name='Retta'
+    )
+    for slug, brand, position, price, line in (
+        ('retta-h', guardo, 0, 500, family),
+        ('sp-h', velar, 0, 400, None),
+        ('pilon', guardo, 1, 600, None),
+        ('retta-v', guardo, 2, 200, family),
+        ('sp-v', velar, 3, None, None),
+    ):
+        series = Series.objects.create(
+            slug=slug,
+            name=slug,
+            brand=brand,
+            category=category,
+            position=position,
+            family=line,
+        )
+        make_variant(series, slug, height_mm=400, price_byn=price)
+
+    def order(**params):
+        return [card['series'] for card in fetch(client, **params)['results']]
+
+    assert order() == ['retta-h', 'retta-v', 'pilon', 'sp-h', 'sp-v']
+    assert order(sort='price') == [
+        'retta-v',
+        'sp-h',
+        'retta-h',
+        'pilon',
+        'sp-v',
+    ]
 
 
 def test_konvektory_attrs_filters(client, catalog):
@@ -542,10 +633,10 @@ def test_query_count_does_not_grow_with_cards(
         make_variant(series, f'Q{i}-1', height_mm=100, price_byn=Decimal(5))
         Showcase.objects.create(series=series, label='x')
         SeriesImage.objects.create(series=series, image=png(), image_alt='q')
-    # +1 запрос — подписи карточек без витрины, одним запросом на страницу
+    # Подписи всех карточек собираются одним запросом на страницу
     with django_assert_max_num_queries(20):
         data = fetch(client)
-    assert data['count'] == 13
+    assert data['count'] == 12
 
 
 def variants_url(slug='garmoniya-a40'):
@@ -564,7 +655,6 @@ def test_series_detail_shape(client, catalog):
         image=png(),
         image_alt='чёрный',
         color=catalog.ral9005,
-        orientation='h',
     )
     response = client.get(reverse('series-detail', args=['garmoniya-a40']))
     assert response.status_code == 200
@@ -572,7 +662,7 @@ def test_series_detail_shape(client, catalog):
     assert data['brand'] == {'slug': 'kzto', 'name': 'КЗТО', 'country': ''}
     assert data['category'] == 'radiatory'
     assert data['images'][0]['color'] == 'RAL 9005'
-    assert data['images'][0]['orientation'] == 'h'
+    assert 'orientation' not in data['images'][0]
     assert [g['name'] for g in data['color_groups']] == [
         'Стандартные',
         'Чёрный',
@@ -581,11 +671,33 @@ def test_series_detail_shape(client, catalog):
     assert data['color_groups'][1]['colors'][0]['code'] == 'RAL 9005'
     assert data['ranges']['height'] == [334, 1284]
     assert data['ranges']['area'] == [4, 12.5]
+    assert data['range_steps']['height'] == [334, 1284]
+    assert 'price' not in data['range_steps']
+    assert 'power' not in data['range_steps']
+    assert 'area' not in data['range_steps']
     columns = {c['key'] for c in data['columns']}
     assert {'height', 'power', 'area', 'price'} <= columns
     assert 'color' not in columns
     assert 'brand' not in {f['key'] for f in data['filters']}
     assert 'color' in {f['key'] for f in data['filters']}
+
+
+def test_range_steps_one_query_and_only_active_sizes(
+    catalog,
+    django_assert_num_queries,
+):
+    make_variant(
+        catalog.garmoniya,
+        'inactive-size',
+        height_mm=9999,
+        is_active=False,
+    )
+    variants = visible_variants().filter(series=catalog.garmoniya)
+    with django_assert_num_queries(1):
+        steps = filters.range_steps(variants, schema.for_category('radiatory'))
+    assert steps['height'] == [334, 1284]
+    assert steps['depth'] == []
+    assert {'price', 'power', 'area'}.isdisjoint(steps)
 
 
 def test_series_detail_executions_sorted_by_count(client, catalog):
@@ -614,7 +726,7 @@ def test_series_detail_executions_sorted_by_count(client, catalog):
     first = data['executions'][0]
     assert first['tubes'] == 2
     assert first['connection'] == 'bottom_left'
-    assert first['label'] == '2-трубный, нижнее левое'
+    assert first['label'] == 'нижнее левое'
     assert data['executions'][2]['label'] == 'диагональное'
 
 

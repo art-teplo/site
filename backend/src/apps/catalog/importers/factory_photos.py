@@ -11,15 +11,18 @@
   Хороши только те, что в KZTO_TILES: остальные лежат лишь 410×530.
 - Velar (velarwh.ru): превью и интерьерные рендеры — velar_photos.py.
 
-Фото с ориентацией: карточка витрины берёт фото своего положения.
+Для разделённых серий положение в источнике определяет целевое исполнение.
 Повторный запуск не дублирует: фото с тем же описанием уже есть — пропуск.
 Pilon не берём: у него первым стоит фото, выбранное в админке вручную,
 а рендеры на guardo.ru только белые.
 """
 
 import io
+import json
 import re
 from dataclasses import dataclass, field
+from functools import cache
+from pathlib import Path
 from urllib.parse import quote, unquote, urljoin
 
 from django.core.files.base import ContentFile
@@ -31,8 +34,8 @@ from apps.content.models import MAX_IMAGE_MB
 
 from ..choices import Orientation
 from ..models import Color, Series, SeriesImage
-from ..serializers import VERTICAL_FROM_MM
-from .kzto import MB, fetch
+from .factory_editions import legacy_targets, registry
+from .kzto import MB, absolute, fetch
 from .velar_photos import COLOR_WORD, VELAR, VELAR_COLORS, VELAR_PHOTOS
 
 GUARDO = 'https://guardo.ru/catalog/'
@@ -71,14 +74,17 @@ PREFERRED_MM = {
 
 KZTO = 'https://kztoradiator.ru/assets/manager/catalog/'
 KZTO_TILES = {
-    'kzto-ellipse-s': [('ELIPS147-1.jpg', 'v'), ('ELIPS.150.jpg', 'h')],
-    'kzto-ellipse-p': [('ELIPS.167.jpg', 'v'), ('ELIPS.149.jpg', 'h')],
-    'kzto-quadrum-30': [('quadrum-30-v-short.png', 'v')],
-    'kzto-quadrum-50': [('q50v-cat.png', 'v')],
-    'kzto-quadrum-neo-50': [('qneo50h-2.png', 'h')],
+    'kzto-ellipse-s-v': [('ELIPS147-1.jpg', 'v')],
+    'kzto-ellipse-s-h': [('ELIPS.150.jpg', 'h')],
+    'kzto-ellipse-p-v': [('ELIPS.167.jpg', 'v')],
+    'kzto-ellipse-p-h': [('ELIPS.149.jpg', 'h')],
+    'kzto-quadrum-30-v': [('quadrum-30-v-short.png', 'v')],
+    'kzto-quadrum-50-v': [('q50v-cat.png', 'v')],
+    'kzto-quadrum-neo-50-h': [('qneo50h-2.png', 'h')],
 }
 
 MAX_SIDE = 2000  # больше на сайте не нужно: PNG по 6 МБ ужимаем в JPEG
+VERTICAL_FROM_MM = 900
 POSITION_WORD = {'v': 'вертикальный', 'h': 'горизонтальный'}
 
 
@@ -101,12 +107,14 @@ class Summary:
     lines: list[str] = field(default_factory=list)
 
 
-def _orientation(name: str, height: int) -> str:
+def _orientation(name: str, height: int, *, infer_position: bool) -> str:
     if 'vertikal' in name:
         return Orientation.VERTICAL
     if 'gorizont' in name:
         return Orientation.HORIZONTAL
-    # Pilon: положения в имени нет — по высоте, как у витрины без ориентации
+    if not infer_position:
+        return ''
+    # У некоторых заводских рендеров в имени указана только высота радиатора.
     return (
         Orientation.VERTICAL
         if height >= VERTICAL_FROM_MM
@@ -114,12 +122,16 @@ def _orientation(name: str, height: int) -> str:
     )
 
 
-def guardo_renders(html: str, base: str) -> list[Photo]:
+def guardo_renders(
+    html: str, base: str, *, infer_position: bool = True
+) -> list[Photo]:
     """Рендеры страницы модели: по две высоты на положение (PREFERRED_MM)."""
     found: dict[tuple[str, int], str] = {}
     for path, height in GUARDO_RENDER.findall(html):
         mm = int(height)
-        found.setdefault((_orientation(path, mm), mm), urljoin(base, path))
+        orientation = _orientation(path, mm, infer_position=infer_position)
+        if orientation:
+            found.setdefault((orientation, mm), urljoin(base, path))
     chosen: list[Photo] = []
     for orientation, targets in PREFERRED_MM.items():
         heights = sorted({mm for o, mm in found if o == orientation})
@@ -196,8 +208,8 @@ def guardo_picture(url: str) -> Photo | None:
     )
 
 
-def alt(series: Series, photo: Photo) -> str:
-    parts = [series.name]
+def alt(series_name: str, photo: Photo) -> str:
+    parts = [series_name]
     if photo.height_mm:
         parts.append(f'{photo.height_mm} мм')
     parts.append(POSITION_WORD[photo.orientation])
@@ -227,24 +239,29 @@ def prepare(data: bytes) -> tuple[bytes, str, int, int]:
 
 
 def photos_for(series: Series, summary: Summary) -> list[Photo]:
-    if series.slug in GUARDO_PAGES:
-        url = GUARDO + GUARDO_PAGES[series.slug]
+    parent = _parent_slug(series.slug)
+    slug = parent or series.slug
+    if slug in GUARDO_PAGES:
+        page = GUARDO_PAGES[slug]
+        url = GUARDO + page
         try:
             html = fetch(url).decode('utf-8', 'replace')
         except OSError as error:
             summary.errors.append(f'{url}: {error}')
             return []
-        photos = guardo_renders(html, url)
+        photos = guardo_renders(
+            html,
+            url,
+            infer_position=not (parent or series.factory_orientation),
+        )
         if not photos:
             summary.errors.append(
                 f'{url}: рендеров не нашлось — сменилась вёрстка?'
             )
-        return photos + guardo_extras(html, GUARDO_PAGES[series.slug], summary)
-    if series.slug in VELAR_PHOTOS:
-        return velar_photos(series.slug)
-    return [
-        Photo(KZTO + name, o) for name, o in KZTO_TILES.get(series.slug, [])
-    ]
+        return photos + guardo_extras(html, page, summary)
+    if slug in VELAR_PHOTOS:
+        return velar_photos(slug)
+    return [Photo(KZTO + name, o) for name, o in KZTO_TILES.get(slug, [])]
 
 
 def velar_photos(slug: str) -> list[Photo]:
@@ -274,10 +291,38 @@ def import_series(series: Series, summary: Summary, *, dry_run: bool) -> None:
     photos_for; уже загруженные (то же описание) — пропуск, их место не
     трогаем."""
     existing = set(series.images.values_list('image_alt', flat=True))
+    sources = {
+        url
+        for primary, aliases in series.images.values_list(
+            'source_url', 'source_aliases'
+        )
+        for url in (primary, *aliases)
+    }
+    legacy_name = series.name
+    orientation = series.factory_orientation
+    parent = _parent_slug(series.slug)
+    if parent:
+        entry = registry()['parents'][parent]
+        legacy_name = entry['name']
+        expected = next(
+            value['orientation']
+            for value in entry['targets'].values()
+            if value['slug'] == series.slug
+        )
+        if orientation and orientation != expected:
+            summary.errors.append(f'{series.slug}: неверное положение серии')
+            return
+        orientation = expected
     fresh: list[tuple[Photo, bytes, str, int, int]] = []
     for photo in photos_for(series, summary):
-        text = alt(series, photo)
-        if text in existing:
+        if orientation and photo.orientation != orientation:
+            continue
+        text = alt(series.name, photo)
+        if (
+            photo.url in sources
+            or text in existing
+            or alt(legacy_name, photo) in existing
+        ):
             summary.skipped += 1
             continue
         try:
@@ -289,6 +334,8 @@ def import_series(series: Series, summary: Summary, *, dry_run: bool) -> None:
         except (OSError, UnidentifiedImageError) as error:
             summary.errors.append(f'{photo.url}: {error}')
             continue
+        sources.add(photo.url)
+        existing.add(text)
         summary.lines.append(f'{text}: {fresh[-1][3]}×{fresh[-1][4]}')
     if not fresh or dry_run:
         summary.added += len(fresh)
@@ -313,8 +360,8 @@ def import_series(series: Series, summary: Summary, *, dry_run: bool) -> None:
                 series=series,
                 kind=photo.kind,
                 color=colors.get(photo.color),
-                orientation=photo.orientation,
-                image_alt=alt(series, photo),
+                source_url=photo.url,
+                image_alt=alt(series.name, photo),
                 position=position,
             )
             image.image.save(
@@ -338,4 +385,66 @@ def slugs_for(brand: str) -> list[str]:
     }
     return pages.get(
         brand, [slug for slugs in pages.values() for slug in slugs]
+    )
+
+
+@cache
+def _parents_by_edition():
+    return {
+        child: parent
+        for parent, children in legacy_targets().items()
+        for child in children
+    }
+
+
+def _parent_slug(slug):
+    return _parents_by_edition().get(slug)
+
+
+@cache
+def _checked_photo_sources():
+    data_dir = Path(__file__).resolve().parents[1] / 'data'
+    factory = json.loads((data_dir / 'factory_media_sources.json').read_text())
+    kzto = json.loads((data_dir / 'kzto_media_sources.json').read_text())
+    sources = {row['series']: row.get('photos', []) for row in factory['rows']}
+    for row in kzto['rows']:
+        slug = row['series_slug']
+        urls = [
+            absolute(url) for url in [row['tile_url'], *row['gallery']] if url
+        ]
+        urls.extend(KZTO + name for name, _ in KZTO_TILES.get(slug, []))
+        sources[slug] = [{'url': url} for url in urls]
+    return sources
+
+
+def confirmed_photo_target(image, target):
+    """Подтверждение исполнения по проверенному источнику старого фото."""
+    urls = {image.source_url, *image.source_aliases} - {''}
+    digest = image.source_sha256
+    has_source = bool(urls or digest)
+    slug = target.slug
+    for source in _checked_photo_sources().get(slug, []):
+        if source['url'] in urls or (
+            digest and digest == source.get('sha256')
+        ):
+            return True
+        if (
+            not has_source
+            and image.image_alt == source.get('legacy_alt')
+            and image.kind == source.get('kind')
+        ):
+            return True
+    # Рендеры с сайта Velar до разделения могли сохраняться без URL.
+    root = _parent_slug(slug)
+    if root not in VELAR_PHOTOS:
+        return False
+    name = registry()['parents'][root]['name']
+    return any(
+        photo.orientation == target.factory_orientation
+        and photo.kind == image.kind
+        and (
+            photo.url in urls
+            or (not has_source and alt(name, photo) == image.image_alt)
+        )
+        for photo in velar_photos(root)
     )
