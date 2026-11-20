@@ -184,6 +184,7 @@
 
 .nav {
   position: fixed;
+  z-index: 2;
   top: 50%;
   display: grid;
   place-items: center;
