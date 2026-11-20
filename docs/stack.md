@@ -296,9 +296,10 @@ art-teplo/
 2. **Сверьте файлы.** Дамп содержит ключи файлов, а сами файлы хранятся отдельно. Если обе среды используют один и тот же публичный бакет ActiveStorage, достаточно проверить наличие объектов по ключам, в том числе фото категорий и типов, логотипов, галерей, схем и документов. Если бакеты различаются, перенесите недостающие объекты с сохранением ключей. Для файлового хранилища нужен отдельный перенос файлов и настроенный постоянный том.
 3. **Проверьте идентификаторы и загрузите.** У совпадающих справочников сравните slug и PK, у проектов — также записи и связи. `loaddata` сопоставляет записи без естественных ключей по PK и может перезаписать существующую запись. При расхождении сначала проверьте загрузку на копии БД и подготовьте сопоставление ключей. После сверки передайте файл на сервер вне репозитория. Из каталога Compose:
    ```bash
-   docker compose run --rm -v "$PWD/catalog.json:/tmp/catalog.json:ro" backend loaddata /tmp/catalog.json
+   docker compose run --rm -v "$PWD/catalog.json:/tmp/catalog.json:ro" backend shell -c \
+     $'from django.core.management import call_command\nfrom apps.content.signals import muted_revalidation\nwith muted_revalidation():\n    call_command("loaddata", "/tmp/catalog.json")'
    ```
-4. **Обновите кэш фронта.** Загрузка фикстуры не запускает штатную инвалидацию. Из каталога Compose:
+4. **Обновите кэш фронта.** Команда выше временно подавляет сигналы обновления кэша, чтобы не ставить задачу в очередь на каждую запись. После успешной загрузки обновите теги один раз из каталога Compose:
    ```bash
    docker compose exec -T backend python3 manage.py shell -c      "from apps.content.tasks import revalidate_frontend; revalidate_frontend('catalog'); revalidate_frontend('projects')"
    ```
