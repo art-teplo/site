@@ -224,6 +224,7 @@ __marimo__/
 /output/
 /.claude/launch.json
 /server-access.txt
+/root/*.dump
 
 # Загрузки бэка в dev-compose (код смонтирован в контейнер)
 /backend/src/media/
