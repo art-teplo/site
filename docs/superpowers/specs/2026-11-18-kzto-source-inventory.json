@@ -1,0 +1,3689 @@
+{
+  "checked": "2026-11-18",
+  "feed_date": "2026-11-16T09:27:22+03:00",
+  "rows": [
+    {
+      "name": "Ellipse P H",
+      "category_id": "27279",
+      "url": "https://kztoradiator.ru/index.php?id=27279",
+      "old_slug": "kzto-ellipse-p",
+      "variants": 213,
+      "feed_photos": 4,
+      "page_photos": 4,
+      "gallery": [
+        "/assets/cache_image/resources/27279/elips.272_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27279/elips.238_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27279/elips.262_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27279/elips.274_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы Ellipse",
+          "title": "Ellipse P горизонтальный",
+          "url": "/assets/manager/doc/3d-models/ellipse/02_Ellipse P_горизонтальный однорядный.max"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора ELLIPSE P H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт ELLIPSE P H.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение 2 к Ellipse P H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 ELLIPSE P H.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Ellipse P H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для  Ellipse P H от 02.03.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для нестандартных радиаторов ELLIPSE P H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для нестандартных радиаторов ELLIPSE P H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "ELLIPSE P H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/ELLIPSE P H. Динамическая таблица пересчета при других температурах воды v2.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Ellipse S H, Ellipse P H от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения ELLIPSE S H, ELLIPSE P H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение (Настенное исполнение)",
+          "Нижнее разнесенное по краям (седловое); нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Подключение (Напольное исполнение)",
+          "Нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый, либо стандартный муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Ellipse S H",
+      "category_id": "27278",
+      "url": "https://kztoradiator.ru/index.php?id=27278",
+      "old_slug": "kzto-ellipse-s",
+      "variants": 286,
+      "feed_photos": 4,
+      "page_photos": 4,
+      "gallery": [
+        "/assets/cache_image/resources/27278/elips.35_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27278/elips.239_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27278/elips.247_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27278/elips.273_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы Ellipse",
+          "title": "Ellipse S горизонтальный двухрядный",
+          "url": "/assets/manager/doc/3d-models/ellipse/5_Ellipse S_горизонтальный двухрядный.max"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора ELLIPSE S H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт ELLIPSE S H.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение 2 к Ellipse S H 1",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 ELLIPSE S H 1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение 2 к Ellipse S H 2",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 ELLIPSE S H 2.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Ellipse S H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для  Ellipse S H от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "ELLIPSE S H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/ELLIPSE S H. Динамическая таблица пересчета при других температурах воды v2.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Ellipse S H, Ellipse P H от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения ELLIPSE S H, ELLIPSE P H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение (Настенное исполнение)",
+          "Нижнее разнесенное по краям (седловое); нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Подключение (Напольное исполнение)",
+          "Нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый, либо стандартный муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Ellipse P V",
+      "category_id": "27272",
+      "url": "https://kztoradiator.ru/index.php?id=27272",
+      "old_slug": "kzto-ellipse-p",
+      "variants": 213,
+      "feed_photos": 5,
+      "page_photos": 5,
+      "gallery": [
+        "/assets/cache_image/resources/27272/elips.267_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27272/elips.231_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27272/elips.251_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27272/elips.259_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27272/elips.256_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы Ellipse",
+          "title": "Ellipse P вертикальный",
+          "url": "/assets/manager/doc/3d-models/ellipse/Ellipse P_вертикальный однорядный.max"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора ELLIPSE P V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт ELLIPSE P V.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Ellipse P V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для  Ellipse P V от 02.03.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "ELLIPSE P V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/ELLIPSE P V. Динамическая таблица пересчета при других температурах воды v2.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Ellipse S V, Ellipse P V от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения ELLIPSE S V, ELLIPSE P V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее 50 мм (по заказу); нижнее левосторонее 50 мм (по заказу), нижнее центральное, 50мм, без встроенного термоклапана (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый, либо стандартный муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Ellipse S V",
+      "category_id": "27270",
+      "url": "https://kztoradiator.ru/index.php?id=27270",
+      "old_slug": "kzto-ellipse-s",
+      "variants": 286,
+      "feed_photos": 5,
+      "page_photos": 9,
+      "gallery": [
+        "/assets/cache_image/resources/27270/1elips.31_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/1elips.32_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.224_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.252_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.269_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.234_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.257_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.249_1290x720_5f7.webp",
+        "/assets/cache_image/resources/27270/elips.245_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы Ellipse",
+          "title": "Ellipse S вертикальный однорядный",
+          "url": "/assets/manager/doc/3d-models/ellipse/03_Ellipse S_вертикальный однорядный.max"
+        },
+        {
+          "section": "Радиаторы Ellipse",
+          "title": "Ellipse S вертикальный двухрядный",
+          "url": "/assets/manager/doc/3d-models/ellipse/04_Ellipse S_вертикальный двухрядный.max"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора ELLIPSE S V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт ELLIPSE S V.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Ellipse S V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для  Ellipse S V от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "ELLIPSE S V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/ELLIPSE S V. Динамическая таблица пересчета при других температурах воды v2.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Ellipse S V, Ellipse P V от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения ELLIPSE S V, ELLIPSE P V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее 50 мм (по заказу); нижнее левосторонее 50 мм (по заказу), нижнее центральное, 50мм, без встроенного термоклапана (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (опционально)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый, либо стандартный муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "BATARÌA Retro",
+      "category_id": "25119",
+      "url": "https://kztoradiator.ru/index.php?id=25119",
+      "old_slug": "kzto-bataria-retro",
+      "variants": 391,
+      "feed_photos": 5,
+      "page_photos": 6,
+      "gallery": [
+        "/assets/cache_image/resources/25119/retro-3-s-fonom-belyij-muar-1-1-(krupnyij)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/25119/retro-3-s-fonom-ral7044-muar-4-1-(krupnyij)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/25119/retro-3-s-fonom-bronzovyij-muar-1-1-(krupnyij)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/25119/retro-3-s-fonom-svetlo-seryij-muar-1-1-(krupnyij)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/25119/retro-3-bez-fona-belyij-glyanczevyij-1-1-(krupnyij)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/25119/retro-3-bez-fona-mokryij-asfalt-3-1-(krupnyij)_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Bataria Retro",
+          "title": "Bataria Retro двухрядные",
+          "url": "/assets/manager/doc/3d-models/bataria_retro/Батария_Ретро_двухрядные.max"
+        },
+        {
+          "section": "Радиатор Bataria Retro",
+          "title": "Bataria Retro трехрядные",
+          "url": "/assets/manager/doc/3d-models/bataria_retro/Батария_Ретро_трёхрядный.max"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Bataria (в т.ч. Retro)",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт BATARÌA.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Bataria (в т.ч. Retro)",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажная схема Bataria от 15.10.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Bataria 2. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/BATARiA 2. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Bataria 3. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/BATARiA 3. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Bataria от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения Bataria.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция по сборке и установке кронштейна за секцию Bataria КБС-1",
+          "url": "/assets/manager/doc/kbs-01-i.pdf"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "25 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее универсальное (правое/левое) без термоклапана (на заказ), нижнее универсальное (правое/левое) с термоклапаном (на заказ), нижнее разнесенное (седловое) без термоклапана (на заказ), нижнее разнесенное (седловое) с термоклапаном (на заказ)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G 3/4\""
+        ]
+      ]
+    },
+    {
+      "name": "BATARÌA",
+      "category_id": "24500",
+      "url": "https://kztoradiator.ru/index.php?id=24500",
+      "old_slug": "kzto-bataria",
+      "variants": 434,
+      "feed_photos": 5,
+      "page_photos": 53,
+      "gallery": [
+        "/assets/cache_image/resources/24500/bat-003.1.22612_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/08.12.2024-batariya-denisova-ryikova-kuxnya-gostinaya-s-vishenkoj-na-torte-(9)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/08.12.2024-batariya-denisova-ryikova-kuxnya-gostinaya-s-vishenkoj-na-torte-(6)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/08.12.2024-batariya-denisova-ryikova-kuxnya-gostinaya-s-vishenkoj-na-torte-(4)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/08.12.2024-batariya-denisova-ryikova-kuxnya-gostinaya-s-vishenkoj-na-torte-(3)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/26.10.2024-batriya-kv-pechenkina-yaponskaya-detskaya-s-podiumom-i-drakonom-(1)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/19.01.2025-batariya2-zhelt-miklashevskaya-spalnya-v-besedke-pod-zvyozdami-(32)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22571_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/19.01.2025-batariya2-zhelt-miklashevskaya-spalnya-v-besedke-pod-zvyozdami-(4)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/19.01.2025-batariya2-zhelt-miklashevskaya-spalnya-v-besedke-pod-zvyozdami-(3)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22582_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/13.10.2024-batariya500-koval-poeticheskaya-gostinaya-(6)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-015_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-nogi-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-027_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/batariya-3-4k-nv-v-interere-2-1-(dlya-sajta)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22613_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22592_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22593_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22598_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22599_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22596_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/batariya-2-4k-nv-v-interere-1-1-(dlya-sajta)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22572_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22573_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22606_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22608_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22609_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22611_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22580_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22581_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22583_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22584_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22588_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bat-003.1.22603_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-016_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-017_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-018_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-019_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-020_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-021_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-022_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-023_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-024_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-025_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-026_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-028_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-029_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-030_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-031_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-032_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/bataria-033_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24500/batariya-2-4k-nv-v-interere-2-1-(dlya-sajta)_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Радиатор Batarìa 2 с нижним прямым подключением",
+          "url": "/assets/manager/doc/3d-models/bataria/bat2ut.max"
+        },
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Радиатор Batarìa 3 с нижним прямым подключением",
+          "url": "/assets/manager/doc/3d-models/bataria/bat3ut.max"
+        },
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Радиатор Bataria 2-1750-6 с угловым нижним подключением в стену",
+          "url": "/assets/manager/doc/3d-models/bataria/batar_6x2x188_fin_.zip"
+        },
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Радиатор Bataria 3-1750-6 с угловым нижним подключением в стену",
+          "url": "/assets/manager/doc/3d-models/bataria/batar_6x3x188_fin.zip"
+        },
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Радиатор Bataria 2-500-13 с угловым нижним подключением в стену",
+          "url": "/assets/manager/doc/3d-models/bataria/batar_13x2x57_fin_.zip"
+        },
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Радиатор Bataria 3-500-10 с угловым нижним подключением в стену",
+          "url": "/assets/manager/doc/3d-models/bataria/batar_10x3x57_fin.zip"
+        },
+        {
+          "section": "Радиатор Batarìa с нижним подключением",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Bataria (в т.ч. Retro)",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт BATARÌA.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Bataria (в т.ч. Retro)",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажная схема Bataria от 15.10.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Bataria 2. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/BATARiA 2. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Bataria 3. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/BATARiA 3. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Bataria от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения Bataria.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция по сборке и установке кронштейна за секцию Bataria КБС-1",
+          "url": "/assets/manager/doc/kbs-01-i.pdf"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "25 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее универсальное (правое/левое) без термоклапана (на заказ), нижнее универсальное (правое/левое) с термоклапаном (на заказ), нижнее разнесенное (седловое) без термоклапана (на заказ), нижнее разнесенное (седловое) с термоклапаном (на заказ)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G 3/4\""
+        ]
+      ]
+    },
+    {
+      "name": "QUADRUM NEO 50 H",
+      "category_id": "22998",
+      "url": "https://kztoradiator.ru/index.php?id=22998",
+      "old_slug": "kzto-quadrum-neo-50",
+      "variants": 152,
+      "feed_photos": 2,
+      "page_photos": 2,
+      "gallery": [
+        "/assets/cache_image/resources/22998/qneo50h-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22998/qneo50h-2_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum NEO",
+          "title": "Quadrum NEO 50H",
+          "url": "/assets/manager/doc/3d-models/quadrum_neo/Quadrum_NEO_50_H_1250.max"
+        },
+        {
+          "section": "Радиатор Quadrum NEO",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum NEO 50H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM NEO 50 H.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту Quadrum NEO 50H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 QUADRUM NEO 50 H.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum NEO 50H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM NEO 50 H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM NEO 50H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM NEO 50 H. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum NEO 50H от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM NEO 50H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "нижнее, разнесенное по сторонам"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар (RAL 1Т104S9016)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "QUADRUM NEO 50 V",
+      "category_id": "22840",
+      "url": "https://kztoradiator.ru/index.php?id=22840",
+      "old_slug": "kzto-quadrum-neo-50",
+      "variants": 152,
+      "feed_photos": 5,
+      "page_photos": 9,
+      "gallery": [
+        "/assets/cache_image/resources/22840/quadrum-neo1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo7_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo-gallery_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo8_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo12_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo13_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo14_1290x720_5f7.webp",
+        "/assets/cache_image/resources/22840/quadrum-neo15_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum NEO",
+          "title": "Quadrum NEO 50V",
+          "url": "/assets/manager/doc/3d-models/quadrum_neo/Quadrum_NEO_50_V.max"
+        },
+        {
+          "section": "Радиатор Quadrum NEO",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum NEO 50V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM NEO 50 V.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum NEO 50V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM NEO 50 V от 02.03.2026_2.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM NEO 50V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM NEO 50 V. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum NEO 50V от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM NEO 50V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар (RAL 1Т104S9016)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 50 V",
+      "category_id": "24081",
+      "url": "https://kztoradiator.ru/index.php?id=24081",
+      "old_slug": "kzto-quadrum-50",
+      "variants": 195,
+      "feed_photos": 5,
+      "page_photos": 6,
+      "gallery": [
+        "/assets/cache_image/resources/24081/q50v-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24081/q50v-2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24081/muar-png-light-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24081/q50v-3_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24081/q50v-4_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24081/q50v-5_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 50V",
+          "url": "/assets/manager/doc/3d-models/quadrum/Quadrum 50x25 V 1-1750-8.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 50V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 50 V Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 50V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 50 V от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 50 V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 50 V. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 40V, 50V и 60V от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 40V, 50V, 60V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар (RAL 1Т104S9016)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 50 H",
+      "category_id": "24080",
+      "url": "https://kztoradiator.ru/index.php?id=24080",
+      "old_slug": "kzto-quadrum-50",
+      "variants": 195,
+      "feed_photos": 5,
+      "page_photos": 7,
+      "gallery": [
+        "/assets/cache_image/resources/24080/quadrum-50h-2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24080/quadrum-50h-3_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24080/muar-png-light-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24080/quadrum-50h-5_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24080/quadrum-50h-6_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24080/quadrum-50h-7_1290x720_5f7.webp",
+        "/assets/cache_image/resources/24080/quadrum-50h-8_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 50H",
+          "url": "/assets/manager/doc/3d-models/quadrum/Quadrum 50x25 H 1 -1250 – 8.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 50H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 50 H Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту Quadrum 50H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 QUADRUM 50 H Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 50H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 50 H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 50 H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 50 H. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 40H, 50H и 60H от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 40H, 50H, 60Н.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "нижнее, разнесенное по сторонам"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар (RAL 1Т104S9016)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 30 H",
+      "category_id": "23334",
+      "url": "https://kztoradiator.ru/index.php?id=23334",
+      "old_slug": "kzto-quadrum-30",
+      "variants": 429,
+      "feed_photos": 5,
+      "page_photos": 16,
+      "gallery": [
+        "/assets/cache_image/resources/23334/quadrum-30h-16_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-24_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-17_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-23_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-18_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-19_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-29_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-22_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-20_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-28_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-21_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-25_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-26_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-27_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/quadrum-30h-30_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23334/muar-png-light-1290_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 30H",
+          "url": "/assets/manager/doc/3d-models/quadrum/Quadrum 30 H 1-1250.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 30H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 30 H Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту радиаторов Quadrum 30 H1",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 QUADRUM 30 H 1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту радиаторов Quadrum 30 H2",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 QUADRUM 30 H 2.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 30H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 30 H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 30H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 30 H. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 30 H от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 30H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение (Настенное исполнение)",
+          "Нижнее разнесенное по краям (седловое); нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Подключение (Напольное исполнение)",
+          "Нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый, либо стандартный муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 30 V",
+      "category_id": "23163",
+      "url": "https://kztoradiator.ru/index.php?id=23163",
+      "old_slug": "kzto-quadrum-30",
+      "variants": 429,
+      "feed_photos": 5,
+      "page_photos": 16,
+      "gallery": [
+        "/assets/cache_image/resources/23163/quadrum30v-002-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-015-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high3_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-013-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high4_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-001-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high5_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high6_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-003-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-008-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/q30v-high7_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-009-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/quadrum30v-014-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/23163/muar-png-light-1290_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 30V",
+          "url": "/assets/manager/doc/3d-models/quadrum/quadrum-30-V.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 30V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 30 V.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 30V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 30 V от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 30V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 30 V. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 30V от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 30V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее 50 мм (по заказу); нижнее левосторонее 50 мм (по заказу), нижнее центральное, 50мм, без встроенного термоклапана (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый, либо стандартный муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Гармония А20",
+      "category_id": "21927",
+      "url": "https://kztoradiator.ru/index.php?id=21927",
+      "old_slug": "kzto-garmoniya-a20",
+      "variants": 703,
+      "feed_photos": 5,
+      "page_photos": 6,
+      "gallery": [
+        "/assets/cache_image/resources/21927/garmonia-a20-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/21927/garmonia-a20-2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/21927/garmonia-a20-3_1290x720_5f7.webp",
+        "/assets/cache_image/resources/21927/garmonia-a20-4_1290x720_5f7.webp",
+        "/assets/cache_image/resources/21927/garmonia-a20-5_1290x720_5f7.webp",
+        "/assets/cache_image/resources/21927/garmonia-a20-6_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Гармония А20",
+          "title": "Гармония А20 1 и А20 2",
+          "url": "/assets/manager/doc/3d-models/garmony-a20/garmony-a20.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Гармония А20",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония А20 Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Гармония А20",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония А20 от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Гармония",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Гармония А20. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Гармония А20. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция",
+          "url": "/assets/manager/doc/zakaz/Kak_pravilno_zakazat_radiusniy_radiator_ili_konvektor.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Горизонтальные Гармонии от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного подключения, горизонтальные Гармонии.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "20 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правостороннее (по заказу); нижнее левостороннее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), радиусные (по заказу только для однорядных, R ≥ 1000 мм), горизонтальное исполнение (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 60 V",
+      "category_id": "16378",
+      "url": "https://kztoradiator.ru/index.php?id=16378",
+      "old_slug": "kzto-quadrum-60",
+      "variants": 156,
+      "feed_photos": 3,
+      "page_photos": 3,
+      "gallery": [
+        "/assets/cache_image/resources/16378/quadrum-60v-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/16378/muar-png-light-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/16378/quadrum-60v-2_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 60V и 40V",
+          "url": "/assets/manager/doc/3d-models/quadrum/3D модели радиаторов Quadrum.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 60V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 60 V  Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 60V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 60 V от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 60 V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 60 V. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 40V, 50V и 60V от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 40V, 50V, 60V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар (RAL 1Т104S9016)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 60 H",
+      "category_id": "16535",
+      "url": "https://kztoradiator.ru/index.php?id=16535",
+      "old_slug": "kzto-quadrum-60",
+      "variants": 164,
+      "feed_photos": 3,
+      "page_photos": 3,
+      "gallery": [
+        "/assets/cache_image/resources/16535/quadrum-60h-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/16535/muar-png-light-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/16535/quadrum-60h-2_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 60H и 40H напольные",
+          "url": "/assets/manager/doc/3d-models/quadrum/Quadrum 40 и 60_напольный горизонтальный.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 60H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 60 H Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту Quadrum 60H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 QUADRUM 60 H  Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 60H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 60 H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 60 H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 60 H. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 40H, 50H и 60H от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 40H, 50H, 60Н.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "нижнее, разнесенное по сторонам"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар (RAL 1Т104S9016)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Гармония А25 N",
+      "category_id": "20606",
+      "url": "https://kztoradiator.ru/index.php?id=20606",
+      "old_slug": "kzto-garmoniya-a25-n",
+      "variants": 589,
+      "feed_photos": 5,
+      "page_photos": 8,
+      "gallery": [
+        "/assets/cache_image/resources/20606/05.05.2024-garmoniyaa25-do-chistyakova-gostinaya-dlya-gnomov-i-lyudej-(4)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/05.05.2024-garmoniyaa25-do-chistyakova-gostinaya-dlya-gnomov-i-lyudej-(8)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/10.03.2024-garmoniyaa25-zavalinka-do-fajnshtejn-chexovskie-sezonyi-dlya-kuxni-gostinoj-(8)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/dscf6914_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/garmonya25n-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/k9a0532_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/k9a0533_1290x720_5f7.webp",
+        "/assets/cache_image/resources/20606/k9a0536_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Гармония А25N",
+          "title": "Гармония А25N 1",
+          "url": "/assets/manager/doc/3d-models/garmony-a25n/Гармония А25_1.max"
+        },
+        {
+          "section": "Радиатор Гармония А25N",
+          "title": "Гармония А25N 2",
+          "url": "/assets/manager/doc/3d-models/garmony-a25n/Гармония А25_2.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Гармония А25 N",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония А25 N Обяз. серт_.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Гармония А25 N",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония А25 N от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Гармония",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Гармония А25N. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Гармония А25N. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция",
+          "url": "/assets/manager/doc/zakaz/Kak_pravilno_zakazat_radiusniy_radiator_ili_konvektor.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Горизонтальные Гармонии от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного подключения, горизонтальные Гармонии.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "25 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правостороннее (по заказу); нижнее левостороннее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), радиусные (по заказу только для однорядных, R ≥ 1000 мм), горизонтальное исполнение (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Гармония С25 N",
+      "category_id": "19476",
+      "url": "https://kztoradiator.ru/index.php?id=19476",
+      "old_slug": "kzto-garmoniya-s25-n",
+      "variants": 589,
+      "feed_photos": 5,
+      "page_photos": 8,
+      "gallery": [
+        "/assets/cache_image/resources/19476/k9a0194w_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/k9a0195_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/k9a0192_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/k9a0506_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/ggs-4783_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/k9a0505_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/k9a0213_1290x720_5f7.webp",
+        "/assets/cache_image/resources/19476/ggs-4771_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Гармония С25 N",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония С25 N Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Гармония С25 N",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония С25 N от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Гармония",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Гармония С25N. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Гармония С25N. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция",
+          "url": "/assets/manager/doc/zakaz/Kak_pravilno_zakazat_radiusniy_radiator_ili_konvektor.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Горизонтальные Гармонии от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного подключения, горизонтальные Гармонии.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "25 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правостороннее (по заказу); нижнее левостороннее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), радиусные (по заказу только для однорядных, R ≥ 1000 мм),"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 40 H",
+      "category_id": "15769",
+      "url": "https://kztoradiator.ru/index.php?id=15769",
+      "old_slug": "kzto-quadrum-40",
+      "variants": 178,
+      "feed_photos": 3,
+      "page_photos": 3,
+      "gallery": [
+        "/assets/cache_image/resources/15769/quadrum-h-40-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/15769/muar-png-light-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/15769/quadrum-h-40-2_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 60H и 40H напольные",
+          "url": "/assets/manager/doc/3d-models/quadrum/Quadrum 40 и 60_напольный горизонтальный.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 40 H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 40 H  Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту Quadrum 40H",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 QUADRUM 40 H  Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 40H",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 40 H.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 40 H. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 40 H. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 40H, 50H и 60H от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 40H, 50H, 60Н.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение (Настенное исполнение)",
+          "Нижнее разнесенное по краям (седловое); нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Подключение (Напольное исполнение)",
+          "Нижнее правое 50мм; нижнее левое, 50мм."
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Quadrum 40 V",
+      "category_id": "15770",
+      "url": "https://kztoradiator.ru/index.php?id=15770",
+      "old_slug": "kzto-quadrum-40",
+      "variants": 170,
+      "feed_photos": 5,
+      "page_photos": 5,
+      "gallery": [
+        "/assets/cache_image/resources/15770/quadrum-v-40-2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/15770/muar-png-light-1290_1290x720_5f7.webp",
+        "/assets/cache_image/resources/15770/quadrum-v-40-3_1290x720_5f7.webp",
+        "/assets/cache_image/resources/15770/quadrum-v-40-4_1290x720_5f7.webp",
+        "/assets/cache_image/resources/15770/quadrum-v-40-1_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Quadrum 60V и 40V",
+          "url": "/assets/manager/doc/3d-models/quadrum/3D модели радиаторов Quadrum.max"
+        },
+        {
+          "section": "Радиатор Quadrum",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Quadrum 40 V",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт QUADRUM 40 V  Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия Quadrum: 30,40,50,60 и NEO 50",
+          "url": "/assets/manager/doc/sertifikat/Сертификат QUADRUM № РОСС RU CКГРФ54И00044-26 от 25.06.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Quadrum 40V",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для QUADRUM 40 V от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "QUADRUM 40 V. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/QUADRUM 40 V. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Quadrum 40V, 50V и 60V от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения QUADRUM 40V, 50V, 60V.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее 50 мм (по заказу); нижнее левосторонее 50 мм (по заказу), нижнее центральное 50 мм (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый муар"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения – внутренняя G ½\"для нижнего подключения – внутренняя G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Параллели Г",
+      "category_id": "7280",
+      "url": "https://kztoradiator.ru/index.php?id=7280",
+      "old_slug": "kzto-paralleli",
+      "variants": 627,
+      "feed_photos": 4,
+      "page_photos": 4,
+      "gallery": [
+        "/assets/cache_image/resources/7280/photo-2025-03-04-17-46-22_1290x720_5f7.webp",
+        "/assets/cache_image/resources/7280/img-8231-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/7280/img-8813-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/7280/img-9791-obr_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Параллели",
+          "title": "Параллели Г",
+          "url": "/assets/manager/doc/3d-models/parallels/Радиатор Параллель_горизонтальный.max"
+        },
+        {
+          "section": "Радиатор Параллели",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Параллели Г",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Параллели Г Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту для радиаторов Параллели Г1",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2. Параллели Г 1 Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту для радиаторов Параллели Г2",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2. Параллели Г 2 Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Параллели Г",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Параллели Г.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Параллели",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_Paralleli.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Параллели Г (40х12мм). Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Параллели Г (40х12мм). Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Параллели Г и Соло Г от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения Параллели Г, Соло Г.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Подключение",
+          "нижнее, разнесенное по сторонам"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Параллели В",
+      "category_id": "3055",
+      "url": "https://kztoradiator.ru/index.php?id=3055",
+      "old_slug": "kzto-paralleli",
+      "variants": 564,
+      "feed_photos": 5,
+      "page_photos": 7,
+      "gallery": [
+        "/assets/cache_image/resources/3055/k9a4096-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3055/k9a4091-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3055/vd3a9595-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3055/k9a8780-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3055/k9a8784-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3055/img-2889-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3055/img-2892-obr_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Параллели",
+          "title": "Параллели В1",
+          "url": "/assets/manager/doc/3d-models/parallels/Радиатор Параллель_В1.max"
+        },
+        {
+          "section": "Радиатор Параллели",
+          "title": "Параллели В2",
+          "url": "/assets/manager/doc/3d-models/parallels/Радиатор Параллель_В2.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Параллели В",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Параллели В Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Параллели В",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Параллели В от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Параллели",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_Paralleli.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Параллели В (40х12мм). Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Параллели В. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Подключение",
+          "боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 130ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Соло Г",
+      "category_id": "6805",
+      "url": "https://kztoradiator.ru/index.php?id=6805",
+      "old_slug": "kzto-solo",
+      "variants": 471,
+      "feed_photos": 2,
+      "page_photos": 2,
+      "gallery": [
+        "/assets/cache_image/resources/6805/interier-solo-v-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/6805/dsc04077-obr_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Соло",
+          "title": "Соло В1, В2, Г1, Г2",
+          "url": "/assets/manager/doc/3d-models/solo/3D models_Solo_B1_B2_G1_G2.rar"
+        },
+        {
+          "section": "Радиатор Соло",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Соло Г",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Соло Г Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту для радиаторов Соло Г1",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 Соло Г 1 Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение к паспорту для радиаторов Соло Г2",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Приложение №2 Соло Г 2 Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Соло Г",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Соло Г.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Соло Г. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Соло Г. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Параллели Г и Соло Г от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения Параллели Г, Соло Г.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "нижнее, разнесенное по сторонам"
+        ],
+        [
+          "Модификация по установке",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Соло В",
+      "category_id": "2599",
+      "url": "https://kztoradiator.ru/index.php?id=2599",
+      "old_slug": "kzto-solo",
+      "variants": 455,
+      "feed_photos": 5,
+      "page_photos": 6,
+      "gallery": [
+        "/assets/cache_image/resources/2599/solo-v-1-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/2599/solo-v-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/2599/4l5a8842-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/2599/vd3a0521-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/2599/vd3a0709-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/2599/vd3a0857-obr_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Соло",
+          "title": "Соло В1, В2, Г1, Г2",
+          "url": "/assets/manager/doc/3d-models/solo/3D models_Solo_B1_B2_G1_G2.rar"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Соло В",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Соло В Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Соло В",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Соло В от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Соло В. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Соло В. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правосторонее (по заказу); нижнее левосторонее (по заказу)"
+        ],
+        [
+          "Исполнение",
+          "настенные (по умолчанию), напольные (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "РСК",
+      "category_id": "5986",
+      "url": "https://kztoradiator.ru/index.php?id=5986",
+      "old_slug": "kzto-rsk",
+      "variants": 810,
+      "feed_photos": 5,
+      "page_photos": 15,
+      "gallery": [
+        "/assets/cache_image/resources/5986/24.09.2023-rsk3-do-zemlyanichnaya-kuxnya-s-retro-bufetom-katerinich-(3)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/24.09.2023-rsk3-do-zemlyanichnaya-kuxnya-s-retro-bufetom-katerinich-(5)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/vd3a0261-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a9728-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a0062_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a0203_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a0206_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a0279_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a0385_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/k9a0490_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/02.03.2024-rsk2-chernyij-ashkenazi-elizaveta-otroki-vo-vselennoj-(1)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/02.03.2024-rsk2-chernyij-ashkenazi-elizaveta-otroki-vo-vselennoj-(4)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/24.09.2023-rsk3-do-zemlyanichnaya-kuxnya-s-retro-bufetom-katerinich-(6)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/24.11.2024-rsk-do-malyutina-peredelka-v-biletnoj-kasse-kzto-vyiborka-(20)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/5986/24.11.2024-rsk-do-malyutina-peredelka-v-biletnoj-kasse-kzto-vyiborka-(31)_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор РСК",
+          "title": "РСК 1",
+          "url": "/assets/manager/doc/3d-models/rsk/РСК 1.max"
+        },
+        {
+          "section": "Радиатор РСК",
+          "title": "РСК 2",
+          "url": "/assets/manager/doc/3d-models/rsk/РСК 2.max"
+        },
+        {
+          "section": "Радиатор РСК",
+          "title": "РСК 3",
+          "url": "/assets/manager/doc/3d-models/rsk/РСК 3.max"
+        },
+        {
+          "section": "Радиатор РСК",
+          "title": "РСК 4",
+          "url": "/assets/manager/doc/3d-models/rsk/РСК 4.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора РСК",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт РСК Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов РСК",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для РСК от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению РС",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_RS.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "РС, РСК. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/РС, РСК. Динамическая таблица  пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "РСК - вертикальные от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения РСК.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "РС, РСК - горизонтальные от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Ваианты горизонтального исполнения РС, РСК 08.07.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу),"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения - G ½\", G ¾\"; для нижнего подключения - G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "РС",
+      "category_id": "1778",
+      "url": "https://kztoradiator.ru/index.php?id=1778",
+      "old_slug": "kzto-rs",
+      "variants": 810,
+      "feed_photos": 5,
+      "page_photos": 14,
+      "gallery": [
+        "/assets/cache_image/resources/1778/img-9793-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/vd3a7060-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/k9a7387-obr-2_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/vd3a7058-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/k9a0009_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/01.09.2024-rs3-chern-yanson-bovyikina-kuxnya-s-tigrami-i-samovarom-(2)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/01.09.2024-rs3-chern-yanson-bovyikina-kuxnya-s-tigrami-i-samovarom-(8)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/20.10.2024-rs-podokno-bel-do-matveenko-kuxnya-transformer-dlya-osobennoj-semi-(7)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/20.10.2024-rs-podokno-bel-do-matveenko-kuxnya-transformer-dlya-osobennoj-semi-(10)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/k9a7438-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/06.07.2024-rs2-belyij-podokno-kv-chernova-kristina-paradnaya-kuxnya-s-chernyim-koridorom-(13)_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/ggs-8562-hdr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/k9a7387-obr-2-1_1290x720_5f7.webp",
+        "/assets/cache_image/resources/1778/rs4_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор РС",
+          "title": "РС 1",
+          "url": "/assets/manager/doc/3d-models/rs/Радиаторы РС.max"
+        },
+        {
+          "section": "Радиатор РС",
+          "title": "РС 2",
+          "url": "/assets/manager/doc/3d-models/rs/Радиаторы РС 2.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора РС",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт РС Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов РС",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для РС от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению РС",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_RS.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "РС, РСК. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/РС, РСК. Динамическая таблица  пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "РС - вертикальные от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения РС.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "РС, РСК - горизонтальные от 07.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Ваианты горизонтального исполнения РС, РСК 08.07.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), горизонтальное исполнение (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120ºС"
+        ],
+        [
+          "Присоединительная резьба",
+          "для бокового подключения - G ½\", G ¾\"; для нижнего подключения - G ½\""
+        ],
+        [
+          "Межцентровое расстояние",
+          "от 300 до 2000 мм"
+        ]
+      ]
+    },
+    {
+      "name": "Гармония",
+      "category_id": "78",
+      "url": "https://kztoradiator.ru/index.php?id=78",
+      "old_slug": "kzto-garmoniya",
+      "variants": 328,
+      "feed_photos": 5,
+      "page_photos": 13,
+      "gallery": [
+        "/assets/cache_image/resources/78/catalog-gall-1290x720-ae7-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a2910-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a5420-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a5427-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a5550-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a5551-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a0312-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a0451-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a0485-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a0570-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a5790-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a7968-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/78/k9a79661-obr_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Гармония",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Гармония",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Гармония",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Гармония. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Гармония. Динамическая таблица пересчета при других температурах воды.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция",
+          "url": "/assets/manager/doc/zakaz/Kak_pravilno_zakazat_radiusniy_radiator_ili_konvektor.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Горизонтальные Гармонии от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного подключения, горизонтальные Гармонии.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "51 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правостороннее (по заказу); нижнее левостороннее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), радиусные (по заказу только для однорядных, R ≥ 1000 мм)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Гармония С40",
+      "category_id": "4364",
+      "url": "https://kztoradiator.ru/index.php?id=4364",
+      "old_slug": "kzto-garmoniya-s40",
+      "variants": 396,
+      "feed_photos": 5,
+      "page_photos": 10,
+      "gallery": [
+        "/assets/cache_image/resources/4364/4l5a2339-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/4l5a2328-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/k9a3921-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/k9a9458-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/k9a3923-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/k9a4949-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/k9a4993-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/viz-garmoniya-s40-3.40_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/vizualizacziya-garmoniya-c40-3.30_1290x720_5f7.webp",
+        "/assets/cache_image/resources/4364/vizualizacziya-garmoniya-c40-3.31_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Гармония С40",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония С40 Обяз. серт.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Гармония С40",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония С40 от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Гармония",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Гармония С40. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Гармония С40. Динамическая таблица пересчета.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция",
+          "url": "/assets/manager/doc/zakaz/Kak_pravilno_zakazat_radiusniy_radiator_ili_konvektor.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Горизонтальные Гармонии от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного подключения, горизонтальные Гармонии.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "40 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правостороннее (по заказу); нижнее левостороннее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), радиусные (по заказу только для однорядных, R ≥ 1000 мм), горизонтальное исполнение (по заказу)"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    },
+    {
+      "name": "Гармония А40",
+      "category_id": "3927",
+      "url": "https://kztoradiator.ru/index.php?id=3927",
+      "old_slug": "kzto-garmoniya-a40",
+      "variants": 396,
+      "feed_photos": 4,
+      "page_photos": 4,
+      "gallery": [
+        "/assets/cache_image/resources/3927/k9a9778-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3927/k9a2038-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3927/k9a2030-obr_1290x720_5f7.webp",
+        "/assets/cache_image/resources/3927/vd3a2843-obr_1290x720_5f7.webp"
+      ],
+      "documents": [
+        {
+          "section": "Радиатор Гармония А40",
+          "title": "Гармония А40 1",
+          "url": "/assets/manager/doc/3d-models/garmony-a40/Гармония А40_1.max"
+        },
+        {
+          "section": "Радиатор Гармония А40",
+          "title": "Гармония А40 2",
+          "url": "/assets/manager/doc/3d-models/garmony-a40/Гармония А40_2.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Радиаторы с комплектацией SR",
+          "url": "/assets/manager/doc/3d-models/sr/Радиаторы с подключением SR.max"
+        },
+        {
+          "section": "Радиаторы с комплектацией термостатикой SR Rubinetterie",
+          "title": "Видео-инструкция по добавлению модели в сцену",
+          "url": "/assets/manager/doc/3d-models/instrukciya_dobav.mp4"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Инструкция на термовставку Ридан для радиаторов с нижним подключением",
+          "url": "/assets/manager/doc/pasrorta/radiatory/Termovstavka_Ridan_Manual.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Паспорт радиатора Гармония А40",
+          "url": "/assets/manager/doc/pasrorta/radiatory/2026/Паспорт Гармония А40 Обяз. серт_.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Приложение №1 к паспортам",
+          "url": "/assets/manager/doc/pasrorta/Приложение1.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Сертификат соответствия 2026 Bataria, Ellipse, РС, РСК, Гармония, Параллели, Соло, Завалинка",
+          "url": "/assets/manager/doc/sertifikat/Сертификат Радиаторы № РОСС RU С-RU.НА54.В.00045-26 от 01.09.2026.pdf"
+        },
+        {
+          "section": "Паспорта на радиаторы",
+          "title": "Санитарно-эпидемиологическое заключение на продукцию",
+          "url": "/assets/manager/doc/sertifikat/kzto_san-epidem_zakluchenie.PDF"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Монтажные схемы для радиаторов Гармония А40",
+          "url": "/assets/manager/doc/montazhnyeshemyposle-01/radiatori/Монтажные схемы для Гармония А40 от 02.03.26.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Рекомендации по применению Гармония",
+          "url": "/assets/manager/doc/rekomendacii/recomendacii_garmony.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Гармония А40. Динамическая таблица пересчета при других температурах воды",
+          "url": "/assets/manager/doc/dynamictables/Гармония А40. Динамическая таблица пересчета.xlsx"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Инструкция",
+          "url": "/assets/manager/doc/zakaz/Kak_pravilno_zakazat_radiusniy_radiator_ili_konvektor.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Условные обозначения приборов КЗТО",
+          "url": "/assets/manager/doc/УСЛОВНЫЕ ОБОЗНАЧЕНИЯ КЗТО от 02.10.2026.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Вертикальные Гармонии, Параллели В и Соло В от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного исполнения подключения вертикальные Гармонии, Параллели В, Соло В.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Горизонтальные Гармонии от 06.2026",
+          "url": "/assets/manager/doc/nestandart/2026-06/Варианты нестандартного подключения, горизонтальные Гармонии.pdf"
+        },
+        {
+          "section": "Радиаторы",
+          "title": "Видео монтажа радиаторов (на примере Соло-В)",
+          "url": "/assets/manager/video_montag/KZTO Монтаж радиатора Соло В 2024_New.mp4"
+        }
+      ],
+      "params": [
+        [
+          "Диаметр трубок",
+          "40 мм"
+        ],
+        [
+          "Материал",
+          "сталь"
+        ],
+        [
+          "Способ подключения",
+          "боковое (базовое); нижнее правостороннее (по заказу); нижнее левостороннее (по заказу)"
+        ],
+        [
+          "Исполнения",
+          "настенные (по умолчанию), напольные (по заказу), радиусные (по заказу только для однорядных, R ≥ 1000 мм),"
+        ],
+        [
+          "Покрытие",
+          "полимер"
+        ],
+        [
+          "Базовый цвет",
+          "белый глянцевый"
+        ],
+        [
+          "Рабочее давление",
+          "до 15 атм."
+        ],
+        [
+          "Испытательное давление",
+          "не менее 22,5 атм."
+        ],
+        [
+          "Температура теплоносителя",
+          "до 120 °C"
+        ],
+        [
+          "Присоединительная резьба",
+          "внутренняя G ½\""
+        ]
+      ]
+    }
+  ]
+}

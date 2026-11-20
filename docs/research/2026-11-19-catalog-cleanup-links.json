@@ -1,0 +1,39 @@
+{
+  "preserved_media_rows": 83,
+  "legacy_links": {
+    "kzto-solo": {
+      "status": 200,
+      "choices": 2
+    },
+    "kzto-paralleli": {
+      "status": 200,
+      "choices": 2
+    },
+    "kzto-quadrum-40": {
+      "status": 200,
+      "choices": 2
+    },
+    "kzto-quadrum-30": {
+      "status": 200,
+      "choices": 2
+    },
+    "kzto-quadrum-50": {
+      "status": 200,
+      "choices": 2
+    },
+    "kzto-ellipse-s": {
+      "status": 200,
+      "choices": 2
+    },
+    "kzto-ellipse-p": {
+      "status": 200,
+      "choices": 2
+    }
+  },
+  "nova_api": {
+    "cards": 1,
+    "height_mm": null,
+    "orientation": "",
+    "label": ""
+  }
+}

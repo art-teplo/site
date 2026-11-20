@@ -40,6 +40,8 @@
 | `images/products/guardo-polotentsesushitel/detail.jpg` | home_soc-slider-24.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/guardo-polotentsesushitel/interior.jpg` | home_soc-slider-23.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/guardo-polotentsesushitel/main.jpg` | guardo-diagonale-black.jpg | guardo.ru (официальный сайт Guardo) |
+| `images/products/guardo-stretto/guardo-stretto-white-product.png` | Белый водяной Stretto, общий вид | guardo.ru (официальный сайт Guardo) |
+| `images/products/guardo-stretto/guardo-stretto-black-interior.png` | Чёрный водяной Stretto, интерьер | guardo.ru (официальный сайт Guardo) |
 | `images/products/guardo-retta-6p/detail.jpg` | home_soc-slider-1.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/guardo-retta-6p/interior.jpg` | home_soc-slider-11.jpg | kztoradiator.by (сайт заказчика) |
 | `images/products/guardo-retta-6p/main.jpg` | guardo-retta-6p.jpg | guardo.ru (официальный сайт Guardo) |

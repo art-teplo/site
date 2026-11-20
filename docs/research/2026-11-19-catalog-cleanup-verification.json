@@ -1,0 +1,71 @@
+{
+  "preserved_before": {
+    "variants": {
+      "count": 65428,
+      "sha256": "2c0180722e6732dbd34e735e2138e109394b0152137fac09ca69e7385de2a8b8"
+    },
+    "variant_color_links": {
+      "count": 2539,
+      "sha256": "8fe0a69ed3e3bc38adfccf9dcad5ba970ac1f276ecf80486698a42780800e844"
+    },
+    "groups": {
+      "count": 187,
+      "sha256": "346d7e76209678d22a3d0d569aaad4f4628e59f65d40fb16887eae1e2d2ec80b"
+    },
+    "group_colors": {
+      "count": 234,
+      "sha256": "b59342975bc1b772decb5e9b43fd6db982639e3e26e0841b4ef6b2446c2d271f"
+    },
+    "families": {
+      "count": 49,
+      "sha256": "6e1d9fcc111f44a10cd2ea591425b99411013e1b43a692bea11f1f0bbe0bba45"
+    },
+    "project_series": {
+      "count": 6,
+      "sha256": "b1870be1937f897269a48116912974c67a3b7c12e8afc96bbeb88c5463cf99f1"
+    },
+    "nova_gallery": {
+      "count": 5,
+      "sha256": "314f5996484f68c55ebf04f3977f3959647c08fbb7da966b8e2c6df538a93792"
+    }
+  },
+  "preserved_after": {
+    "variants": {
+      "count": 65428,
+      "sha256": "2c0180722e6732dbd34e735e2138e109394b0152137fac09ca69e7385de2a8b8"
+    },
+    "variant_color_links": {
+      "count": 2539,
+      "sha256": "8fe0a69ed3e3bc38adfccf9dcad5ba970ac1f276ecf80486698a42780800e844"
+    },
+    "groups": {
+      "count": 187,
+      "sha256": "346d7e76209678d22a3d0d569aaad4f4628e59f65d40fb16887eae1e2d2ec80b"
+    },
+    "group_colors": {
+      "count": 234,
+      "sha256": "b59342975bc1b772decb5e9b43fd6db982639e3e26e0841b4ef6b2446c2d271f"
+    },
+    "families": {
+      "count": 49,
+      "sha256": "6e1d9fcc111f44a10cd2ea591425b99411013e1b43a692bea11f1f0bbe0bba45"
+    },
+    "project_series": {
+      "count": 6,
+      "sha256": "b1870be1937f897269a48116912974c67a3b7c12e8afc96bbeb88c5463cf99f1"
+    },
+    "nova_gallery": {
+      "count": 5,
+      "sha256": "314f5996484f68c55ebf04f3977f3959647c08fbb7da966b8e2c6df538a93792"
+    }
+  },
+  "repeated_changes": 0,
+  "retained_parents": 18,
+  "nova": {
+    "showcases": 1,
+    "height_mm": null,
+    "orientation": "",
+    "label": "",
+    "image": "catalog_seriesimage/image/0cfbade2-0da6-41ca-8ab4-ee3930f0b688.jpg"
+  }
+}
