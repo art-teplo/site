@@ -20,6 +20,8 @@ docker compose -f docker-compose.yaml -f docker-compose.dev.yaml run --rm backen
 
 ## Проверки (из `backend/`)
 
+В dev при включённом S3 файлы с ключами `local/…` читаются с диска, пока локальная копия существует. После переноса одноимённого объекта в S3 и удаления копии dev читает объект из бакета. Удаление ключа `local/…` из dev-хранилища затрагивает только диск.
+
 ```bash
 uv sync
 uv run ruff check && uv run ruff format --check
