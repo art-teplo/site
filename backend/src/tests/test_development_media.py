@@ -14,6 +14,7 @@ def test_development_public_media_routes_only_local_prefix(
         return 'https://bucket.example/remote.jpg'
 
     monkeypatch.setattr(S3Storage, 'url', remote_url)
+    monkeypatch.setattr(S3Storage, 'exists', lambda *_: False)
     storage = DevelopmentPublicStorage()
     name = storage.save('local/preview.jpg', ContentFile(b'local'))
     assert name == 'local/preview.jpg'
@@ -25,3 +26,23 @@ def test_development_public_media_routes_only_local_prefix(
     assert storage.url('remote.jpg') == 'https://bucket.example/remote.jpg'
     storage.delete(name)
     assert not storage.exists(name)
+
+
+def test_development_media_reads_migrated_local_key_from_s3(
+    settings, tmp_path, monkeypatch
+):
+    settings.MEDIA_ROOT = tmp_path
+    settings.MEDIA_URL = '/media/'
+    name = 'local/preview.jpg'
+    monkeypatch.setattr(
+        S3Storage,
+        'url',
+        lambda _storage, key, *_: f'https://bucket.example/{key}',
+    )
+    monkeypatch.setattr(S3Storage, 'exists', lambda _, key: key == name)
+    monkeypatch.setattr(S3Storage, 'size', lambda _, key: len(key))
+    storage = DevelopmentPublicStorage()
+
+    assert storage.url(name) == f'https://bucket.example/{name}'
+    assert storage.exists(name)
+    assert storage.size(name) == len(name)

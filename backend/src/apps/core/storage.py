@@ -11,28 +11,36 @@ class DevelopmentPublicStorage(S3Storage):
         super().__init__(**options)
         self.local = FileSystemStorage()
 
-    def _storage(self, name):
+    def _write_storage(self, name):
         return self.local if name.startswith(LOCAL_MEDIA_PREFIX) else super()
 
+    def _read_storage(self, name):
+        if name.startswith(LOCAL_MEDIA_PREFIX) and self.local.exists(name):
+            return self.local
+        return super()
+
     def _open(self, name, mode='rb'):
-        return self._storage(name)._open(name, mode)  # noqa: SLF001
+        return self._read_storage(name)._open(name, mode)  # noqa: SLF001
 
     def _save(self, name, content):
-        return self._storage(name)._save(name, content)  # noqa: SLF001
+        return self._write_storage(name)._save(name, content)  # noqa: SLF001
+
+    def get_available_name(self, name, max_length=None):
+        return self._write_storage(name).get_available_name(name, max_length)
 
     def delete(self, name):
-        return self._storage(name).delete(name)
+        return self._write_storage(name).delete(name)
 
     def exists(self, name):
-        return self._storage(name).exists(name)
+        return self._read_storage(name).exists(name)
 
     def size(self, name):
-        return self._storage(name).size(name)
+        return self._read_storage(name).size(name)
 
     def url(self, name, parameters=None, expire=None, http_method=None):
-        if name.startswith(LOCAL_MEDIA_PREFIX):
+        if self._read_storage(name) is self.local:
             return self.local.url(name)
         return super().url(name, parameters, expire, http_method)
 
     def get_modified_time(self, name):
-        return self._storage(name).get_modified_time(name)
+        return self._read_storage(name).get_modified_time(name)
