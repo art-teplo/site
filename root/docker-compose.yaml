@@ -81,8 +81,8 @@ services:
       timeout: 5s
       retries: 6
       start_period: 10s
-    # 2 воркера uvicorn по ~240 МБ + главный процесс: ~640 МБ в покое (замер 10.11)
-    mem_limit: 1g
+    # Два воркера uvicorn. При лимите 1 ГиБ фильтры активно читали из swap.
+    mem_limit: 1280m
 
   celery_worker:
     <<: *backend
